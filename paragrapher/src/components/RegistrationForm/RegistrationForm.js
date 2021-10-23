@@ -6,7 +6,8 @@ function RegistrationForm(props) {
     const [state , setState] = useState({
         email : "",
         username : "",
-        password : ""
+        password : "",
+        confirmPassword : ""
     })
     const handleChange = (e) => {
         const {id , value} = e.target   
@@ -14,6 +15,15 @@ function RegistrationForm(props) {
             ...prevState,
             [id] : value
         }))
+    }
+    const handleSubmitClick = (e) => {
+        e.preventDefault();
+        if(state.password === state.confirmPassword) {
+            //sendDataToServer()    
+        } else {
+            
+            alert("Passwords do not match!");
+        }
     }
     return(
         <div className="card border-primary col-12 col-lg-4 login-card mt-2 hv-center">
@@ -38,14 +48,14 @@ function RegistrationForm(props) {
                 </div>
                     
                 <div className="form-group text-left">
-                    <label htmlFor="exampleInputPassword1">Confirm Password</label>
-                    <input type="password" className="form-control" id="confirmPassword" placeholder="Confirm Password"/>
+                    <label>Confirm Password</label>
+                    <input type="password" className="form-control" id="confirmPassword" placeholder="Confirm Password" value={state.confirmPassword} onChange={handleChange}/>
                 </div>
                 
                 <button 
                     type="submit" 
                     className="btn btn-lg btn-outline-primary w-100"
-                    
+                    onClick={handleSubmitClick}
                     >
                     Register
                 </button>
