@@ -4,7 +4,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import RegistrationForm from './components/RegistrationForm/RegistrationForm';
+import RegisterationForm from './components/RegisterationForm/RegisterationForm';
 import Header from './components/Header/Header';
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         <div className="container d-flex align-items-center flex-column">
           <Switch>
             <Route path="/user/register" exact={true}>
-              <RegistrationForm />
+              <RegisterationForm />
               <p>
                 
               </p>
