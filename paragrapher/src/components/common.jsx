@@ -84,17 +84,17 @@ export const LoginBackDrop = styled(motion.div)`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   z-index: 2;
 `;
-export const LoginBackDropRight = styled.div`
+export const LoginBackDropRight = styled(motion.div)`
   width: 100%;
   height: 550px;
   position: absolute;
   display: flex;
   flex-direction: column;
   /* border-radius: 50%; */
-  transform: rotate(-55deg);
+  transform: rotate(305deg);
   background-color: #FDAE38;
-  top: -300px;
-  left: 350px;
+  top: -450px;
+  left: 150px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `;
 export const LoginTopContainer = styled.div`
@@ -112,7 +112,7 @@ export const LoginHeaderContainer = styled.div`
   flex-direction: column;
   margin: 0;
 `;
-export const LoginHeaderText = styled.h2`
+export const LoginHeaderText = styled(motion.h2)`
   font-size: 30px;
   font-weight: 600;
   line-height: 1.2;
@@ -121,7 +121,7 @@ export const LoginHeaderText = styled.h2`
   margin: 0;
   margin-left: 3em;
 `;
-export const LoginImage = styled.img`
+export const LoginImage = styled(motion.img)`
   z-index: 10;
   width: 300px;
   margin: 0;

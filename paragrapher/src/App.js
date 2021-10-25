@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,Modal} from 'react';
 import { AppContainer } from "./components/common";
 import {
   BrowserRouter as Router,
@@ -6,7 +6,7 @@ import {
   Route
 } from "react-router-dom";
 import RegisterationForm from './components/RegisterationForm/RegisterationForm';
-import Header from './components/Header/Header';
+import Header from './components/Header/Header.js';
 import RegistrationForm from './components/RegisterationForm/RegisterationForm';
 import AccountBox from './components/AccountBox/AccountBox';
 function App() {

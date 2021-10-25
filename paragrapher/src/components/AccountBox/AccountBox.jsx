@@ -21,32 +21,79 @@ const backdropReference = {
     }
 
 }
+const rightBackdropReference = {
+    expanded: {
+        width: "233%",
+        height: "1750px", 
+        borderRadius: "20%", 
+        transform: "rotate(300deg)",
+        zIndex: "1"
+    }, 
+    collapsed: {
+        width: "100%",
+        height: "550px",
+        transform: "rotate(305deg)"
+        
+    }
+
+}
+const imgReference = {
+    expanded: {
+        opacity: 0
+    }, 
+    collapsed: {
+        opacity: 1
+    }
+
+}
+
 const expandingAnimation = {
     type: "spring", 
-    duration: 2.3, 
+    duration: 2, 
     stifness: 30
 }
+const expandingAnimationImage = { 
+    duration: 2, 
+    stifness: 30
+}
+
 export function AccountBox(props) {
     const[isExpanded, setExpanded] = useState(false);
+    const[isExpanded2, setExpanded2] = useState(false);
+    const[isExpanded3, setExpanded3] = useState(false);
     const[active, setActive] = useState("Login");
     const playExpandingAnimation = () => {
         setExpanded(true);
+        setExpanded3(true);
         setTimeout(() => {
             setExpanded(false)
         }, expandingAnimation.duration * 1000 - 1000);
     }
+    const playRightExpandingAnimation = () => {
+        setExpanded2(true);
+        setExpanded3(true);
+        setTimeout(() => {
+            setExpanded2(false)
+        }, expandingAnimation.duration * 1000 - 1000);
+    }
     const switchToRegister = () => {
-        playExpandingAnimation();
+        playRightExpandingAnimation();
         setTimeout(() => {
             setActive("Register");
         }, 400);
-        
+        setTimeout(() => {
+            setExpanded3(false);
+        }, 2500);
     }
     const switchToLogin = () => {
         playExpandingAnimation();
         setTimeout(() => {
             setActive("Login");
         }, 400);
+        setTimeout(() => {
+            setExpanded3(false);
+        }, 2500);
+        
         
     }
     const contextValue = { switchToRegister, switchToLogin };
@@ -55,12 +102,12 @@ export function AccountBox(props) {
             <LoginBoxContainer>
                 <LoginTopContainer>
                     <LoginBackDrop transition={expandingAnimation} initial={false} animate={isExpanded ? "expanded" : "collapsed"} variants={backdropReference}/>
-                    <LoginBackDropRight />
+                    <LoginBackDropRight transition={expandingAnimation} initial={false} animate={isExpanded2 ? "expanded" : "collapsed"} variants={rightBackdropReference} />
                     <LoginHeaderContainer>
-                        <LoginImage src={PeopleDiscussion}/>
+                        <LoginImage initial={false} animate={isExpanded3 ? "expanded" : "collapsed"} variants={imgReference} src={PeopleDiscussion}/>
                         
-                        {active === "Login" && <LoginHeaderText>Hello! <br/> Welcome Back</LoginHeaderText>}
-                        {active === "Register" && <LoginHeaderText>Welcome <br /> to Paragrapher</LoginHeaderText>}
+                        {active === "Login" && <LoginHeaderText initial={false} animate={isExpanded3 ? "expanded" : "collapsed"} variants={imgReference}>Hello! <br/> Welcome Back</LoginHeaderText>}
+                        {active === "Register" && <LoginHeaderText initial={false} animate={isExpanded3 ? "expanded" : "collapsed"} variants={imgReference}>Welcome <br /> to Paragrapher</LoginHeaderText>}
                     </LoginHeaderContainer>
                 </LoginTopContainer>
                 <LoginInnerContainer>

@@ -2,7 +2,7 @@ import React from 'react';
 
 function Header() {
     return(
-        <nav className="navbar navbar-light bg-light">
+<nav className="navbar navbar-light bg-light">
         <div className="container-fluid">
             <a className="navbar-brand">Paragrapher</a>
             <form className="d-flex">
@@ -11,6 +11,7 @@ function Header() {
             </form>
         </div>
 </nav>
+
     )
 }
 export default Header;
