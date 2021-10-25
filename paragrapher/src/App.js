@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {AccountBox} from './components/accountBox';
+import { AppContainer } from "./components/common";
 import {
   BrowserRouter as Router,
   Switch,
@@ -7,6 +7,8 @@ import {
 } from "react-router-dom";
 import RegisterationForm from './components/RegisterationForm/RegisterationForm';
 import Header from './components/Header/Header';
+import RegistrationForm from './components/RegisterationForm/RegisterationForm';
+import AccountBox from './components/AccountBox/AccountBox';
 function App() {
   return (
     <Router>
@@ -15,7 +17,9 @@ function App() {
         <div className="container d-flex align-items-center flex-column">
           <Switch>
             <Route path="/user/register" exact={true}>
-              <AccountBox />
+              <AppContainer>
+                <AccountBox />
+              </AppContainer>
               <p>
                 
               </p>

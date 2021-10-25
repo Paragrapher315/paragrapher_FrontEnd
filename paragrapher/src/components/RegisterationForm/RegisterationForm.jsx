@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './RegisterationForm.css';
 import PeopleDiscussion from '../../assets/PeopleDiscussion.png';
-import { Input, Line, SubmitButton } from './common';
+import { AppContainer, Input, Line, SubmitButton } from '../common';
 
 
 
@@ -64,35 +64,7 @@ function RegistrationForm(props) {
         //         </button>
         //     </form>
         // </div>
-        <div className="register-popup container">
-            <div className="row align-items-center">
-                <div className="register-left col-8">
-                    <div className="">
-                        <img alt="People Discussion image" className="img-fluid" src={PeopleDiscussion}/>
-                    </div>
-                    <div className="m-4">
-                        <h2>Paragrapher</h2>
-                        <p>A place for sharing paragraphs</p>
-                        <button className="btn btn-danger m-2">Click Here</button>
-                    </div>
-                    <div className="divLine">
-
-                    </div>
-                </div>
-                <div className="register-right col-3">
-                    <div>
-                        <h3>Hello!</h3>
-                        <p>Sign Up to get started</p>
-                    </div>
-                    <div>
-                        <Input placeholder="Username" className="form-control m-1"/>
-                        <Input placeholder="Email" className="form-control m-1"/>
-                        <Input type="password" placeholder="Password" className="form-control m-1"/>
-                        <SubmitButton type="submit" className="btn btn-danger m-1">Register</SubmitButton>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div></div>
     )
     
 }
