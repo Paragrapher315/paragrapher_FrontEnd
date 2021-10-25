@@ -1,4 +1,15 @@
-.register-popup{
-    background-image: url("../../assets/RegisterBG.png");
-    background-size: 100%;
+.register-popup {
+  background-image: url("../../assets/RegisterBG.png");
+  background-size: 100%;
+  display: flex;
+}
+.form-control:focus {
+  border-color: rgb(177, 55, 92);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgb(177, 55, 92);
+}
+.red-background {
+  background-color: rgb(177, 55, 92);
+}
+.white {
+  color: #ffffff;
 }
