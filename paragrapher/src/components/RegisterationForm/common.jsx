@@ -7,6 +7,7 @@ export const Input = styled.input`
   border: 1px solid rgba(200, 200, 200, 0.3);
   padding: 0px 10px;
   border-bottom: 1.4px solid transparent;
+  border-radius: 30px;
   transition: all 150ms ease-in-out;
   font-size: 12px;
   &::placeholder {
@@ -42,11 +43,10 @@ export const SubmitButton = styled.button`
 `;
 export const Line = styled.line`
   border-left: 3px solid rgba(36, 9, 9, 0.4);
-  height: 350px;
+  height: 50%;
   position: absolute;
   left: 58%;
   margin-left: 0px;
-  top: 100;
-
+  top: 20%;
 
 `;

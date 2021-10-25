@@ -1,6 +1,7 @@
 .register-popup {
   background-image: url("../../assets/RegisterBG.png");
   background-size: 100%;
+  background-repeat: no-repeat;
   display: flex;
 }
 .form-control:focus {
@@ -12,4 +13,9 @@
 }
 .white {
   color: #ffffff;
+}
+.divLine{
+  border-right-color: black;
+  line-height: 50%;
+  border-right-style: solid;
 }

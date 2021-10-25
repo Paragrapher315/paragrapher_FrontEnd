@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {AccountBox} from './components/accountBox';
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,7 +15,7 @@ function App() {
         <div className="container d-flex align-items-center flex-column">
           <Switch>
             <Route path="/user/register" exact={true}>
-              <RegisterationForm />
+              <AccountBox />
               <p>
                 
               </p>
