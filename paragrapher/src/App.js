@@ -16,7 +16,7 @@ function App() {
         <Header/>
         <div className="container d-flex align-items-center flex-column">
           <Switch>
-            <Route path="/user/register" exact={true}>
+            <Route path="/user" exact={true}>
               <AppContainer>
                 <AccountBox />
               </AppContainer>
