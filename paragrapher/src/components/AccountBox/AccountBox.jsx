@@ -1,10 +1,11 @@
 import React, { Component, useState } from 'react';
 import styled from 'styled-components';
 import PeopleDiscussion from '../../assets/PeopleDiscussion.png';
-import { LoginBackDrop, LoginBackDropRight, LoginBoxContainer, LoginHeaderContainer, LoginHeaderText, LoginImage, LoginInnerContainer, LoginTopContainer } from '../common';
+import { LoginBackDrop, LoginBackDropRight, LoginBoxContainer, LoginHeaderContainer, LoginHeaderText, LoginImage, LoginInnerContainer, LoginTopContainer, CloseButton } from '../common';
 import LoginForm from './LoginForm';
 import {motion} from "framer-motion";
 import RegisterForm from './RegisterForm';
+import '../../../node_modules/font-awesome/css/font-awesome.css';
 import {AccountContext} from './accountContext';
 const backdropReference = {
     expanded: {
@@ -23,16 +24,16 @@ const backdropReference = {
 }
 const rightBackdropReference = {
     expanded: {
-        width: "233%",
+        width: "240%",
         height: "1750px", 
         borderRadius: "20%", 
-        transform: "rotate(300deg)",
+        transform: "rotate(-60deg)",
         zIndex: "1"
     }, 
     collapsed: {
         width: "100%",
         height: "550px",
-        transform: "rotate(305deg)"
+        transform: "rotate(-55deg)"
         
     }
 
@@ -57,6 +58,8 @@ const expandingAnimationImage = {
     stifness: 30
 }
 
+
+
 export function AccountBox(props) {
     const[isExpanded, setExpanded] = useState(false);
     const[isExpanded2, setExpanded2] = useState(false);
@@ -67,20 +70,20 @@ export function AccountBox(props) {
         setExpanded3(true);
         setTimeout(() => {
             setExpanded(false)
-        }, expandingAnimation.duration * 1000 - 1000);
+        }, expandingAnimation.duration * 1000 - 700);
     }
     const playRightExpandingAnimation = () => {
         setExpanded2(true);
         setExpanded3(true);
         setTimeout(() => {
             setExpanded2(false)
-        }, expandingAnimation.duration * 1000 - 1000);
+        }, expandingAnimation.duration * 1000 - 700);
     }
     const switchToRegister = () => {
         playRightExpandingAnimation();
         setTimeout(() => {
             setActive("Register");
-        }, 400);
+        }, 600);
         setTimeout(() => {
             setExpanded3(false);
         }, 2500);
@@ -89,7 +92,7 @@ export function AccountBox(props) {
         playExpandingAnimation();
         setTimeout(() => {
             setActive("Login");
-        }, 400);
+        }, 600);
         setTimeout(() => {
             setExpanded3(false);
         }, 2500);
@@ -101,8 +104,9 @@ export function AccountBox(props) {
         <AccountContext.Provider value={contextValue}>
             <LoginBoxContainer>
                 <LoginTopContainer>
+                    <CloseButton className="fa fa-times rounded-circle" onClick = {() => props.setInnerTrigger(false)} ></CloseButton>
                     <LoginBackDrop transition={expandingAnimation} initial={false} animate={isExpanded ? "expanded" : "collapsed"} variants={backdropReference}/>
-                    <LoginBackDropRight transition={expandingAnimation} initial={false} animate={isExpanded2 ? "expanded" : "collapsed"} variants={rightBackdropReference} />
+                    <LoginBackDropRight transition={expandingAnimation} initial={false} animate={isExpanded2 ? "expanded" : "collapsed"} variants={rightBackdropReference}/>
                     <LoginHeaderContainer>
                         <LoginImage initial={false} animate={isExpanded3 ? "expanded" : "collapsed"} variants={imgReference} src={PeopleDiscussion}/>
                         
@@ -113,6 +117,7 @@ export function AccountBox(props) {
                 <LoginInnerContainer>
                     {active === "Login" && <LoginForm />}
                     {active === "Register" && <RegisterForm />}
+                    
                 </LoginInnerContainer>
             </LoginBoxContainer>
         </AccountContext.Provider>
