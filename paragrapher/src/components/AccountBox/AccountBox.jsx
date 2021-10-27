@@ -1,10 +1,11 @@
 import React, { Component, useState } from 'react';
 import styled from 'styled-components';
 import PeopleDiscussion from '../../assets/PeopleDiscussion.png';
-import { LoginBackDrop, LoginBackDropRight, LoginBoxContainer, LoginHeaderContainer, LoginHeaderText, LoginImage, LoginInnerContainer, LoginTopContainer } from '../common';
+import { LoginBackDrop, LoginBackDropRight, LoginBoxContainer, LoginHeaderContainer, LoginHeaderText, LoginImage, LoginInnerContainer, LoginTopContainer, CloseButton } from '../common';
 import LoginForm from './LoginForm';
 import {motion} from "framer-motion";
 import RegisterForm from './RegisterForm';
+import '../../../node_modules/font-awesome/css/font-awesome.css';
 import {AccountContext} from './accountContext';
 const backdropReference = {
     expanded: {
@@ -56,6 +57,8 @@ const expandingAnimationImage = {
     duration: 2, 
     stifness: 30
 }
+
+
 
 export function AccountBox(props) {
     const[isExpanded, setExpanded] = useState(false);
@@ -113,6 +116,7 @@ export function AccountBox(props) {
                 <LoginInnerContainer>
                     {active === "Login" && <LoginForm />}
                     {active === "Register" && <RegisterForm />}
+                    <CloseButton onClick = {() => props.setInnerTrigger(false)} >C</CloseButton>
                 </LoginInnerContainer>
             </LoginBoxContainer>
         </AccountContext.Provider>

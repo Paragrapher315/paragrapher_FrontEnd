@@ -183,6 +183,9 @@ export const SubmitButton = styled.button`
     background-color: #4F7AC8;
   }
 `;
+export const CloseButton = styled.button`
+    background-color: #B1375C;
+`;
 export const LoginInnerContainer = styled.div`
   width: 100%;
   display: flex;
