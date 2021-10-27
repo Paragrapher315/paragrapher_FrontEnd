@@ -184,7 +184,23 @@ export const SubmitButton = styled.button`
   }
 `;
 export const CloseButton = styled.button`
+    background: #b1375cc1;
+    color : white;
+    
+    padding:5px;
+    text-align: center;
+    width : 30px;
+    height : 30px;
+    border: transparent;
+    position: relative;
+    left :345px;
+    top : -12px;
+    z-index: 15;
+    &:hover {
+    cursor: pointer;
+    filter: brightness(1.1);
     background-color: #B1375C;
+  }
 `;
 export const LoginInnerContainer = styled.div`
   width: 100%;
