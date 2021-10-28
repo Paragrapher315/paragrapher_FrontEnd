@@ -33,12 +33,13 @@ export function RegisterForm(props) {
     const handleRegister = () => {
         setError(null);
         setLoading(true);
-        axios.post('http://localhost:4000/user', { email: email.value, username: username.value, password: password.value }).then(response => {
+        axios.post('http://localhost:5000/register', { email: email.value, username: username.value, password: password.value }).then(response => {
             setLoading(false);
             setUserSession(response.data.token, response.data.user);
-            props.history.push('/dashboard');
+            // props.history.push('/dashboard');
         }).catch(error => {
             setLoading(false);
+            console.log(error,error.response);
             if (error.response.status === 401) setError(error.response.data.message);
             else setError("Something went wrong. Please try again later.");
         });
