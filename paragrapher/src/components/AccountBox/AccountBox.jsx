@@ -17,7 +17,7 @@ const backdropReference = {
     }, 
     collapsed: {
         width: "100%",
-        height: "550px",
+        height: "600px",
         transform: "rotate(55deg)"
     }
 
@@ -32,7 +32,7 @@ const rightBackdropReference = {
     }, 
     collapsed: {
         width: "100%",
-        height: "550px",
+        height: "600px",
         transform: "rotate(-55deg)"
         
     }
@@ -103,15 +103,15 @@ export function AccountBox(props) {
     return(
         <AccountContext.Provider value={contextValue}>
             <LoginBoxContainer>
+                <CloseButton className="fa fa-times rounded-circle" onClick = {() => props.setInnerTrigger(false)} ></CloseButton>
                 <LoginTopContainer>
-                    <CloseButton className="fa fa-times rounded-circle" onClick = {() => props.setInnerTrigger(false)} ></CloseButton>
                     <LoginBackDrop transition={expandingAnimation} initial={false} animate={isExpanded ? "expanded" : "collapsed"} variants={backdropReference}/>
                     <LoginBackDropRight transition={expandingAnimation} initial={false} animate={isExpanded2 ? "expanded" : "collapsed"} variants={rightBackdropReference}/>
                     <LoginHeaderContainer>
                         <LoginImage initial={false} animate={isExpanded3 ? "expanded" : "collapsed"} variants={imgReference} src={PeopleDiscussion}/>
                         
-                        {active === "Login" && <LoginHeaderText initial={false} animate={isExpanded3 ? "expanded" : "collapsed"} variants={imgReference}>Hello! <br/> Welcome Back</LoginHeaderText>}
-                        {active === "Register" && <LoginHeaderText initial={false} animate={isExpanded3 ? "expanded" : "collapsed"} variants={imgReference}>Welcome <br /> to Paragrapher</LoginHeaderText>}
+                        {active === "Login" && <LoginHeaderText className="text-center" initial={false} animate={isExpanded3 ? "expanded" : "collapsed"} variants={imgReference}>Hello! <br/> Welcome Back</LoginHeaderText>}
+                        {active === "Register" && <LoginHeaderText className="text-center" initial={false} animate={isExpanded3 ? "expanded" : "collapsed"} variants={imgReference}>Welcome <br /> to Paragrapher</LoginHeaderText>}
                     </LoginHeaderContainer>
                 </LoginTopContainer>
                 <LoginInnerContainer>

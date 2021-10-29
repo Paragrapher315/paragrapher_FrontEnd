@@ -61,7 +61,7 @@ export const AppContainer = styled.div`
 `;
 export const LoginBoxContainer = styled.div`
   width: 400px;
-  min-height: 600px;
+  min-height: 565px;
   display: flex;
   flex-direction: column;
   border-radius: 20px;
@@ -86,7 +86,7 @@ export const LoginBackDrop = styled(motion.div)`
 `;
 export const LoginBackDropRight = styled(motion.div)`
   width: 100%;
-  height: 550px;
+  height: 600px;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -99,7 +99,7 @@ export const LoginBackDropRight = styled(motion.div)`
 `;
 export const LoginTopContainer = styled.div`
   width: 100%;
-  height: 300px;
+  height: 265px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -119,13 +119,13 @@ export const LoginHeaderText = styled(motion.h2)`
   color: black;
   z-index: 10;
   margin: 0;
-  margin-left: 3em;
+  // margin-left: 3em;
 `;
 export const LoginImage = styled(motion.img)`
   z-index: 10;
-  width: 300px;
+  width: 90%;
   margin: 0;
-  margin-left: 3em;
+  margin-left: 2em;
 `;
 export const BoxContainer = styled.div`
   width: 100%;
@@ -193,8 +193,8 @@ export const CloseButton = styled.button`
     height : 30px;
     border: transparent;
     position: relative;
-    left :345px;
-    top : -12px;
+    left :88%;
+    top : 12px;
     z-index: 15;
     &:hover {
     cursor: pointer;
