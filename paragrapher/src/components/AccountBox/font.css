@@ -1,0 +1,9 @@
+input.empty {
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+}
+.fontAwesome {
+  font-family: "Helvetica", "FontAwesome", sans-serif;
+}
