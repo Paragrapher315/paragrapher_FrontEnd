@@ -5,5 +5,19 @@ input.empty {
   text-decoration: inherit;
 }
 .fontAwesome {
-  font-family: "Helvetica", "FontAwesome", sans-serif;
+  font-family: "BYekan", "FontAwesome";
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: BYekan;
+  src: url("../../assets/Fonts/BYekan+.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: BYekan;
+  src: url("../../assets/Fonts/BYekan+ Bold.ttf");
+  font-weight: bold;
+  font-style: normal;
 }

@@ -110,8 +110,8 @@ export function AccountBox(props) {
                     <LoginHeaderContainer>
                         <LoginImage initial={false} animate={isExpanded3 ? "expanded" : "collapsed"} variants={imgReference} src={PeopleDiscussion}/>
                         
-                        {active === "Login" && <LoginHeaderText className="text-center" initial={false} animate={isExpanded3 ? "expanded" : "collapsed"} variants={imgReference}>Hello! <br/> Welcome Back</LoginHeaderText>}
-                        {active === "Register" && <LoginHeaderText className="text-center" initial={false} animate={isExpanded3 ? "expanded" : "collapsed"} variants={imgReference}>Welcome <br /> to Paragrapher</LoginHeaderText>}
+                        {active === "Login" && <LoginHeaderText className="text-center" initial={false} animate={isExpanded3 ? "expanded" : "collapsed"} variants={imgReference}>سلام <br/> وارد شوید!</LoginHeaderText>}
+                        {active === "Register" && <LoginHeaderText className="text-center" initial={false} animate={isExpanded3 ? "expanded" : "collapsed"} variants={imgReference}>خوش آمدید <br />حساب کاربری جدید بسازید!</LoginHeaderText>}
                     </LoginHeaderContainer>
                 </LoginTopContainer>
                 <LoginInnerContainer>
