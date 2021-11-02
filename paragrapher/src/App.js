@@ -19,7 +19,8 @@ function App() {
         <div className="container d-flex align-items-center flex-column">
           <Switch>
             <Route path="" exact={true}>
-              <AppContainer>
+            <button className="btn btn-danger" id="logout" style={{display: "none"}}>خروج</button> 
+              <AppContainer id="box">
                 <button className="btn btn-danger" onClick={() => setAccountBoxTrigger(true)}>Login/Register</button> 
                 <PopupAccountBox trigger={accountBoxTrigger} setTrigger={setAccountBoxTrigger}/>
               </AppContainer>

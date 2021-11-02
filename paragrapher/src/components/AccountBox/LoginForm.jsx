@@ -12,6 +12,16 @@ import "../../../node_modules/font-awesome/css/font-awesome.css";
 import axios from "axios";
 import Cookies from "universal-cookie";
 axios.defaults.withCredentials = true;
+//successful login
+function successfulLogin(){
+  document.getElementById("box").style.display="none";
+  document.getElementById("logout").style.display="block";
+  window.alert("با موفقیت وارد شدید")
+}
+//backend respone
+function backendResponse(){
+  document.getElementById("Errors").innerHTML="لطفا دوباره تلاش کنید"
+}
 export function LoginForm(props) {
   const [loading, setLoading] = useState(false);
   const username = useFormInput("");
@@ -30,6 +40,7 @@ export function LoginForm(props) {
         setLoading(false);
         setUserSession(response.data.token, response.data.user);
         console.log("888", "login Ok\n", response.data);
+        successfulLogin();
         if (response.data.token !== undefined) {
           const cookies = new Cookies();
           cookies.set("x-access-token", response.data.token, { path: "/" });
@@ -41,9 +52,15 @@ export function LoginForm(props) {
       .catch((error) => {
         console.log(error.response);
         setLoading(false);
-        if (error.response.status === 401)
+        if (error.response.status === 401){
           setError(error.response.data.message);
-        else setError("Something went wrong. Please try again later.");
+          backendResponse();
+        }
+          
+        else{
+          setError("Something went wrong. Please try again later.");
+          backendResponse();
+        } 
       });
   };
   return (
@@ -61,6 +78,7 @@ export function LoginForm(props) {
           placeholder="&#xf084; گذرواژه"
           {...password}
         />
+        <span className="small" style={{color: "red"}} id="Errors"></span>
         <SubmitButton type="button" onClick={handleLogin} disabled={loading}>
           {loading ? "درحال بارگزاری..." : "ورود"}
         </SubmitButton>
