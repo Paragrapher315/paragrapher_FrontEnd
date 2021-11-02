@@ -12,6 +12,7 @@ import { AccountContext } from "./accountContext";
 import { setUserSession } from "../../Utils/Common";
 import "../../../node_modules/font-awesome/css/font-awesome.css";
 import { useTransform } from "framer-motion";
+import CircularProgress from "@mui/material/CircularProgress";
 export function RegisterForm(props) {
   // const [state , setState] = useState({
   //     email : "",
@@ -83,7 +84,11 @@ export function RegisterForm(props) {
           {...password}
         />
         <SubmitButton onClick={handleRegister} type="button" disabled={loading}>
-          {loading ? "در حال بارگزاری..." : "ثبت نام"}
+          {loading ? (
+            <CircularProgress color="inherit" size="1rem" />
+          ) : (
+            "ثبت نام"
+          )}
         </SubmitButton>
         <BoldLink onClick={switchToLogin}>
           اگر حساب کاربری دارید از اینجا وارد شوید!

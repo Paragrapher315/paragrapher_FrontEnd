@@ -1,4 +1,5 @@
 import React, { Component, useContext, useState } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 import {
   BoxContainer,
   FormContainer,
@@ -11,6 +12,7 @@ import { setUserSession } from "../../Utils/Common";
 import "../../../node_modules/font-awesome/css/font-awesome.css";
 import axios from "axios";
 import Cookies from "universal-cookie";
+import { BrowserView, MobileView } from "react-device-detect";
 axios.defaults.withCredentials = true;
 export function LoginForm(props) {
   const [loading, setLoading] = useState(false);
@@ -62,7 +64,7 @@ export function LoginForm(props) {
           {...password}
         />
         <SubmitButton type="button" onClick={handleLogin} disabled={loading}>
-          {loading ? "درحال بارگزاری..." : "ورود"}
+          {loading ? <CircularProgress color="inherit" size="1rem" /> : "ورود"}
         </SubmitButton>
         <BoldLink onClick={switchToRegister}>
           همین حالا حساب کاربری خود را بسازید!
