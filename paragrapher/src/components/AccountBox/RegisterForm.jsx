@@ -12,6 +12,7 @@ import { AccountContext } from "./accountContext";
 import { setUserSession } from "../../Utils/Common";
 import "../../../node_modules/font-awesome/css/font-awesome.css";
 import { useTransform } from "framer-motion";
+import CircularProgress from "@mui/material/CircularProgress";
 export function RegisterForm(props) {
   // const [state , setState] = useState({
   //     email : "",
@@ -177,8 +178,12 @@ export function RegisterForm(props) {
           {...password}
         />
          <span className="small" style={{color: "red"}} id="PasswordError"></span>
-        <SubmitButton onClick={handleBeforSend} type="button" disabled={loading}>
-          {loading ? "در حال بارگزاری..." : "ثبت نام"}
+        <SubmitButton onClick={handleRegister} type="button" disabled={loading}>
+          {loading ? (
+            <CircularProgress color="inherit" size="1rem" />
+          ) : (
+            "ثبت نام"
+          )}
         </SubmitButton>
         <BoldLink onClick={switchToLogin}>
           اگر حساب کاربری دارید از اینجا وارد شوید!

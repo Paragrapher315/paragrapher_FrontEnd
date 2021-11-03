@@ -204,7 +204,7 @@ export const CloseButton = styled.button`
   height: 30px;
   border: transparent;
   position: relative;
-  left: 88%;
+  left: -3%;
   top: 12px;
   z-index: 15;
   &:hover {

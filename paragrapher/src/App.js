@@ -7,10 +7,15 @@ import {
   Route
 } from "react-router-dom";
 import RegisterationForm from './components/RegisterationForm/RegisterationForm';
-import Header from './components/Header/Header.js';
+import Header from './components/Header/Header';
 import RegistrationForm from './components/RegisterationForm/RegisterationForm';
 import AccountBox from './components/AccountBox/AccountBox';
+import { Drawer,List,ListItem,ListItemIcon,ListItemText } from "@mui/material";
+import InboxIcon from '@mui/icons-material/Inbox';
+import MailIcon from '@mui/icons-material/Mail';
+
 function App() {
+  const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
   return (
     <Router>
@@ -20,9 +25,7 @@ function App() {
           <Switch>
             <Route path="" exact={true}>
             <button className="btn btn-danger" id="logout" style={{display: "none"}}>خروج</button> 
-              <AppContainer id="box">
-                <button className="btn btn-danger" onClick={() => setAccountBoxTrigger(true)}>Login/Register</button> 
-                <PopupAccountBox trigger={accountBoxTrigger} setTrigger={setAccountBoxTrigger}/>
+              <AppContainer>
               </AppContainer>
               <p>
                 
