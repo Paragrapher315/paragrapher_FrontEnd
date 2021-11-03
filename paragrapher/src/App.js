@@ -24,8 +24,8 @@ function App() {
         <div className="container d-flex align-items-center flex-column">
           <Switch>
             <Route path="" exact={true}>
+            <button className="btn btn-danger" id="logout" style={{display: "none"}}>خروج</button> 
               <AppContainer>
-                
               </AppContainer>
               <p>
                 
