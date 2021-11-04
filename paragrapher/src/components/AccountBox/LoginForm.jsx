@@ -15,21 +15,53 @@ import Cookies from "universal-cookie";
 import { BrowserView, MobileView } from "react-device-detect";
 axios.defaults.withCredentials = true;
 //successful login
-function successfulLogin(){
-  document.getElementById("box").style.display="none";
-  document.getElementById("logout").style.display="block";
-  window.alert("با موفقیت وارد شدید")
+function successfulLogin() {
+  document.getElementById("box").style.display = "none";
+  document.getElementById("logout").style.display = "block";
+  window.alert("با موفقیت وارد شدید");
 }
-//backend respone
-function backendResponse(){
-  document.getElementById("Errors").innerHTML="لطفا دوباره تلاش کنید"
-}
+// //backend respone
+// function backendResponse() {
+//   document.getElementById("Errors").innerHTML = "لطفا دوباره تلاش کنید";
+// }
 export function LoginForm(props) {
   const [loading, setLoading] = useState(false);
+  const [loginFailed, setLoginFailed] = useState(false);
   const username = useFormInput("");
   const password = useFormInput("");
+  const [userError, setUserError] = useState(null);
+  const [passwordError, setPasswordError] = useState(null);
   const [error, setError] = useState(null);
   const { switchToRegister } = useContext(AccountContext);
+  const handleBeforSend = () => {
+    setError(null);
+    setLoading(true);
+    let send = 0;
+    document.getElementById("UsernameError").innerHTML = "";
+    document.getElementById("PasswordError").innerHTML = "";
+    document.getElementById("username").style.border = "2px solid #b1375c";
+    document.getElementById("password").style.border = "2px solid #b1375c";
+    if (username.value == "") {
+      // document.getElementById("UsernameError").innerHTML =
+      //   "نام کاربری نمیتواند خالی باشد";
+      // document.getElementById("username").style.border = "2px solid red";
+      setUserError("نام کاربری نمی تواند خالی باشد");
+      send++;
+    }
+    if (password.value == "") {
+      // document.getElementById("PasswordError").innerHTML =
+      //   "رمز عبور نمیتواند خالی باشد";
+      // document.getElementById("password").style.border = "2px solid red";
+      setPasswordError("رمز عبور نمی تواند خالی باشد");
+      send++;
+    }
+    if (send == 0) {
+      console.log("sent");
+      handleLogin();
+    } else {
+      setLoading(false);
+    }
+  };
   const handleLogin = () => {
     setError(null);
     setLoading(true);
@@ -54,34 +86,59 @@ export function LoginForm(props) {
       .catch((error) => {
         console.log(error.response);
         setLoading(false);
-        if (error.response.status === 401){
+        if (error.response.status === 401) {
           setError(error.response.data.message);
-          backendResponse();
-        }
-          
-        else{
+          // backendResponse();
+          setLoginFailed(true);
+        } else {
           setError("Something went wrong. Please try again later.");
-          backendResponse();
-        } 
+          // backendResponse();
+          setLoginFailed(true);
+        }
       });
   };
   return (
     <BoxContainer>
       <FormContainer>
         <Input
+          id="username"
           className="fa"
           type="username"
           placeholder="&#xf0e0; نام کاربری"
           {...username}
         />
+        <div
+          className="small"
+          style={{ color: "red", textAlign: "right", marginRight: "0.5rem" }}
+          id="UsernameError"
+        >
+          {userError}
+        </div>
         <Input
+          id="password"
           className="fa"
           type="password"
           placeholder="&#xf084; گذرواژه"
           {...password}
         />
-        <span className="small" style={{color: "red"}} id="Errors"></span>
-        <SubmitButton type="button" onClick={handleLogin} disabled={loading}>
+        <div
+          className="small"
+          style={{ color: "red", textAlign: "right", marginRight: "0.5rem" }}
+          id="PasswordError"
+        >
+          {passwordError}
+        </div>
+        {loginFailed && <p>لطفا دوباره تلاش کنید</p>}
+        <div
+          className="small"
+          style={{ color: "red", textAlign: "right", marginRight: "0.5rem" }}
+          id="Errors"
+        ></div>
+        <SubmitButton
+          type="button"
+          onClick={handleBeforSend}
+          disabled={loading}
+        >
           {loading ? <CircularProgress color="inherit" size="1rem" /> : "ورود"}
         </SubmitButton>
         <BoldLink onClick={switchToRegister}>
