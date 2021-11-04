@@ -1,12 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import AppBar from "@material-ui/core/AppBar";
+import Box from "@material-ui/core/Box";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
 import { BrowserView, MobileView } from "react-device-detect";
 import {
   createTheme,
@@ -15,100 +15,165 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-} from "@mui/material";
-import InboxIcon from "@mui/icons-material/Inbox";
-import MailIcon from "@mui/icons-material/Mail";
+} from "@material-ui/core";
+import InboxIcon from "@material-ui/icons/Inbox";
+import MailIcon from "@material-ui/icons/Mail";
 import PopupAccountBox from "../AccountBox/PopupAccountBox";
-import { ThemeProvider, makeStyles } from "@mui/styles";
-import { ThemeOptions } from "@mui/material";
-import { StylesProvider } from "@mui/styles";
+import { ThemeProvider } from "@material-ui/styles";
+import { StylesProvider } from "@material-ui/styles";
+import { green, orange } from "@mui/material/colors";
+import { Menu } from "@material-ui/core";
+import { theme } from "../common";
+import Badge from "@material-ui/core/Badge";
+import MenuItem from "@material-ui/core/MenuItem";
+import SearchIcon from "@material-ui/icons/Search";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import MoreIcon from "@material-ui/icons/MoreVert";
+import { useStyles } from "../common";
+import InputBase from "@material-ui/core/InputBase";
+import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
+
 function Header() {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
-  const theme = (mode) =>
-    createTheme({
-      pallete: {
-        primary: {
-          main: "#c91313",
-        },
-        secondary: {
-          main: "#F5BD1F",
-          contrastText: "#3ace34 ",
-        },
-      },
-    });
+  const classes = useStyles();
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <ThemeProvider theme={theme}>
-      <StylesProvider injectFirst>
-        <Box sx={{ flexGrow: 1 }}>
-          <AppBar
-            position="static"
-            color="default"
-            style={{ backgroundColor: "#40a9b3" }}
-          >
-            <Toolbar>
-              <MobileView>
-                <IconButton
-                  onClick={() => setDrawerAnchor(true)}
-                  size="large"
-                  edge="start"
-                  color="inherit"
-                  aria-label="menu"
-                  sx={{ mr: 2 }}
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Drawer
-                  anchor="right"
-                  open={drawerAnchor}
-                  onClose={() => setDrawerAnchor(false)}
-                >
-                  <List>
-                    {["Inbox", "Starred", "Send email", "Drafts"].map(
-                      (text, index) => (
-                        <ListItem button key={text}>
-                          <ListItemIcon
-                            onClick={() => {
-                              setDrawerAnchor(false);
-                              setAccountBoxTrigger(true);
-                            }}
-                          >
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                          </ListItemIcon>
-                          <ListItemText primary={text} />
-                        </ListItem>
-                      )
-                    )}
-                  </List>
-                </Drawer>
-              </MobileView>
-              <Typography
-                align="right"
-                variant="h6"
-                component="div"
-                sx={{ flexGrow: 1, m: 2 }}
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar
+          position="static"
+          color="primary"
+          //style={{ backgroundColor: "#40a9b3" }}
+        >
+          <Toolbar style={{ display: "inline-flex" }}>
+            <MobileView>
+              <IconButton
+                onClick={() => setDrawerAnchor(true)}
+                size="large"
+                edge="start"
+                color="inherit"
+                sx={{ mr: 2 }}
               >
-                پاراگرافر
-              </Typography>
+                <MenuIcon />
+              </IconButton>
+              <Drawer
+                anchor="right"
+                open={drawerAnchor}
+                onClose={() => setDrawerAnchor(false)}
+              >
+                <List>
+                  {isLoggedIn ? (
+                    <div></div>
+                  ) : (
+                    <div>
+                      <ListItem button>
+                        <ListItemIcon
+                          onClick={() => {
+                            setDrawerAnchor(false);
+                            setAccountBoxTrigger(true);
+                          }}
+                        >
+                          <PersonOutlineIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="ورود" />
+                      </ListItem>
+                    </div>
+                  )}
+                </List>
+              </Drawer>
+            </MobileView>
+            <Typography
+              className={classes.typography}
+              align="right"
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, m: 2 }}
+            >
+              پاراگرافر
+            </Typography>
+
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="جستجو"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+              />
+            </div>
+
+            <div className={classes.grow} />
+
+            {isLoggedIn ? (
+              <div style={{ alignItems: "center" }}>
+                <IconButton color="inherit">
+                  <Badge badgeContent={1} color="secondary">
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
+                <IconButton
+                  edge="end"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem
+                    onClick={handleClose}
+                    className={classes.typography}
+                  >
+                    حساب کاربری
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleClose}
+                    className={classes.typography}
+                  >
+                    خروج
+                  </MenuItem>
+                </Menu>
+              </div>
+            ) : (
               <BrowserView>
                 <Button
                   onClick={() => setAccountBoxTrigger(true)}
-                  color="inherit"
-                  variant="outlined"
+                  variant="contained"
+                  color="secondary"
+                  className={classes.typography}
                 >
+                  {/* <AccountCircle /> */}
                   ورود
                 </Button>
               </BrowserView>
-            </Toolbar>
+            )}
+          </Toolbar>
 
-            <PopupAccountBox
-              trigger={accountBoxTrigger}
-              setTrigger={setAccountBoxTrigger}
-            />
-          </AppBar>
-        </Box>
-      </StylesProvider>
+          <PopupAccountBox
+            trigger={accountBoxTrigger}
+            setTrigger={setAccountBoxTrigger}
+          />
+        </AppBar>
+      </Box>
     </ThemeProvider>
   );
 }
