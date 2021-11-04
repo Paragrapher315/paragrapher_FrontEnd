@@ -1,5 +1,7 @@
 import React, { Component, useContext, useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
+import references from "../../assets/References.json";
+import { Login } from "../../Utils/Connection";
 import {
   BoxContainer,
   FormContainer,
@@ -18,7 +20,7 @@ axios.defaults.withCredentials = true;
 function successfulLogin() {
   document.getElementById("box").style.display = "none";
   document.getElementById("logout").style.display = "block";
-  window.alert("با موفقیت وارد شدید");
+  window.alert(references.alert_login_successful);
 }
 // //backend respone
 // function backendResponse() {
@@ -45,14 +47,14 @@ export function LoginForm(props) {
       // document.getElementById("UsernameError").innerHTML =
       //   "نام کاربری نمیتواند خالی باشد";
       // document.getElementById("username").style.border = "2px solid red";
-      setUserError("نام کاربری نمی تواند خالی باشد");
+      setUserError(references.err_username_empty);
       send++;
     }
     if (password.value == "") {
       // document.getElementById("PasswordError").innerHTML =
       //   "رمز عبور نمیتواند خالی باشد";
       // document.getElementById("password").style.border = "2px solid red";
-      setPasswordError("رمز عبور نمی تواند خالی باشد");
+      setPasswordError(references.err_password_empty);
       send++;
     }
     if (send == 0) {
@@ -62,40 +64,52 @@ export function LoginForm(props) {
       setLoading(false);
     }
   };
-  const handleLogin = () => {
-    setError(null);
-    setLoading(true);
-    axios
-      .post("http://localhost:5000/login", {
-        username: username.value,
-        password: password.value,
-      })
-      .then((response) => {
-        setLoading(false);
-        setUserSession(response.data.token, response.data.user);
-        console.log("888", "login Ok\n", response.data);
+  function checkResponse(responseData) {
+    setLoading(false);
+    switch (responseData) {
+      case "successful login":
         successfulLogin();
-        if (response.data.token !== undefined) {
-          const cookies = new Cookies();
-          cookies.set("x-access-token", response.data.token, { path: "/" });
-          console.log(cookies.get("x-access-token"));
-        }
+        break;
 
-        //props.history.push('/dashboard');
-      })
-      .catch((error) => {
-        console.log(error.response);
-        setLoading(false);
-        if (error.response.status === 401) {
-          setError(error.response.data.message);
-          // backendResponse();
-          setLoginFailed(true);
-        } else {
-          setError("Something went wrong. Please try again later.");
-          // backendResponse();
-          setLoginFailed(true);
-        }
-      });
+      default:
+        setError();
+        setLoginFailed(true);
+        break;
+    }
+  }
+  const handleLogin = () => {
+    // axios
+    //   .post("http://localhost:5000/login", {
+    //     username: username.value,
+    //     password: password.value,
+    //   })
+    //   .then((response) => {
+    //     setLoading(false);
+    //     setUserSession(response.data.token, response.data.user);
+    //     console.log("888", "login Ok\n", response.data);
+    //     successfulLogin();
+    //     if (response.data.token !== undefined) {
+    //       const cookies = new Cookies();
+    //       cookies.set("x-access-token", response.data.token, { path: "/" });
+    //       console.log(cookies.get("x-access-token"));
+    //     }
+
+    //     //props.history.push('/dashboard');
+    //   })
+    //   .catch((error) => {
+    //     console.log(error.response);
+    //     setLoading(false);
+    //     if (error.response.status === 401) {
+    //       setError(error.response.data.message);
+    //       // backendResponse();
+    //       setLoginFailed(true);
+    //     } else {
+    //       setError("Something went wrong. Please try again later.");
+    //       // backendResponse();
+    //       setLoginFailed(true);
+    //     }
+    //   });
+    checkResponse(Login(username.value, password.value));
   };
   return (
     <BoxContainer>

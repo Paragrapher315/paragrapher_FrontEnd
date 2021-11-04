@@ -1,5 +1,7 @@
 import React, { Component, useContext } from "react";
 import { useState } from "react";
+import { Register } from "../../Utils/Connection";
+import references from "../../assets/References.json";
 import {
   BoxContainer,
   FormContainer,
@@ -15,23 +17,6 @@ import { useTransform } from "framer-motion";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Password } from "@mui/icons-material";
 export function RegisterForm(props) {
-  // const [state , setState] = useState({
-  //     email : "",
-  //     username : "",
-  //     password : ""
-  //  })
-  // const handleChange = (e) => {
-  //     const {id , value} = e.target
-  //     setState(prevState => ({
-  //         ...prevState,
-  //         [id] : value
-  //     }))
-  // }
-  // const handleSubmitClick = (e) => {
-  //     e.preventDefault();
-  //     //sendDataToServer()
-
-  // }
   const [loading, setLoading] = useState(false);
   const [emailError, setEmailError] = useState(null);
   const [userError, setUserError] = useState(null);
@@ -66,7 +51,7 @@ export function RegisterForm(props) {
       // document.getElementById("EmailError").innerHTML =
       //   "ایمیل نمیتواند خالی باشد";
       // document.getElementById("email").style.border = "2px solid red";
-      setEmailError("ایمیل نمی تواند خالی باشد");
+      setEmailError(references.err_email_empty);
       send++;
     } else {
       const checkEmail = isEmail(email.value);
@@ -74,7 +59,7 @@ export function RegisterForm(props) {
         // document.getElementById("EmailError").innerHTML =
         //   "ایملیل وارد شده معتبر نیست";
         // document.getElementById("email").style.border = "2px solid red";
-        setEmailError("ایمیل وارد شده معتبر نیست");
+        setEmailError(references.err_email_invalid);
         send++;
       }
     }
@@ -82,21 +67,21 @@ export function RegisterForm(props) {
       // document.getElementById("UsernameError").innerHTML =
       //   "نام کاربری نمیتواند خالی باشد";
       // document.getElementById("username").style.border = "2px solid red";
-      setUserError("نام کاربری نمی تواند خالی باشد");
+      setUserError(references.err_username_empty);
       send++;
     }
     if (password.value == "") {
       // document.getElementById("PasswordError").innerHTML =
       //   "رمز عبور نمیتواند خالی باشد";
       // document.getElementById("password").style.border = "2px solid red";
-      setPasswordError("رمز عبور نمی تواند خالی باشد");
+      setPasswordError(references.err_password_empty);
       send++;
     } else if (passwordConfirm.value != Password.value) {
-      setPasswordConfError("رمز عبور و تکرار رمز عبور نمی تواند متفاوت باشد");
+      setPasswordConfError(references.err_passwordAndConfirmation_notEqual);
       send++;
     }
     if (passwordConfirm.value == "") {
-      setPasswordConfError("تکرار رمز نمی تواند خالی باشد");
+      setPasswordConfError(references.err_passwordConfirmation_empty);
       send++;
     }
     if (send == 0) {
@@ -110,9 +95,7 @@ export function RegisterForm(props) {
   //checking backend responses
 
   function checkResponse(responseData) {
-    document.getElementById("EmailError").innerHTML = "";
-    document.getElementById("UsernameError").innerHTML = "";
-    document.getElementById("PasswordError").innerHTML = "";
+    setLoading(false);
     switch (responseData) {
       case "successful register":
         afterSuccessfulRegister();
@@ -122,23 +105,24 @@ export function RegisterForm(props) {
         // document.getElementById("UsernameError").innerHTML =
         //   "کاربری با این نام کاربری وجود دارد";
         //document.getElementById("username").style.border='2px solid red';
-        setUserError("کاربری با این نام کاربری وجود دارد");
+        setUserError(references.err_usename_exists);
         break;
 
       case "user_email_exists":
         // document.getElementById("EmailError").innerHTML =
         //   "کاربری با این ایمیل وجود دارد";
         //document.getElementById("email").style.border='2px solid red';
-        setEmailError("کاربری با این ایمیل وجود دارد");
+        setEmailError(references.err_email_exists);
         break;
 
       case "A user with that email or username already exists.":
         // document.getElementById("PasswordError").innerHTML =
         //   "کاربری با این نام کاربری یا ایمیل وجود دارد";
-        setUserError("کاربری با این نام کاربری یا ایمیل وجود دارد");
+        setUserError(references.err_usenameOrEmail_exists);
         break;
 
       default:
+        setUserError(references.err_unknown);
         document.getElementById("EmailError").innerHTML = responseData;
         break;
     }
@@ -146,34 +130,35 @@ export function RegisterForm(props) {
 
   //after successful register
   function afterSuccessfulRegister() {
-    window.alert("ثبت نام با موفقیت انجام شد.");
+    window.alert(references.alert_register_success);
     switchToLogin();
   }
 
   const handleRegister = () => {
-    axios
-      .post("http://localhost:5000/register", {
-        email: email.value,
-        username: username.value,
-        password: password.value,
-      })
-      .then((response) => {
-        setLoading(false);
-        setUserSession(response.data.token, response.data.user);
-        checkResponse("successful register");
-        // props.history.push('/dashboard');
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.log(error, error.response);
-        if (error.response.status === 401) {
-          setError(error.response.data.message);
-          checkResponse(error.response.data.message);
-        } else {
-          setError("Something went wrong. Please try again later.");
-          checkResponse(error.response.data);
-        }
-      });
+    // axios
+    //   .post("http://localhost:5000/register", {
+    //     email: email.value,
+    //     username: username.value,
+    //     password: password.value,
+    //   })
+    //   .then((response) => {
+    //     setLoading(false);
+    //     setUserSession(response.data.token, response.data.user);
+    //     checkResponse("successful register");
+    //     // props.history.push('/dashboard');
+    //   })
+    //   .catch((error) => {
+    //     setLoading(false);
+    //     console.log(error, error.response);
+    //     if (error.response.status === 401) {
+    //       setError(error.response.data.message);
+    //       checkResponse(error.response.data.message);
+    //     } else {
+    //       setError("Something went wrong. Please try again later.");
+    //       checkResponse(error.response.data);
+    //     }
+    //   });
+    checkResponse(Register(email.value, username.value, password.value));
   };
   return (
     <BoxContainer>
