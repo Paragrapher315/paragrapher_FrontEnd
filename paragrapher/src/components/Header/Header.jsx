@@ -8,6 +8,8 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { BrowserView, MobileView } from "react-device-detect";
+import { cookie } from "../../Utils/Common";
+
 import {
   createTheme,
   Drawer,
@@ -38,7 +40,9 @@ function Header() {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
   const classes = useStyles();
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(
+    cookie.get("x-access-token") !== undefined ? true : false
+  );
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleProfileMenuOpen = (event) => {
