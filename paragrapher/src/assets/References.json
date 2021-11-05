@@ -1,6 +1,7 @@
 {
-    "url_register": "http://localhost:5000/register", 
-    "url_login": "http://localhost:5000/login", 
+    "url_address": "http://localhost:5000",
+    "url_register": "/register", 
+    "url_login": "/login", 
     "err_email_empty": "ایمیل نمی تواند خالی باشد", 
     "err_email_invalid": "ایمیل وارد شده معتبر نیست", 
     "err_username_empty": "نام کاربری نمی تواند خالی باشد", 
@@ -11,7 +12,9 @@
     "err_email_exists": "کاربری با این ایمیل وجود دارد", 
     "err_usenameOrEmail_exists": "کاربری با این نام کاربری یا ایمیل وجود دارد", 
     "err_unknown": "مشکلی پیش آمده لطفا دوباره امتحان کنید", 
+    "err_already_loggedIn": "لطفا از حساب کاربری فعلی خارج شوید",
     "err_login_success": "با موفقیت وارد شدید",    
     "alert_register_success": "ثبت نام با موفقیت انجام شد", 
     "alert_login_successful": "با موفقیت وارد شدید"
+
 }

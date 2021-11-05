@@ -18,8 +18,8 @@ import { BrowserView, MobileView } from "react-device-detect";
 axios.defaults.withCredentials = true;
 //successful login
 function successfulLogin() {
-  document.getElementById("box").style.display = "none";
-  document.getElementById("logout").style.display = "block";
+  // document.getElementById("box").style.display = "none";
+  // document.getElementById("logout").style.display = "block";
   window.alert(references.alert_login_successful);
 }
 // //backend respone
@@ -65,12 +65,14 @@ export function LoginForm(props) {
     }
   };
   function checkResponse(responseData) {
+    console.log(responseData);
     setLoading(false);
     switch (responseData) {
       case "successful login":
         successfulLogin();
         break;
-
+      case "already logged in":
+        window.alert(references.err_already_loggedIn);
       default:
         setError();
         setLoginFailed(true);
@@ -109,7 +111,9 @@ export function LoginForm(props) {
     //       setLoginFailed(true);
     //     }
     //   });
-    checkResponse(Login(username.value, password.value));
+    Login(username.value, password.value).then((response) => {
+      checkResponse(response);
+    });
   };
   return (
     <BoxContainer>
@@ -142,7 +146,15 @@ export function LoginForm(props) {
         >
           {passwordError}
         </div>
-        {loginFailed && <p>لطفا دوباره تلاش کنید</p>}
+        {loginFailed && (
+          <div
+            className="small"
+            style={{ color: "red", textAlign: "right", marginRight: "0.5rem" }}
+            id="UsernameError"
+          >
+            نام کاربری یا رمز عبور اشتباه است لطفا دوباره امتحان کنید
+          </div>
+        )}
         <div
           className="small"
           style={{ color: "red", textAlign: "right", marginRight: "0.5rem" }}

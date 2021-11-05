@@ -76,7 +76,7 @@ export function RegisterForm(props) {
       // document.getElementById("password").style.border = "2px solid red";
       setPasswordError(references.err_password_empty);
       send++;
-    } else if (passwordConfirm.value != Password.value) {
+    } else if (passwordConfirm.value != password.value) {
       setPasswordConfError(references.err_passwordAndConfirmation_notEqual);
       send++;
     }
@@ -96,6 +96,7 @@ export function RegisterForm(props) {
 
   function checkResponse(responseData) {
     setLoading(false);
+    console.log("****** Response Data: ", responseData);
     switch (responseData) {
       case "successful register":
         afterSuccessfulRegister();
@@ -158,7 +159,9 @@ export function RegisterForm(props) {
     //       checkResponse(error.response.data);
     //     }
     //   });
-    checkResponse(Register(email.value, username.value, password.value));
+    Register(email.value, username.value, password.value).then((message) => {
+      checkResponse(message);
+    });
   };
   return (
     <BoxContainer>
