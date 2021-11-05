@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import "./AccountBox/font.css";
+
 import { alpha, createTheme, makeStyles } from "@material-ui/core";
 
 // export const Input = styled.input`
@@ -136,7 +137,7 @@ export const BoxContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px;
+  margin: 1rem 0;
 `;
 export const FormContainer = styled.form`
   width: 100%;
@@ -152,7 +153,8 @@ export const BoldLink = styled.a`
   text-decoration: none;
   cursor: pointer;
   margin: 0;
-  margin-left: 10px;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
   direction: rtl;
   text-align: right;
 `;
@@ -164,7 +166,7 @@ export const Input = styled.input`
   text-align: right;
   direction: rtl;
   padding: 0px 10px;
-  margin: 2px 0;
+  margin: 0.3rem 0;
   /* border-bottom: 1.4px solid transparent; */
   border-radius: 50px;
   transition: all 250ms ease-in-out;
@@ -179,7 +181,7 @@ export const Input = styled.input`
 export const SubmitButton = styled.button`
   width: 100%;
   padding: 10px 40%;
-  margin: 10px 0;
+  margin: 0.3rem 0;
   color: white;
   background-color: #b1375c;
   font-size: 15px;
