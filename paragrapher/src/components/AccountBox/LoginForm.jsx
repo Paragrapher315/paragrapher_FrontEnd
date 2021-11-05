@@ -15,14 +15,14 @@ import Cookies from "universal-cookie";
 import { BrowserView, MobileView } from "react-device-detect";
 axios.defaults.withCredentials = true;
 //successful login
-function successfulLogin(){
-  document.getElementById("box").style.display="none";
-  document.getElementById("logout").style.display="block";
-  window.alert("با موفقیت وارد شدید")
+function successfulLogin() {
+  document.getElementById("box").style.display = "none";
+  document.getElementById("logout").style.display = "block";
+  window.alert("با موفقیت وارد شدید");
 }
 //backend respone
-function backendResponse(){
-  document.getElementById("Errors").innerHTML="لطفا دوباره تلاش کنید"
+function backendResponse() {
+  document.getElementById("Errors").innerHTML = "لطفا دوباره تلاش کنید";
 }
 export function LoginForm(props) {
   const [loading, setLoading] = useState(false);
@@ -54,15 +54,13 @@ export function LoginForm(props) {
       .catch((error) => {
         console.log(error.response);
         setLoading(false);
-        if (error.response.status === 401){
+        if (error.response.status === 401) {
           setError(error.response.data.message);
           backendResponse();
-        }
-          
-        else{
+        } else {
           setError("Something went wrong. Please try again later.");
           backendResponse();
-        } 
+        }
       });
   };
   return (
@@ -80,7 +78,7 @@ export function LoginForm(props) {
           placeholder="&#xf084; گذرواژه"
           {...password}
         />
-        <span className="small" style={{color: "red"}} id="Errors"></span>
+        <span className="small" style={{ color: "red" }} id="Errors"></span>
         <SubmitButton type="button" onClick={handleLogin} disabled={loading}>
           {loading ? <CircularProgress color="inherit" size="1rem" /> : "ورود"}
         </SubmitButton>
