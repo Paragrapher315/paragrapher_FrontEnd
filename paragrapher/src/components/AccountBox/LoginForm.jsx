@@ -18,6 +18,7 @@ import { BrowserView, MobileView } from "react-device-detect";
 axios.defaults.withCredentials = true;
 //successful login
 function successfulLogin() {
+
   // document.getElementById("box").style.display = "none";
   // document.getElementById("logout").style.display = "block";
   window.alert(references.alert_login_successful);
@@ -95,7 +96,6 @@ export function LoginForm(props) {
     //       cookies.set("x-access-token", response.data.token, { path: "/" });
     //       console.log(cookies.get("x-access-token"));
     //     }
-
     //     //props.history.push('/dashboard');
     //   })
     //   .catch((error) => {
@@ -139,6 +139,7 @@ export function LoginForm(props) {
           placeholder="&#xf084; گذرواژه"
           {...password}
         />
+
         <div
           className="small"
           style={{ color: "red", textAlign: "right", marginRight: "0.5rem" }}
