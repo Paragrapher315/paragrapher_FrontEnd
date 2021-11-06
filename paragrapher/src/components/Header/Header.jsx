@@ -16,29 +16,28 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@material-ui/core";
-import InboxIcon from "@material-ui/icons/Inbox";
-import MailIcon from "@material-ui/icons/Mail";
 import PopupAccountBox from "../AccountBox/PopupAccountBox";
 import { ThemeProvider } from "@material-ui/styles";
-import { StylesProvider } from "@material-ui/styles";
-import { green, orange } from "@mui/material/colors";
 import { Menu } from "@material-ui/core";
-import { theme } from "../common";
+import { theme } from "../theme";
 import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import MoreIcon from "@material-ui/icons/MoreVert";
-import { useStyles } from "../common";
+import { useStyles } from "../theme";
 import InputBase from "@material-ui/core/InputBase";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
+import { cookie } from "../../Utils/Common";
 
 function Header() {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
-  const classes = useStyles();
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const classes = useStyles(theme);
+  const [isLoggedIn, setLoggedIn] = useState(
+    cookie.get("x-access-token") !== undefined ? false : true
+  );
+
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleProfileMenuOpen = (event) => {
@@ -120,7 +119,7 @@ function Header() {
             <div className={classes.grow} />
 
             {isLoggedIn ? (
-              <div style={{ alignItems: "center" }}>
+              <div className={classes.icons}>
                 <IconButton color="inherit">
                   <Badge badgeContent={1} color="secondary">
                     <NotificationsIcon />
