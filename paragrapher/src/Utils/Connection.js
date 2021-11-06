@@ -40,7 +40,10 @@ export const Login = async(username, password) => {
         .then((response) => {
             // login success
             setUserSession(response.data.token, response.data.user);
-            cookie.set("x-access-token", response.data.token, { path: "/" }); // add expire 
+            var today = new Date();
+            var expirationDate = new Date();
+            expirationDate.setDate(today.getDate() + 1)
+            cookie.set("x-access-token", response.data.token, { path: "/", expires: expirationDate }); // add expire 
             message = "successful login";
         })
         .catch((error) => {

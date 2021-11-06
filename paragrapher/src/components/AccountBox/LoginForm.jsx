@@ -18,10 +18,10 @@ import { BrowserView, MobileView } from "react-device-detect";
 axios.defaults.withCredentials = true;
 //successful login
 function successfulLogin() {
-
   // document.getElementById("box").style.display = "none";
   // document.getElementById("logout").style.display = "block";
   window.alert(references.alert_login_successful);
+  window.location.reload();
 }
 // //backend respone
 // function backendResponse() {
