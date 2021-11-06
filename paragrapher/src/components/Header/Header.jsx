@@ -35,6 +35,7 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import { useStyles } from "../common";
 import InputBase from "@material-ui/core/InputBase";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
+import { Hidden } from "@mui/material";
 
 function Header() {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
@@ -62,7 +63,7 @@ function Header() {
           //style={{ backgroundColor: "#40a9b3" }}
         >
           <Toolbar style={{ display: "inline-flex" }}>
-            <MobileView>
+            <Hidden mdUp>
               <IconButton
                 onClick={() => setDrawerAnchor(true)}
                 size="large"
@@ -97,7 +98,7 @@ function Header() {
                   )}
                 </List>
               </Drawer>
-            </MobileView>
+            </Hidden>
             <Typography
               className={classes.typography}
               align="right"
@@ -158,7 +159,7 @@ function Header() {
                 </Menu>
               </div>
             ) : (
-              <BrowserView>
+              <Hidden xsDown>
                 <Button
                   onClick={() => setAccountBoxTrigger(true)}
                   variant="contained"
@@ -168,7 +169,7 @@ function Header() {
                   {/* <AccountCircle /> */}
                   ورود
                 </Button>
-              </BrowserView>
+              </Hidden>
             )}
           </Toolbar>
 
