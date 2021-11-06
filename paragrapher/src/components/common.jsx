@@ -231,6 +231,14 @@ export const theme = createTheme({
 });
 
 export const useStyles = makeStyles((theme) => ({
+  profileTotalGrid: {
+    paddingTop:"20px",
+    backgroundColor: "#DDA15E",
+    height:"70vh"
+  },
+  profileTotalContainer: {
+    paddingTop:"40px",
+  },
   typography: {
     fontFamily: '"BYekan"',
   },
