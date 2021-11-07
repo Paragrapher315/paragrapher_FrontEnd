@@ -164,7 +164,7 @@ function Header() {
                   onClick={() => setAccountBoxTrigger(true)}
                   variant="contained"
                   color="secondary"
-                  className={classes.typography}
+                  className={classes.sectionDesktop}
                 >
                   {/* <AccountCircle /> */}
                   ورود
