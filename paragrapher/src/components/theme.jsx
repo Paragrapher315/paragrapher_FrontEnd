@@ -95,4 +95,10 @@ export const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  paperDark: {
+    backgroundColor: "#023047",
+  },
+  paperLight: {
+    backgroundColor: "#8ECAE6",
+  },
 }));
