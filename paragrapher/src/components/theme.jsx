@@ -21,6 +21,10 @@ export const useStyles = makeStyles((theme) => ({
   typography: {
     fontFamily: '"BYekan"',
   },
+  typographyBold: {
+    fontFamily: '"BYekan"',
+    fontWeight: "bold",
+  },
   grow: {
     flexGrow: 1,
   },
