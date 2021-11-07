@@ -2,8 +2,18 @@ import { alpha, createTheme, makeStyles } from "@material-ui/core";
 
 export const theme = createTheme({
   palette: {
-    primary: { main: "#606C38", textColor: "#283618" },
-    secondary: { main: "#DDA15E" },
+    primary: {
+      main: "#219EBC",
+      textColor: "#000000",
+      dark: "#023047",
+      light: "#8ECAE6",
+    },
+    secondary: {
+      main: "#DDA15E",
+      light: "#FFB703",
+      dark: "#FB8500",
+      textColor: "#000000",
+    },
   },
 });
 

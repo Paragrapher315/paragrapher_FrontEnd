@@ -30,7 +30,6 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import { useStyles } from "../theme";
 import InputBase from "@material-ui/core/InputBase";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
-import { cookie } from "../../Utils/Common";
 
 function Header() {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
