@@ -5,7 +5,7 @@ function MainPage() {
   return (
     <Grid container spacing={2} justify="center">
       <Hidden xsDown>
-        <Grid item lg={4} xs={12}>
+        <Grid item lg={4} md={4} xs={12}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Paper style={{ height: 375, width: "100%" }} />
@@ -16,7 +16,7 @@ function MainPage() {
           </Grid>
         </Grid>
       </Hidden>
-      <Grid item lg={8} xs={12}>
+      <Grid item lg={8} md={8} xs={12}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Paper style={{ height: 275, width: "100%" }} />
