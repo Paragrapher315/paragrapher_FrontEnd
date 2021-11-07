@@ -13,7 +13,7 @@ import AccountBox from './components/AccountBox/AccountBox';
 import { Drawer,List,ListItem,ListItemIcon,ListItemText } from "@mui/material";
 import InboxIcon from '@mui/icons-material/Inbox';
 import MailIcon from '@mui/icons-material/Mail';
-
+import EditProfile from './components/Profile/EditProfile';
 function App() {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
@@ -21,6 +21,7 @@ function App() {
     <Router>
       <div className="App">
         <Header/>
+        <EditProfile/>
         <div className="container d-flex align-items-center flex-column">
           <Switch>
             <Route path="" exact={true}>

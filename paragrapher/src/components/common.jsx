@@ -233,11 +233,22 @@ export const theme = createTheme({
 export const useStyles = makeStyles((theme) => ({
   profileTotalGrid: {
     paddingTop:"20px",
-    backgroundColor: "#DDA15E",
-    height:"70vh"
+    backgroundColor: "#606C38",
+    //height:"70vh"
+  },
+  profileTotalGrid1: {
+    paddingTop:"20px",
+    backgroundColor: "#e9edde",
+    //height:"70vh"
+  },
+  profileAvatar:{
+    alignContent: 'center',
+    paddingTop: '50'
   },
   profileTotalContainer: {
-    paddingTop:"40px",
+    marginTop:"20px",
+    borderRadius:"20px",
+    overflow:"hidden"
   },
   typography: {
     fontFamily: '"BYekan"',
