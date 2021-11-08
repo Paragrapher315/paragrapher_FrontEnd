@@ -18,6 +18,12 @@ export const theme = createTheme({
 });
 
 export const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+  },
   typography: {
     fontFamily: '"BYekan"',
   },

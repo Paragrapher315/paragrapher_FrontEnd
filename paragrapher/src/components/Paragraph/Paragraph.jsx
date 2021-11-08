@@ -19,7 +19,16 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import CommentIcon from "@material-ui/icons/Comment";
 import SendIcon from "@material-ui/icons/Send";
 import { useStyles, theme } from "../theme";
-function Paragraph() {
+import { spacing } from "@mui/system";
+
+function randomColor() {
+  let hex = Math.floor(Math.random() * 0xffffff);
+  let color = "#" + hex.toString(16);
+
+  return color;
+}
+
+function Paragraph(props) {
   const [liked, setLiked] = useState(false);
   const classes = useStyles(theme);
   const handleLike = () => {
@@ -27,21 +36,26 @@ function Paragraph() {
     setLiked(!liked);
   };
   return (
-    <>
+    <div style={{ marginTop: "0.5rem" }}>
       <Card>
         <CardHeader
           avatar={
-            <Avatar aria-label="recipe">
-              <Typography className={classes.typography}>ک</Typography>
+            <Avatar
+              style={{ backgroundColor: randomColor() }}
+              aria-label="recipe"
+            >
+              <Typography className={classes.typography}>
+                {props.avatar}
+              </Typography>
             </Avatar>
           }
-          action={<Button>پاراگراف برتر</Button>}
+          action={props.isPotd ? <Button>پاراگراف برتر</Button> : ""}
           title={
             <Typography
               className={classes.typographyBold}
               style={{ marginRight: "0.5rem" }}
             >
-              کیا
+              {props.author}
             </Typography>
           }
           subheader={
@@ -49,7 +63,7 @@ function Paragraph() {
               className={classes.typography}
               style={{ marginRight: "0.5rem" }}
             >
-              15 آبان 1400
+              {props.date}
             </Typography>
           }
           style={{ textAlign: "right" }}
@@ -62,13 +76,7 @@ function Paragraph() {
             className={classes.typography}
             style={{ textAlign: "right" }}
           >
-            این یک پاراگراف نمونه است. این یک پاراگراف نمونه است. این یک
-            پاراگراف نمونه است. این یک پاراگراف نمونه است. این یک پاراگراف نمونه
-            است. این یک پاراگراف نمونه است. این یک پاراگراف نمونه است. این یک
-            پاراگراف نمونه است. این یک پاراگراف نمونه است. این یک پاراگراف نمونه
-            است. این یک پاراگراف نمونه است. این یک پاراگراف نمونه است. این یک
-            پاراگراف نمونه است. این یک پاراگراف نمونه است. این یک پاراگراف نمونه
-            است.
+            {props.text}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
@@ -84,7 +92,7 @@ function Paragraph() {
           </IconButton>
         </CardActions>
       </Card>
-    </>
+    </div>
   );
 }
 
