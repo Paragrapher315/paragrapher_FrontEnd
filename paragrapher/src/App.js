@@ -20,7 +20,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Header/>
+        < Header style={{ position: "sticky", top: 0 }}/>
         <div className="container d-flex align-items-center flex-column">
           <Switch>
             <Route path="" exact={true}>

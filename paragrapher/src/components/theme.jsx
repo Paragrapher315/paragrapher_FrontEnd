@@ -35,7 +35,7 @@ export const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(1),
   },
   title: {
     display: "none",
@@ -55,7 +55,7 @@ export const useStyles = makeStyles((theme) => ({
     marginLeft: 10,
     width: "auto",
     [theme.breakpoints.up("sm")]: {
-      marginRight: theme.spacing(6),
+      marginRight: theme.spacing(10),
       marginLeft: theme.spacing(0),
       width: "auto",
     },
@@ -79,7 +79,8 @@ export const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: {
-      width: "20ch",
+      width: "40ch",
+      paddingRight: theme.spacing(5),
     },
   },
   icons: {

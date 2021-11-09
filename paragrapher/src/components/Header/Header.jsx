@@ -37,7 +37,7 @@ function Header() {
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
   const classes = useStyles(theme);
   const [isLoggedIn, setLoggedIn] = useState(
-    cookie.get("x-access-token") !== undefined ? true : false
+    cookie.get("x-access-token") !== undefined ? false : true
   );
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -52,7 +52,10 @@ function Header() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box
+        sx={{ flexGrow: 1 }}
+        style={{ position: "sticky", top: 0, zIndex: 1000 }}
+      >
         <AppBar
           position="static"
           color="primary"
@@ -65,7 +68,7 @@ function Header() {
                 size="large"
                 edge="start"
                 color="inherit"
-                sx={{ mr: 2 }}
+                sx={{ mr: 1 }}
               >
                 <MenuIcon />
               </IconButton>
