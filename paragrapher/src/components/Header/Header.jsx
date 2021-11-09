@@ -37,7 +37,7 @@ function Header() {
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
   const classes = useStyles(theme);
   const [isLoggedIn, setLoggedIn] = useState(
-    cookie.get("x-access-token") !== undefined ? false : true
+    cookie.get("x-access-token") !== undefined ? true : false
   );
 
   const [anchorEl, setAnchorEl] = React.useState(null);
