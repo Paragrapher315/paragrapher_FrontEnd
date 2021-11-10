@@ -11,9 +11,9 @@ import {
 } from "../common";
 import { BrowserView, MobileView } from "react-device-detect";
 import Typewriter from "typewriter-effect";
+import TypeWriterEffect from "react-typewriter-effect";
 import { Typography } from "@mui/material";
 import { useStyles, theme } from "../theme";
-
 function LandingPage() {
   const classes = useStyles(theme);
   const paragraphs = [
@@ -24,8 +24,21 @@ function LandingPage() {
   return (
     <>
       <BrowserView>
-        <div className={classes.imageCont} style={{ backgroundImage: bgImage }}>
-          <Grid container spacing={0} alignItems={"center"}>
+        <div
+          className={classes.imageCont}
+          style={{
+            backgroundImage: `url(${bgImage})`,
+            height: "100vh",
+            width: "100vw",
+            marginTop: "-5vh",
+          }}
+        >
+          <Grid
+            container
+            spacing={0}
+            alignItems={"center"}
+            style={{ padding: "0 10%" }}
+          >
             <Grid item xs={12} lg={6} md={6}>
               <div>
                 <div
@@ -36,25 +49,20 @@ function LandingPage() {
                     width: "100%",
                   }}
                 >
-                  <Typography className={classes.headerText}>
+                  <Typography
+                    className={classes.headerText}
+                    style={{ marginBottom: "5%" }}
+                  >
                     پاراگرافر
                   </Typography>
                 </div>
                 <div style={{ direction: "rtl", float: "right" }}>
-                  <Typewriter
-                    style={{
-                      display: "flex",
-                      direction: "rtl",
-                      textAlign: "right",
-                    }}
-                    options={{
-                      strings: [
-                        "جایی برای به اشتراک گذاشتن مطالعه شما",
-                        "مکانی امن برای کتابخوانی",
-                      ],
-                      autoStart: true,
-                      loop: true,
-                    }}
+                  <TypeWriterEffect
+                    textStyle={{ fontFamily: "BYekan", fontSize: "15pt" }}
+                    startDelay={2000}
+                    multiText={paragraphs}
+                    multiTextDelay={1000}
+                    typeSpeed={30}
                   />
                 </div>
               </div>
