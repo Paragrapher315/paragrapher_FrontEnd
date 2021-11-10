@@ -1,4 +1,5 @@
 import { alpha, createTheme, makeStyles } from "@material-ui/core";
+import bgImage from "../assets/wp3503092.jpg";
 
 export const theme = createTheme({
   palette: {
@@ -26,6 +27,20 @@ export const useStyles = makeStyles((theme) => ({
   },
   typography: {
     fontFamily: '"BYekan"',
+  },
+  imageCont: {
+    backgroundImage: { bgImage },
+    minHeight: "100px",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+  },
+  headerText: {
+    fontSize: [50, "!important"],
+    fontFamily: ["BYekan", "!important"],
+  },
+  bodyText: {
+    fontSize: [50, "!important"],
+    fontFamily: ["BYekan", "!important"],
   },
   typographyBold: {
     fontFamily: '"BYekan"',

@@ -31,7 +31,7 @@ function App() {
               <p>
                 
               </p>
-              <LandingPage style={{ width: "250px", maxWidth: "250px", display: "inline-block" }}></LandingPage>
+              <LandingPage />
             </Route>
           </Switch>
         </div>
