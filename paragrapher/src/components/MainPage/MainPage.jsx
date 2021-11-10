@@ -4,11 +4,25 @@ import { BrowserView, MobileView } from "react-device-detect";
 import Paragraph from "../Paragraph/Paragraph";
 import { theme, useStyles } from "../theme";
 import SideBar from "./SideBar";
+// import Particles from "react-tsparticles";
 function MainPage() {
   const classes = useStyles(theme);
   const [darkMode, setDarkMode] = useState(false);
   return (
     <>
+      {/* <Particles
+        options={{
+          particles: {
+            move: {
+              enable: true,
+            },
+          },
+          fullScreen: {
+            enable: true,
+            zIndex: -10000, // or any value is good for you, if you use -1 set `interactivity.detectsOn` to `"window"` if you need mouse interactions
+          },
+        }}
+      /> */}
       {/* <Switch
         checked={darkMode}
         onChange={() => {

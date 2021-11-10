@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import "./AccountBox/font.css";
 
-
 // export const Input = styled.input`
 //   width: 100%;
 //   height: 42px;
@@ -85,6 +84,52 @@ export const LoginBackDrop = styled(motion.div)`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   z-index: 2;
 `;
+export const MainBackDrop = styled(motion.div)`
+  width: 130vh;
+  height: 130vh;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  /* border-radius: 50%; */
+  transform: rotate(55deg);
+  background-color: #4f7ac8;
+  top: -50vh;
+  left: -60vh;
+  border-radius: 50%;
+  //box-shadow: rgba(0, 0, 0, 0.35) 20vh 10vh 150vh;
+  z-index: 2;
+`;
+export const MainBackDrop2 = styled(motion.div)`
+  width: 130vh;
+  height: 130vh;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  /* border-radius: 50%; */
+  transform: rotate(55deg);
+  background-color: #4f7ac8;
+  top: 40vh;
+  left: -60vh;
+  border-radius: 50%;
+  //box-shadow: rgba(0, 0, 0, 0.35) 20vh 10vh 150vh;
+  z-index: 2;
+`;
+export const MainBackDrop3 = styled(motion.div)`
+  width: 80vh;
+  height: 80vh;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  /* border-radius: 50%; */
+  transform: rotate(55deg);
+  background-color: #d4e1e7;
+  top: 50vh;
+  left: 3vh;
+  border-radius: 50%;
+  //box-shadow: rgba(0, 0, 0, 0.35) 20vh 10vh 150vh;
+  z-index: 2;
+`;
+
 export const LoginBackDropRight = styled(motion.div)`
   width: 100%;
   height: 600px;
@@ -221,5 +266,3 @@ export const LoginInnerContainer = styled.div`
   flex-direction: column;
   padding: 10px 30px;
 `;
-
-

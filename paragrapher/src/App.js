@@ -14,6 +14,7 @@ import { Drawer,List,ListItem,ListItemIcon,ListItemText } from "@mui/material";
 import InboxIcon from '@mui/icons-material/Inbox';
 import MailIcon from '@mui/icons-material/Mail';
 import MainPage from './components/MainPage/MainPage';
+import LandingPage from './components/MainPage/LandingPage';
 function App() {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
@@ -30,7 +31,7 @@ function App() {
               <p>
                 
               </p>
-              <MainPage></MainPage>
+              <LandingPage style={{ width: "250px", maxWidth: "250px", display: "inline-block" }}></LandingPage>
             </Route>
           </Switch>
         </div>
