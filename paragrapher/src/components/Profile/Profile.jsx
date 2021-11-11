@@ -110,6 +110,60 @@ class Profile extends React.Component {
                                             
                                             
                                         </div>
+                                        <div className="col-12 p-3 col-lg-9 px-5">
+                                            
+                                            <div class="mb-3 ms-3 row">
+                                                <label for="email" class="col-sm-3 col-form-label">ایمیل:</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" readonly class="form-control-plaintext" id="email" value={this.state.email}/>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row ms-3">
+                                                <label for="username" class="col-sm-3 col-form-label">نام کاربری:</label>
+                                                <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext" id="username" value={this.state.username}/>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row ms-3">
+                                                <label for="name" class="col-sm-3 col-form-label">نام: </label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="name" value={this.state.name} onChange={ e => this.setState({name:e.target.value})}/>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row ms-3">
+                                                <label for="inputDob" class="col-sm-3 col-form-label">تاریخ تولد: </label>
+                                                <div class="col-sm-9">
+                                                    <TextField style={{marginTop:"10px", width:"100%", borderColor:"lightcyan"}}
+                                                        id="Dob"
+                                                        
+                                                        type="date"
+                                                        value = {this.state.dob}
+                                                        onChange={ e => this.setState({dob:e.target.value})}
+                                                        // defaultValue="2017-05-24"
+                                                        InputLabelProps={{
+                                                            shrink: true,
+                                                        }}
+                                                        className="border border-secondary rounded"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row ms-3">
+                                                <label for="inputBio" class="col-sm-3 col-form-label"> بیو: </label>
+                                                <div class="col-sm-9">
+                                                    <textarea type="text" class="form-control" id="inputBio" rows="3" value={this.state.bio} onChange={ e => this.setState({bio:e.target.value})}/>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col"></div>
+                                                <div className="col-8">
+                                                    <div class="d-grid gap-2">
+                                                        <button class="btn btn-success" type="button" onClick={()=>{EditBio(this.state.bio); alert("تغییرات با موفقیت انجام شد",'success')}}>اعمال تغییرات</button>
+                                                    </div>
+                                                </div>
+                                                <div className="col"></div>
+                                            </div>
+                                            
+                                        </div>
                                         
                                     </div>
                                     
