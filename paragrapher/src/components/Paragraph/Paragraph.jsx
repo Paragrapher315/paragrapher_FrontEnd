@@ -103,18 +103,22 @@ function Paragraph(props) {
               {props.text}
             </Typography>
           </CardContent>
-          <CardActions disableSpacing>
-            <IconButton aria-label="like paragraph" onClick={handleLike}>
-              {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-            </IconButton>
-            <IconButton aria-label="show comments">
-              <CommentIcon />
-            </IconButton>
-            <TextField placeholder="نظر خود را بنویسید" />
-            <IconButton aria-label="">
-              <SendIcon style={{ transform: "rotate(180deg)" }} />
-            </IconButton>
-          </CardActions>
+          {props.canAction ? (
+            <CardActions disableSpacing>
+              <IconButton aria-label="like paragraph" onClick={handleLike}>
+                {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+              </IconButton>
+              <IconButton aria-label="show comments">
+                <CommentIcon />
+              </IconButton>
+              <TextField placeholder="نظر خود را بنویسید" />
+              <IconButton aria-label="">
+                <SendIcon style={{ transform: "rotate(180deg)" }} />
+              </IconButton>
+            </CardActions>
+          ) : (
+            ""
+          )}
         </Card>
       </div>
     </ThemeProvider>
