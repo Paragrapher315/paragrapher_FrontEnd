@@ -15,6 +15,11 @@
     "err_already_loggedIn": "لطفا از حساب کاربری فعلی خارج شوید",
     "err_login_success": "با موفقیت وارد شدید",    
     "alert_register_success": "ثبت نام با موفقیت انجام شد", 
-    "alert_login_successful": "با موفقیت وارد شدید"
+    "alert_login_successful": "با موفقیت وارد شدید",
+    "url_profile_info":"/account/myprofile",
+    "url_upload_pp":"account/upload/pp",
+    "url_change_pass":"/account/changepassword",
+    "url_change_bio":"/account/changebio",
+    "url_change_dob":"/account/changedob"
 
 }
