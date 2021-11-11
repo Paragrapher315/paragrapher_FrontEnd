@@ -34,7 +34,11 @@ export default function Footer() {
             </Typography>
             <IconButton>
               <TwitterIcon />
+            </IconButton>
+            <IconButton>
               <FacebookIcon />
+            </IconButton>
+            <IconButton>
               <Instagram />
             </IconButton>
           </Toolbar>
