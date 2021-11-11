@@ -14,23 +14,22 @@ class Profile extends React.Component {
       this.state = {username:"", email:"", name:"", bio:"", dob:"",oldPass:"",newPass:"",confirmNewPass:"", img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSibxCUG41QkeuC2K5fzpYUsh05n-lYj-Oj1w&usqp=CAU"};
       this.loadData();
     }
-  
+
     loadData = async () => {
-        await axios
-            .get(makeURL(references.url_profile_info))
-            .then((response) => {
-                console.log(response.data[0]);
-                this.setState({username : response.data[0].username});
-                this.setState({email : response.data[0].email});
-                this.setState({name : response.data[0].profile_name});
-                this.setState({bio : response.data[0].bio});
-                this.setState({dob : response.data[0].dob});
-            })
-            .catch((error) => {
-                window.alert(error);
-            })
+      await axios
+          .get(makeURL(references.url_profile_info))
+          .then((response) => {
+              console.log(response.data[0]);
+              this.setState({username : response.data[0].username});
+              this.setState({email : response.data[0].email});
+              this.setState({name : response.data[0].profile_name});
+              this.setState({bio : response.data[0].bio});
+              this.setState({dob : response.data[0].dob});
+          })
+          .catch((error) => {
+              window.alert(error);
+          })
     }
-    
   
     render() {
      
@@ -86,44 +85,43 @@ class Profile extends React.Component {
                                                 </div>
                                                 <div className="col"></div>
                                             </div>
-                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">تغییر رمز عبور </h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="mb-3 ms-3 row">
-                                                            <label for="oldPass" class="col-sm-3 col-form-label">رمز قدیم</label>
-                                                            <div class="col-sm-9">
-                                                                <input type="password"  class="form-control" id="oldPass" value={this.state.oldPass} onChange={e => this.setState({oldPass:e.target.value})}/>
-                                                            </div>
-                                                        </div>
-                                                        <div class="mb-3 ms-3 row">
-                                                            <label for="newPass" class="col-sm-3 col-form-label">رمز جدید</label>
-                                                            <div class="col-sm-9">
-                                                                <input type="password"  class="form-control" id="newPass" value={this.state.newPass} onChange={e => this.setState({newPass:e.target.value})}/>
-                                                            </div>
-                                                        </div>
-                                                        <div class="mb-3 ms-3 row">
-                                                            <label for="confirmNewPass" class="col-sm-3 col-form-label">تکرار رمز جدید </label>
-                                                            <div class="col-sm-9">
-                                                                <input type="password"  class="form-control" id="confirmNewPass" value={this.state.confirmNewPass} onChange={e => this.setState({confirmNewPass:e.target.value})}/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
-                                                        <button type="button" class="btn btn-primary">ذخیره </button>
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                            
 
                                             
-                                            
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">تغییر رمز عبور </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="mb-3 ms-3 row">
+                                                        <label for="oldPass" class="col-sm-3 col-form-label">رمز قدیم</label>
+                                                        <div class="col-sm-9">
+                                                            <input type="password"  class="form-control" id="oldPass" value={this.state.oldPass} onChange={e => this.setState({oldPass:e.target.value})}/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3 ms-3 row">
+                                                        <label for="newPass" class="col-sm-3 col-form-label">رمز جدید</label>
+                                                        <div class="col-sm-9">
+                                                            <input type="password"  class="form-control" id="newPass" value={this.state.newPass} onChange={e => this.setState({newPass:e.target.value})}/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3 ms-3 row">
+                                                        <label for="confirmNewPass" class="col-sm-3 col-form-label">تکرار رمز جدید </label>
+                                                        <div class="col-sm-9">
+                                                            <input type="password"  class="form-control" id="confirmNewPass" value={this.state.confirmNewPass} onChange={e => this.setState({confirmNewPass:e.target.value})}/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                                                    <button type="button" class="btn btn-primary">ذخیره </button>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            </div>
                                         </div>
                                         <div className="col-12 p-3 col-lg-9 px-5">
                                             
@@ -179,7 +177,6 @@ class Profile extends React.Component {
                                             </div>
                                             
                                         </div>
-                                        
                                     </div>
                                     
                                 </div>
@@ -198,3 +195,12 @@ class Profile extends React.Component {
     }
   }
 export default Profile;
+
+function alert(message, type) {
+    var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+    var wrapper = document.createElement('div')
+    wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+  
+    alertPlaceholder.append(wrapper)
+}
+  
