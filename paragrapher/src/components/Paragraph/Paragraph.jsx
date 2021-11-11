@@ -35,7 +35,6 @@ function Paragraph(props) {
   const handleLike = () => {
     // send like data to backend
     setLiked(!liked);
-    console.log(props.tags[0]);
   };
   return (
     <ThemeProvider theme={theme}>
@@ -56,7 +55,21 @@ function Paragraph(props) {
                 </Typography>
               </Avatar>
             }
-            action={props.isPotd ? <Button>پاراگراف برتر</Button> : ""}
+            action={
+              props.isPotd ? (
+                <Button
+                  style={{
+                    backgroundColor: "gold",
+                    fontFamily: "BYekan",
+                    cursor: "default",
+                  }}
+                >
+                  پاراگراف برتر
+                </Button>
+              ) : (
+                ""
+              )
+            }
             title={
               <Typography
                 className={classes.typographyBold}
@@ -110,8 +123,11 @@ function Paragraph(props) {
             <IconButton aria-label="show comments">
               <CommentIcon />
             </IconButton>
-            <TextField placeholder="نظر خود را بنویسید" />
-            <IconButton aria-label="">
+            <TextField
+              placeholder="نظر خود را بنویسید"
+              style={{ visibility: "hidden" }}
+            />
+            <IconButton aria-label="" style={{ visibility: "hidden" }}>
               <SendIcon style={{ transform: "rotate(180deg)" }} />
             </IconButton>
           </CardActions>

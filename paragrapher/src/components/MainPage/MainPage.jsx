@@ -1,9 +1,12 @@
 import React, { Component, useState } from "react";
-import { Grid, Paper, Hidden, Switch } from "@material-ui/core";
+import { Grid, Paper, Hidden, Switch, Card } from "@material-ui/core";
 import { BrowserView, MobileView } from "react-device-detect";
 import Paragraph from "../Paragraph/Paragraph";
 import { theme, useStyles } from "../theme";
 import SideBar from "./SideBar";
+import TopCommunities from "../TopCommunities";
+import RecentProducts from "../RecentProducts";
+import { CardContent } from "@mui/material";
 // import Particles from "react-tsparticles";
 function MainPage() {
   const classes = useStyles(theme);
@@ -78,14 +81,10 @@ function MainPage() {
         </Grid>
         <Hidden xsDown>
           <Grid item lg={4} md={4} xs={12}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <Paper style={{ height: 375, width: "100%" }} />
-              </Grid>
-              <Grid item xs={12}>
-                <Paper style={{ height: 375, width: "100%" }} />
-              </Grid>
-            </Grid>
+            <div style={{ position: "sticky", top: "11vh" }}>
+              <TopCommunities />
+              <RecentProducts />
+            </div>
           </Grid>
         </Hidden>
       </Grid>
