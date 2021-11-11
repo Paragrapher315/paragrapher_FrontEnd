@@ -35,6 +35,7 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import { useStyles } from "../common";
 import InputBase from "@material-ui/core/InputBase";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
+import {Link} from "react-router-dom";
 
 function Header() {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
@@ -105,7 +106,9 @@ function Header() {
               component="div"
               sx={{ flexGrow: 1, m: 2 }}
             >
-              پاراگرافر
+              
+                <Link className={classes.typography} to="/">پاراگرافر</Link>
+              
             </Typography>
 
             <div className={classes.search}>
@@ -147,7 +150,7 @@ function Header() {
                     onClick={handleClose}
                     className={classes.typography}
                   >
-                    حساب کاربری
+                    <li><Link to="/profile">حساب کاربری</Link></li>
                   </MenuItem>
                   <MenuItem
                     onClick={handleClose}
