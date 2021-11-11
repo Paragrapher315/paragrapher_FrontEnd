@@ -27,6 +27,8 @@ export const useStyles = makeStyles((theme) => ({
   },
   typography: {
     fontFamily: '"BYekan"',
+    textDecoration: "none",
+    boxShadow: "none",
   },
   imageCont: {
     backgroundImage: { bgImage },

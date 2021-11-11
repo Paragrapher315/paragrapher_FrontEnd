@@ -7,6 +7,8 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import { Link as UiLink } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import { BrowserView, MobileView } from "react-device-detect";
 import { cookie } from "../../Utils/Common";
 
@@ -98,7 +100,9 @@ function Header() {
                 </List>
               </Drawer>
             </Hidden>
+
             <Typography
+              href=""
               className={classes.typography}
               align="right"
               variant="h6"

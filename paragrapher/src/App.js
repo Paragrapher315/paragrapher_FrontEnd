@@ -15,6 +15,7 @@ import InboxIcon from '@mui/icons-material/Inbox';
 import MailIcon from '@mui/icons-material/Mail';
 import MainPage from './components/MainPage/MainPage';
 import LandingPage from './components/MainPage/LandingPage';
+import Footer from './components/Footer/Footer';
 function App() {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
@@ -35,6 +36,7 @@ function App() {
             </Route>
           </Switch>
         </div>
+        <Footer/>
       </div>
     </Router>
   )  
