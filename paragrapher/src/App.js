@@ -15,7 +15,9 @@ import InboxIcon from '@mui/icons-material/Inbox';
 import MailIcon from '@mui/icons-material/Mail';
 import MainPage from './components/MainPage/MainPage';
 import LandingPage from './components/MainPage/LandingPage';
+import LandingPage2 from './components/MainPage/LandingPage2';
 import Footer from './components/Footer/Footer';
+import { CssBaseline } from '@material-ui/core';
 function App() {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
@@ -23,20 +25,14 @@ function App() {
     <Router>
       <div className="App">
         < Header style={{ position: "sticky", top: 0 }}/>
-        <div className="container d-flex align-items-center flex-column">
+        <div>
           <Switch>
             <Route path="" exact={true}>
-            <button className="btn btn-danger" id="logout" style={{display: "none"}}>خروج</button> 
-              <AppContainer>
-              </AppContainer>
-              <p>
-                
-              </p>
-              <LandingPage />
+            <LandingPage2 />
             </Route>
           </Switch>
         </div>
-        <Footer/>
+        {/* <Footer/> */}
       </div>
     </Router>
   )  

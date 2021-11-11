@@ -67,7 +67,7 @@ class TypeWriter extends React.PureComponent {
         className="typewriter"
         style={{
           fontFamily: "BYekan",
-          fontSize: "26pt",
+          fontSize: "20pt",
           textAlign: "right",
           direction: "rtl",
 
