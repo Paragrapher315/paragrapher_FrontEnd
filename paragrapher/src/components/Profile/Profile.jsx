@@ -15,6 +15,21 @@ class Profile extends React.Component {
       this.loadData();
     }
   
+    loadData = async () => {
+        await axios
+            .get(makeURL(references.url_profile_info))
+            .then((response) => {
+                console.log(response.data[0]);
+                this.setState({username : response.data[0].username});
+                this.setState({email : response.data[0].email});
+                this.setState({name : response.data[0].profile_name});
+                this.setState({bio : response.data[0].bio});
+                this.setState({dob : response.data[0].dob});
+            })
+            .catch((error) => {
+                window.alert(error);
+            })
+    }
     
   
     render() {
