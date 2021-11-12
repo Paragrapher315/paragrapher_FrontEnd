@@ -78,3 +78,24 @@ export const EditBio = async (bio) => {
         })
     return message;
 }
+export const EditDob = async (dob) => {
+    let message = ""
+    await axios
+        .post(makeURL(references.url_change_dob), {
+            dob:dob,
+        })
+        .then((response) => {
+        
+            console.log(response)
+        })
+        .catch((error) => {
+            
+            console.log(error, error.response.data);
+            if(error.response.status == 401) {
+                message = error.response.data.message;
+            } else {
+                message = error.response.data;
+            }
+        })
+    return message;
+}
