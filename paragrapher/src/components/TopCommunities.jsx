@@ -21,7 +21,6 @@ function randomColor() {
   return color;
 }
 function TopCommunities() {
-  const classesFuck = useStyles(theme);
   return (
     <ThemeProvider theme={theme}>
       <Card

@@ -37,12 +37,12 @@ export const useStyles = makeStyles((theme) => ({
     backgroundSize: "cover",
   },
   headerText: {
-    fontSize: ["48pt", "!important"],
+    fontSize: ["8vw", "!important"],
     fontFamily: ["BYekan", "!important"],
     fontWeight: ["bold", "!important"],
   },
   bodyText: {
-    fontSize: ["20pt", "!important"],
+    fontSize: ["2vw", "!important"],
     fontFamily: ["BYekan", "!important"],
   },
   typographyBold: {
