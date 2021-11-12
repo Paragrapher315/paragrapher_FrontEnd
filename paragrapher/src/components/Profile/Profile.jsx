@@ -11,13 +11,40 @@ import { Input } from "@material-ui/core";
 class Profile extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {username:"", email:"", name:"", bio:"", dob:"",oldPass:"",newPass:"",confirmNewPass:"", img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSibxCUG41QkeuC2K5fzpYUsh05n-lYj-Oj1w&usqp=CAU"};
+      this.state = {username:"", email:"", name:"", bio:"", dob:"",oldPass:"",newPass:"",confirmNewPass:"", img:null, new_img:null, loaded:0, new_img_src:null};
     }
 
     componentDidMount(){
         this.loadData();
     }
 
+    handleselectedFile = event => {
+        this.setState({
+          new_img: event.target.files[0],
+          loaded: 0,
+          new_img_src:URL.createObjectURL(event.target.files[0])
+        })
+       
+      }
+
+    handleUpload = () => {
+    const data = new FormData()
+    data.append('file', this.state.new_img)
+
+    axios
+        .post(makeURL(references.url_upload_pp), data, {
+        onUploadProgress: ProgressEvent => {
+            this.setState({
+            loaded: (ProgressEvent.loaded / ProgressEvent.total*100),
+            })
+        },
+        })
+        .then(res => {
+        console.log(res.statusText)
+        })
+
+    }
+    
     loadData = async () => {
       await axios
           .get(makeURL(references.url_profile_info))
@@ -28,6 +55,8 @@ class Profile extends React.Component {
               this.setState({name : response.data[0].profile_name});
               this.setState({bio : response.data[0].bio});
               this.setState({dob : response.data[0].dob});
+              this.setState({img : response.data[0].avatar});
+              console.log(response.data[0].avatar)
           })
           .catch((error) => {
               window.alert(error);
@@ -100,20 +129,22 @@ class Profile extends React.Component {
                                             <br/>
                                             <div className="row">
                                                 <div className="col"></div>
-                                                <div className="col"><BadgeAvatars src={this.state.img}/></div>
+                                                <div className="col"><BadgeAvatars src={references.url_address+this.state.img} h="100px" w="100px"/></div>
                                                 <div className="col"></div>
                                             </div>
                                             <br/>
                                             <br/>
                                             <div className="row py-2">
                                                 <div className="col"></div>
+                                                
+                                                <div className="col"></div>
+                                            </div>
+                                            <div className="row mb-4">
+                                                <div className="col"></div>
                                                 <div className="col-8">
-                                                    <label htmlFor="contained-button-file"  className="w-100">
-                                                        <Input accept="image/*" id="contained-button-file" multiple type="file" className="d-none"/>
-                                                        <Button color="secondary" variant="contained" component="span" className="w-100">
-                                                        بارگذاری تصویر
-                                                        </Button>
-                                                    </label>
+                                                    <Button color="secondary" variant="contained" component="span" className="w-100" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                                                         تغییر تصویر
+                                                    </Button>
                                                 </div>
                                                 <div className="col"></div>
                                             </div>
@@ -129,6 +160,42 @@ class Profile extends React.Component {
                                            
 
                                             
+                                            <div className="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                                            <div className="modal-dialog">
+                                                <div className="modal-content">
+                                                <div className="modal-header">
+                                                    <h5 className="modal-title" id="exampleModalLabel1">تغییر تصویر کاربری  </h5>
+                                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div className="modal-body">
+                                                    <div className="row">
+                                                        <div className="col"></div>
+                                                        <div className="col"><BadgeAvatars src={this.state.new_img_src} h="150px" w="150px"/></div>
+                                                        <div className="col"></div>
+                                                    </div>
+                                                    
+                                                    
+                                                    <form  className="container" enctype="multipart/form-data" onsubmit={()=>window.location.reload()}>
+                                                        <div className="form-inline justify-content-center mt-5">
+                                                            <label htmlFor="image" className="ml-sm-4 font-weight-bold mr-md-4 mb-5">تصویر :  </label>
+                                                            <div className="input-group">
+                                                                <input type="file" id="image" name="file" 
+                                                                accept="image/*" className="file-custom" onChange={this.handleselectedFile}/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="input-group justify-content-center mt-4">
+                                                            <button type="submit" className="btn btn-md btn-primary" onClick={this.handleUpload}>ارسال</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div className="modal-footer">
+                                                    
+                                                </div>
+                                                </div>
+                                            </div>
+                                            </div>
+
                                             <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div className="modal-dialog">
                                                 <div className="modal-content">

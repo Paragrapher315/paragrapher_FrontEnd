@@ -62,7 +62,7 @@ export default function BadgeAvatars(props) {
         }}
         variant="dot"
       >
-        <Avatar alt="Remy Sharp" src={props.src} style={{width:"100px", height:"100px"}} />
+        <Avatar alt="Remy Sharp" src={props.src} style={{width:props.w, height:props.h}} />
       </StyledBadge>
     </div>
   );
