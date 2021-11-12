@@ -12,7 +12,10 @@ class Profile extends React.Component {
     constructor(props) {
       super(props);
       this.state = {username:"", email:"", name:"", bio:"", dob:"",oldPass:"",newPass:"",confirmNewPass:"", img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSibxCUG41QkeuC2K5fzpYUsh05n-lYj-Oj1w&usqp=CAU"};
-      this.loadData();
+    }
+
+    componentDidMount(){
+        this.loadData();
     }
 
     loadData = async () => {
@@ -38,17 +41,17 @@ class Profile extends React.Component {
             <div className="row mt-4  border border-dark rounded" style={{minHeight:"500px"}}>
                 <div className="col my-3 px-1">
                     
-                    <div class="d-flex align-items-start">
+                    <div className="d-flex align-items-start">
                         
-                        <div class="d-none  d-md-flex nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <button class="text-start nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">ویرایش مشخصات</button>
-                            <button class="text-start nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">پاراگراف های محبوب من</button>
-                            <button class="text-start nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">کانالهای من</button>
-                            <button class="text-start nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">کتابهای خریداری شده</button>
+                        <div className="d-none  d-md-flex nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <button className="text-start nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">ویرایش مشخصات</button>
+                            <button className="text-start nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">پاراگراف های محبوب من</button>
+                            <button className="text-start nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">کانالهای من</button>
+                            <button className="text-start nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">کتابهای خریداری شده</button>
                         </div>
                         
-                        <div class="tab-content w-100 border-start" id="v-pills-tabContent">
-                            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                        <div className="tab-content w-100 border-start" id="v-pills-tabContent">
+                            <div className="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                 <div className="container p-5 py-2">
                                     <div className="row p-1">
                                         <div id="liveAlertPlaceholder"></div>
@@ -88,36 +91,36 @@ class Profile extends React.Component {
                                            
 
                                             
-                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">تغییر رمز عبور </h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div className="modal-dialog">
+                                                <div className="modal-content">
+                                                <div className="modal-header">
+                                                    <h5 className="modal-title" id="exampleModalLabel">تغییر رمز عبور </h5>
+                                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <div class="modal-body">
-                                                    <div class="mb-3 ms-3 row">
-                                                        <label for="oldPass" class="col-sm-3 col-form-label">رمز قدیم</label>
-                                                        <div class="col-sm-9">
-                                                            <input type="password"  class="form-control" id="oldPass" value={this.state.oldPass} onChange={e => this.setState({oldPass:e.target.value})}/>
+                                                <div className="modal-body">
+                                                    <div className="mb-3 ms-3 row">
+                                                        <label for="oldPass" className="col-sm-3 col-form-label">رمز قدیم</label>
+                                                        <div className="col-sm-9">
+                                                            <input type="password"  className="form-control" id="oldPass" defaultValue={this.state.oldPass} onChange={e => this.setState({oldPass:e.target.value})}/>
                                                         </div>
                                                     </div>
-                                                    <div class="mb-3 ms-3 row">
-                                                        <label for="newPass" class="col-sm-3 col-form-label">رمز جدید</label>
-                                                        <div class="col-sm-9">
-                                                            <input type="password"  class="form-control" id="newPass" value={this.state.newPass} onChange={e => this.setState({newPass:e.target.value})}/>
+                                                    <div className="mb-3 ms-3 row">
+                                                        <label for="newPass" className="col-sm-3 col-form-label">رمز جدید</label>
+                                                        <div className="col-sm-9">
+                                                            <input type="password"  className="form-control" id="newPass" defaultValue={this.state.newPass} onChange={e => this.setState({newPass:e.target.value})}/>
                                                         </div>
                                                     </div>
-                                                    <div class="mb-3 ms-3 row">
-                                                        <label for="confirmNewPass" class="col-sm-3 col-form-label">تکرار رمز جدید </label>
-                                                        <div class="col-sm-9">
-                                                            <input type="password"  class="form-control" id="confirmNewPass" value={this.state.confirmNewPass} onChange={e => this.setState({confirmNewPass:e.target.value})}/>
+                                                    <div className="mb-3 ms-3 row">
+                                                        <label for="confirmNewPass" className="col-sm-3 col-form-label">تکرار رمز جدید </label>
+                                                        <div className="col-sm-9">
+                                                            <input type="password"  className="form-control" id="confirmNewPass" defaultValue={this.state.confirmNewPass} onChange={e => this.setState({confirmNewPass:e.target.value})}/>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
-                                                    <button type="button" class="btn btn-primary">ذخیره </button>
+                                                <div className="modal-footer">
+                                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                                                    <button type="button" className="btn btn-primary">ذخیره </button>
                                                 </div>
                                                 </div>
                                             </div>
@@ -125,32 +128,32 @@ class Profile extends React.Component {
                                         </div>
                                         <div className="col-12 p-3 col-lg-9 px-5">
                                             
-                                            <div class="mb-3 ms-3 row">
-                                                <label for="email" class="col-sm-3 col-form-label">ایمیل:</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" readonly class="form-control-plaintext" id="email" value={this.state.email}/>
+                                            <div className="mb-3 ms-3 row">
+                                                <label for="email" className="col-sm-3 col-form-label">ایمیل:</label>
+                                                <div className="col-sm-9">
+                                                    <input type="text" readOnly className="form-control-plaintext" id="email" defaultValue={this.state.email}/>
                                                 </div>
                                             </div>
-                                            <div class="mb-3 row ms-3">
-                                                <label for="username" class="col-sm-3 col-form-label">نام کاربری:</label>
-                                                <div class="col-sm-9">
-                                                <input type="text" readonly class="form-control-plaintext" id="username" value={this.state.username}/>
+                                            <div className="mb-3 row ms-3">
+                                                <label for="username" className="col-sm-3 col-form-label">نام کاربری:</label>
+                                                <div className="col-sm-9">
+                                                <input type="text" readOnly className="form-control-plaintext" id="username" defaultValue={this.state.username}/>
                                                 </div>
                                             </div>
-                                            <div class="mb-3 row ms-3">
-                                                <label for="name" class="col-sm-3 col-form-label">نام: </label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="name" value={this.state.name} onChange={ e => this.setState({name:e.target.value})}/>
+                                            <div className="mb-3 row ms-3">
+                                                <label for="name" className="col-sm-3 col-form-label">نام: </label>
+                                                <div className="col-sm-9">
+                                                    <input type="text" className="form-control" id="name" defaultValue={this.state.name} onChange={ e => this.setState({name:e.target.value})}/>
                                                 </div>
                                             </div>
-                                            <div class="mb-3 row ms-3">
-                                                <label for="inputDob" class="col-sm-3 col-form-label">تاریخ تولد: </label>
-                                                <div class="col-sm-9">
+                                            <div className="mb-3 row ms-3">
+                                                <label for="inputDob" className="col-sm-3 col-form-label">تاریخ تولد: </label>
+                                                <div className="col-sm-9">
                                                     <TextField style={{marginTop:"10px", width:"100%", borderColor:"lightcyan"}}
                                                         id="Dob"
                                                         
                                                         type="date"
-                                                        value = {this.state.dob}
+                                                        defaultValue = {this.state.dob}
                                                         onChange={ e => this.setState({dob:e.target.value})}
                                                         // defaultValue="2017-05-24"
                                                         InputLabelProps={{
@@ -160,17 +163,17 @@ class Profile extends React.Component {
                                                     />
                                                 </div>
                                             </div>
-                                            <div class="mb-3 row ms-3">
-                                                <label for="inputBio" class="col-sm-3 col-form-label"> بیو: </label>
-                                                <div class="col-sm-9">
-                                                    <textarea type="text" class="form-control" id="inputBio" rows="3" value={this.state.bio} onChange={ e => this.setState({bio:e.target.value})}/>
+                                            <div className="mb-3 row ms-3">
+                                                <label for="inputBio" className="col-sm-3 col-form-label"> بیو: </label>
+                                                <div className="col-sm-9">
+                                                    <textarea type="text" className="form-control" id="inputBio" rows="3" defaultValue={this.state.bio} onChange={ e => this.setState({bio:e.target.value})}/>
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col"></div>
                                                 <div className="col-8">
-                                                    <div class="d-grid gap-2">
-                                                        <button class="btn btn-success" type="button" onClick={()=>{EditBio(this.state.bio); alert("تغییرات با موفقیت انجام شد",'success')}}>اعمال تغییرات</button>
+                                                    <div className="d-grid gap-2">
+                                                        <button className="btn btn-success" type="button" onClick={()=>{EditBio(this.state.bio); alert("تغییرات با موفقیت انجام شد",'success')}}>اعمال تغییرات</button>
                                                     </div>
                                                 </div>
                                                 <div className="col"></div>
@@ -182,9 +185,9 @@ class Profile extends React.Component {
                                 </div>
                                 
                             </div>
-                            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
-                            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
-                            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
+                            <div className="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
+                            <div className="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
+                            <div className="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
                         </div>
                     </div>
                 </div>
