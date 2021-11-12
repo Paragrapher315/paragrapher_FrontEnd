@@ -5,7 +5,7 @@ import references from "../../assets/References.json";
 import Avatar from "../Profile/Avatar"
 import BadgeAvatars from "../Profile/Avatar";
 import { TextField } from "@material-ui/core";
-import { EditBio } from "../../Utils/Connection";
+import { EditBio, EditPass } from "../../Utils/Connection";
 import { Button } from "@mui/material";
 import { Input } from "@material-ui/core";
 class Profile extends React.Component {
@@ -32,6 +32,44 @@ class Profile extends React.Component {
           .catch((error) => {
               window.alert(error);
           })
+    }
+    checkPassBeforeSend(){
+        if(this.state.confirmNewPass!==this.state.newPass){
+            document.getElementById("errors").innerHTML="رمز جدید و تکرار آن مطابقت ندارد!"
+        }
+        else{
+            this.EditPass();
+            
+        }
+    }
+    EditPass = async () => {
+        let message = ""
+        await axios
+            .post(makeURL(references.url_change_pass), {
+                old_password:this.state.oldPass,
+                new_password:this.state.newPass
+            })
+            .then((response) => {
+                if(response.data.message=="Wrong password entered."){
+                    document.getElementById("errors").innerHTML="پسور وارد شده با پسور قبلی شما مطابقت ندارد"
+                }
+                else{
+                    window.alert("رمز شما با موفقیت تغییر کرد");
+                    window.location.reload();
+                }
+            
+                
+            })
+            .catch((error) => {
+                window.alert("خطای سرور. لطفا دوباره تلاش کنید")
+                console.log(error, error.response.data);
+                if(error.response.status == 401) {
+                    message = error.response.data.message;
+                } else {
+                    message = error.response.data;
+                }
+            })
+        return message;
     }
   
     render() {
@@ -82,7 +120,7 @@ class Profile extends React.Component {
                                             <div className="row">
                                                 <div className="col"></div>
                                                 <div className="col-8">
-                                                    <Button color="secondary" variant="contained" component="span" className="w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                    <Button color="secondary" variant="contained" component="span" className="w-100" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={()=>document.getElementById("errors").innerHTML=""}>
                                                         تغییر رمز
                                                     </Button>
                                                 </div>
@@ -117,10 +155,13 @@ class Profile extends React.Component {
                                                             <input type="password"  className="form-control" id="confirmNewPass" defaultValue={this.state.confirmNewPass} onChange={e => this.setState({confirmNewPass:e.target.value})}/>
                                                         </div>
                                                     </div>
+                                                    <div className="mb-3 ms-3 row">
+                                                        <span id="errors" className="text-danger"></span>
+                                                    </div>
                                                 </div>
                                                 <div className="modal-footer">
                                                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
-                                                    <button type="button" className="btn btn-primary">ذخیره </button>
+                                                    <button type="button" className="btn btn-primary" onClick={()=>this.checkPassBeforeSend()}>ذخیره </button>
                                                 </div>
                                                 </div>
                                             </div>
@@ -206,4 +247,5 @@ function alert(message, type) {
   
     alertPlaceholder.append(wrapper)
 }
+
   
