@@ -51,6 +51,12 @@ function Header(props) {
     setAnchorEl(null);
   };
   const history = useHistory();
+  const handleLogout = () => {
+    Logout();
+    setAnchorEl(null);
+    // send some data to backend to remove cookie
+    window.location.reload();
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -156,7 +162,7 @@ function Header(props) {
                     حساب کاربری
                   </MenuItem>
                   <MenuItem
-                    onClick={handleClose}
+                    onClick={handleLogout}
                     className={classes.typography}
                   >
                     خروج
