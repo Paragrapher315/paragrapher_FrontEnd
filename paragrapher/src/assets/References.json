@@ -2,6 +2,7 @@
     "url_address": "http://localhost:5000",
     "url_register": "/register", 
     "url_login": "/login", 
+    "url_profile": "/profile",
     "err_email_empty": "ایمیل نمی تواند خالی باشد", 
     "err_email_invalid": "ایمیل وارد شده معتبر نیست", 
     "err_username_empty": "نام کاربری نمی تواند خالی باشد", 

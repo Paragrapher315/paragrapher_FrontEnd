@@ -21,8 +21,8 @@ import { Margin } from "@mui/icons-material";
 import { act } from "react-dom/test-utils";
 const backdropReference = {
   expanded: {
-    width: "233%",
-    height: "1050px",
+    width: "210%",
+    height: "1300px",
     borderRadius: "20%",
     transform: "rotate(60deg)",
     zIndex: "11",
@@ -35,7 +35,7 @@ const backdropReference = {
 };
 const rightBackdropReference = {
   expanded: {
-    width: "240%",
+    width: "360%",
     height: "1750px",
     borderRadius: "20%",
     transform: "rotate(-60deg)",
