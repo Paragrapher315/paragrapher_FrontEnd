@@ -12,7 +12,6 @@ import { Drawer,List,ListItem,ListItemIcon,ListItemText } from "@mui/material";
 import InboxIcon from '@mui/icons-material/Inbox';
 import MailIcon from '@mui/icons-material/Mail';
 import MainPage from './components/MainPage/MainPage';
-import LandingPage from './components/MainPage/LandingPage';
 import LandingPage2 from './components/MainPage/LandingPage2';
 import Footer from './components/Footer/Footer';
 import { CssBaseline } from '@material-ui/core';
