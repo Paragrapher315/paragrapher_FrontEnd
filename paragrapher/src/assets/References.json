@@ -20,6 +20,6 @@
     "url_upload_pp":"/account/upload/pp",
     "url_change_pass":"/account/changepassword",
     "url_change_bio":"/account/changebio",
-    "url_change_dob":"/account/changedob"
-
+    "url_change_dob":"/account/changedob",
+    "url_change_name":"/account/changefname"
 }

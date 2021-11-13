@@ -5,7 +5,7 @@ import references from "../../assets/References.json";
 import Avatar from "../Profile/Avatar"
 import BadgeAvatars from "../Profile/Avatar";
 import { TextField } from "@material-ui/core";
-import { EditBio, EditPass, EditDob } from "../../Utils/Connection";
+import { EditBio, EditPass, EditDob,EditName } from "../../Utils/Connection";
 import { Button } from "@mui/material";
 import { Input } from "@material-ui/core";
 class Profile extends React.Component {
@@ -281,7 +281,7 @@ class Profile extends React.Component {
                                                 <div className="col"></div>
                                                 <div className="col-8">
                                                     <div className="d-grid gap-2">
-                                                        <button className="btn btn-success" type="button" onClick={()=>{EditBio(this.state.bio); {EditDob(this.state.dob)}; alert("تغییرات با موفقیت انجام شد",'success')}}>اعمال تغییرات</button>
+                                                        <button className="btn btn-success" type="button" onClick={()=>{EditBio(this.state.bio); {EditDob(this.state.dob)}; {EditName(this.state.name)}; alert("تغییرات با موفقیت انجام شد",'success')}}>اعمال تغییرات</button>
                                                     </div>
                                                 </div>
                                                 <div className="col"></div>
