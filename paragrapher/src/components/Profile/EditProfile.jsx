@@ -327,34 +327,40 @@ class ProfileForm extends React.Component {
 }
 
 function EditProfile() {
-  // const containerstyle={maxWidth:"700px",heigt:"70vh"}
-  // const rigthPaper={pending:"20",backgroundColor:"blue", width:"100%", heigt:"3000px"}
-  // const leftPaper={maxWidth:"1000px"}
-  // return(
-  //     <ThemeProvider theme={theme}>
-  //         <Container style={containerstyle}>
-  //             <Grid container spacing={0}>
-  //                 <Grid item xs={12} sm={3}>
-  //                     <Paper style={rigthPaper} elevation={0}>xs=12 sm=6gfgfgfgfgf</Paper>
-  //                 </Grid>
-  //                 <Grid style={containerstyle} item xs={12} sm={9}>
-  //                     <Paper elevation={0}>xs=12 sm=6</Paper>
-  //                 </Grid>
-  //             </Grid>
-  //         </Container>
-  //     </ThemeProvider>
-  // );
-  // const [data, setData] = useState(null);
-  // axios
-  //     .get(makeURL(references.url_profile_editProfile))
-  //     .then((response) => {
-  //         // register success
-  //         setData(response.data[0]) ;
-  //     })
-  //     .catch((error) => {
-  //         // register failed
-
-  //     })
+  const containerstyle = { maxWidth: "700px", heigt: "70vh" };
+  const rigthPaper = {
+    pending: "20",
+    backgroundColor: "blue",
+    width: "100%",
+    heigt: "3000px",
+  };
+  const leftPaper = { maxWidth: "1000px" };
+  return (
+    <ThemeProvider theme={theme}>
+      <Container style={containerstyle}>
+        <Grid container spacing={0}>
+          <Grid item xs={12} sm={3}>
+            <Paper style={rigthPaper} elevation={0}>
+              xs=12 sm=6gfgfgfgfgf
+            </Paper>
+          </Grid>
+          <Grid style={containerstyle} item xs={12} sm={9}>
+            <Paper elevation={0}>xs=12 sm=6</Paper>
+          </Grid>
+        </Grid>
+      </Container>
+    </ThemeProvider>
+  );
+  const [data, setData] = useState(null);
+  axios
+    .get(makeURL(references.url_profile_editProfile))
+    .then((response) => {
+      // register success
+      setData(response.data[0]);
+    })
+    .catch((error) => {
+      // register failed
+    });
 
   const oldPass = INPUTS("");
   const newPass = INPUTS("");
