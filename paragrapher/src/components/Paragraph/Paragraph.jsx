@@ -13,9 +13,6 @@ import {
 } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import CommentIcon from "@material-ui/icons/Comment";
 import SendIcon from "@material-ui/icons/Send";
 import { useStyles, theme } from "../theme";

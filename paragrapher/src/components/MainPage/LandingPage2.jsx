@@ -11,11 +11,9 @@ import { Typography, Hidden } from "@material-ui/core";
 import { useStyles, theme } from "../theme";
 import { ThemeProvider } from "@material-ui/styles";
 import { useState } from "react";
-import PopupAccountBox from "../AccountBox/PopupAccountBox";
 import TypeWriter from "./TypeWriter";
-import bgImage2 from "../../assets/wp2.jpg";
 import wmImage from "../../assets/woman.png";
-import { Divider } from "@material-ui/core";
+import peopleImage from "../../assets/people.png";
 
 function LandingPage2() {
   const classes = useStyles(theme);
@@ -78,7 +76,7 @@ function LandingPage2() {
                           <div
                             style={{
                               direction: "rtl",
-                              height: "25vw",
+                              height: "25vh",
                               padding: "0",
                             }}
                           >
@@ -99,7 +97,8 @@ function LandingPage2() {
                           <div
                             style={{
                               alignItems: "center",
-                              paddingTop: "3vh",
+                              paddingTop: "0vh",
+                              textAlign: "center",
                             }}
                           >
                             <Button
@@ -117,7 +116,7 @@ function LandingPage2() {
                               <Typography
                                 style={{
                                   fontFamily: "BYekan",
-                                  fontSize: "calc(3vw + 1vh)",
+                                  fontSize: "calc(1vw + 2vh)",
                                 }}
                               >
                                 همین حالا ثبت نام کنید
@@ -154,10 +153,14 @@ function LandingPage2() {
         }}
       >
         <div>
-          <div style={{ padding: "0.5vh 0.5vw" }}>
+          <div style={{ padding: "2vh 0.5vw" }}>
             <Typography
-              className={classes.headerText}
-              style={{ textAlign: "center", color: "#fafafa" }}
+              style={{
+                textAlign: "center",
+                color: "#fafafa",
+                fontFamily: "BYekan",
+                fontSize: "calc(2vh + 2vw)",
+              }}
             >
               بهترین پاراگراف ها را با ما بخوانید
             </Typography>
@@ -165,12 +168,23 @@ function LandingPage2() {
           <div style={{ padding: "0.5vh 0.5vw 15vh 0.5vw" }}>
             <div>
               <Grid container>
-                <Grid item lg={8} md={8} xs={12}>
+                <Grid
+                  item
+                  lg={8}
+                  md={8}
+                  xs={12}
+                  style={{
+                    overflow: "hidden",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    display: "flex",
+                  }}
+                >
                   <div
-                    data-aos="flip-right"
+                    data-aos="fade-left"
                     data-aos-offset="300"
                     data-aos-easing="ease-in-sine"
-                    style={{ margin: "0 2vw" }}
+                    style={{ margin: "auto 2vw" }}
                   >
                     <Paragraph
                       author="اردا"
@@ -203,7 +217,7 @@ function LandingPage2() {
                   <Grid item lg={4} md={4}>
                     <div>
                       <img
-                        src={wmImage}
+                        src={peopleImage}
                         style={{
                           backgroundSize: "contain",
                           backgroundRepeat: "no-repeat",
@@ -213,9 +227,20 @@ function LandingPage2() {
                     </div>
                   </Grid>
                 </Hidden>
-                <Grid item lg={8} md={8} xs={12}>
+                <Grid
+                  item
+                  lg={8}
+                  md={8}
+                  xs={12}
+                  style={{
+                    overflow: "hidden",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    display: "flex",
+                  }}
+                >
                   <div
-                    data-aos="flip-left"
+                    data-aos="fade-right"
                     data-aos-offset="300"
                     data-aos-easing="ease-in-sine"
                     style={{ margin: "0 2vw" }}
@@ -234,29 +259,46 @@ function LandingPage2() {
           </div>
         </div>
         <div>
-          <div style={{ padding: "0.5vh 0.5vw" }}>
+          <div
+            style={{
+              padding: "0.5vh 0.5vw",
+              alignItems: "center",
+              justifyContent: "center",
+              display: "flex",
+            }}
+          >
             <Typography
               className={classes.headerText}
-              style={{ textAlign: "center", color: "#fafafa" }}
+              style={{
+                textAlign: "center",
+                color: "#fafafa",
+              }}
             >
               بهترین امکانات برای یک کرم کتاب
             </Typography>
           </div>
           <div>
             <Grid container>
-              <Grid item xs={12} md={6} lg={6}>
+              <Grid item lg={1} xs={0} md={1}></Grid>
+              <Grid item xs={12} md={4} lg={4}>
                 <div>
                   <Typography
                     className={classes.bodyText}
-                    style={{ textAlign: "center", color: "#fafafa" }}
+                    style={{
+                      textAlign: "center",
+                      color: "#fafafa",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
                   >
                     با عضویت در کامیونیتی ها احساس حضور در یک خانواده کتابخوان
                     بکنید
                   </Typography>
                 </div>
               </Grid>
-              <Grid item xs={12} md={6} lg={6}>
-                <div>
+              <Grid item lg={2} xs={0} md={2}></Grid>
+              <Grid item xs={12} md={4} lg={4}>
+                <div style={{ textAlign: "center" }}>
                   <Button
                     style={{
                       borderRadius: "50px",
@@ -271,7 +313,7 @@ function LandingPage2() {
                     <Typography
                       style={{
                         fontFamily: "BYekan",
-                        fontSize: "calc(3vw + 1vh)",
+                        fontSize: "calc(1vw + 2vh)",
                       }}
                     >
                       مشاهده لیست کامیونیتی ها
@@ -279,13 +321,14 @@ function LandingPage2() {
                   </Button>
                 </div>
               </Grid>
+              <Grid item xs={0} lg={1} md={1}></Grid>
             </Grid>
           </div>
 
           <div>
             <Grid container>
               <Grid item xs={12} md={6} lg={6}>
-                <div>
+                <div style={{ textAlign: "center" }}>
                   <Button
                     style={{
                       borderRadius: "50px",
@@ -300,7 +343,7 @@ function LandingPage2() {
                     <Typography
                       style={{
                         fontFamily: "BYekan",
-                        fontSize: "calc(3vw + 1vh)",
+                        fontSize: "calc(1vw + 2vh)",
                       }}
                     >
                       مشاهده آخرین محصولات فروشگاه ها
@@ -336,7 +379,7 @@ function LandingPage2() {
                 </div>
               </Grid>
               <Grid item xs={12} md={6} lg={6}>
-                <div>
+                <div style={{ textAlign: "center" }}>
                   <Button
                     style={{
                       borderRadius: "50px",
@@ -352,7 +395,7 @@ function LandingPage2() {
                     <Typography
                       style={{
                         fontFamily: "BYekan",
-                        fontSize: "calc(3vw + 1vh)",
+                        fontSize: "calc(1vw + 2vh)",
                       }}
                     >
                       همین حالا ثبت نام کنید

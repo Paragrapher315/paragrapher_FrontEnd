@@ -10,8 +10,9 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { Link as UiLink } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { BrowserView, MobileView } from "react-device-detect";
+import { useHistory } from "react-router-dom";
 import { cookie } from "../../Utils/Common";
-
+import references from "../../assets/References.json";
 import {
   createTheme,
   Drawer,
@@ -34,13 +35,11 @@ import InputBase from "@material-ui/core/InputBase";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 import { Hidden } from "@mui/material";
 
-function Header() {
+function Header(props) {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
   const classes = useStyles(theme);
-  const [isLoggedIn, setLoggedIn] = useState(
-    cookie.get("x-access-token") !== undefined ? true : false
-  );
+  const [isLoggedIn, setLoggedIn] = useState(props.isLoggedIn);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -51,6 +50,7 @@ function Header() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const history = useHistory();
 
   return (
     <ThemeProvider theme={theme}>
@@ -148,7 +148,9 @@ function Header() {
                   onClose={handleClose}
                 >
                   <MenuItem
-                    onClick={handleClose}
+                    onClick={() => {
+                      history.push(references.url_profile);
+                    }}
                     className={classes.typography}
                   >
                     حساب کاربری
@@ -167,6 +169,7 @@ function Header() {
                   onClick={() => setAccountBoxTrigger(true)}
                   variant="contained"
                   color="secondary"
+                  style={{ fontFamily: "BYekan" }}
                   className={classes.sectionDesktop}
                 >
                   {/* <AccountCircle /> */}

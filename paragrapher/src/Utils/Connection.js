@@ -3,6 +3,21 @@ import references from '../assets/References.json';
 import { setUserSession, cookie } from "./Common";
 import Cookies from "universal-cookie";
 import {makeURL} from './Common';
+
+export const Logout = async () => {
+    cookie.remove("x-access-token");
+    // send some data to backend to remove cookie
+    window.location.reload();
+    await axios 
+        .post(makeURL(references.url_logout), {cookie: cookie})
+        .then((response) => {
+            cookie.remove("x-access-token");
+        })
+        .catch((error) => {
+            console.log("error in logout");
+        })
+}
+
 export const Register = async (email, username, password) => {
     let message = ""
     await axios
