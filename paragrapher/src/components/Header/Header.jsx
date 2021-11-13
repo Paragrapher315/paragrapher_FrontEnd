@@ -34,6 +34,7 @@ import { useStyles } from "../theme";
 import InputBase from "@material-ui/core/InputBase";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 import { Hidden } from "@mui/material";
+import { Logout } from "../../Utils/Connection.js";
 
 function Header(props) {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
