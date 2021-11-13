@@ -1,3 +1,6 @@
+import references from "../assets/References.json"
+import Cookies from "universal-cookie";
+export const cookie = new Cookies(); 
 export const getUser = () => {
     const userStr = sessionStorage.getItem('user');
     if (userStr) return JSON.parse(userStr);
@@ -16,4 +19,7 @@ export const getUser = () => {
   export const setUserSession = (token, user) => {
     sessionStorage.setItem('token', token);
     sessionStorage.setItem('user', JSON.stringify(user));
+  }
+  export const makeURL = (URL) => {
+    return references.url_address + URL;
   }
