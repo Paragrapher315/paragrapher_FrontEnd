@@ -100,11 +100,11 @@ export const EditDob = async (dob) => {
     return message;
 }
 
-export const EditName = async (prifile_name) => {
+export const EditName = async (profile_name) => {
     let message = ""
     await axios
         .post(makeURL(references.url_change_name), {
-            prifile_name:prifile_name,
+            profile_name:profile_name,
         })
         .then((response) => {
         

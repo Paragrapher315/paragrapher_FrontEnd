@@ -57,6 +57,8 @@ class Profile extends React.Component {
               this.setState({dob : response.data[0].dob});
               this.setState({img : response.data[0].avatar});
               console.log(response.data[0].avatar)
+              console.log("********************************",response.data[0].dob)
+
           })
           .catch((error) => {
               window.alert(error);
