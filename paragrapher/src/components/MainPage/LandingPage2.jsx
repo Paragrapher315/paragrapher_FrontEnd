@@ -14,6 +14,7 @@ import { useState } from "react";
 import TypeWriter from "./TypeWriter";
 import wmImage from "../../assets/woman.png";
 import peopleImage from "../../assets/people.png";
+import PopupAccountBox from "../AccountBox/PopupAccountBox";
 
 function LandingPage2() {
   const classes = useStyles(theme);
@@ -39,6 +40,10 @@ function LandingPage2() {
         }}
         id="welcome"
       >
+        <PopupAccountBox
+          trigger={accountBoxTrigger}
+          setTrigger={setAccountBoxTrigger}
+        />
         <div style={{ padding: "5vh 5vw" }}>
           <Grid container>
             <Hidden smUp>
