@@ -33,6 +33,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import { useStyles } from "../theme";
 import InputBase from "@material-ui/core/InputBase";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
+import {Link} from "react-router-dom";
 import { Hidden } from "@material-ui/core";
 import { Logout } from "../../Utils/Connection.js";
 
@@ -116,7 +117,9 @@ function Header(props) {
               component="div"
               sx={{ flexGrow: 1, m: 2 }}
             >
-              پاراگرافر
+              
+                <Link className={classes.typography} to="/">پاراگرافر</Link>
+              
             </Typography>
 
             <div className={classes.search}>
@@ -160,7 +163,7 @@ function Header(props) {
                     }}
                     className={classes.typography}
                   >
-                    حساب کاربری
+                    <li><Link to="/profile">حساب کاربری</Link></li>
                   </MenuItem>
                   <MenuItem
                     onClick={handleLogout}

@@ -11,6 +11,7 @@ import AccountBox from './components/AccountBox/AccountBox';
 import { Drawer,List,ListItem,ListItemIcon,ListItemText } from "@mui/material";
 import InboxIcon from '@mui/icons-material/Inbox';
 import MailIcon from '@mui/icons-material/Mail';
+import Profile from './components/Profile/Profile';
 import MainPage from './components/MainPage/MainPage';
 import LandingPage2 from './components/MainPage/LandingPage2';
 import Footer from './components/Footer/Footer';
@@ -28,6 +29,8 @@ function App() {
           <Switch>
             <Route path="/" exact={true}>
             {isLoggedIn ?  <MainPage/>  : <LandingPage2 />}
+            <Route path="/profile" exact={true}>
+              <Profile/>
             </Route>
           </Switch>
         </div>
