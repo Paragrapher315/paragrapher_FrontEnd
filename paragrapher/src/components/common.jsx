@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import "./AccountBox/font.css";
+import { makeStyles } from "@material-ui/core";
 
 // export const Input = styled.input`
 //   width: 100%;
@@ -267,32 +268,32 @@ export const LoginInnerContainer = styled.div`
   padding: 10px 30px;
 `;
 
-export const theme = createTheme({
-  palette: {
-    primary: { main: "#606C38", textColor: "#283618" },
-    secondary: { main: "#DDA15E" },
-  },
-});
+// export const theme = createTheme({
+//   palette: {
+//     primary: { main: "#606C38", textColor: "#283618" },
+//     secondary: { main: "#DDA15E" },
+//   },
+// });
 
 export const useStyles = makeStyles((theme) => ({
   profileTotalGrid: {
-    paddingTop:"20px",
+    paddingTop: "20px",
     backgroundColor: "#606C38",
     //height:"70vh"
   },
   profileTotalGrid1: {
-    paddingTop:"20px",
+    paddingTop: "20px",
     backgroundColor: "#e9edde",
     //height:"70vh"
   },
-  profileAvatar:{
-    alignContent: 'center',
-    paddingTop: '50'
+  profileAvatar: {
+    alignContent: "center",
+    paddingTop: "50",
   },
   profileTotalContainer: {
-    marginTop:"20px",
-    borderRadius:"20px",
-    overflow:"hidden"
+    marginTop: "20px",
+    borderRadius: "20px",
+    overflow: "hidden",
   },
   typography: {
     fontFamily: '"BYekan"',

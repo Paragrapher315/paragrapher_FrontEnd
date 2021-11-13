@@ -29,6 +29,7 @@ function App() {
           <Switch>
             <Route path="/" exact={true}>
             {isLoggedIn ?  <MainPage/>  : <LandingPage2 />}
+            </Route>
             <Route path="/profile" exact={true}>
               <Profile/>
             </Route>
