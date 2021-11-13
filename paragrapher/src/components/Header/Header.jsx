@@ -56,7 +56,7 @@ function Header(props) {
     Logout();
     setAnchorEl(null);
     // send some data to backend to remove cookie
-    window.location.reload();
+    window.location.replace("/");
   };
 
   return (

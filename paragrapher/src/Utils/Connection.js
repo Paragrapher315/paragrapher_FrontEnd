@@ -7,7 +7,6 @@ import {makeURL} from './Common';
 export const Logout = async () => {
     cookie.remove("x-access-token");
     // send some data to backend to remove cookie
-    window.location.reload();
     await axios 
         .post(makeURL(references.url_logout), {cookie: cookie})
         .then((response) => {
