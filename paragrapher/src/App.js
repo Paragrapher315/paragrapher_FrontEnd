@@ -28,8 +28,7 @@ function App() {
         <div>
           <Switch>
             <Route path="/" exact={true}>
-            {/* {isLoggedIn ?  <MainPage/>  : <LandingPage2 />} */}
-            <MainPage />
+            {isLoggedIn ?  <MainPage/>  : <LandingPage2 />}
             </Route>
           </Switch>
         </div>
