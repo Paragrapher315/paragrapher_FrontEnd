@@ -23,7 +23,12 @@ function randomColor() {
 function RecentProducts() {
   return (
     <ThemeProvider theme={theme}>
-      <Card style={{ padding: "2vh 1vh" }}>
+      <Card
+        style={{
+          padding: "0 1vw",
+          margin: "0 0 2vh 0",
+        }}
+      >
         <CardHeader
           action={
             <Button
@@ -46,8 +51,8 @@ function RecentProducts() {
                 <Avatar
                   style={{
                     backgroundColor: randomColor(),
-                    width: "3rem",
-                    height: "3rem",
+                    width: "2.5rem",
+                    height: "2.5rem",
                   }}
                   aria-label="recipe"
                 >
@@ -57,16 +62,24 @@ function RecentProducts() {
               <ListItemText
                 primary={
                   <Typography
-                    style={{ fontFamily: "BYekan", textAlign: "right" }}
+                    style={{
+                      fontFamily: "BYekan",
+                      textAlign: "right",
+                      fontSize: "2vh",
+                    }}
                   >
                     محصول اول
                   </Typography>
                 }
                 secondary={
                   <Typography
-                    style={{ fontFamily: "BYekan", textAlign: "right" }}
+                    style={{
+                      fontFamily: "BYekan",
+                      textAlign: "right",
+                      fontSize: "2vh",
+                    }}
                   >
-                    20000 تومان
+                    1000 تومان
                   </Typography>
                 }
               />
@@ -81,8 +94,8 @@ function RecentProducts() {
                 <Avatar
                   style={{
                     backgroundColor: randomColor(),
-                    width: "3rem",
-                    height: "3rem",
+                    width: "2.5rem",
+                    height: "2.5rem",
                   }}
                   aria-label="recipe"
                 >
@@ -92,16 +105,24 @@ function RecentProducts() {
               <ListItemText
                 primary={
                   <Typography
-                    style={{ fontFamily: "BYekan", textAlign: "right" }}
+                    style={{
+                      fontFamily: "BYekan",
+                      textAlign: "right",
+                      fontSize: "2vh",
+                    }}
                   >
                     محصول دوم
                   </Typography>
                 }
                 secondary={
                   <Typography
-                    style={{ fontFamily: "BYekan", textAlign: "right" }}
+                    style={{
+                      fontFamily: "BYekan",
+                      textAlign: "right",
+                      fontSize: "2vh",
+                    }}
                   >
-                    32000 تومان
+                    1000 تومان
                   </Typography>
                 }
               />
@@ -116,8 +137,8 @@ function RecentProducts() {
                 <Avatar
                   style={{
                     backgroundColor: randomColor(),
-                    width: "3rem",
-                    height: "3rem",
+                    width: "2.5rem",
+                    height: "2.5rem",
                   }}
                   aria-label="recipe"
                 >
@@ -127,16 +148,24 @@ function RecentProducts() {
               <ListItemText
                 primary={
                   <Typography
-                    style={{ fontFamily: "BYekan", textAlign: "right" }}
+                    style={{
+                      fontFamily: "BYekan",
+                      textAlign: "right",
+                      fontSize: "2vh",
+                    }}
                   >
                     محصول سوم
                   </Typography>
                 }
                 secondary={
                   <Typography
-                    style={{ fontFamily: "BYekan", textAlign: "right" }}
+                    style={{
+                      fontFamily: "BYekan",
+                      textAlign: "right",
+                      fontSize: "2vh",
+                    }}
                   >
-                    52000 تومان
+                    1000 تومان
                   </Typography>
                 }
               />

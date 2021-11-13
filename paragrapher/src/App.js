@@ -20,7 +20,7 @@ import {cookie} from "./Utils/Common.js"
 function App() {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
-  const [isLoggedIn,setLoggedIn] = useState(cookie.get("x-access-token") !== undefined ? false : true);
+  const [isLoggedIn,setLoggedIn] = useState(cookie.get("x-access-token") !== undefined ? true : false);
   return (
     <Router>
       <div className="App">
@@ -28,7 +28,7 @@ function App() {
         <div>
           <Switch>
             <Route path="/" exact={true}>
-            {isLoggedIn ?  <MainPage/>  : <LandingPage2 /> }
+            {isLoggedIn ?  <MainPage/>  : <LandingPage2 />}
             </Route>
           </Switch>
         </div>

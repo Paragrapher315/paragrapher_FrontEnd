@@ -34,9 +34,14 @@ function MainPage() {
         name="darkModeSwitch"
         inputProps={{ "aria-label": "secondary checkbox" }}
       /> */}
-      <Grid container spacing={2} justify="center">
+      <Grid
+        container
+        // spacing={2}
+        // justify="center"
+        style={{ padding: "2vh 10vw" }}
+      >
         <Grid item lg={8} md={8} xs={12}>
-          <Grid container spacing={2}>
+          <Grid container spacing={2} style={{ padding: "0 2vw" }}>
             <Grid item xs={12}>
               <Paragraph
                 author="کیا"

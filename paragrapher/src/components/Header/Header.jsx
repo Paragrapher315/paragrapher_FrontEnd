@@ -33,7 +33,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import { useStyles } from "../theme";
 import InputBase from "@material-ui/core/InputBase";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
-import { Hidden } from "@mui/material";
+import { Hidden } from "@material-ui/core";
 
 function Header(props) {
   const [drawerAnchor, setDrawerAnchor] = useState(false);

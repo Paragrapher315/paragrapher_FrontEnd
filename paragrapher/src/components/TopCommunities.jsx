@@ -25,7 +25,7 @@ function TopCommunities() {
     <ThemeProvider theme={theme}>
       <Card
         style={{
-          padding: "2vh 1vh",
+          padding: "0 1vw",
           margin: "0 0 2vh 0",
         }}
       >
@@ -51,8 +51,8 @@ function TopCommunities() {
                 <Avatar
                   style={{
                     backgroundColor: randomColor(),
-                    width: "3rem",
-                    height: "3rem",
+                    width: "2.5rem",
+                    height: "2.5rem",
                   }}
                   aria-label="recipe"
                 >
@@ -62,14 +62,22 @@ function TopCommunities() {
               <ListItemText
                 primary={
                   <Typography
-                    style={{ fontFamily: "BYekan", textAlign: "right" }}
+                    style={{
+                      fontFamily: "BYekan",
+                      textAlign: "right",
+                      fontSize: "2vh",
+                    }}
                   >
                     کامیونیتی اول
                   </Typography>
                 }
                 secondary={
                   <Typography
-                    style={{ fontFamily: "BYekan", textAlign: "right" }}
+                    style={{
+                      fontFamily: "BYekan",
+                      textAlign: "right",
+                      fontSize: "2vh",
+                    }}
                   >
                     1000 عضو
                   </Typography>
@@ -86,8 +94,8 @@ function TopCommunities() {
                 <Avatar
                   style={{
                     backgroundColor: randomColor(),
-                    width: "3rem",
-                    height: "3rem",
+                    width: "2.5rem",
+                    height: "2.5rem",
                   }}
                   aria-label="recipe"
                 >
@@ -97,14 +105,22 @@ function TopCommunities() {
               <ListItemText
                 primary={
                   <Typography
-                    style={{ fontFamily: "BYekan", textAlign: "right" }}
+                    style={{
+                      fontFamily: "BYekan",
+                      textAlign: "right",
+                      fontSize: "2vh",
+                    }}
                   >
                     کامیونیتی دوم
                   </Typography>
                 }
                 secondary={
                   <Typography
-                    style={{ fontFamily: "BYekan", textAlign: "right" }}
+                    style={{
+                      fontFamily: "BYekan",
+                      textAlign: "right",
+                      fontSize: "2vh",
+                    }}
                   >
                     1000 عضو
                   </Typography>
@@ -121,8 +137,8 @@ function TopCommunities() {
                 <Avatar
                   style={{
                     backgroundColor: randomColor(),
-                    width: "3rem",
-                    height: "3rem",
+                    width: "2.5rem",
+                    height: "2.5rem",
                   }}
                   aria-label="recipe"
                 >
@@ -132,14 +148,22 @@ function TopCommunities() {
               <ListItemText
                 primary={
                   <Typography
-                    style={{ fontFamily: "BYekan", textAlign: "right" }}
+                    style={{
+                      fontFamily: "BYekan",
+                      textAlign: "right",
+                      fontSize: "2vh",
+                    }}
                   >
                     کامیونیتی سوم
                   </Typography>
                 }
                 secondary={
                   <Typography
-                    style={{ fontFamily: "BYekan", textAlign: "right" }}
+                    style={{
+                      fontFamily: "BYekan",
+                      textAlign: "right",
+                      fontSize: "2vh",
+                    }}
                   >
                     1000 عضو
                   </Typography>
