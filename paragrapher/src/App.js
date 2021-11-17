@@ -16,7 +16,8 @@ import MainPage from './components/MainPage/MainPage';
 import LandingPage2 from './components/MainPage/LandingPage2';
 import Footer from './components/Footer/Footer';
 import { CssBaseline } from '@material-ui/core';
-import {cookie} from "./Utils/Common.js"
+import {cookie} from "./Utils/Common.js";
+import ParagraphEditor from "./components/Paragraph/ParagraphEditor"
 function App() {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
@@ -32,6 +33,9 @@ function App() {
             </Route>
             <Route path="/profile" exact={true}>
               <Profile/>
+            </Route>
+            <Route path="/paragraph-editor" exact={true}>
+              <ParagraphEditor />
             </Route>
           </Switch>
         </div>
