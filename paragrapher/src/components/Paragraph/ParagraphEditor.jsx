@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { TextField, Typography, Switch } from "@material-ui/core";
+import {
+  TextField,
+  Typography,
+  Switch,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from "@material-ui/core";
 class ProfileEditor extends React.Component {
   render() {
     return (
@@ -14,6 +22,14 @@ class ProfileEditor extends React.Component {
             label="نام کتاب"
             style={{ direction: "rtl", textAlign: "right" }}
             inputProps={{ textAlign: "right" }}
+          />
+          <TextField label="نام نویسنده" />
+          <br />
+          <TextField
+            label="متن پاراگراف"
+            multiline
+            rows={4}
+            style={{ width: "50%" }}
           />
         </form>
       </div>
