@@ -4,6 +4,10 @@ import {
   Typography,
   Switch,
   Grid,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
   List,
   ListItem,
   ListItemIcon,
@@ -16,12 +20,22 @@ class ProfileEditor extends React.Component {
         <form>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Grid container>
-                <Grid item lg={6} md={6} xs={12}>
+              <Grid container spacing={2}>
+                <Grid item lg={4} md={4} xs={12}>
+                  <FormControl style={{ width: "100%" }}>
+                    <InputLabel id="community-name">کامیونیتی</InputLabel>
+                    <Select id="community-name">
+                      <MenuItem>اول</MenuItem>
+                      <MenuItem>دوم</MenuItem>
+                      <MenuItem>سوم</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item lg={3} md={3} xs={12}>
                   <Typography>نوع پاراگراف: </Typography>
                 </Grid>
-                <Grid item lg={6} md={6} xs={12}>
-                  <Grid container>
+                <Grid item lg={5} md={5} xs={12}>
+                  <Grid container spacing={2}>
                     <Grid item lg={3} md={3} xs={3}>
                       <Typography>کتابی</Typography>
                     </Grid>
