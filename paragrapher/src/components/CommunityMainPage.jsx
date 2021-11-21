@@ -5,16 +5,65 @@ import {
   ButtonGroup,
   TextField,
   ThemeProvider,
+  Avatar,
 } from "@material-ui/core";
 import React, { Component } from "react";
 import { theme } from "./theme";
+import communityBgImage from "../assets/CommunityTestBg.png";
 class CommunityMainPage extends React.Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
         <div>
-          <div></div>
-          <div>
+          <div
+            style={{ position: "relative", height: "calc(25vh + 15vw + 10vh)" }}
+          >
+            <div
+              style={{
+                height: "calc(25vh + 15vw)",
+                width: "100%",
+                backgroundImage: `url(${communityBgImage})`,
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                position: "absolute",
+                top: "0",
+                right: "0",
+              }}
+            ></div>
+            <div
+              style={{
+                position: "absolute",
+                top: "calc(25vh + 15vw - 10vh)",
+                right: "0",
+                width: "100%",
+                padding: "0 10vw",
+              }}
+            >
+              <Grid container>
+                <Grid item xs={8}>
+                  <div style={{ width: "100%" }}>
+                    <Avatar
+                      src={communityBgImage}
+                      style={{ height: "20vh", width: "20vh" }}
+                    />
+                  </div>
+                </Grid>
+                <Grid item xs={4} style={{ maxHeight: "20vh" }}>
+                  <ButtonGroup
+                    variant="contained"
+                    color="primary"
+                    style={{ marginTop: "12vh" }}
+                  >
+                    <Button>One</Button>
+                    <Button>Two</Button>
+                    <Button>Three</Button>
+                  </ButtonGroup>
+                </Grid>
+              </Grid>
+            </div>
+          </div>
+          <div style={{ padding: "1vh 10vw" }}>
             <Grid container>
               <Grid item xs={12}>
                 <Grid container>
