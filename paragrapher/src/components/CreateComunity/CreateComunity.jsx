@@ -4,6 +4,7 @@ import CreateComunityPic2 from "../../assets/CreateComunityPic2.svg";
 import miniPic1 from "../../assets/miniPic1.svg";
 import miniPic2 from "../../assets/miniPic2.svg";
 import miniPic3 from "../../assets/miniPic3.svg";
+import ComunityExamples from "./ComunityExamples";
 class CreateComunity extends React.Component {
   constructor(props) {
     super(props);
@@ -24,7 +25,7 @@ class CreateComunity extends React.Component {
                 <br/>
             </div>
             <div className="row align-items-center">
-                <div className="col-md-5 mb-md-0 mb-5 pb-md-0 pb-3"><img className="w-100 mx-md-0 mx-auto" src={CreateComunityPic1} alt="Illustration"/></div>
+                <div className="col-md-5 mb-md-0 mb-5 pb-md-0 pb-3"><img className="w-100 mx-md-0 mx-auto w3-animate-zoom" src={CreateComunityPic1} alt="Illustration"/></div>
                 <div className="col-lg-6 offset-lg-1 col-md-7 text-md-start text-center">
                     <div className="mx-md-0 mx-auto" >
                         <h2 className="mb-md-5 mb-4">چرا باید کامیونیتی بسازیم؟</h2>
@@ -57,7 +58,7 @@ class CreateComunity extends React.Component {
                 <br/>
             </div>
             <div className="row align-items-center">
-                
+                {/* <ComunityExamples/> */}
             </div>
         </div>
     );
