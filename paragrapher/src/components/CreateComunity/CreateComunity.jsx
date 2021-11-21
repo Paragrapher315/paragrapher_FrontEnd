@@ -58,7 +58,7 @@ class CreateComunity extends React.Component {
                 <br/>
             </div>
             <div className="row align-items-center">
-                {/* <ComunityExamples/> */}
+                <ComunityExamples/>
             </div>
         </div>
     );
