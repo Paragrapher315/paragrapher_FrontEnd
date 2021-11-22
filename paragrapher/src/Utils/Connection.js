@@ -53,7 +53,7 @@ export const Login = async(username, password) => {
         })
         .then((response) => {
             // login success
-            setUserSession(response.data.token, response.data.user);
+            setUserSession(response.data.token, username);
             var today = new Date();
             var expirationDate = new Date();
             expirationDate.setDate(today.getDate() + 1)
@@ -123,6 +123,79 @@ export const EditName = async (profile_name) => {
         .then((response) => {
         
             console.log(response)
+        })
+        .catch((error) => {
+            
+            console.log(error, error.response.data);
+            if(error.response.status == 401) {
+                message = error.response.data.message;
+            } else {
+                message = error.response.data;
+            }
+        })
+    return message;
+}
+
+export const CreateParagraph = async (communityID,author,book,paragraph,tags) => {
+    let message = ""
+    await axios
+        .post(makeURL(references.url_create_paragraph + communityID + '/paragraph'), {
+            author:author,
+            ref:book,
+            text:paragraph,
+            tags:tags
+        })
+        .then((response) => {
+            console.log(response);
+            window.location.replace("/community/" + communityID );
+        })
+        .catch((error) => {
+            
+            console.log(error, error.response.data);
+            if(error.response.status == 401) {
+                message = error.response.data.message;
+            } else {
+                message = error.response.data;
+            }
+        })
+    return message;
+}
+
+export const EditParagraph = async (communityID,author,book,paragraph,tags,p_id) => {
+    let message = ""
+    await axios
+        .put(makeURL(references.url_create_paragraph + communityID + '/paragraph'), {
+            author:author,
+            ref:book,
+            text:paragraph,
+            tags:tags,
+            p_id:p_id
+        })
+        .then((response) => {
+            console.log(response);
+            window.location.replace("/community/" + communityID );
+        })
+        .catch((error) => {
+            
+            console.log(error, error.response.data);
+            if(error.response.status == 401) {
+                message = error.response.data.message;
+            } else {
+                message = error.response.data;
+            }
+        })
+    return message;
+}
+
+export const DeleteParagraph = async (communityID,p_id) => {
+    let message = ""
+    await axios
+        .get(makeURL(references.url_create_paragraph + communityID + '/paragraph'), {
+            p_id:p_id
+        })
+        .then((response) => {
+            console.log(response);
+            window.location.replace("/community/" + communityID );
         })
         .catch((error) => {
             
