@@ -28,7 +28,15 @@ function App() {
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
   const [isLoggedIn,setLoggedIn] = useState(cookie.get("x-access-token") !== undefined ? true : false);
   const classes = useStyles(theme);
+  const [p_id,setP_id] = useState(0);
   const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+  function getData(val){
+    console.log(val);
+    setP_id(val);
+    console.log("dadash resid");
+    console.log("ine : " + p_id);
+    window.location.replace("/paragraph-editor");
+  }
   return (
     <Router>
       <StylesProvider jss={jss}>
@@ -37,13 +45,15 @@ function App() {
         <div>
           <Switch>
             <Route path="/" exact={true}>
-            {isLoggedIn ?  <MainPage/>  : <LandingPage2 />}
+            {isLoggedIn ?  <MainPage sendData={getData}/>  : <LandingPage2 />}
             </Route>
             <Route path="/profile" exact={true}>
               <Profile/>
             </Route>
             <Route path="/paragraph-editor" exact={true}>
-              <ParagraphEditor classes={classes} isShown={true} paragraph = "من سگ میخوام" tags={["خسهقهع", "sijd"]} />
+              <div className={classes.paragraphDiv} style={{ minHeight: "86.3vh" }} >
+                <ParagraphEditor classes={classes} p_id={p_id} />
+              </div>
             </Route>
           </Switch>
         </div>

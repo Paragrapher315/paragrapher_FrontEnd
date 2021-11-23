@@ -190,7 +190,7 @@ export const EditParagraph = async (communityID,author,book,paragraph,tags,p_id)
 export const DeleteParagraph = async (communityID,p_id) => {
     let message = ""
     await axios
-        .get(makeURL(references.url_create_paragraph + communityID + '/paragraph'), {
+        .delete(makeURL(references.url_create_paragraph + communityID + '/paragraph'), {
             p_id:p_id
         })
         .then((response) => {
@@ -208,3 +208,25 @@ export const DeleteParagraph = async (communityID,p_id) => {
         })
     return message;
 }
+
+export const GetParagraph = async (p_id) => {
+    let message = ""
+    await axios
+        .delete(makeURL(references.url_create_paragraph + '/paragraph'), {
+            p_id:p_id
+        })
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+            
+            console.log(error, error.response.data);
+            if(error.response.status == 401) {
+                message = error.response.data.message;
+            } else {
+                message = error.response.data;
+            }
+        })
+    return message;
+}
+

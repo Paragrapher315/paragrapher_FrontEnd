@@ -19,6 +19,8 @@ import { useStyles, theme } from "../theme";
 import { spacing } from "@mui/system";
 import { ThemeProvider } from "@material-ui/styles";
 import Chip from "@material-ui/core/Chip";
+import EditIcon from "@material-ui/icons/Edit";
+import ParagraphEditor from "./ParagraphEditor";
 function randomColor() {
   let hex = Math.floor(Math.random() * 0xffffff);
   let color = "#" + hex.toString(16);
@@ -29,9 +31,17 @@ function randomColor() {
 function Paragraph(props) {
   const [liked, setLiked] = useState(false);
   const classes = useStyles(theme);
+
   const handleLike = () => {
     // send like data to backend
     setLiked(!liked);
+  };
+  function demoMethod() {
+    props.sendData(props.p_id);
+  }
+  const handleEdit = () => {
+    window.location.replace("/edit/community/");
+    ParagraphEditor();
   };
   return (
     <ThemeProvider theme={theme}>
@@ -113,25 +123,32 @@ function Paragraph(props) {
               {props.text}
             </Typography>
           </CardContent>
-          {props.canAction ? (
-            <CardActions disableSpacing>
-              <IconButton aria-label="like paragraph" onClick={handleLike}>
-                {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-              </IconButton>
-              <IconButton aria-label="show comments">
-                <CommentIcon />
-              </IconButton>
-              <TextField
-                placeholder="نظر خود را بنویسید"
-                style={{ visibility: "hidden" }}
-              />
-              <IconButton aria-label="" style={{ visibility: "hidden" }}>
-                <SendIcon style={{ transform: "rotate(180deg)" }} />
-              </IconButton>
-            </CardActions>
-          ) : (
-            ""
-          )}
+          <CardActions disableSpacing>
+            {props.canAction ? (
+              <CardActions disableSpacing>
+                <IconButton aria-label="like paragraph" onClick={handleLike}>
+                  {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                </IconButton>
+                <IconButton aria-label="show comments">
+                  <CommentIcon />
+                </IconButton>
+                <IconButton aria-label="" style={{ visibility: "hidden" }}>
+                  <SendIcon style={{ transform: "rotate(180deg)" }} />
+                </IconButton>
+              </CardActions>
+            ) : (
+              ""
+            )}
+            {props.isMine ? (
+              <CardActions disableSpacing>
+                <IconButton onClick={demoMethod}>
+                  <EditIcon />
+                </IconButton>
+              </CardActions>
+            ) : (
+              ""
+            )}
+          </CardActions>
         </Card>
       </div>
     </ThemeProvider>

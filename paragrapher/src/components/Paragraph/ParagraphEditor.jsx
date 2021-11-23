@@ -25,6 +25,7 @@ import Chip from "@material-ui/core/Chip";
 class ProfileEditor extends React.Component {
   state = {
     isShown: false,
+    comIsVisible: true,
     community: "",
     author: "",
     book: "",
@@ -53,6 +54,7 @@ class ProfileEditor extends React.Component {
     }
     if (this.props.community) {
       this.setState({ community: this.props.community });
+      this.setState({ comIsVisible: false });
     }
     if (this.props.isShown) {
       this.setState({ isShown: this.props.isShown });
@@ -117,15 +119,12 @@ class ProfileEditor extends React.Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <div
-          className={this.props.classes.paragraphDiv}
-          style={{ minHeight: "86.3vh" }}
-        >
-          <Card style={{ padding: "4vh 4vh" }}>
-            <form>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <Grid container spacing={2}>
+        <Card style={{ padding: "4vh 4vh" }}>
+          <form>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Grid container spacing={2}>
+                  {this.state.comIsVisible ? (
                     <Grid
                       item
                       lg={4}
@@ -135,6 +134,7 @@ class ProfileEditor extends React.Component {
                     >
                       <FormControl style={{ width: "100%" }}>
                         <InputLabel id="community-name">کامیونیتی</InputLabel>
+
                         <Select
                           id="community-name"
                           onChange={this.handleCommunity}
@@ -146,168 +146,176 @@ class ProfileEditor extends React.Component {
                         </Select>
                       </FormControl>
                     </Grid>
-                    <Grid item lg={8} md={8} xs={0} />
-                    <Grid item lg={3} md={3} xs={12}>
-                      <Typography>نوع پاراگراف: </Typography>
-                    </Grid>
-                    <Grid item lg={5} md={5} xs={12}>
-                      <Grid container spacing={2}>
-                        <Grid
-                          item
-                          lg={3}
-                          md={3}
-                          xs={3}
-                          style={{
-                            textAlign: "center",
-                          }}
-                        >
-                          <Typography>کتابی</Typography>
-                        </Grid>
-                        <Grid
-                          item
-                          lg={3}
-                          md={3}
-                          xs={3}
-                          style={{ textAlign: "center" }}
-                        >
-                          <Switch
-                            onChange={() => {
-                              this.setState({ isShown: !this.state.isShown });
-                              this.setState({ book: "" });
-                              this.setState({ author: "" });
-                            }}
-                            value={this.state.isShown}
-                          />
-                        </Grid>
-                        <Grid
-                          item
-                          lg={3}
-                          md={3}
-                          xs={3}
-                          style={{ textAlign: "center" }}
-                        >
-                          <Typography style={{ top: "50%" }}>شخصی</Typography>
-                        </Grid>
-                      </Grid>
-                    </Grid>
+                  ) : (
+                    <Grid
+                      item
+                      lg={4}
+                      md={4}
+                      xs={12}
+                      style={{ marginBottom: "2vh" }}
+                    ></Grid>
+                  )}
+                  <Grid item lg={8} md={8} xs={0} />
+                  <Grid item lg={3} md={3} xs={12}>
+                    <Typography>نوع پاراگراف: </Typography>
                   </Grid>
-                </Grid>
-                {this.state.isShown && (
-                  <Grid item xs={12}>
+                  <Grid item lg={5} md={5} xs={12}>
                     <Grid container spacing={2}>
-                      <Grid item lg={6} md={6} xs={12}>
-                        <TextField
-                          variant="filled"
-                          label="نام کتاب"
-                          style={{
-                            direction: "rtl",
-                            textAlign: "right",
-                            width: "100%",
+                      <Grid
+                        item
+                        lg={3}
+                        md={3}
+                        xs={3}
+                        style={{
+                          textAlign: "center",
+                        }}
+                      >
+                        <Typography>کتابی</Typography>
+                      </Grid>
+                      <Grid
+                        item
+                        lg={3}
+                        md={3}
+                        xs={3}
+                        style={{ textAlign: "center" }}
+                      >
+                        <Switch
+                          onChange={() => {
+                            this.setState({ isShown: !this.state.isShown });
+                            this.setState({ book: "" });
+                            this.setState({ author: "" });
                           }}
-                          onChange={this.handleBookChange}
-                          value={this.state.book}
-                          inputProps={{
-                            textAlign: "right",
-                            fontFamily: "BYekan",
-                          }}
-
-                          // InputLabelProps={{
-                          //   classes: {
-                          //     root: this.props.classes.labelRoot,
-                          //     shrink: this.props.classes.shrink,
-                          //   },
-                          // }}
+                          value={this.state.isShown}
                         />
                       </Grid>
-                      <Grid item lg={6} md={6} xs={12}>
-                        <TextField
-                          variant="filled"
-                          label="نام نویسنده"
-                          value={this.state.author}
-                          onChange={this.handleAuthorChange}
-                          style={{ width: "100%" }}
-                          // InputLabelProps={{
-                          //   classes: {
-                          //     root: this.props.classes.labelRoot,
-                          //     shrink: this.props.classes.shrink,
-                          //   },
-                          // }}
-                        />
+                      <Grid
+                        item
+                        lg={3}
+                        md={3}
+                        xs={3}
+                        style={{ textAlign: "center" }}
+                      >
+                        <Typography style={{ top: "50%" }}>شخصی</Typography>
                       </Grid>
                     </Grid>
                   </Grid>
-                )}
-                <Grid item xs={12}>
-                  <TextField
-                    label="متن پاراگراف"
-                    multiline
-                    minRows={4}
-                    style={{ width: "100%" }}
-                    onChange={this.handleParagraphChange}
-                    value={this.state.paragraph}
-                    variant="filled"
-                  />
-                </Grid>
-                <Grid item xs={6} lg={3}>
-                  <TextField
-                    error={this.state.error}
-                    label="تگ"
-                    value={this.state.tag}
-                    onChange={this.handleTagChange}
-                    variant="filled"
-                    helperText={this.state.helperText}
-                  />
-                </Grid>
-                <Grid item xs={6} lg={3}>
-                  <Button
-                    variant="contained"
-                    size="large"
-                    style={{
-                      maxWidth: "100%",
-                    }}
-                    color="primary"
-                    onClick={this.handleCreateTag}
-                  >
-                    افزودن تگ
-                  </Button>
-                </Grid>
-                <Grid item lg={6} xs={12}>
-                  {Array.isArray(this.state.tags)
-                    ? this.state.tags.map((e) => {
-                        return (
-                          <Chip
-                            variant="default"
-                            className={this.props.classes.typography}
-                            color="secondary"
-                            style={{ margin: "0.3rem 0.2rem 0 0" }}
-                            size="small"
-                            label={e}
-                            onDelete={this.handleDelete(e)}
-                            key={e}
-                          />
-                        );
-                      })
-                    : ""}
-                </Grid>
-                <Grid item xs={0} lg={5}></Grid>
-                <Grid item xs={0} lg={5}></Grid>
-                <Grid item xs={12} lg={2} style={{ padding: "2vh 2vh" }}>
-                  <Button
-                    variant="contained"
-                    size="large"
-                    style={{
-                      minWidth: "100%",
-                    }}
-                    color="secondary"
-                    onClick={this.handleCreateParagraph}
-                  >
-                    ثبت
-                  </Button>
                 </Grid>
               </Grid>
-            </form>
-          </Card>
-        </div>
+              {this.state.isShown && (
+                <Grid item xs={12}>
+                  <Grid container spacing={2}>
+                    <Grid item lg={6} md={6} xs={12}>
+                      <TextField
+                        variant="filled"
+                        label="نام کتاب"
+                        style={{
+                          direction: "rtl",
+                          textAlign: "right",
+                          width: "100%",
+                        }}
+                        onChange={this.handleBookChange}
+                        value={this.state.book}
+                        inputProps={{
+                          textAlign: "right",
+                          fontFamily: "BYekan",
+                        }}
+
+                        // InputLabelProps={{
+                        //   classes: {
+                        //     root: this.props.classes.labelRoot,
+                        //     shrink: this.props.classes.shrink,
+                        //   },
+                        // }}
+                      />
+                    </Grid>
+                    <Grid item lg={6} md={6} xs={12}>
+                      <TextField
+                        variant="filled"
+                        label="نام نویسنده"
+                        value={this.state.author}
+                        onChange={this.handleAuthorChange}
+                        style={{ width: "100%" }}
+                        // InputLabelProps={{
+                        //   classes: {
+                        //     root: this.props.classes.labelRoot,
+                        //     shrink: this.props.classes.shrink,
+                        //   },
+                        // }}
+                      />
+                    </Grid>
+                  </Grid>
+                </Grid>
+              )}
+              <Grid item xs={12}>
+                <TextField
+                  label="متن پاراگراف"
+                  multiline
+                  minRows={4}
+                  style={{ width: "100%" }}
+                  onChange={this.handleParagraphChange}
+                  value={this.state.paragraph}
+                  variant="filled"
+                />
+              </Grid>
+              <Grid item xs={6} lg={3}>
+                <TextField
+                  error={this.state.error}
+                  label="تگ"
+                  value={this.state.tag}
+                  onChange={this.handleTagChange}
+                  variant="filled"
+                  helperText={this.state.helperText}
+                />
+              </Grid>
+              <Grid item xs={6} lg={3}>
+                <Button
+                  variant="contained"
+                  size="large"
+                  style={{
+                    maxWidth: "100%",
+                  }}
+                  color="primary"
+                  onClick={this.handleCreateTag}
+                >
+                  افزودن تگ
+                </Button>
+              </Grid>
+              <Grid item lg={6} xs={12}>
+                {Array.isArray(this.state.tags)
+                  ? this.state.tags.map((e) => {
+                      return (
+                        <Chip
+                          variant="default"
+                          className={this.props.classes.typography}
+                          color="secondary"
+                          style={{ margin: "0.3rem 0.2rem 0 0" }}
+                          size="small"
+                          label={e}
+                          onDelete={this.handleDelete(e)}
+                          key={e}
+                        />
+                      );
+                    })
+                  : ""}
+              </Grid>
+              <Grid item xs={0} lg={5}></Grid>
+              <Grid item xs={0} lg={5}></Grid>
+              <Grid item xs={12} lg={2} style={{ padding: "2vh 2vh" }}>
+                <Button
+                  variant="contained"
+                  size="large"
+                  style={{
+                    minWidth: "100%",
+                  }}
+                  color="secondary"
+                  onClick={this.handleCreateParagraph}
+                >
+                  ثبت
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
+        </Card>
       </ThemeProvider>
     );
   }
