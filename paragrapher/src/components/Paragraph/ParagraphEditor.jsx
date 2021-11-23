@@ -39,8 +39,13 @@ class ProfileEditor extends React.Component {
     p_id: "",
   };
   componentDidMount() {
-    console.log(this.props.match.params);
-    if (this.props.location.state.p_id) {
+    // console.log(this.props.match.params);
+    // this.props.history.
+    // console.log("this is a mother fucker", window.location.toString());
+    var splitted = window.location.toString().split("/");
+    this.setState({ p_id: splitted.pop() });
+
+    if (this.props.p_id) {
       this.setState({ p_id: this.props.p_id });
     }
     if (this.props.book) {

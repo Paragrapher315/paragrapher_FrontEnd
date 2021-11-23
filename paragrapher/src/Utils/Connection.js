@@ -217,6 +217,7 @@ export const GetParagraph = async (p_id) => {
         })
         .then((response) => {
             console.log(response);
+            message = response.data;
         })
         .catch((error) => {
             
