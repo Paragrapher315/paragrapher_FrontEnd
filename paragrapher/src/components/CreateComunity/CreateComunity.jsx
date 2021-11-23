@@ -58,7 +58,13 @@ class CreateComunity extends React.Component {
                 <br/>
             </div>
             <div className="row align-items-center">
-                <ComunityExamples/>
+                <div className="col-12 col-lg-6 my-2">
+                    <ComunityExamples/>
+                </div>
+                <div className="col-12 col-lg-6">
+                <img className="w3-animate-zoom w-100" src={CreateComunityPic2} alt="Illustration"/>
+                </div>
+                
             </div>
         </div>
     );
