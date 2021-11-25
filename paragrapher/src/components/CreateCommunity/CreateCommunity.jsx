@@ -1,33 +1,62 @@
 import React from "react";
-import CreateComunityPic1 from "../../assets/CreateComunityPic1.png";
-import CreateComunityPic2 from "../../assets/CreateComunityPic2.svg";
+import CreatecommunityPic1 from "../../assets/CreatecommunityPic1.png";
+import CreatecommunityPic2 from "../../assets/CreatecommunityPic2.svg";
 import miniPic1 from "../../assets/miniPic1.svg";
 import miniPic2 from "../../assets/miniPic2.svg";
 import miniPic3 from "../../assets/miniPic3.svg";
-import ComunityExamples from "./ComunityExamples";
-class CreateComunity extends React.Component {
+import CommunityExamples from "./CommunityExamples";
+import axios from "axios";
+import { makeURL } from "../../Utils/Common";
+import references from "../../assets/References.json";
+class CreateCommunity extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {check:"0"
-      
+    this.state = {check:"0",
+    name:"",
+    bio:"",
+    password:"",
+    passwordConfirm:"",
+    isPublic:0,
     };
   }
 
   componentDidMount() {
     
   }
+  CreateCommunity = async () => {
+    let message = ""
+    await axios
+        .post(makeURL(references.url_create_community), {
+            name:this.state.name,
+            bio:this.state.bio
+        })
+        .then((response) => {
+            window.alert(response)
+            console.log(response)
+        })
+        .catch((error) => {
+            
+            console.log(error, error.response.data);
+            if(error.response.status == 401) {
+                message = error.response.data.message;
+            } else {
+                message = error.response.data;
+            }
+        })
+    return message;
+}
   Checkbox(){
     if(this.state.check==="0"){
-        document.getElementById("comunityPassConfirm").style.display="none";
+        document.getElementById("communityPassConfirm").style.display="none";
         document.getElementById("confirmLable").style.display="none";
-        document.getElementById("comunityPass").style.display="none";
+        document.getElementById("communityPass").style.display="none";
         document.getElementById("PassLable").style.display="none";
         this.setState({ check: "1" });
     }
     if(this.state.check==="1"){
-        document.getElementById("comunityPassConfirm").style.display="block";
+        document.getElementById("communityPassConfirm").style.display="block";
         document.getElementById("confirmLable").style.display="block";
-        document.getElementById("comunityPass").style.display="block";
+        document.getElementById("communityPass").style.display="block";
         document.getElementById("PassLable").style.display="block";
         this.setState({ check: "0" });
     }
@@ -47,7 +76,7 @@ class CreateComunity extends React.Component {
                 <p/>
             </div>
             <div className="row align-items-center">
-                <div className="col-md-5 mb-md-0 mb-5 pb-md-0 pb-3"><img className="w-100 mx-md-0 mx-auto w3-animate-zoom" src={CreateComunityPic1} alt="Illustration"/></div>
+                <div className="col-md-5 mb-md-0 mb-5 pb-md-0 pb-3"><img className="w-100 mx-md-0 mx-auto w3-animate-zoom" src={CreatecommunityPic1} alt="Illustration"/></div>
                 <div className="col-lg-6 offset-lg-1 col-md-7 text-md-start text-center">
                     <div className="mx-md-0 mx-auto" >
                         <h2 className="mb-md-5 mb-4">چرا باید کامیونیتی بسازیم؟</h2>
@@ -82,7 +111,7 @@ class CreateComunity extends React.Component {
             <div className="row align-items-center">
                 <div className="col"></div>
                 <div className="col-12 col-sm-10 col-lg-5">
-                    <a href='#comunityForm'>
+                    <a href='#communityForm'>
                         <button type="button" class="w-100 btn btn-lg btn-warning">همین حالا کامیونیتی خود را بسازید</button>
                     </a>
                     
@@ -98,10 +127,10 @@ class CreateComunity extends React.Component {
             </div>
             <div className="row align-items-center">
                 <div className="col-12 col-lg-6 my-2">
-                    <ComunityExamples/>
+                    <CommunityExamples/>
                 </div>
                 <div className="col-12 col-lg-6">
-                <img className="w3-animate-zoom w-100" src={CreateComunityPic2} alt="Illustration"/>
+                <img className="w3-animate-zoom w-100" src={CreatecommunityPic2} alt="Illustration"/>
                 </div>
                 
             </div>
@@ -114,17 +143,22 @@ class CreateComunity extends React.Component {
 
                 <div className="col-12 col-lg-6">
                     <h3>راهنمای ایجاد کامیونیتی</h3>
+                    <br/>
+                    <br/>
                     <h6><li>نام</li></h6>
+                    {/* <br/> */}
                     <p>نام همان اسمی است که کاربران سایت از کامیونیتی شما میبینند</p>
+                    <br/>
                     <h6><li>بیو</li></h6>
+                    {/* <br/> */}
                     <p>بیو حداکثر شامل دو خط در رابطه با کامیونیتی شما است</p>
                     
-                    <h6><li>کامیونیتی عمومی</li></h6>
+                    {/* <h6><li>کامیونیتی عمومی</li></h6>
                     <p>اگر کامیونیتی شما عمومی باشد همه میتوانید در آن عضو شوند</p>
                     <h6><li>کامیونیتی غیر عمومی</li></h6>
                     <p>اگر کامیونیتی شما خصوصی باشد فقط افرادی که رمز آن را دارند میتوانند در آن عضو شوند</p>
                     <h6><li>رمز ورود</li></h6>
-                    <p>اگر کامیونیتی شما خصوصی است یک رمز برای آن تعیین کنید تا افراد مورد نظرتان را از آن طریق به کامیونیتی خود دعوت کنید</p>
+                    <p>اگر کامیونیتی شما خصوصی است یک رمز برای آن تعیین کنید تا افراد مورد نظرتان را از آن طریق به کامیونیتی خود دعوت کنید</p> */}
                     
 
 
@@ -132,36 +166,58 @@ class CreateComunity extends React.Component {
 
 
                 <div className="col-12 col-lg-6">
-                    <div class="card-body" id="comunityForm">
-                        <form>
+                    <div class="card-body" id="communityForm">
+                        
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control form-control-flush" id="cardName" placeholder="Name"/>
+                                <input
+                                 type="text" class="form-control form-control-flush"
+                                  id="cardName" 
+                                  placeholder="Name" 
+                                  onChange={(e) =>
+                                this.setState({ name: e.target.value })}/>
                                 <label for="cardName">نام کامیونیتی</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: "100px"}}></textarea>
+                                <textarea class="form-control"
+                                    placeholder="Leave a comment here"
+                                    id="floatingTextarea2"
+                                    onChange={(e) =>
+                                        this.setState({ bio: e.target.value })}
+                                    style={{height: "100px"}}>
+
+                                </textarea>
                                 <label for="floatingTextarea2">بیو کامیونیتی</label>
                             </div>
-                            <div class="form-check mb-3">
+                            {/* <div class="form-check mb-3">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" onChange={()=>this.Checkbox()}/>
                                 <label class="form-check-label" for="flexCheckChecked">
                                     کامیونیتی عمومی
                                 </label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="password" class="form-control form-control-flush" id="comunityPass" placeholder="Name"/>
+                            </div> */}
+                            {/* <div class="form-floating mb-3">
+                                <input type="password"
+                                    class="form-control form-control-flush"
+                                    id="communityPass"
+                                    onChange={(e) =>
+                                    this.setState({ password: e.target.value })}
+                                placeholder="Name"/>
                                 <label for="cardName" id="PassLable">رمز ورود</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="password" class="form-control form-control-flush" id="comunityPassConfirm" placeholder="Name"/>
+                            </div> */}
+                            {/* <div class="form-floating mb-3">
+                                <input type="password"
+                                    class="form-control form-control-flush" 
+                                    id="communityPassConfirm"
+                                    onChange={(e) =>
+                                    this.setState({ passwordConfirm: e.target.value })}
+                                placeholder="Name"/>
                                 <label for="cardName" id="confirmLable">تکرار رمز ورود</label>
-                            </div>
+                            </div> */}
                             <div class="mt-6">
-                                <button class="btn w-100 btn-primary lift" type="submit">
+                                <button class="btn w-100 btn-primary lift" onClick={()=>{this.CreateCommunity()}}>
                                 ساخت کامیونیتی
                                 </button>
                             </div>
-                        </form>
+                        
                     </div>
                 </div>
                 
@@ -176,5 +232,5 @@ class CreateComunity extends React.Component {
     );
   }
 }
-export default CreateComunity;
+export default CreateCommunity;
 

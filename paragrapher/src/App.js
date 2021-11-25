@@ -17,7 +17,7 @@ import LandingPage2 from './components/MainPage/LandingPage2';
 import Footer from './components/Footer/Footer';
 import { CssBaseline } from '@material-ui/core';
 import {cookie} from "./Utils/Common.js"
-import CreateComunity from './components/CreateComunity/CreateComunity';
+import CreateCommunity from './components/CreateCommunity/CreateCommunity';
 function App() {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
@@ -34,8 +34,8 @@ function App() {
             <Route path="/profile" exact={true}>
               <Profile/>
             </Route>
-            <Route path="/CreateComunity" exact={true}>
-              <CreateComunity/>
+            <Route path="/CreateCommunity" exact={true}>
+              <CreateCommunity/>
             </Route>
           </Switch>
         </div>

@@ -1,5 +1,5 @@
 import React from "react";
-class Comunity extends React.Component{
+class community extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -32,4 +32,4 @@ class Comunity extends React.Component{
         );
     }
 }
-export default Comunity;
+export default community;
