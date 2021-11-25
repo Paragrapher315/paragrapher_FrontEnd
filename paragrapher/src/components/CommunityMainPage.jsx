@@ -21,6 +21,9 @@ import { theme } from "./theme";
 import communityBgImage from "../assets/CommunityTestBg.png";
 import Paragraph from "./Paragraph/Paragraph";
 class CommunityMainPage extends React.Component {
+  state = {
+    tabValue: 0,
+  };
   render() {
     return (
       <ThemeProvider theme={theme}>
@@ -120,14 +123,34 @@ class CommunityMainPage extends React.Component {
               </Grid>
               <div style={{ width: "100%" }}>
                 <Paper style={{ width: "100%" }}>
-                  <Tabs centered indicatorColor="primary" value={1}>
-                    <Tab label="خانه" style={{ fontFamily: "BYekan" }} />
-                    <Tab label="پاراگراف ها" style={{ fontFamily: "BYekan" }} />
-                    <Tab label="فروشگاه" style={{ fontFamily: "BYekan" }} />
-                    <Tab label="درباره ما" style={{ fontFamily: "BYekan" }} />
+                  <Tabs
+                    centered
+                    indicatorColor="primary"
+                    value={this.state.tabValue}
+                  >
+                    <Tab
+                      label="خانه"
+                      style={{ fontFamily: "BYekan" }}
+                      onClick={() => this.setState({ tabValue: 0 })}
+                    />
+                    <Tab
+                      label="پاراگراف ها"
+                      style={{ fontFamily: "BYekan" }}
+                      onClick={() => this.setState({ tabValue: 1 })}
+                    />
+                    <Tab
+                      label="فروشگاه"
+                      style={{ fontFamily: "BYekan" }}
+                      onClick={() => this.setState({ tabValue: 2 })}
+                    />
+                    <Tab
+                      label="درباره ما"
+                      style={{ fontFamily: "BYekan" }}
+                      onClick={() => this.setState({ tabValue: 3 })}
+                    />
                   </Tabs>
                 </Paper>
-                <Box p={3}>
+                <Box p={3} hidden={this.state.tabValue != 0}>
                   <div style={{ padding: "0 10vw" }}>
                     <Paragraph
                       author="اردا"
@@ -155,7 +178,7 @@ class CommunityMainPage extends React.Component {
                     />
                   </div>
                 </Box>
-                <Box p={3}>
+                <Box p={3} hidden={this.state.tabValue != 1}>
                   <div style={{ padding: "0 10vw" }}>
                     <Paragraph
                       author="اردا"
@@ -215,7 +238,7 @@ class CommunityMainPage extends React.Component {
                     />
                   </div>
                 </Box>
-                <Box p={3}>
+                <Box p={3} hidden={this.state.tabValue != 3}>
                   <Grid item xs={12}>
                     <Card>
                       <CardContent>
