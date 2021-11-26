@@ -31,8 +31,9 @@ class CreateCommunity extends React.Component {
             bio:this.state.bio
         })
         .then((response) => {
-            window.alert(response)
+            //window.alert(response)
             console.log(response)
+            window.location.replace("/profile");
         })
         .catch((error) => {
             

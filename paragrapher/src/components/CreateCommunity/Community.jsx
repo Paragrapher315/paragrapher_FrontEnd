@@ -7,8 +7,16 @@ class community extends React.Component{
           img:props.img,
           bio:props.bio,
           numberOfmembers:props.numberOfmembers,
-          date:props.date
+          date:props.date,
+          view:props.veiw
         };
+        console.log(this.state.img)
+        
+    }
+    componentDidMount(){
+        if (this.state.img===null) {
+            this.setState({img:"https://i.pinimg.com/736x/49/f7/25/49f725a9f2b62ea80603f3fe51289735--le-design-icon-design.jpg"})
+        }
     }
     render(){
         return(
