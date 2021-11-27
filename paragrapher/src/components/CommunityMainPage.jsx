@@ -16,72 +16,46 @@ import {
   Paper,
 } from "@material-ui/core";
 import NotificationsIcon from "@material-ui/icons/Notifications";
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import React, { Component } from "react";
 import { theme } from "./theme";
 import communityBgImage from "../assets/CommunityTestBg.png";
 import Paragraph from "./Paragraph/Paragraph";
+import {
+  JoinCommunity,
+  EnableNotification,
+  CheckCommunityJoined,
+  CheckCommunitySubscribed,
+  LeaveCommunity,
+} from "../Utils/Connection";
 class CommunityMainPage extends React.Component {
   state = {
     tabValue: 0,
     allParagraphs: [],
     bio: "",
     bestParagraphs: [],
-    backgroundURL: "",
     avatarURL: "",
+    name: "",
+    isJoined: false,
+    isSub: false,
   };
+  async componentDidMount() {
+    var splitted = window.location.toString().split("/");
+    await this.setState({ name: splitted.pop() });
+
+    this.setState({
+      isJoined: await CheckCommunityJoined(this.state.name),
+    });
+    this.setState({
+      isSub: await CheckCommunitySubscribed(this.state.name),
+    });
+    console.log("*** You are ", this.state.isJoined, "  ", this.state.isSub);
+  }
+
   render() {
     return (
       <ThemeProvider theme={theme}>
         <div>
-          <div
-            style={{ position: "relative", height: "calc(25vh + 15vw + 10vh)" }}
-          >
-            <div
-              style={{
-                height: "calc(25vh + 15vw)",
-                width: "100%",
-                backgroundImage: `url(${communityBgImage})`,
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
-                position: "absolute",
-                top: "0",
-                right: "0",
-              }}
-            ></div>
-            <div
-              style={{
-                position: "absolute",
-                top: "calc(25vh + 15vw - 10vh)",
-                right: "0",
-                width: "100%",
-                padding: "0 10vw",
-              }}
-            >
-              <Grid container>
-                <Grid item xs={8}>
-                  <div style={{ width: "100%" }}>
-                    <Avatar
-                      src={communityBgImage}
-                      style={{ height: "20vh", width: "20vh" }}
-                    />
-                  </div>
-                </Grid>
-                <Grid item xs={4} style={{ maxHeight: "20vh" }}>
-                  <ButtonGroup
-                    variant="contained"
-                    color="primary"
-                    style={{ marginTop: "12vh", float: "left" }}
-                  >
-                    <Button style={{ fontFamily: "BYekan" }}>عضویت</Button>
-                    <Button>
-                      <NotificationsIcon />
-                    </Button>
-                  </ButtonGroup>
-                </Grid>
-              </Grid>
-            </div>
-          </div>
           <div style={{ padding: "1vh 10vw" }}>
             <Grid container spacing={2}>
               <div style={{ width: "100%" }}>
@@ -94,7 +68,15 @@ class CommunityMainPage extends React.Component {
                 >
                   <Grid item xs={12}>
                     <Grid container>
-                      <Grid item lg={6} md={6} xs={6}>
+                      <Grid item lg={2} md={2} xs={2}>
+                        <div style={{ width: "100%" }}>
+                          <Avatar
+                            src={communityBgImage}
+                            style={{ height: "15vh", width: "15vh" }}
+                          />
+                        </div>
+                      </Grid>
+                      <Grid item lg={8} md={8} xs={8}>
                         <Grid container spacing={2}>
                           <Grid item lg={12} md={12} xs={12}>
                             <Typography
@@ -114,7 +96,62 @@ class CommunityMainPage extends React.Component {
                           </Grid>
                         </Grid>
                       </Grid>
-                      <Grid item lg={6} md={6} xs={6}></Grid>
+                      <Grid item lg={2} md={3} xs={3}>
+                        <ButtonGroup
+                          variant="contained"
+                          color="primary"
+                          style={{ float: "left" }}
+                        >
+                          <Button
+                            style={{ fontFamily: "BYekan" }}
+                            onClick={() => {
+                              if (this.state.isJoined) {
+                                LeaveCommunity(this.state.name).then(() => {
+                                  CheckCommunityJoined(this.state.name).then(
+                                    (b) => {
+                                      this.setState({ isJoined: b });
+                                      this.setState({
+                                        isSub: false,
+                                      });
+                                    }
+                                  );
+                                });
+                              } else {
+                                JoinCommunity(this.state.name).then(() => {
+                                  CheckCommunityJoined(this.state.name).then(
+                                    (b) => {
+                                      this.setState({ isJoined: b });
+                                    }
+                                  );
+                                });
+                              }
+                            }}
+                          >
+                            {this.state.isJoined ? "لغو عضویت" : "عضویت"}
+                          </Button>
+                          <Button>
+                            {this.state.isSub ? (
+                              <NotificationsActiveIcon
+                                onClick={() => {
+                                  EnableNotification(this.state.name);
+                                  this.setState({
+                                    isSub: !this.state.isSub,
+                                  });
+                                }}
+                              />
+                            ) : (
+                              <NotificationsIcon
+                                onClick={() => {
+                                  EnableNotification(this.state.name);
+                                  this.setState({
+                                    isSub: !this.state.isSub,
+                                  });
+                                }}
+                              />
+                            )}
+                          </Button>
+                        </ButtonGroup>
+                      </Grid>
                     </Grid>
                   </Grid>
                   <Tabs
@@ -134,6 +171,7 @@ class CommunityMainPage extends React.Component {
                     />
                     <Tab
                       label="فروشگاه"
+                      disabled
                       style={{ fontFamily: "BYekan" }}
                       onClick={() => this.setState({ tabValue: 2 })}
                     />

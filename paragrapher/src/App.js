@@ -40,7 +40,7 @@ function App() {
               <Route path="/profile" exact={true}>
                 <Profile/>
               </Route>
-              <Route path="/community" exact={true}>
+              <Route path="/community/:handle" exact={true}>
                 <CommunityMainPage/>
               </Route>
             </Switch>

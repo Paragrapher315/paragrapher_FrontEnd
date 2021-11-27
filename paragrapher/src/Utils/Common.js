@@ -2,10 +2,10 @@ import references from "../assets/References.json"
 import Cookies from "universal-cookie";
 export const cookie = new Cookies(); 
 export const getUser = () => {
-    const userStr = sessionStorage.getItem('user');
-    if (userStr) return JSON.parse(userStr);
-    else return null;
-  }
+  const userStr = sessionStorage.getItem('user');
+  if (userStr) return JSON.parse(userStr);
+  else return null;
+}
   
   export const getToken = () => {
     return sessionStorage.getItem('token') || null;
