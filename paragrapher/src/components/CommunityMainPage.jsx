@@ -63,66 +63,55 @@ class CommunityMainPage extends React.Component {
                   </div>
                 </Grid>
                 <Grid item xs={4} style={{ maxHeight: "20vh" }}>
-                  <Hidden xsDown>
-                    <ButtonGroup
-                      variant="contained"
-                      color="primary"
-                      style={{ marginTop: "12vh", float: "left" }}
-                    >
-                      <Button style={{ fontFamily: "BYekan" }}>عضویت</Button>
-                      <Button style={{ fontFamily: "BYekan" }}>فروشگاه</Button>
-                      <Button>
-                        <NotificationsIcon />
-                      </Button>
-                    </ButtonGroup>
-                  </Hidden>
-                  <Hidden mdUp>
-                    <ButtonGroup
-                      variant="contained"
-                      color="primary"
-                      orientation="vertical"
-                      style={{ marginTop: "12vh" }}
-                    >
-                      <Button style={{ fontFamily: "BYekan" }}>عضویت</Button>
-                      <Button style={{ fontFamily: "BYekan" }}>فروشگاه</Button>
-                      <Button>
-                        <NotificationsIcon />
-                      </Button>
-                    </ButtonGroup>
-                  </Hidden>
+                  <ButtonGroup
+                    variant="contained"
+                    color="primary"
+                    style={{ marginTop: "12vh", float: "left" }}
+                  >
+                    <Button style={{ fontFamily: "BYekan" }}>عضویت</Button>
+                    <Button>
+                      <NotificationsIcon />
+                    </Button>
+                  </ButtonGroup>
                 </Grid>
               </Grid>
             </div>
           </div>
           <div style={{ padding: "1vh 10vw" }}>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <Grid container>
-                  <Grid item lg={6} md={6} xs={6}>
-                    <Grid container spacing={2}>
-                      <Grid item lg={12} md={12} xs={12}>
-                        <Typography
-                          style={{
-                            fontFamily: "BYekan",
-                            fontWeight: "Bold",
-                            fontSize: "20px",
-                          }}
-                        >
-                          کامیونیتی تست
-                        </Typography>
+              <div style={{ width: "100%" }}>
+                <Paper
+                  style={{
+                    width: "100%",
+                    padding: "3vh 3vw 0 3vw",
+                    marginTop: "2vh",
+                  }}
+                >
+                  <Grid item xs={12}>
+                    <Grid container>
+                      <Grid item lg={6} md={6} xs={6}>
+                        <Grid container spacing={2}>
+                          <Grid item lg={12} md={12} xs={12}>
+                            <Typography
+                              style={{
+                                fontFamily: "BYekan",
+                                fontWeight: "Bold",
+                                fontSize: "20px",
+                              }}
+                            >
+                              کامیونیتی تست
+                            </Typography>
+                          </Grid>
+                          <Grid item lg={12} md={12} xs={12}>
+                            <Typography style={{ fontFamily: "BYekan" }}>
+                              10000 عضو
+                            </Typography>
+                          </Grid>
+                        </Grid>
                       </Grid>
-                      <Grid item lg={12} md={12} xs={12}>
-                        <Typography style={{ fontFamily: "BYekan" }}>
-                          10000 عضو
-                        </Typography>
-                      </Grid>
+                      <Grid item lg={6} md={6} xs={6}></Grid>
                     </Grid>
                   </Grid>
-                  <Grid item lg={6} md={6} xs={6}></Grid>
-                </Grid>
-              </Grid>
-              <div style={{ width: "100%" }}>
-                <Paper style={{ width: "100%" }}>
                   <Tabs
                     centered
                     indicatorColor="primary"
