@@ -19,29 +19,31 @@ import Footer from './components/Footer/Footer';
 import { CssBaseline } from '@material-ui/core';
 import {cookie} from "./Utils/Common.js";
 import ParagraphEditor from "./components/Paragraph/ParagraphEditor";
+import ParagraphCreator from "./components/Paragraph/ParagraphCreator";
 import {theme,useStyles} from "./components/theme";
 import { jssPreset, StylesProvider } from '@material-ui/styles';
 import rtl from "jss-rtl";
 import { create } from 'jss';
 import { withRouter } from 'react-router-dom';
+import Paragraph from './components/Paragraph/Paragraph';
 function App(props) {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
   const [isLoggedIn,setLoggedIn] = useState(cookie.get("x-access-token") !== undefined ? true : false);
   const classes = useStyles(theme);
-  const [p_id,setP_id] = useState(0);
   const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
-  
   const history = useHistory();
-  function getData(val){
-    console.log(val);
-    setP_id(val);
-    console.log("dadash resid");
-    console.log("ine : " + p_id);
+  function getData(val,val2){
     // window.history.pushState(null,"/other-page", { p_id: p_id });
-    history.push('/paragraph-editor/' + p_id);
+    history.push('/paragraph/edit/' + val2 + '/' + val );
   }
-
+  function openCreator(){
+    history.push("/paragraph/create")
+  }
+  function getDataComment(val){
+    // window.history.pushState(null,"/other-page", { p_id: p_id });
+    history.push('/paragraph/comment/' + val);
+  }
   return (
     
       <StylesProvider jss={jss}>
@@ -50,15 +52,19 @@ function App(props) {
         <div>
           <Switch>
             <Route path="/" exact={true}>
-            {isLoggedIn ?  <MainPage sendData={getData}/>  : <LandingPage2 />}
+            {isLoggedIn ?  <MainPage sendData={getData} sendDataComment={getDataComment} openCreator={openCreator}/>  : <LandingPage2 />}
             </Route>
             <Route path="/profile" exact={true}>
               <Profile/>
             </Route>
-            <Route path="/paragraph-editor/:handle">
-              
+            <Route path="/paragraph/edit/:handle">
                 <ParagraphEditor classes={classes} />
-              
+            </Route>
+            <Route path="/paragraph/create">
+                <ParagraphCreator classes={classes} />
+            </Route>
+            <Route path="/paragraph/comment/:handle">
+                <ParagraphCreator classes={classes} />
             </Route>
           </Switch>
         </div>

@@ -66,6 +66,16 @@ export const useStyles = makeStyles((theme) => ({
       textDecoration: "underline #DDA15E",
     },
   },
+  extendedIcon: {
+    margin: 0,
+    marginRight: theme.spacing(1),
+    top: "auto",
+    right: "5vw",
+    bottom: "5vh",
+    left: "auto",
+    position: "fixed",
+    zIndex: 10000,
+  },
   title: {
     display: "none",
     [theme.breakpoints.up("sm")]: {
