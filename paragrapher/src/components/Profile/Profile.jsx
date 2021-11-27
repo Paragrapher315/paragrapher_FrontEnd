@@ -76,8 +76,8 @@ class Profile extends React.Component {
           
         }
         //this.setState({myCommunityList: response.data[0].communities});
-        console.log(response.data[0].communities[0].community.name,"******");
-        console.log(response.data[0].communities.length,"******");
+        //console.log(response.data[0].communities[0].Links.community_page,"1111111");
+        //console.log(response.data[0].communities.length,"******");
         this.setState({ username: response.data[0].username });
         this.setState({ email: response.data[0].email });
         this.setState({ name: response.data[0].profile_name });
@@ -130,70 +130,72 @@ class Profile extends React.Component {
   render() {
     return (
       <div className="container">
-        <div
-          className="row mt-4  border border-dark rounded"
-          style={{ minHeight: "500px" }}
-        >
-          <div className="col my-3 px-1">
-            <div className="d-flex align-items-start">
-              <div
-                className="d-none  d-md-flex nav flex-column nav-pills me-3"
-                id="v-pills-tab"
-                role="tablist"
-                aria-orientation="vertical"
-              >
-                <button
-                  className="text-start nav-link active"
-                  id="v-pills-home-tab"
-                  data-bs-toggle="pill"
-                  data-bs-target="#v-pills-home"
-                  type="button"
-                  role="tab"
-                  aria-controls="v-pills-home"
-                  aria-selected="true"
+        
+            <div className="row p-4 d-flex align-items-start" style={{minHeight:"500px"}}>
+              <div className="col-12 col-lg-3 px-5 px-md-2">
+                <div
+                //yyy
+                  //className="d-none d-md-flex nav flex-column nav-pills me-3"
+                  className="nav bg-white flex-column nav-pills"
+                  id="v-pills-tab"
+                  role="tablist"
+                  aria-orientation="vertical"
                 >
-                  ویرایش مشخصات
-                </button>
-                <button
-                  className="text-start nav-link"
-                  id="v-pills-profile-tab"
-                  data-bs-toggle="pill"
-                  data-bs-target="#v-pills-profile"
-                  type="button"
-                  role="tab"
-                  aria-controls="v-pills-profile"
-                  aria-selected="false"
-                >
-                  پاراگراف های من
-                </button>
-                <button
-                  className="text-start nav-link"
-                  id="v-pills-messages-tab"
-                  data-bs-toggle="pill"
-                  data-bs-target="#v-pills-messages"
-                  type="button"
-                  role="tab"
-                  aria-controls="v-pills-messages"
-                  aria-selected="false"
-                >
-                  کامیونیتی های من
-                </button>
-                <button
-                  className="text-start nav-link"
-                  id="v-pills-settings-tab"
-                  data-bs-toggle="pill"
-                  data-bs-target="#v-pills-settings"
-                  type="button"
-                  role="tab"
-                  aria-controls="v-pills-settings"
-                  aria-selected="false"
-                >
-                  کتابهای خریداری شده
-                </button>
+                  <button
+                    className="text-start nav-link active"
+                    id="v-pills-home-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#v-pills-home"
+                    type="button"
+                    role="tab"
+                    aria-controls="v-pills-home"
+                    aria-selected="true"
+                  >
+                    ویرایش مشخصات
+                  </button>
+                  <button
+                    className="text-start nav-link"
+                    id="v-pills-profile-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#v-pills-profile"
+                    type="button"
+                    role="tab"
+                    aria-controls="v-pills-profile"
+                    aria-selected="false"
+                  >
+                    پاراگراف های من
+                  </button>
+                  <button
+                    className="text-start nav-link"
+                    id="v-pills-messages-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#v-pills-messages"
+                    type="button"
+                    role="tab"
+                    aria-controls="v-pills-messages"
+                    aria-selected="false"
+                  >
+                    کامیونیتی های من
+                  </button>
+                  <button
+                    className="text-start nav-link"
+                    id="v-pills-settings-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#v-pills-settings"
+                    type="button"
+                    role="tab"
+                    aria-controls="v-pills-settings"
+                    aria-selected="false"
+                  >
+                    کتابهای خریداری شده
+                  </button>
+                </div>
               </div>
 
+
               <div
-                className="tab-content w-100 border-start"
+                className="col-12 col-lg-9 tab-content border-start"
+                //className="col-12"
                 id="v-pills-tabContent"
               >
                 <div
@@ -600,7 +602,7 @@ class Profile extends React.Component {
                   ...
                 </div>
                 <div
-                  className="tab-pane fade"
+                  className="tab-pane fade py-3"
                   id="v-pills-messages"
                   role="tabpanel"
                   aria-labelledby="v-pills-messages-tab"
@@ -628,8 +630,7 @@ class Profile extends React.Component {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        
     );
   }
 }
