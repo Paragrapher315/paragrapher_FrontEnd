@@ -218,3 +218,18 @@ export const LeaveCommunity = async (communityName) => {
     return message
     
 }
+export const GetCommunityInfo = async (communityName) => {
+    const address = "/community/" + communityName;
+    let res;
+    await axios
+        .get(makeURL(address))
+        .then((response) => {
+            console.log("This is ", response)
+            res = response;
+        })
+        .catch((error) => {
+            console.log("error is ", error)
+            res = error;
+        })
+    return res;   
+}

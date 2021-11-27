@@ -27,6 +27,7 @@ import {
   CheckCommunityJoined,
   CheckCommunitySubscribed,
   LeaveCommunity,
+  GetCommunityInfo,
 } from "../Utils/Connection";
 class CommunityMainPage extends React.Component {
   state = {
@@ -38,6 +39,7 @@ class CommunityMainPage extends React.Component {
     name: "",
     isJoined: false,
     isSub: false,
+    membersCount: 0,
   };
   async componentDidMount() {
     var splitted = window.location.toString().split("/");
@@ -50,6 +52,10 @@ class CommunityMainPage extends React.Component {
       isSub: await CheckCommunitySubscribed(this.state.name),
     });
     console.log("*** You are ", this.state.isJoined, "  ", this.state.isSub);
+    var communityInfo = await GetCommunityInfo(this.state.name);
+    console.log("community info is", communityInfo);
+    this.setState({ bio: communityInfo.data.description });
+    this.setState({ membersCount: communityInfo.data.member_count });
   }
 
   render() {
@@ -67,12 +73,12 @@ class CommunityMainPage extends React.Component {
                   }}
                 >
                   <Grid item xs={12}>
-                    <Grid container>
+                    <Grid container spacing={1}>
                       <Grid item lg={2} md={2} xs={2}>
-                        <div style={{ width: "100%" }}>
+                        <div style={{ width: "15vh", height: "15vh" }}>
                           <Avatar
                             src={communityBgImage}
-                            style={{ height: "15vh", width: "15vh" }}
+                            style={{ height: "100%", width: "100%" }}
                           />
                         </div>
                       </Grid>
@@ -86,17 +92,17 @@ class CommunityMainPage extends React.Component {
                                 fontSize: "20px",
                               }}
                             >
-                              کامیونیتی تست
+                              کامیونیتی {this.state.name}
                             </Typography>
                           </Grid>
                           <Grid item lg={12} md={12} xs={12}>
                             <Typography style={{ fontFamily: "BYekan" }}>
-                              10000 عضو
+                              {this.state.membersCount} عضو
                             </Typography>
                           </Grid>
                         </Grid>
                       </Grid>
-                      <Grid item lg={2} md={3} xs={3}>
+                      <Grid item lg={2} md={2} xs={2}>
                         <ButtonGroup
                           variant="contained"
                           color="primary"
@@ -113,6 +119,7 @@ class CommunityMainPage extends React.Component {
                                       this.setState({
                                         isSub: false,
                                       });
+                                      window.location.reload();
                                     }
                                   );
                                 });
@@ -121,6 +128,7 @@ class CommunityMainPage extends React.Component {
                                   CheckCommunityJoined(this.state.name).then(
                                     (b) => {
                                       this.setState({ isJoined: b });
+                                      window.location.reload();
                                     }
                                   );
                                 });
@@ -129,7 +137,7 @@ class CommunityMainPage extends React.Component {
                           >
                             {this.state.isJoined ? "لغو عضویت" : "عضویت"}
                           </Button>
-                          <Button>
+                          <Button disabled={!this.state.isJoined}>
                             {this.state.isSub ? (
                               <NotificationsActiveIcon
                                 onClick={() => {
