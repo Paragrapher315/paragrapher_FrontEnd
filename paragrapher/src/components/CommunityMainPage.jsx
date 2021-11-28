@@ -28,6 +28,8 @@ import {
   CheckCommunitySubscribed,
   LeaveCommunity,
   GetCommunityInfo,
+  BestCommunityParagraphs,
+  GetCommunityParagraphs,
 } from "../Utils/Connection";
 class CommunityMainPage extends React.Component {
   state = {
@@ -56,6 +58,12 @@ class CommunityMainPage extends React.Component {
     console.log("community info is", communityInfo);
     this.setState({ bio: communityInfo.data.description });
     this.setState({ membersCount: communityInfo.data.member_count });
+    BestCommunityParagraphs(this.state.name).then((ret) => {
+      this.setState({ bestParagraphs: ret.data });
+    });
+    GetCommunityParagraphs(this.state.name, 0, 10).then((ret) => {
+      this.setState({ allParagraphs: ret.data });
+    });
   }
 
   render() {
@@ -74,7 +82,7 @@ class CommunityMainPage extends React.Component {
                 >
                   <Grid item xs={12}>
                     <Grid container spacing={1}>
-                      <Grid item lg={2} md={2} xs={2}>
+                      <Grid item lg={2} md={2} xs={6}>
                         <div style={{ width: "15vh", height: "15vh" }}>
                           <Avatar
                             src={communityBgImage}
@@ -82,83 +90,87 @@ class CommunityMainPage extends React.Component {
                           />
                         </div>
                       </Grid>
-                      <Grid item lg={8} md={8} xs={8}>
-                        <Grid container spacing={2}>
-                          <Grid item lg={12} md={12} xs={12}>
-                            <Typography
-                              style={{
-                                fontFamily: "BYekan",
-                                fontWeight: "Bold",
-                                fontSize: "20px",
-                              }}
-                            >
-                              کامیونیتی {this.state.name}
-                            </Typography>
+                      <Grid item lg={10} md={10} xs={6}>
+                        <Grid container>
+                          <Grid item lg={9} md={9} xs={12}>
+                            <Grid container spacing={1}>
+                              <Grid item lg={12} md={12} xs={12}>
+                                <Typography
+                                  style={{
+                                    fontFamily: "BYekan",
+                                    fontWeight: "Bold",
+                                    fontSize: "20px",
+                                  }}
+                                >
+                                  کامیونیتی {this.state.name}
+                                </Typography>
+                              </Grid>
+                              <Grid item lg={12} md={12} xs={12}>
+                                <Typography style={{ fontFamily: "BYekan" }}>
+                                  {this.state.membersCount} عضو
+                                </Typography>
+                              </Grid>
+                            </Grid>
                           </Grid>
-                          <Grid item lg={12} md={12} xs={12}>
-                            <Typography style={{ fontFamily: "BYekan" }}>
-                              {this.state.membersCount} عضو
-                            </Typography>
+                          <Grid item lg={3} md={3} xs={12}>
+                            <ButtonGroup
+                              variant="contained"
+                              color="primary"
+                              // style={{ float: "left" }}
+                            >
+                              <Button
+                                style={{ fontFamily: "BYekan" }}
+                                onClick={() => {
+                                  if (this.state.isJoined) {
+                                    LeaveCommunity(this.state.name).then(() => {
+                                      CheckCommunityJoined(
+                                        this.state.name
+                                      ).then((b) => {
+                                        this.setState({ isJoined: b });
+                                        this.setState({
+                                          isSub: false,
+                                        });
+                                        window.location.reload();
+                                      });
+                                    });
+                                  } else {
+                                    JoinCommunity(this.state.name).then(() => {
+                                      CheckCommunityJoined(
+                                        this.state.name
+                                      ).then((b) => {
+                                        this.setState({ isJoined: b });
+                                        window.location.reload();
+                                      });
+                                    });
+                                  }
+                                }}
+                              >
+                                {this.state.isJoined ? "لغو عضویت" : "عضویت"}
+                              </Button>
+                              <Button disabled={!this.state.isJoined}>
+                                {this.state.isSub ? (
+                                  <NotificationsActiveIcon
+                                    onClick={() => {
+                                      EnableNotification(this.state.name);
+                                      this.setState({
+                                        isSub: !this.state.isSub,
+                                      });
+                                    }}
+                                  />
+                                ) : (
+                                  <NotificationsIcon
+                                    onClick={() => {
+                                      EnableNotification(this.state.name);
+                                      this.setState({
+                                        isSub: !this.state.isSub,
+                                      });
+                                    }}
+                                  />
+                                )}
+                              </Button>
+                            </ButtonGroup>
                           </Grid>
                         </Grid>
-                      </Grid>
-                      <Grid item lg={2} md={2} xs={2}>
-                        <ButtonGroup
-                          variant="contained"
-                          color="primary"
-                          style={{ float: "left" }}
-                        >
-                          <Button
-                            style={{ fontFamily: "BYekan" }}
-                            onClick={() => {
-                              if (this.state.isJoined) {
-                                LeaveCommunity(this.state.name).then(() => {
-                                  CheckCommunityJoined(this.state.name).then(
-                                    (b) => {
-                                      this.setState({ isJoined: b });
-                                      this.setState({
-                                        isSub: false,
-                                      });
-                                      window.location.reload();
-                                    }
-                                  );
-                                });
-                              } else {
-                                JoinCommunity(this.state.name).then(() => {
-                                  CheckCommunityJoined(this.state.name).then(
-                                    (b) => {
-                                      this.setState({ isJoined: b });
-                                      window.location.reload();
-                                    }
-                                  );
-                                });
-                              }
-                            }}
-                          >
-                            {this.state.isJoined ? "لغو عضویت" : "عضویت"}
-                          </Button>
-                          <Button disabled={!this.state.isJoined}>
-                            {this.state.isSub ? (
-                              <NotificationsActiveIcon
-                                onClick={() => {
-                                  EnableNotification(this.state.name);
-                                  this.setState({
-                                    isSub: !this.state.isSub,
-                                  });
-                                }}
-                              />
-                            ) : (
-                              <NotificationsIcon
-                                onClick={() => {
-                                  EnableNotification(this.state.name);
-                                  this.setState({
-                                    isSub: !this.state.isSub,
-                                  });
-                                }}
-                              />
-                            )}
-                          </Button>
-                        </ButtonGroup>
                       </Grid>
                     </Grid>
                   </Grid>
@@ -194,12 +206,12 @@ class CommunityMainPage extends React.Component {
                   <div style={{ padding: "0 10vw" }}>
                     {this.state.bestParagraphs.map((bp) => (
                       <Paragraph
-                        author={bp.author}
+                        author={bp.user_name}
                         isPotd={false}
                         date={bp.date}
                         avatar="ا"
                         canAction={true}
-                        text={bp.text}
+                        text={bp.p_text}
                       />
                     ))}
                   </div>
@@ -208,12 +220,12 @@ class CommunityMainPage extends React.Component {
                   <div style={{ padding: "0 10vw" }}>
                     {this.state.allParagraphs.map((p) => (
                       <Paragraph
-                        author={p.author}
+                        author={p.user_name}
                         isPotd={false}
                         date={p.date}
                         avatar="ا"
                         canAction={true}
-                        text={p.text}
+                        text={p.p_text}
                       />
                     ))}
                   </div>

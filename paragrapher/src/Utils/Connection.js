@@ -233,3 +233,37 @@ export const GetCommunityInfo = async (communityName) => {
         })
     return res;   
 }
+export const BestCommunityParagraphs = async (communityName) => {
+    const address = "/community/" + communityName;
+    let res;
+    await axios
+        .patch(makeURL(address), {})
+        .then((response) => {
+            console.log("Best Community Paragraph", response);
+            res = response;
+        })
+        .catch((error) => {
+            console.log("Best Community Paragraph err", error.response);
+            res = error;
+        })
+    return res;
+}
+export const GetCommunityParagraphs = async (communityName, start, end) => {
+    const address = "/community/" + communityName;
+    let res;
+    await axios
+        .put(makeURL(address), {
+            start_off: start, 
+            end_off: end
+        })
+        .then((response) => {
+            console.log("Community Paragraph", response);
+            res = response;
+        })
+        .catch((error) => {
+            console.log("Community Paragraph err", error);
+            res = error;
+        })
+    return res;
+
+}
