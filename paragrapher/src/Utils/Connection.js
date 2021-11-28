@@ -161,6 +161,32 @@ export const CreateParagraph = async (communityID,author,book,paragraph,tags) =>
     return message;
 }
 
+
+
+export const CreateComment = async (communityID,paragraph,p_id) => {
+    let message = ""
+    await axios
+        .post(makeURL(references.url_create_paragraph + '/' +  communityID + '/paragraph/reply'), {
+            text:paragraph,
+            p_id:p_id,
+        })
+        .then((response) => {
+            console.log(response);
+            window.location.replace("/community/" + communityID );
+        })
+        .catch((error) => {
+            
+            console.log(error, error.response.data);
+            if(error.response.status == 401) {
+                message = error.response.data.message;
+            } else {
+                message = error.response.data;
+            }
+        })
+    return message;
+}
+
+
 export const EditParagraph = async (communityName,author,book,paragraph,tags,p_id) => {
     let message = ""
     await axios
@@ -188,11 +214,11 @@ export const EditParagraph = async (communityName,author,book,paragraph,tags,p_i
 }
 
 export const DeleteParagraph = async (communityID,p_id) => {
-    let message = ""
+    let message = "";
     await axios
-        .delete(makeURL(references.url_create_paragraph + communityID + '/paragraph'), {
-            p_id:p_id
-        })
+        .delete(makeURL(references.url_create_paragraph + '/' + communityID + '/paragraph'), {data : {
+            p_id: p_id
+        }})
         .then((response) => {
             console.log(response);
             window.location.replace("/community/" + communityID );
@@ -230,6 +256,9 @@ export const GetParagraph = async (p_id) => {
         })
     return message;
 }
+
+
+
 
 export const GetCommunities = async () => {
     let message="";
@@ -301,3 +330,53 @@ export const ParagraphArray = async(d,start_off,end_off) => {
       });
     return message;
 }
+
+export const isLiked = async (communityName, p_id) => {
+    let message=""
+    await axios
+      .put(
+        makeURL(
+          references.url_create_paragraph +
+            "/" +
+            communityName +
+            "/paragraph/impression"
+        ),
+        {
+            p_id:p_id
+        }
+      )
+      .then((response) => {
+        message=response
+      })
+      .catch((error) => {
+        message=error
+        window.alert(error);
+      });
+      return message
+  };
+
+
+  
+export const Like = async (communityName, p_id) => {
+    let message=""
+    await axios
+      .post(
+        makeURL(
+          references.url_create_paragraph +
+            "/" +
+            communityName +
+            "/paragraph/impression"
+        ),
+        {
+            p_id:p_id
+        }
+      )
+      .then((response) => {
+        message=response
+      })
+      .catch((error) => {
+        message=error
+        window.alert(error);
+      });
+      return message
+  };

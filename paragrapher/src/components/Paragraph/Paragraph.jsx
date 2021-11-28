@@ -23,6 +23,11 @@ import EditIcon from "@material-ui/icons/Edit";
 import ParagraphEditor from "./ParagraphEditor";
 import Link from "@material-ui/core/Link";
 import * as moment from "jalali-moment";
+import axios from "axios";
+import { makeURL } from "../../Utils/Common";
+import references from "../../assets/References.json";
+import { DeleteParagraph, isLiked, Like } from "../../Utils/Connection";
+import { Delete } from "@material-ui/icons";
 function randomColor(input) {
   let hex = Math.floor(input * 0xf125ff);
   let color = "#" + hex.toString(16);
@@ -30,24 +35,34 @@ function randomColor(input) {
 }
 
 function Paragraph(props) {
-  const [liked, setLiked] = useState(false);
+  function likeIsOn() {
+    if (props.canAction)
+      isLiked(props.communityName, props.p_id).then((res) => {
+        setLiked(res.data.message);
+      });
+    else return false;
+  }
+  const something = useState(likeIsOn());
+
+  const [liked, setLiked] = useState(null);
+
   const classes = useStyles(theme);
 
   const handleLike = () => {
+    Like(props.communityName, props.p_id).then((res) => {
+      setLiked(!liked);
+    });
     // send like data to backend
-    setLiked(!liked);
   };
   function demoMethod() {
     props.sendData(props.p_id, props.communityName);
   }
   function demoMethod2() {
-    props.sendDataComment(props.p_id);
+    props.sendDataComment(props.p_id, props.communityName);
   }
-  const handleEdit = () => {
-    window.location.replace("/edit/community/");
-    ParagraphEditor();
-  };
-
+  function handleDelete() {
+    DeleteParagraph(props.communityName, props.p_id.toString());
+  }
   const persianDate = new Date(props.date.replace("-", "/")).toLocaleString(
     "fa-IR"
   );
@@ -155,18 +170,25 @@ function Paragraph(props) {
                 <IconButton aria-label="like paragraph" onClick={handleLike}>
                   {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                 </IconButton>
-                <IconButton aria-label="show comments" onClick={demoMethod2}>
+                <IconButton
+                  disabled
+                  aria-label="show comments"
+                  onClick={demoMethod2}
+                >
                   <CommentIcon />
                 </IconButton>
                 {/* <IconButton aria-label="" style={{ visibility: "hidden" }}>
                   <SendIcon style={{ transform: "rotate(180deg)" }} />
                 </IconButton> */}
-                {props.isMine ? (
-                  <IconButton onClick={demoMethod}>
-                    <EditIcon />
-                  </IconButton>
-                ) : (
-                  ""
+                {props.isMine && (
+                  <>
+                    <IconButton onClick={demoMethod}>
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton onClick={handleDelete}>
+                      <Delete />
+                    </IconButton>
+                  </>
                 )}
               </CardActions>
             ) : (

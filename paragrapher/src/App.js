@@ -26,6 +26,7 @@ import rtl from "jss-rtl";
 import { create } from 'jss';
 import { withRouter } from 'react-router-dom';
 import Paragraph from './components/Paragraph/Paragraph';
+import ParagraphCommentor from './components/Paragraph/ParagraphCommentor';
 function App(props) {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
@@ -40,9 +41,9 @@ function App(props) {
   function openCreator(){
     history.push("/paragraph/create")
   }
-  function getDataComment(val){
+  function getDataComment(val,val2){
     // window.history.pushState(null,"/other-page", { p_id: p_id });
-    history.push('/paragraph/comment/' + val);
+    history.push('/paragraph/comment/' + val2 + '/' + val);
   }
   return (
     
@@ -64,7 +65,7 @@ function App(props) {
                 <ParagraphCreator classes={classes} />
             </Route>
             <Route path="/paragraph/comment/:handle">
-                <ParagraphCreator classes={classes} />
+                <ParagraphCommentor classes={classes} />
             </Route>
           </Switch>
         </div>

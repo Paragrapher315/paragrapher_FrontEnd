@@ -25,6 +25,7 @@ import axios from "axios";
 import {
   GetCommunities,
   GetParagraphs,
+  isLiked,
   ParagraphArray,
 } from "../../Utils/Connection";
 function MainPage(props) {
@@ -39,8 +40,8 @@ function MainPage(props) {
   function setCreatePara() {
     props.openCreator();
   }
-  function getDataComment(val) {
-    props.sendDataComment(val);
+  function getDataComment(val, val2) {
+    props.sendDataComment(val, val2);
   }
   return (
     <div>
@@ -95,7 +96,7 @@ function MainPage(props) {
                     avatar="ک"
                     author="نیچه"
                     tags={["ترسناک", "جنایی", "ماجرایی"]}
-                    canAction={true}
+                    canAction={false}
                     isMine={true}
                     book="فلان"
                     sendData={getData}
@@ -201,13 +202,11 @@ export class ParagraphList extends Component {
         this.state.communities.push(element.name);
       });
       this.setState({ communities: this.state.communities });
-      console.log(this.state.communities);
     });
     ParagraphArray(d, this.state.start_off, this.state.end_off).then((res) => {
       this.setState({
         paragraphs: res,
       });
-      console.log(this.state.paragraphs);
     });
   }
 
@@ -215,6 +214,12 @@ export class ParagraphList extends Component {
     return (
       <div>
         {this.state.paragraphs.map((element) => {
+          // var isliked = false;
+          // if (this.state.communities.includes(element.communityName))
+          //   isLiked(element.communityName, element.id).then((res) => {
+          //     isliked = res.message;
+          //     console.log(isliked);
+          //   });
           return (
             <Paragraph
               user={element.username}
