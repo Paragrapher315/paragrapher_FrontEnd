@@ -124,9 +124,12 @@ class Profile extends React.Component {
         }
       })
       .catch((error) => {
-        window.alert("خطای سرور. لطفا دوباره تلاش کنید");
+        // window.alert("خطای سرور. لطفا دوباره تلاش کنید");
         console.log(error, error.response.data);
-        if (error.response.status == 401) {
+        if (error.response.data.message == "Wrong password entered.") {
+          document.getElementById("errors").innerHTML =
+            "پسور وارد شده با پسور قبلی شما مطابقت ندارد";
+        } else if (error.response.status == 401) {
           message = error.response.data.message;
         } else {
           message = error.response.data;
@@ -253,6 +256,7 @@ class Profile extends React.Component {
                           className="w-100"
                           data-bs-toggle="modal"
                           data-bs-target="#exampleModal1"
+                          style={{ fontFamily: "BYekan" }}
                         >
                           تغییر تصویر
                         </Button>
@@ -272,6 +276,7 @@ class Profile extends React.Component {
                           onClick={() =>
                             (document.getElementById("errors").innerHTML = "")
                           }
+                          style={{ fontFamily: "BYekan" }}
                         >
                           تغییر رمز
                         </Button>
