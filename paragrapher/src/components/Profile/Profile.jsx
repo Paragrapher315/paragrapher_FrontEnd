@@ -27,7 +27,7 @@ class Profile extends React.Component {
       new_img: null,
       loaded: 0,
       new_img_src: null,
-      myCommunityList:[]
+      myCommunityList: [],
     };
   }
 
@@ -46,13 +46,18 @@ class Profile extends React.Component {
   handleUpload = () => {
     const data = new FormData();
     data.append("file", this.state.new_img);
+    console.log("data append   ", data);
 
     axios
       .post(makeURL(references.url_upload_pp), data, {
         onUploadProgress: (ProgressEvent) => {
+          console.log("progress event", ProgressEvent);
           this.setState({
             loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
           });
+          if ((ProgressEvent.loaded / ProgressEvent.total) * 100 == 100) {
+            window.location.reload();
+          }
         },
       })
       .then((res) => {
@@ -66,14 +71,17 @@ class Profile extends React.Component {
       .then((response) => {
         console.log(response.data[0].communities);
         for (let i = 0; i < response.data[0].communities.length; i++) {
-          console.log(i,response.data[0].communities[i].role);
+          console.log(i, response.data[0].communities[i].role);
           if (response.data[0].communities[i].role === 1) {
-            console.log(i)
-            this.setState({myCommunityList:this.state.myCommunityList.concat(response.data[0].communities[i])})
-            
+            console.log(i);
+            this.setState({
+              myCommunityList: this.state.myCommunityList.concat(
+                response.data[0].communities[i]
+              ),
+            });
+
             //this.setState({ myCommunityList: response.data[0].username });
           }
-          
         }
         //this.setState({myCommunityList: response.data[0].communities});
         //console.log(response.data[0].communities[0].community.link,"1111111");
@@ -130,507 +138,478 @@ class Profile extends React.Component {
   render() {
     return (
       <div className="container">
-        
-            <div className="row p-4 d-flex align-items-start" style={{minHeight:"500px"}}>
-              <div className="col-12 col-lg-3 px-5 px-md-2">
-                <div
-                //yyy
-                  //className="d-none d-md-flex nav flex-column nav-pills me-3"
-                  className="nav bg-white flex-column nav-pills"
-                  id="v-pills-tab"
-                  role="tablist"
-                  aria-orientation="vertical"
-                >
-                  <button
-                    className="text-start nav-link active"
-                    id="v-pills-home-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#v-pills-home"
-                    type="button"
-                    role="tab"
-                    aria-controls="v-pills-home"
-                    aria-selected="true"
-                  >
-                    ویرایش مشخصات
-                  </button>
-                  <button
-                    className="text-start nav-link"
-                    id="v-pills-profile-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#v-pills-profile"
-                    type="button"
-                    role="tab"
-                    aria-controls="v-pills-profile"
-                    aria-selected="false"
-                  >
-                    پاراگراف های من
-                  </button>
-                  <button
-                    className="text-start nav-link"
-                    id="v-pills-messages-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#v-pills-messages"
-                    type="button"
-                    role="tab"
-                    aria-controls="v-pills-messages"
-                    aria-selected="false"
-                  >
-                    کامیونیتی های من
-                  </button>
-                  <button
-                    className="text-start nav-link"
-                    id="v-pills-settings-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#v-pills-settings"
-                    type="button"
-                    role="tab"
-                    aria-controls="v-pills-settings"
-                    aria-selected="false"
-                  >
-                    کتابهای خریداری شده
-                  </button>
-                </div>
-              </div>
-
-
-              <div
-                className="col-12 col-lg-9 tab-content border-start"
-                //className="col-12"
-                id="v-pills-tabContent"
+        <div
+          className="row p-4 d-flex align-items-start"
+          style={{ minHeight: "500px" }}
+        >
+          <div className="col-12 col-lg-3 px-5 px-md-2">
+            <div
+              //yyy
+              //className="d-none d-md-flex nav flex-column nav-pills me-3"
+              className="nav bg-white flex-column nav-pills"
+              id="v-pills-tab"
+              role="tablist"
+              aria-orientation="vertical"
+            >
+              <button
+                className="text-start nav-link active"
+                id="v-pills-home-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#v-pills-home"
+                type="button"
+                role="tab"
+                aria-controls="v-pills-home"
+                aria-selected="true"
               >
+                ویرایش مشخصات
+              </button>
+              <button
+                className="text-start nav-link"
+                id="v-pills-profile-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#v-pills-profile"
+                type="button"
+                role="tab"
+                aria-controls="v-pills-profile"
+                aria-selected="false"
+              >
+                پاراگراف های من
+              </button>
+              <button
+                className="text-start nav-link"
+                id="v-pills-messages-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#v-pills-messages"
+                type="button"
+                role="tab"
+                aria-controls="v-pills-messages"
+                aria-selected="false"
+              >
+                کامیونیتی های من
+              </button>
+              <button
+                className="text-start nav-link"
+                id="v-pills-settings-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#v-pills-settings"
+                type="button"
+                role="tab"
+                aria-controls="v-pills-settings"
+                aria-selected="false"
+              >
+                کتابهای خریداری شده
+              </button>
+            </div>
+          </div>
+
+          <div
+            className="col-12 col-lg-9 tab-content border-start"
+            //className="col-12"
+            id="v-pills-tabContent"
+          >
+            <div
+              className="tab-pane fade show active"
+              id="v-pills-home"
+              role="tabpanel"
+              aria-labelledby="v-pills-home-tab"
+            >
+              <div className="container p-5 py-2">
+                <div className="row p-1">
+                  <div id="liveAlertPlaceholder"></div>
+                </div>
                 <div
-                  className="tab-pane fade show active"
-                  id="v-pills-home"
-                  role="tabpanel"
-                  aria-labelledby="v-pills-home-tab"
+                  className="row border border-primary"
+                  id="changeProfile"
+                  style={{ borderRadius: "40px", overflow: "hidden" }}
                 >
-                  <div className="container p-5 py-2">
-                    <div className="row p-1">
-                      <div id="liveAlertPlaceholder"></div>
+                  <div className="col-12 p-3 col-lg-3 bg-light">
+                    <br />
+                    <br />
+                    <div className="row">
+                      <div className="col"></div>
+                      <div className="col">
+                        <BadgeAvatars
+                          src={references.url_address + this.state.img}
+                          h="100px"
+                          w="100px"
+                        />
+                      </div>
+                      <div className="col"></div>
                     </div>
+                    <br />
+                    <br />
+                    <div className="row py-2">
+                      <div className="col"></div>
+
+                      <div className="col"></div>
+                    </div>
+                    <div className="row mb-4">
+                      <div className="col"></div>
+                      <div className="col-8">
+                        <Button
+                          color="secondary"
+                          variant="contained"
+                          component="span"
+                          className="w-100"
+                          data-bs-toggle="modal"
+                          data-bs-target="#exampleModal1"
+                        >
+                          تغییر تصویر
+                        </Button>
+                      </div>
+                      <div className="col"></div>
+                    </div>
+                    <div className="row">
+                      <div className="col"></div>
+                      <div className="col-8">
+                        <Button
+                          color="secondary"
+                          variant="contained"
+                          component="span"
+                          className="w-100"
+                          data-bs-toggle="modal"
+                          data-bs-target="#exampleModal"
+                          onClick={() =>
+                            (document.getElementById("errors").innerHTML = "")
+                          }
+                        >
+                          تغییر رمز
+                        </Button>
+                      </div>
+                      <div className="col"></div>
+                    </div>
+
                     <div
-                      className="row border border-primary"
-                      id="changeProfile"
-                      style={{ borderRadius: "40px", overflow: "hidden" }}
+                      className="modal fade"
+                      id="exampleModal1"
+                      tabindex="-1"
+                      aria-labelledby="exampleModalLabel1"
+                      aria-hidden="true"
                     >
-                      <div className="col-12 p-3 col-lg-3 bg-light">
-                        <br />
-                        <br />
-                        <div className="row">
-                          <div className="col"></div>
-                          <div className="col">
-                            <BadgeAvatars
-                              src={references.url_address + this.state.img}
-                              h="100px"
-                              w="100px"
-                            />
+                      <div className="modal-dialog">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel1">
+                              تغییر تصویر کاربری{" "}
+                            </h5>
+                            <button
+                              type="button"
+                              className="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button>
                           </div>
-                          <div className="col"></div>
-                        </div>
-                        <br />
-                        <br />
-                        <div className="row py-2">
-                          <div className="col"></div>
-
-                          <div className="col"></div>
-                        </div>
-                        <div className="row mb-4">
-                          <div className="col"></div>
-                          <div className="col-8">
-                            <Button
-                              color="secondary"
-                              variant="contained"
-                              component="span"
-                              className="w-100"
-                              data-bs-toggle="modal"
-                              data-bs-target="#exampleModal1"
-                            >
-                              تغییر تصویر
-                            </Button>
-                          </div>
-                          <div className="col"></div>
-                        </div>
-                        <div className="row">
-                          <div className="col"></div>
-                          <div className="col-8">
-                            <Button
-                              color="secondary"
-                              variant="contained"
-                              component="span"
-                              className="w-100"
-                              data-bs-toggle="modal"
-                              data-bs-target="#exampleModal"
-                              onClick={() =>
-                                (document.getElementById("errors").innerHTML =
-                                  "")
-                              }
-                            >
-                              تغییر رمز
-                            </Button>
-                          </div>
-                          <div className="col"></div>
-                        </div>
-
-                        <div
-                          className="modal fade"
-                          id="exampleModal1"
-                          tabindex="-1"
-                          aria-labelledby="exampleModalLabel1"
-                          aria-hidden="true"
-                        >
-                          <div className="modal-dialog">
-                            <div className="modal-content">
-                              <div className="modal-header">
-                                <h5
-                                  className="modal-title"
-                                  id="exampleModalLabel1"
-                                >
-                                  تغییر تصویر کاربری{" "}
-                                </h5>
-                                <button
-                                  type="button"
-                                  className="btn-close"
-                                  data-bs-dismiss="modal"
-                                  aria-label="Close"
-                                ></button>
+                          <div className="modal-body">
+                            <div className="row">
+                              <div className="col"></div>
+                              <div className="col">
+                                <BadgeAvatars
+                                  src={this.state.new_img_src}
+                                  h="150px"
+                                  w="150px"
+                                />
                               </div>
-                              <div className="modal-body">
-                                <div className="row">
-                                  <div className="col"></div>
-                                  <div className="col">
-                                    <BadgeAvatars
-                                      src={this.state.new_img_src}
-                                      h="150px"
-                                      w="150px"
-                                    />
-                                  </div>
-                                  <div className="col"></div>
-                                </div>
-
-                                <form
-                                  className="container"
-                                  enctype="multipart/form-data"
-                                  onsubmit={() => window.location.reload()}
-                                >
-                                  <div className="form-inline justify-content-center mt-5">
-                                    <label
-                                      htmlFor="image"
-                                      className="ml-sm-4 font-weight-bold mr-md-4 mb-5"
-                                    >
-                                      تصویر :{" "}
-                                    </label>
-                                    <div className="input-group">
-                                      <input
-                                        type="file"
-                                        id="image"
-                                        name="file"
-                                        accept="image/*"
-                                        className="file-custom"
-                                        onChange={this.handleselectedFile}
-                                      />
-                                    </div>
-                                  </div>
-
-                                  <div className="input-group justify-content-center mt-4">
-                                    <button
-                                      type="submit"
-                                      className="btn btn-md btn-primary"
-                                      onClick={this.handleUpload}
-                                    >
-                                      ارسال
-                                    </button>
-                                  </div>
-                                </form>
-                              </div>
-                              <div className="modal-footer"></div>
+                              <div className="col"></div>
                             </div>
-                          </div>
-                        </div>
 
-                        <div
-                          className="modal fade"
-                          id="exampleModal"
-                          tabindex="-1"
-                          aria-labelledby="exampleModalLabel"
-                          aria-hidden="true"
-                        >
-                          <div className="modal-dialog">
-                            <div className="modal-content">
-                              <div className="modal-header">
-                                <h5
-                                  className="modal-title"
-                                  id="exampleModalLabel"
+                            <form
+                              className="container"
+                              enctype="multipart/form-data"
+                              // onsubmit={() => window.location.reload()}
+                            >
+                              <div className="form-inline justify-content-center mt-5">
+                                <label
+                                  htmlFor="image"
+                                  className="ml-sm-4 font-weight-bold mr-md-4 mb-5"
                                 >
-                                  تغییر رمز عبور{" "}
-                                </h5>
-                                <button
-                                  type="button"
-                                  className="btn-close"
-                                  data-bs-dismiss="modal"
-                                  aria-label="Close"
-                                ></button>
-                              </div>
-                              <div className="modal-body">
-                                <div className="mb-3 ms-3 row">
-                                  <label
-                                    for="oldPass"
-                                    className="col-sm-3 col-form-label"
-                                  >
-                                    رمز قدیم
-                                  </label>
-                                  <div className="col-sm-9">
-                                    <input
-                                      type="password"
-                                      className="form-control"
-                                      id="oldPass"
-                                      defaultValue={this.state.oldPass}
-                                      onChange={(e) =>
-                                        this.setState({
-                                          oldPass: e.target.value,
-                                        })
-                                      }
-                                    />
-                                  </div>
-                                </div>
-                                <div className="mb-3 ms-3 row">
-                                  <label
-                                    for="newPass"
-                                    className="col-sm-3 col-form-label"
-                                  >
-                                    رمز جدید
-                                  </label>
-                                  <div className="col-sm-9">
-                                    <input
-                                      type="password"
-                                      className="form-control"
-                                      id="newPass"
-                                      defaultValue={this.state.newPass}
-                                      onChange={(e) =>
-                                        this.setState({
-                                          newPass: e.target.value,
-                                        })
-                                      }
-                                    />
-                                  </div>
-                                </div>
-                                <div className="mb-3 ms-3 row">
-                                  <label
-                                    for="confirmNewPass"
-                                    className="col-sm-3 col-form-label"
-                                  >
-                                    تکرار رمز جدید{" "}
-                                  </label>
-                                  <div className="col-sm-9">
-                                    <input
-                                      type="password"
-                                      className="form-control"
-                                      id="confirmNewPass"
-                                      defaultValue={this.state.confirmNewPass}
-                                      onChange={(e) =>
-                                        this.setState({
-                                          confirmNewPass: e.target.value,
-                                        })
-                                      }
-                                    />
-                                  </div>
-                                </div>
-                                <div className="mb-3 ms-3 row">
-                                  <span
-                                    id="errors"
-                                    className="text-danger"
-                                  ></span>
+                                  تصویر :{" "}
+                                </label>
+                                <div className="input-group">
+                                  <input
+                                    type="file"
+                                    id="image"
+                                    name="file"
+                                    accept="image/*"
+                                    className="file-custom"
+                                    onChange={this.handleselectedFile}
+                                  />
                                 </div>
                               </div>
-                              <div className="modal-footer">
+
+                              <div className="input-group justify-content-center mt-4">
                                 <button
                                   type="button"
-                                  className="btn btn-secondary"
-                                  data-bs-dismiss="modal"
+                                  className="btn btn-md btn-primary"
+                                  onClick={this.handleUpload}
                                 >
-                                  انصراف
-                                </button>
-                                <button
-                                  type="button"
-                                  className="btn btn-primary"
-                                  onClick={() => this.checkPassBeforeSend()}
-                                >
-                                  ذخیره{" "}
+                                  ارسال
                                 </button>
                               </div>
-                            </div>
+                            </form>
                           </div>
+                          <div className="modal-footer"></div>
                         </div>
                       </div>
-                      <div className="col-12 p-3 col-lg-9 px-5">
-                        <div className="mb-3 ms-3 row">
-                          <label
-                            for="email"
-                            className="col-sm-3 col-form-label"
-                          >
-                            ایمیل:
-                          </label>
-                          <div className="col-sm-9">
-                            <input
-                              type="text"
-                              readOnly
-                              className="form-control-plaintext"
-                              id="email"
-                              defaultValue={this.state.email}
-                            />
+                    </div>
+
+                    <div
+                      className="modal fade"
+                      id="exampleModal"
+                      tabindex="-1"
+                      aria-labelledby="exampleModalLabel"
+                      aria-hidden="true"
+                    >
+                      <div className="modal-dialog">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">
+                              تغییر رمز عبور{" "}
+                            </h5>
+                            <button
+                              type="button"
+                              className="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button>
                           </div>
-                        </div>
-                        <div className="mb-3 row ms-3">
-                          <label
-                            for="username"
-                            className="col-sm-3 col-form-label"
-                          >
-                            نام کاربری:
-                          </label>
-                          <div className="col-sm-9">
-                            <input
-                              type="text"
-                              readOnly
-                              className="form-control-plaintext"
-                              id="username"
-                              defaultValue={this.state.username}
-                            />
-                          </div>
-                        </div>
-                        <div className="mb-3 row ms-3">
-                          <label for="name" className="col-sm-3 col-form-label">
-                            نام:{" "}
-                          </label>
-                          <div className="col-sm-9">
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="name"
-                              defaultValue={this.state.name}
-                              onChange={(e) =>
-                                this.setState({ name: e.target.value })
-                              }
-                            />
-                          </div>
-                        </div>
-                        <div className="mb-3 row ms-3">
-                          <label
-                            for="inputDob"
-                            className="col-sm-3 col-form-label"
-                          >
-                            تاریخ تولد:{" "}
-                          </label>
-                          <div className="col-sm-9">
-                            <TextField
-                              style={{
-                                marginTop: "10px",
-                                width: "100%",
-                                borderColor: "lightcyan",
-                              }}
-                              id="Dob"
-                              type="date"
-                              // defaultValue = {this.state.dob}
-                              defaultValue="2017-05-24"
-                              onChange={(e) =>
-                                this.setState({ dob: e.target.value })
-                              }
-                              // defaultValue="2017-05-24"
-                              InputLabelProps={{
-                                shrink: true,
-                              }}
-                              className="border border-secondary rounded"
-                            />
-                          </div>
-                        </div>
-                        <div className="mb-3 row ms-3">
-                          <label
-                            for="inputBio"
-                            className="col-sm-3 col-form-label"
-                          >
-                            {" "}
-                            بیو:{" "}
-                          </label>
-                          <div className="col-sm-9">
-                            <textarea
-                              type="text"
-                              className="form-control"
-                              id="inputBio"
-                              rows="3"
-                              defaultValue={this.state.bio}
-                              onChange={(e) =>
-                                this.setState({ bio: e.target.value })
-                              }
-                            />
-                          </div>
-                        </div>
-                        <div className="row">
-                          <div className="col"></div>
-                          <div className="col-8">
-                            <div className="d-grid gap-2">
-                              <button
-                                className="btn btn-success"
-                                type="button"
-                                onClick={() => {
-                                  EditBio(this.state.bio);
-                                  {
-                                    EditDob(this.state.dob);
-                                  }
-                                  {
-                                    EditName(this.state.name);
-                                  }
-                                  alert(
-                                    "تغییرات با موفقیت انجام شد",
-                                    "success"
-                                  );
-                                }}
+                          <div className="modal-body">
+                            <div className="mb-3 ms-3 row">
+                              <label
+                                for="oldPass"
+                                className="col-sm-3 col-form-label"
                               >
-                                اعمال تغییرات
-                              </button>
+                                رمز قدیم
+                              </label>
+                              <div className="col-sm-9">
+                                <input
+                                  type="password"
+                                  className="form-control"
+                                  id="oldPass"
+                                  defaultValue={this.state.oldPass}
+                                  onChange={(e) =>
+                                    this.setState({
+                                      oldPass: e.target.value,
+                                    })
+                                  }
+                                />
+                              </div>
+                            </div>
+                            <div className="mb-3 ms-3 row">
+                              <label
+                                for="newPass"
+                                className="col-sm-3 col-form-label"
+                              >
+                                رمز جدید
+                              </label>
+                              <div className="col-sm-9">
+                                <input
+                                  type="password"
+                                  className="form-control"
+                                  id="newPass"
+                                  defaultValue={this.state.newPass}
+                                  onChange={(e) =>
+                                    this.setState({
+                                      newPass: e.target.value,
+                                    })
+                                  }
+                                />
+                              </div>
+                            </div>
+                            <div className="mb-3 ms-3 row">
+                              <label
+                                for="confirmNewPass"
+                                className="col-sm-3 col-form-label"
+                              >
+                                تکرار رمز جدید{" "}
+                              </label>
+                              <div className="col-sm-9">
+                                <input
+                                  type="password"
+                                  className="form-control"
+                                  id="confirmNewPass"
+                                  defaultValue={this.state.confirmNewPass}
+                                  onChange={(e) =>
+                                    this.setState({
+                                      confirmNewPass: e.target.value,
+                                    })
+                                  }
+                                />
+                              </div>
+                            </div>
+                            <div className="mb-3 ms-3 row">
+                              <span id="errors" className="text-danger"></span>
                             </div>
                           </div>
-                          <div className="col"></div>
+                          <div className="modal-footer">
+                            <button
+                              type="button"
+                              className="btn btn-secondary"
+                              data-bs-dismiss="modal"
+                            >
+                              انصراف
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-primary"
+                              onClick={() => this.checkPassBeforeSend()}
+                            >
+                              ذخیره{" "}
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div
-                  className="tab-pane fade"
-                  id="v-pills-profile"
-                  role="tabpanel"
-                  aria-labelledby="v-pills-profile-tab"
-                >
-                  ...
-                </div>
-                <div
-                  className="tab-pane fade py-3"
-                  id="v-pills-messages"
-                  role="tabpanel"
-                  aria-labelledby="v-pills-messages-tab"
-                >
-                  <Link to="/CreateCommunity">
-                  <button
-                    type="button"
-                      className="btn btn-danger"
-                      
-                    >
-                      ساخت کامیونیتی جدید{" "}
-                    </button>
-                  </Link>
-                  
-                  <MyCommunityList items={this.state.myCommunityList} />
-                </div>
-                <div
-                  className="tab-pane fade"
-                  id="v-pills-settings"
-                  role="tabpanel"
-                  aria-labelledby="v-pills-settings-tab"
-                >
-                  ...
+                  <div className="col-12 p-3 col-lg-9 px-5">
+                    <div className="mb-3 ms-3 row">
+                      <label for="email" className="col-sm-3 col-form-label">
+                        ایمیل:
+                      </label>
+                      <div className="col-sm-9">
+                        <input
+                          type="text"
+                          readOnly
+                          className="form-control-plaintext"
+                          id="email"
+                          defaultValue={this.state.email}
+                        />
+                      </div>
+                    </div>
+                    <div className="mb-3 row ms-3">
+                      <label for="username" className="col-sm-3 col-form-label">
+                        نام کاربری:
+                      </label>
+                      <div className="col-sm-9">
+                        <input
+                          type="text"
+                          readOnly
+                          className="form-control-plaintext"
+                          id="username"
+                          defaultValue={this.state.username}
+                        />
+                      </div>
+                    </div>
+                    <div className="mb-3 row ms-3">
+                      <label for="name" className="col-sm-3 col-form-label">
+                        نام:{" "}
+                      </label>
+                      <div className="col-sm-9">
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="name"
+                          defaultValue={this.state.name}
+                          onChange={(e) =>
+                            this.setState({ name: e.target.value })
+                          }
+                        />
+                      </div>
+                    </div>
+                    <div className="mb-3 row ms-3">
+                      <label for="inputDob" className="col-sm-3 col-form-label">
+                        تاریخ تولد:{" "}
+                      </label>
+                      <div className="col-sm-9">
+                        <TextField
+                          style={{
+                            marginTop: "10px",
+                            width: "100%",
+                            borderColor: "lightcyan",
+                          }}
+                          id="Dob"
+                          type="date"
+                          // defaultValue = {this.state.dob}
+                          defaultValue="2017-05-24"
+                          onChange={(e) =>
+                            this.setState({ dob: e.target.value })
+                          }
+                          // defaultValue="2017-05-24"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          className="border border-secondary rounded"
+                        />
+                      </div>
+                    </div>
+                    <div className="mb-3 row ms-3">
+                      <label for="inputBio" className="col-sm-3 col-form-label">
+                        {" "}
+                        بیو:{" "}
+                      </label>
+                      <div className="col-sm-9">
+                        <textarea
+                          type="text"
+                          className="form-control"
+                          id="inputBio"
+                          rows="3"
+                          defaultValue={this.state.bio}
+                          onChange={(e) =>
+                            this.setState({ bio: e.target.value })
+                          }
+                        />
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col"></div>
+                      <div className="col-8">
+                        <div className="d-grid gap-2">
+                          <button
+                            className="btn btn-success"
+                            type="button"
+                            onClick={() => {
+                              EditBio(this.state.bio);
+                              {
+                                EditDob(this.state.dob);
+                              }
+                              {
+                                EditName(this.state.name);
+                              }
+                              alert("تغییرات با موفقیت انجام شد", "success");
+                            }}
+                          >
+                            اعمال تغییرات
+                          </button>
+                        </div>
+                      </div>
+                      <div className="col"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+            <div
+              className="tab-pane fade"
+              id="v-pills-profile"
+              role="tabpanel"
+              aria-labelledby="v-pills-profile-tab"
+            >
+              ...
+            </div>
+            <div
+              className="tab-pane fade py-3"
+              id="v-pills-messages"
+              role="tabpanel"
+              aria-labelledby="v-pills-messages-tab"
+            >
+              <Link to="/CreateCommunity">
+                <button type="button" className="btn btn-danger">
+                  ساخت کامیونیتی جدید{" "}
+                </button>
+              </Link>
+
+              <MyCommunityList items={this.state.myCommunityList} />
+            </div>
+            <div
+              className="tab-pane fade"
+              id="v-pills-settings"
+              role="tabpanel"
+              aria-labelledby="v-pills-settings-tab"
+            >
+              ...
+            </div>
           </div>
-        
+        </div>
+      </div>
     );
   }
 }

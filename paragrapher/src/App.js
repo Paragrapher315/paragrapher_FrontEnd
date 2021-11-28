@@ -32,7 +32,7 @@ function App() {
       <StylesProvider jss={jss}>
         <div className="App">
           < Header isLoggedIn={isLoggedIn} style={{ position: "sticky", top: 0 }}/>
-          <div>
+          <div style={{minHeight: "83vh"}}>
             <Switch>
               <Route path="/" exact={true}>
               {isLoggedIn ?  <MainPage/>  : <LandingPage2 />}

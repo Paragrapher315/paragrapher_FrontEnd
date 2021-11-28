@@ -58,12 +58,21 @@ class CommunityMainPage extends React.Component {
     console.log("community info is", communityInfo);
     this.setState({ bio: communityInfo.data.description });
     this.setState({ membersCount: communityInfo.data.member_count });
+    this.setState({ avatarURL: communityInfo.data.avatar });
+    if (this.state.avatarURL === null) {
+      this.setState({
+        avatarURL:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS0WbvoW6vkO4ntTlpvJSOP7R0lqudCQN9bQ&usqp=CAU",
+      });
+    }
     BestCommunityParagraphs(this.state.name).then((ret) => {
       this.setState({ bestParagraphs: ret.data });
     });
-    GetCommunityParagraphs(this.state.name, 0, 10).then((ret) => {
-      this.setState({ allParagraphs: ret.data });
-    });
+    if (this.state.isJoined) {
+      GetCommunityParagraphs(this.state.name, 0, 10).then((ret) => {
+        this.setState({ allParagraphs: ret.data });
+      });
+    }
   }
 
   render() {
@@ -85,7 +94,7 @@ class CommunityMainPage extends React.Component {
                       <Grid item lg={2} md={2} xs={6}>
                         <div style={{ width: "15vh", height: "15vh" }}>
                           <Avatar
-                            src={communityBgImage}
+                            src={this.state.avatarURL}
                             style={{ height: "100%", width: "100%" }}
                           />
                         </div>
@@ -186,6 +195,7 @@ class CommunityMainPage extends React.Component {
                     />
                     <Tab
                       label="پاراگراف ها"
+                      disabled={!this.state.isJoined}
                       style={{ fontFamily: "BYekan" }}
                       onClick={() => this.setState({ tabValue: 1 })}
                     />
