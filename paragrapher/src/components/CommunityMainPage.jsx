@@ -214,7 +214,7 @@ class CommunityMainPage extends React.Component {
                   </Tabs>
                 </Paper>
                 <Box p={3} hidden={this.state.tabValue != 0}>
-                  <div style={{ padding: "0 10vw" }}>
+                  <div>
                     {this.state.bestParagraphs.map((bp) => (
                       <Paragraph
                         user={bp.user_name}
@@ -234,7 +234,7 @@ class CommunityMainPage extends React.Component {
                   </div>
                 </Box>
                 <Box p={3} hidden={this.state.tabValue != 1}>
-                  <div style={{ padding: "0 10vw" }}>
+                  <div>
                     {this.state.allParagraphs.map((p) => (
                       <Paragraph
                         user={p.user_name}
