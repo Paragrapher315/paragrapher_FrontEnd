@@ -1,5 +1,6 @@
 import { alpha, createTheme, makeStyles } from "@material-ui/core";
 import bgImage from "../assets/wp3503092.jpg";
+import React from "react";
 
 export const theme = createTheme({
   palette: {
@@ -17,6 +18,9 @@ export const theme = createTheme({
     },
   },
   direction: "rtl",
+  typography: {
+    fontFamily: "BYekan",
+  },
 });
 
 export const useStyles = makeStyles((theme) => ({
@@ -27,7 +31,7 @@ export const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   typography: {
-    fontFamily: '"BYekan"',
+    fontFamily: "BYekan",
     textDecoration: "none",
     boxShadow: "none",
   },
@@ -55,6 +59,22 @@ export const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: theme.spacing(1),
+  },
+  link: {
+    "&:hover": {
+      color: "#DDA15E",
+      textDecoration: "underline #DDA15E",
+    },
+  },
+  extendedIcon: {
+    margin: 0,
+    marginRight: theme.spacing(1),
+    top: "auto",
+    right: "5vw",
+    bottom: "5vh",
+    left: "auto",
+    position: "fixed",
+    zIndex: 10000,
   },
   title: {
     display: "none",
@@ -131,4 +151,18 @@ export const useStyles = makeStyles((theme) => ({
   paperLight: {
     backgroundColor: "#8ECAE6",
   },
+  paragraphDiv: {
+    padding: "10vh 10vw",
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "80%",
+    },
+  },
+  // labelRoot: {
+  //   right: 0,
+  //   fontFamily: "BYekan",
+  // },
+  // shrink: {
+  //   transformOrigin: "top right",
+  // },
 }));

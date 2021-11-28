@@ -23,6 +23,8 @@
     "url_change_bio":"/account/changebio",
     "url_change_dob":"/account/changedob",
     "url_change_name":"/account/changefname",
+    "url_create_paragraph":"/community",
+    "search_pod":"/search/pods?date="
     "url_community": "/community/",
     "url_create_community": "/community/create",
     "url_best_community": "/community/best"

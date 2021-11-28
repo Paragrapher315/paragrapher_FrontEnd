@@ -8,10 +8,11 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link as UiLink } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import Link from "@material-ui/core/Link";
 import { BrowserView, MobileView } from "react-device-detect";
 import { useHistory } from "react-router-dom";
 import { cookie } from "../../Utils/Common";
+import Fade from "@material-ui/core/Fade";
 import references from "../../assets/References.json";
 import {
   createTheme,
@@ -116,7 +117,7 @@ function Header(props) {
               component="div"
               sx={{ flexGrow: 1, m: 2 }}
             >
-              <Link className={classes.typography} to="/">
+              <Link className={classes.link} color="inherit" href="/">
                 پاراگرافر
               </Link>
             </Typography>
@@ -156,6 +157,7 @@ function Header(props) {
                   keepMounted
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
+                  TransitionComponent={Fade}
                 >
                   <MenuItem
                     onClick={() => {

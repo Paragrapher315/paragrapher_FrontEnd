@@ -135,6 +135,252 @@ export const EditName = async (profile_name) => {
         })
     return message;
 }
+
+export const CreateParagraph = async (communityID,author,book,paragraph,tags) => {
+    let message = ""
+    await axios
+        .post(makeURL(references.url_create_paragraph + '/' +  communityID + '/paragraph'), {
+            author:author,
+            ref:book,
+            text:paragraph,
+            tags:tags
+        })
+        .then((response) => {
+            console.log(response);
+            window.location.replace("/community/" + communityID );
+        })
+        .catch((error) => {
+            
+            console.log(error, error.response.data);
+            if(error.response.status == 401) {
+                message = error.response.data.message;
+            } else {
+                message = error.response.data;
+            }
+        })
+    return message;
+}
+
+
+
+export const CreateComment = async (communityID,paragraph,p_id) => {
+    let message = ""
+    await axios
+        .post(makeURL(references.url_create_paragraph + '/' +  communityID + '/paragraph/reply'), {
+            text:paragraph,
+            p_id:p_id,
+        })
+        .then((response) => {
+            console.log(response);
+            window.location.replace("/community/" + communityID );
+        })
+        .catch((error) => {
+            
+            console.log(error, error.response.data);
+            if(error.response.status == 401) {
+                message = error.response.data.message;
+            } else {
+                message = error.response.data;
+            }
+        })
+    return message;
+}
+
+
+export const EditParagraph = async (communityName,author,book,paragraph,tags,p_id) => {
+    let message = ""
+    await axios
+        .put(makeURL(references.url_create_paragraph +'/'+ communityName + '/paragraph'), {
+            author:author,
+            ref:book,
+            text:paragraph,
+            tags:tags,
+            p_id:p_id
+        })
+        .then((response) => {
+            console.log(response);
+            window.location.replace("/community/" + communityName );
+        })
+        .catch((error) => {
+            
+            console.log(error, error.response.data);
+            if(error.response.status == 401) {
+                message = error.response.data.message;
+            } else {
+                message = error.response.data;
+            }
+        })
+    return message;
+}
+
+export const DeleteParagraph = async (communityID,p_id) => {
+    let message = "";
+    await axios
+        .delete(makeURL(references.url_create_paragraph + '/' + communityID + '/paragraph'), {data : {
+            p_id: p_id
+        }})
+        .then((response) => {
+            console.log(response);
+            window.location.replace("/community/" + communityID );
+        })
+        .catch((error) => {
+            
+            console.log(error, error.response.data);
+            if(error.response.status == 401) {
+                message = error.response.data.message;
+            } else {
+                message = error.response.data;
+            }
+        })
+    return message;
+}
+
+export const GetParagraph = async (p_id) => {
+    let message = "";
+    await axios
+        .get(makeURL(references.url_create_paragraph + 'arda/paragraph'), {
+            p_id:p_id
+        })
+        .then((response) => {
+            console.log(response);  
+            message=response;
+        })
+        .catch((error) => {
+            
+            console.log(error, error.response.data);
+            if(error.response.status == 401) {
+                message = error.response.data.message;
+            } else {
+                message = error.response.data;
+            }
+        })
+    return message;
+}
+
+
+
+
+export const GetCommunities = async () => {
+    let message="";
+    await axios
+    .get(makeURL("/community/show"))
+    .then((response)=>{
+        message=response;
+    })
+    .catch((error) => {
+            
+        console.log(error, error.response.data);
+        if(error.response.status == 401) {
+            message = error.response.data.message;
+        } else {
+            message = error.response.data;
+        }
+    })
+    
+    return message;
+
+}
+
+export const GetParagraphs = async(d,start_off,end_off) => {
+    let message = [];
+    await axios
+      .put(
+        makeURL(references.search_pod) +
+          d.getFullYear() +
+          "-" +
+          (d.getMonth()+1) +
+          "-" +
+          d.getDate(),
+        {
+          start_off: start_off,
+          end_off: end_off,
+        }
+      )
+      .then((response) => {
+        message=response;
+      })
+      .catch((error) => {
+        console.log(error, error.response.data);
+        if (error.response.status == 401) {
+          message = error.response.data.message;
+        } else {
+          message = error.response.data;
+        }
+      });
+    
+    return message;
+}
+
+export const ParagraphArray = async(d,start_off,end_off) => {
+    let answer = await GetParagraphs(d,start_off,end_off);
+    let message = [];
+    await answer.data.res.forEach((element) => {
+        message.push({
+          id: element.paragraph.id,
+          text: element.paragraph.p_text,
+          book: element.paragraph.ref_book,
+          communityName: element.paragraph.community_name,
+          tags: element.paragraph.tags,
+          author: element.paragraph.author,
+          date: element.paragraph.date,
+          user_id: element.paragraph.user_id,
+          username : element.user.username,
+          userAvatar : element.user.avatar
+        });
+      });
+    return message;
+}
+
+export const isLiked = async (communityName, p_id) => {
+    let message=""
+    await axios
+      .put(
+        makeURL(
+          references.url_create_paragraph +
+            "/" +
+            communityName +
+            "/paragraph/impression"
+        ),
+        {
+            p_id:p_id
+        }
+      )
+      .then((response) => {
+        message=response
+      })
+      .catch((error) => {
+        message=error
+        window.alert(error);
+      });
+      return message
+  };
+
+
+  
+export const Like = async (communityName, p_id) => {
+    let message=""
+    await axios
+      .post(
+        makeURL(
+          references.url_create_paragraph +
+            "/" +
+            communityName +
+            "/paragraph/impression"
+        ),
+        {
+            p_id:p_id
+        }
+      )
+      .then((response) => {
+        message=response
+      })
+      .catch((error) => {
+        message=error
+        window.alert(error);
+      });
+      return message
+  };
+=======
 export const JoinCommunity = async (communityName) => {
     const address = "/community/" + communityName + "/members";
     const un = getUser();

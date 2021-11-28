@@ -17,7 +17,15 @@ export default function Footer() {
   const classes = useStyles(theme);
   return (
     <ThemeProvider theme={theme}>
-      <Grid container>
+      <Grid
+        container
+        style={{
+          position: "initial",
+          bottom: "0",
+          zIndex: "10000",
+          height: "5vh",
+        }}
+      >
         <AppBar position="static" color="primary">
           <Container maxWidth="md">
             <Toolbar>
