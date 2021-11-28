@@ -76,7 +76,7 @@ class Profile extends React.Component {
           
         }
         //this.setState({myCommunityList: response.data[0].communities});
-        //console.log(response.data[0].communities[0].Links.community_page,"1111111");
+        //console.log(response.data[0].communities[0].community.link,"1111111");
         //console.log(response.data[0].communities.length,"******");
         this.setState({ username: response.data[0].username });
         this.setState({ email: response.data[0].email });

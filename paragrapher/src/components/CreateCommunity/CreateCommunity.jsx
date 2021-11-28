@@ -24,26 +24,38 @@ class CreateCommunity extends React.Component {
     
   }
   CreateCommunity = async () => {
+    document.getElementById("bioErr").innerHTML=""
+    document.getElementById("nameErr").innerHTML=""
     let message = ""
-    await axios
-        .post(makeURL(references.url_create_community), {
-            name:this.state.name,
-            bio:this.state.bio
-        })
-        .then((response) => {
-            //window.alert(response)
-            console.log(response)
-            window.location.replace("/profile");
-        })
-        .catch((error) => {
-            
-            console.log(error, error.response.data);
-            if(error.response.status == 401) {
-                message = error.response.data.message;
-            } else {
-                message = error.response.data;
-            }
-        })
+    if (this.state.bio=="") {
+        document.getElementById("bioErr").innerHTML="بیو نمیتواند خالی باشد"
+    }
+    else{
+        
+        await axios
+            .post(makeURL(references.url_create_community), {
+                name:this.state.name,
+                bio:this.state.bio
+            })
+            .then((response) => {
+                //window.alert(response)
+                console.log(response)
+                window.location.replace("/profile");
+            })
+            .catch((error) => {
+                
+                console.log(error,"&&&&&", error.response.data.message,"####");
+                if ("A community with the same Name already exist. "==error.response.data.message) {
+                    document.getElementById("nameErr").innerHTML="کامیونیتی دیگری با این نام وجود دارد، لطفا نام دیگری انتخاب کنید"
+                }
+                if(error.response.status == 401) {
+                    message = error.response.data.message;
+                } else {
+                    message = error.response.data;
+                }
+            })
+    }
+    
     return message;
 }
   Checkbox(){
@@ -177,6 +189,7 @@ class CreateCommunity extends React.Component {
                                   onChange={(e) =>
                                 this.setState({ name: e.target.value })}/>
                                 <label for="cardName">نام کامیونیتی</label>
+                                <span id="nameErr" style={{color:"red"}}></span>
                             </div>
                             <div class="form-floating mb-3">
                                 <textarea class="form-control"
@@ -188,6 +201,7 @@ class CreateCommunity extends React.Component {
 
                                 </textarea>
                                 <label for="floatingTextarea2">بیو کامیونیتی</label>
+                                <span id="bioErr" style={{color:"red"}}></span>
                             </div>
                             {/* <div class="form-check mb-3">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" onChange={()=>this.Checkbox()}/>

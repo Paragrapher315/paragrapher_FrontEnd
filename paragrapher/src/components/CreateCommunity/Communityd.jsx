@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-class community extends React.Component{
+class communityd extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -29,16 +29,16 @@ class community extends React.Component{
                 <h5 class="card-title">{this.state.name}</h5>
                 <small class="card-text text-sm">{this.state.bio}</small>
                 <p/>
-                <Link to={this.state.view}>
+                {/* <Link to={this.state.view}> */}
                   <button
                     type="button"
-                      className="btn btn-sm btn-success me-2"
+                      className="btn btn-sm btn-secondary me-2 disabled"
                       
                     >
                         مشاهده{" "}
                       <i class="bi bi-binoculars"></i>
                     </button>
-                  </Link>
+                  {/* </Link> */}
                 
                 
                 <a href="#" class="btn btn-sm btn-secondary disabled"><i class="bi bi-cart"></i> فروشگاه</a>
@@ -54,4 +54,4 @@ class community extends React.Component{
         );
     }
 }
-export default community;
+export default communityd;
