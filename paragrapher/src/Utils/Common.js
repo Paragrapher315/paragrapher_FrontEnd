@@ -6,7 +6,6 @@ export const cookie = new Cookies();
     if (userStr) return JSON.parse(userStr);
     else return null;
   }
-
   export const getToken = () => {
     return sessionStorage.getItem('token') || null;
   }

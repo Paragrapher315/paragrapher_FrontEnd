@@ -1,6 +1,6 @@
 import axios from "axios";
 import references from '../assets/References.json';
-import { setUserSession, cookie } from "./Common";
+import { setUserSession, cookie, getUser } from "./Common";
 import Cookies from "universal-cookie";
 import {makeURL} from './Common';
 
@@ -380,3 +380,136 @@ export const Like = async (communityName, p_id) => {
       });
       return message
   };
+=======
+export const JoinCommunity = async (communityName) => {
+    const address = "/community/" + communityName + "/members";
+    const un = getUser();
+    await axios 
+        .post(makeURL(address), {
+            username: un
+        })
+        .then((response) => {
+            console.log(response)
+            return true;
+        })
+        .catch((error) => {
+            console.log(error)
+            return false;
+        })
+    
+}
+
+export const CheckCommunityJoined = async (communityName) => {
+    const address = "/community/" + communityName + "/members";
+    let message = false;
+    await axios
+        .patch(makeURL(address))
+        .then((response) => {
+            console.log(response)
+            message = true;
+        })
+        .catch((error) => {
+            console.log(error)
+            message = false;
+        })
+    return message
+}
+
+export const CheckCommunitySubscribed = async (communityName) => {
+    const address = "/community/" + communityName + "/members";
+    let message = false;
+    await axios
+        .patch(makeURL(address), {})
+        .then((response) => {
+            console.log(response)
+            message = response.data.res == true
+        })
+        .catch((error) => {
+            console.log(error)
+            message = false
+        })
+    return message
+}
+
+export const EnableNotification = async (communityName) => {
+    const address = "/community/" + communityName + "/members";
+    let message = false;
+    await axios
+        .put(makeURL(address), {
+
+        })
+        .then((response) => {
+            console.log(response)
+            message = true;
+        })
+        .catch((error) => {
+            console.log(error)
+            message = false;
+        })
+    return message
+}
+export const LeaveCommunity = async (communityName) => {
+    const address = "/community/" + communityName + "/leave";
+    let message = false;
+    await axios
+        .delete(makeURL(address))
+        .then((response) => {
+            console.log(response)
+            message = true;
+        })
+        .catch((error) => {
+            console.log(error)
+            message = false
+        })
+    return message
+    
+}
+export const GetCommunityInfo = async (communityName) => {
+    const address = "/community/" + communityName;
+    let res;
+    await axios
+        .get(makeURL(address))
+        .then((response) => {
+            console.log("This is ", response)
+            res = response;
+        })
+        .catch((error) => {
+            console.log("error is ", error)
+            res = error;
+        })
+    return res;   
+}
+export const BestCommunityParagraphs = async (communityName) => {
+    const address = "/community/" + communityName;
+    let res;
+    await axios
+        .patch(makeURL(address), {})
+        .then((response) => {
+            console.log("Best Community Paragraph", response);
+            res = response;
+        })
+        .catch((error) => {
+            console.log("Best Community Paragraph err", error.response);
+            res = error;
+        })
+    return res;
+}
+export const GetCommunityParagraphs = async (communityName, start, end) => {
+    const address = "/community/" + communityName;
+    let res;
+    await axios
+        .put(makeURL(address), {
+            start_off: start, 
+            end_off: end
+        })
+        .then((response) => {
+            console.log("Community Paragraph", response);
+            res = response;
+        })
+        .catch((error) => {
+            console.log("Community Paragraph err", error);
+            res = error;
+        })
+    return res;
+
+}

@@ -50,7 +50,7 @@ function App(props) {
       <StylesProvider jss={jss}>
       <div className="App">
         < Header isLoggedIn={isLoggedIn} style={{ position: "sticky", top: 0 }}/>
-        <div>
+        <div style={{minHeight: "83vh"}}>
           <Switch>
             <Route path="/" exact={true}>
             {isLoggedIn ?  <MainPage sendData={getData} sendDataComment={getDataComment} openCreator={openCreator}/>  : <LandingPage2 />}
@@ -67,12 +67,19 @@ function App(props) {
             <Route path="/paragraph/comment/:handle">
                 <ParagraphCommentor classes={classes} />
             </Route>
+            <Route path="/community/:handle" exact={true}>
+              <CommunityMainPage/>
+            </Route>
+            <Route path="/CreateCommunity" exact={true}>
+              <CreateCommunity/>
+            </Route>
           </Switch>
         </div>
         <Footer/>
       </div>
       </StylesProvider>
     
+
   )  
 }
 export default App;

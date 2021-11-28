@@ -32,6 +32,7 @@ function TopCommunities() {
         <CardHeader
           action={
             <Button
+              disabled
               style={{ fontFamily: "BYekan", backgroundColor: "#219EBC" }}
             >
               تمام کامیونیتی ها

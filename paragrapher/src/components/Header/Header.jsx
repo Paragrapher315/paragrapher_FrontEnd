@@ -127,6 +127,7 @@ function Header(props) {
                 <SearchIcon />
               </div>
               <InputBase
+                disabled
                 placeholder="جستجو"
                 classes={{
                   root: classes.inputRoot,

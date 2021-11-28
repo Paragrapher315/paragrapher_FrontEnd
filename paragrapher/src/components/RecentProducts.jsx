@@ -32,6 +32,7 @@ function RecentProducts() {
         <CardHeader
           action={
             <Button
+              disabled
               style={{ fontFamily: "BYekan", backgroundColor: "#219EBC" }}
             >
               تمام محصولات
