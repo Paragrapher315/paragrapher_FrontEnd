@@ -140,8 +140,8 @@ function Header(props) {
 
             {isLoggedIn ? (
               <div className={classes.icons}>
-                <IconButton color="inherit">
-                  <Badge badgeContent={1} color="secondary">
+                <IconButton color="inherit" disabled>
+                  <Badge badgeContent={0} color="secondary">
                     <NotificationsIcon />
                   </Badge>
                 </IconButton>

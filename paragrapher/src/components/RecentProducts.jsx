@@ -47,7 +47,7 @@ function RecentProducts() {
         />
         <CardContent style={{ padding: "0" }}>
           <List>
-            <ListItem alignItems="flex-start" button>
+            <ListItem alignItems="flex-start" button disabled>
               <ListItemAvatar>
                 <Avatar
                   style={{
@@ -90,7 +90,7 @@ function RecentProducts() {
               style={{ marginRight: "5vw", marginLeft: "1vw" }}
             />
 
-            <ListItem alignItems="flex-start" button>
+            <ListItem alignItems="flex-start" button disabled>
               <ListItemAvatar>
                 <Avatar
                   style={{
@@ -133,7 +133,7 @@ function RecentProducts() {
               style={{ marginRight: "5vw", marginLeft: "1vw" }}
             />
 
-            <ListItem alignItems="flex-start" button>
+            <ListItem alignItems="flex-start" button disabled>
               <ListItemAvatar>
                 <Avatar
                   style={{

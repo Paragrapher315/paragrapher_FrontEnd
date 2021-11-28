@@ -226,6 +226,7 @@ class CommunityMainPage extends React.Component {
                         author={bp.author}
                         tags={bp.tags.split(",")}
                         p_id={bp.id}
+                        book={bp.ref_book}
                         isMine={bp.user_name == getUser()}
                         communityName={bp.community_name}
                       />
@@ -245,6 +246,7 @@ class CommunityMainPage extends React.Component {
                         author={p.author}
                         tags={p.tags.split(",")}
                         p_id={p.id}
+                        book={p.ref_book}
                         isMine={p.user_name == getUser()}
                         communityName={p.community_name}
                       />
