@@ -8,6 +8,9 @@ import { TextField } from "@material-ui/core";
 import { EditBio, EditPass, EditDob, EditName } from "../../Utils/Connection";
 import { Button } from "@mui/material";
 import { Input } from "@material-ui/core";
+import community from "../CreateCommunity/Community";
+import MyCommunityList from "./MyCommunityList";
+import { Link } from "react-router-dom";
 class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -24,6 +27,7 @@ class Profile extends React.Component {
       new_img: null,
       loaded: 0,
       new_img_src: null,
+      myCommunityList:[]
     };
   }
 
@@ -60,7 +64,20 @@ class Profile extends React.Component {
     await axios
       .get(makeURL(references.url_profile_info))
       .then((response) => {
-        console.log(response.data[0]);
+        console.log(response.data[0].communities);
+        for (let i = 0; i < response.data[0].communities.length; i++) {
+          console.log(i,response.data[0].communities[i].role);
+          if (response.data[0].communities[i].role === 1) {
+            console.log(i)
+            this.setState({myCommunityList:this.state.myCommunityList.concat(response.data[0].communities[i])})
+            
+            //this.setState({ myCommunityList: response.data[0].username });
+          }
+          
+        }
+        //this.setState({myCommunityList: response.data[0].communities});
+        //console.log(response.data[0].communities[0].community.link,"1111111");
+        //console.log(response.data[0].communities.length,"******");
         this.setState({ username: response.data[0].username });
         this.setState({ email: response.data[0].email });
         this.setState({ name: response.data[0].profile_name });
@@ -113,70 +130,72 @@ class Profile extends React.Component {
   render() {
     return (
       <div className="container">
-        <div
-          className="row mt-4  border border-dark rounded"
-          style={{ minHeight: "500px" }}
-        >
-          <div className="col my-3 px-1">
-            <div className="d-flex align-items-start">
-              <div
-                className="d-none  d-md-flex nav flex-column nav-pills me-3"
-                id="v-pills-tab"
-                role="tablist"
-                aria-orientation="vertical"
-              >
-                <button
-                  className="text-start nav-link active"
-                  id="v-pills-home-tab"
-                  data-bs-toggle="pill"
-                  data-bs-target="#v-pills-home"
-                  type="button"
-                  role="tab"
-                  aria-controls="v-pills-home"
-                  aria-selected="true"
+        
+            <div className="row p-4 d-flex align-items-start" style={{minHeight:"500px"}}>
+              <div className="col-12 col-lg-3 px-5 px-md-2">
+                <div
+                //yyy
+                  //className="d-none d-md-flex nav flex-column nav-pills me-3"
+                  className="nav bg-white flex-column nav-pills"
+                  id="v-pills-tab"
+                  role="tablist"
+                  aria-orientation="vertical"
                 >
-                  ویرایش مشخصات
-                </button>
-                <button
-                  className="text-start nav-link"
-                  id="v-pills-profile-tab"
-                  data-bs-toggle="pill"
-                  data-bs-target="#v-pills-profile"
-                  type="button"
-                  role="tab"
-                  aria-controls="v-pills-profile"
-                  aria-selected="false"
-                >
-                  پاراگراف های محبوب من
-                </button>
-                <button
-                  className="text-start nav-link"
-                  id="v-pills-messages-tab"
-                  data-bs-toggle="pill"
-                  data-bs-target="#v-pills-messages"
-                  type="button"
-                  role="tab"
-                  aria-controls="v-pills-messages"
-                  aria-selected="false"
-                >
-                  کانالهای من
-                </button>
-                <button
-                  className="text-start nav-link"
-                  id="v-pills-settings-tab"
-                  data-bs-toggle="pill"
-                  data-bs-target="#v-pills-settings"
-                  type="button"
-                  role="tab"
-                  aria-controls="v-pills-settings"
-                  aria-selected="false"
-                >
-                  کتابهای خریداری شده
-                </button>
+                  <button
+                    className="text-start nav-link active"
+                    id="v-pills-home-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#v-pills-home"
+                    type="button"
+                    role="tab"
+                    aria-controls="v-pills-home"
+                    aria-selected="true"
+                  >
+                    ویرایش مشخصات
+                  </button>
+                  <button
+                    className="text-start nav-link"
+                    id="v-pills-profile-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#v-pills-profile"
+                    type="button"
+                    role="tab"
+                    aria-controls="v-pills-profile"
+                    aria-selected="false"
+                  >
+                    پاراگراف های من
+                  </button>
+                  <button
+                    className="text-start nav-link"
+                    id="v-pills-messages-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#v-pills-messages"
+                    type="button"
+                    role="tab"
+                    aria-controls="v-pills-messages"
+                    aria-selected="false"
+                  >
+                    کامیونیتی های من
+                  </button>
+                  <button
+                    className="text-start nav-link"
+                    id="v-pills-settings-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#v-pills-settings"
+                    type="button"
+                    role="tab"
+                    aria-controls="v-pills-settings"
+                    aria-selected="false"
+                  >
+                    کتابهای خریداری شده
+                  </button>
+                </div>
               </div>
 
+
               <div
-                className="tab-content w-100 border-start"
+                className="col-12 col-lg-9 tab-content border-start"
+                //className="col-12"
                 id="v-pills-tabContent"
               >
                 <div
@@ -583,12 +602,22 @@ class Profile extends React.Component {
                   ...
                 </div>
                 <div
-                  className="tab-pane fade"
+                  className="tab-pane fade py-3"
                   id="v-pills-messages"
                   role="tabpanel"
                   aria-labelledby="v-pills-messages-tab"
                 >
-                  ...
+                  <Link to="/CreateCommunity">
+                  <button
+                    type="button"
+                      className="btn btn-danger"
+                      
+                    >
+                      ساخت کامیونیتی جدید{" "}
+                    </button>
+                  </Link>
+                  
+                  <MyCommunityList items={this.state.myCommunityList} />
                 </div>
                 <div
                   className="tab-pane fade"
@@ -601,8 +630,7 @@ class Profile extends React.Component {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        
     );
   }
 }

@@ -17,11 +17,11 @@ import LandingPage2 from './components/MainPage/LandingPage2';
 import Footer from './components/Footer/Footer';
 import { CssBaseline } from '@material-ui/core';
 import {cookie} from "./Utils/Common.js"
+import CreateCommunity from './components/CreateCommunity/CreateCommunity';
 import CommunityMainPage from './components/CommunityMainPage';
 import rtl from "jss-rtl";
 import { create } from 'jss';
 import { jssPreset, StylesProvider } from '@material-ui/styles';
-
 function App() {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
@@ -43,11 +43,14 @@ function App() {
               <Route path="/community/:handle" exact={true}>
                 <CommunityMainPage/>
               </Route>
+              <Route path="/CreateCommunity" exact={true}>
+                <CreateCommunity/>
+              </Route>
             </Switch>
           </div>
           <Footer/>
         </div>
-    </StylesProvider>
+      </StylesProvider>
     </Router>
   )  
 }
