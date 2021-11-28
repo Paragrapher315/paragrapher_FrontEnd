@@ -31,6 +31,7 @@ import {
   BestCommunityParagraphs,
   GetCommunityParagraphs,
 } from "../Utils/Connection";
+import { getUser } from "../Utils/Common";
 class CommunityMainPage extends React.Component {
   state = {
     tabValue: 0,
@@ -216,12 +217,17 @@ class CommunityMainPage extends React.Component {
                   <div style={{ padding: "0 10vw" }}>
                     {this.state.bestParagraphs.map((bp) => (
                       <Paragraph
-                        author={bp.user_name}
+                        user={bp.user_name}
                         isPotd={false}
                         date={bp.date}
                         avatar="ا"
-                        canAction={true}
+                        canAction={this.state.isJoined}
                         text={bp.p_text}
+                        author={bp.author}
+                        tags={bp.tags.split(",")}
+                        p_id={bp.id}
+                        isMine={bp.user_name == getUser()}
+                        communityName={bp.community_name}
                       />
                     ))}
                   </div>
@@ -230,12 +236,17 @@ class CommunityMainPage extends React.Component {
                   <div style={{ padding: "0 10vw" }}>
                     {this.state.allParagraphs.map((p) => (
                       <Paragraph
-                        author={p.user_name}
+                        user={p.user_name}
                         isPotd={false}
                         date={p.date}
                         avatar="ا"
-                        canAction={true}
+                        canAction={this.state.isJoined}
                         text={p.p_text}
+                        author={p.author}
+                        tags={p.tags.split(",")}
+                        p_id={p.id}
+                        isMine={p.user_name == getUser()}
+                        communityName={p.community_name}
                       />
                     ))}
                   </div>

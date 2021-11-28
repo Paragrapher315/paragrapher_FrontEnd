@@ -24,7 +24,7 @@ import {
   CreateParagraph,
   EditParagraph,
   GetCommunities,
-} from "../../Utils/Connection";
+} from "../../Utils/Connection.js";
 import Chip from "@material-ui/core/Chip";
 import { useParams } from "react-router";
 import { withRouter } from "react-router";

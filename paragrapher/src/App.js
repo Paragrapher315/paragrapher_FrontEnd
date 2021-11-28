@@ -27,6 +27,8 @@ import { create } from 'jss';
 import { withRouter } from 'react-router-dom';
 import Paragraph from './components/Paragraph/Paragraph';
 import ParagraphCommentor from './components/Paragraph/ParagraphCommentor';
+import CommunityMainPage from './components/CommunityMainPage';
+import CreateCommunity from './components/CreateCommunity/CreateCommunity.jsx'
 function App(props) {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
@@ -50,7 +52,7 @@ function App(props) {
       <StylesProvider jss={jss}>
       <div className="App">
         < Header isLoggedIn={isLoggedIn} style={{ position: "sticky", top: 0 }}/>
-        <div style={{minHeight: "83vh"}}>
+        <div style={{minHeight: "80vh"}}>
           <Switch>
             <Route path="/" exact={true}>
             {isLoggedIn ?  <MainPage sendData={getData} sendDataComment={getDataComment} openCreator={openCreator}/>  : <LandingPage2 />}
@@ -64,9 +66,9 @@ function App(props) {
             <Route path="/paragraph/create">
                 <ParagraphCreator classes={classes} />
             </Route>
-            <Route path="/paragraph/comment/:handle">
+            {/* <Route path="/paragraph/comment/:handle">
                 <ParagraphCommentor classes={classes} />
-            </Route>
+            </Route> */}
             <Route path="/community/:handle" exact={true}>
               <CommunityMainPage/>
             </Route>

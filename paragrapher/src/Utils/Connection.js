@@ -163,28 +163,28 @@ export const CreateParagraph = async (communityID,author,book,paragraph,tags) =>
 
 
 
-export const CreateComment = async (communityID,paragraph,p_id) => {
-    let message = ""
-    await axios
-        .post(makeURL(references.url_create_paragraph + '/' +  communityID + '/paragraph/reply'), {
-            text:paragraph,
-            p_id:p_id,
-        })
-        .then((response) => {
-            console.log(response);
-            window.location.replace("/community/" + communityID );
-        })
-        .catch((error) => {
+// export const CreateComment = async (communityID,paragraph,p_id) => {
+//     let message = ""
+//     await axios
+//         .post(makeURL(references.url_create_paragraph + '/' +  communityID + '/paragraph/reply'), {
+//             text:paragraph,
+//             p_id:p_id,
+//         })
+//         .then((response) => {
+//             console.log(response);
+//             window.location.replace("/community/" + communityID );
+//         })
+//         .catch((error) => {
             
-            console.log(error, error.response.data);
-            if(error.response.status == 401) {
-                message = error.response.data.message;
-            } else {
-                message = error.response.data;
-            }
-        })
-    return message;
-}
+//             console.log(error, error.response.data);
+//             if(error.response.status == 401) {
+//                 message = error.response.data.message;
+//             } else {
+//                 message = error.response.data;
+//             }
+//         })
+//     return message;
+// }
 
 
 export const EditParagraph = async (communityName,author,book,paragraph,tags,p_id) => {
@@ -380,7 +380,6 @@ export const Like = async (communityName, p_id) => {
       });
       return message
   };
-=======
 export const JoinCommunity = async (communityName) => {
     const address = "/community/" + communityName + "/members";
     const un = getUser();

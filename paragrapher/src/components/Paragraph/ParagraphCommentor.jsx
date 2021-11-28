@@ -21,7 +21,7 @@ import { jssPreset } from "@material-ui/styles";
 import { menuItemClasses } from "@mui/material";
 import Button from "@material-ui/core/Button";
 import {
-  CreateComment,
+  // CreateComment,
   CreateParagraph,
   EditParagraph,
   GetParagraph,
@@ -110,11 +110,11 @@ class ParagraphCommentor extends React.Component {
       });
   };
   handleCreateParagraph = () => {
-    CreateComment(
-      this.state.communityName,
-      this.state.paragraph2,
-      this.state.p_id
-    );
+    // CreateComment(
+    //   this.state.communityName,
+    //   this.state.paragraph2,
+    //   this.state.p_id
+    // );
   };
   handleParagraphChange = (e) => {
     this.setState({ paragraph2: e.target.value });
