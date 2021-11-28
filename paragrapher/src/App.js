@@ -52,7 +52,7 @@ function App(props) {
       <StylesProvider jss={jss}>
       <div className="App">
         < Header isLoggedIn={isLoggedIn} style={{ position: "sticky", top: 0 }}/>
-        <div style={{minHeight: "80vh"}}>
+        <div>
           <Switch>
             <Route path="/" exact={true}>
             {isLoggedIn ?  <MainPage sendData={getData} sendDataComment={getDataComment} openCreator={openCreator}/>  : <LandingPage2 />}
