@@ -18,29 +18,39 @@ import Footer from './components/Footer/Footer';
 import { CssBaseline } from '@material-ui/core';
 import {cookie} from "./Utils/Common.js"
 import CreateCommunity from './components/CreateCommunity/CreateCommunity';
+import CommunityMainPage from './components/CommunityMainPage';
+import rtl from "jss-rtl";
+import { create } from 'jss';
+import { jssPreset, StylesProvider } from '@material-ui/styles';
 function App() {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
   const [isLoggedIn,setLoggedIn] = useState(cookie.get("x-access-token") !== undefined ? true : false);
+  const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
   return (
     <Router>
-      <div className="App">
-        < Header isLoggedIn={isLoggedIn} style={{ position: "sticky", top: 0 }}/>
-        <div>
-          <Switch>
-            <Route path="/" exact={true}>
-            {isLoggedIn ?  <MainPage/>  : <LandingPage2 />}
-            </Route>
-            <Route path="/profile" exact={true}>
-              <Profile/>
-            </Route>
-            <Route path="/CreateCommunity" exact={true}>
-              <CreateCommunity/>
-            </Route>
-          </Switch>
+      <StylesProvider jss={jss}>
+        <div className="App">
+          < Header isLoggedIn={isLoggedIn} style={{ position: "sticky", top: 0 }}/>
+          <div>
+            <Switch>
+              <Route path="/" exact={true}>
+              {isLoggedIn ?  <MainPage/>  : <LandingPage2 />}
+              </Route>
+              <Route path="/profile" exact={true}>
+                <Profile/>
+              </Route>
+              <Route path="/community/:handle" exact={true}>
+                <CommunityMainPage/>
+              </Route>
+              <Route path="/CreateCommunity" exact={true}>
+                <CreateCommunity/>
+              </Route>
+            </Switch>
+          </div>
+          <Footer/>
         </div>
-        <Footer/>
-      </div>
+      </StylesProvider>
     </Router>
   )  
 }

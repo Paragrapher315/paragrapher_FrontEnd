@@ -16,6 +16,7 @@ export const theme = createTheme({
       textColor: "#000000",
     },
   },
+  direction: "rtl",
 });
 
 export const useStyles = makeStyles((theme) => ({
