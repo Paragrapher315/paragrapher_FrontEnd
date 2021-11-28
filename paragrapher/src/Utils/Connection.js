@@ -293,7 +293,7 @@ export const ParagraphArray = async(d,start_off,end_off) => {
           communityName: element.paragraph.community_name,
           tags: element.paragraph.tags,
           author: element.paragraph.author,
-          date: element.date,
+          date: element.paragraph.date,
           user_id: element.paragraph.user_id,
           username : element.user.username,
           userAvatar : element.user.avatar

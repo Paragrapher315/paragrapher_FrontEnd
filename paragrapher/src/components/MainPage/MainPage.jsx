@@ -22,13 +22,16 @@ import InfiniteScroll from "react-infinite-scroll-component";
 // import Particles from "react-tsparticles";
 import { jssPreset, StylesProvider, ThemeProvider } from "@material-ui/styles";
 import axios from "axios";
-import { GetParagraphs, ParagraphArray } from "../../Utils/Connection";
+import {
+  GetCommunities,
+  GetParagraphs,
+  ParagraphArray,
+} from "../../Utils/Connection";
 function MainPage(props) {
   const classes = useStyles(theme);
 
   const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
   const [darkMode, setDarkMode] = useState(false);
-
   // const [innerCreateParaTrigger, setInnerCreateParaTrigger] = useState(false);
   function getData(val, val2) {
     props.sendData(val, val2);
@@ -182,6 +185,7 @@ export class ParagraphList extends Component {
     paragraphs: [],
     start_off: 0,
     end_off: 10,
+    communities: [],
   };
   getData = (params) => {
     this.props.sendData(params[0], params[1]);
@@ -191,12 +195,20 @@ export class ParagraphList extends Component {
   };
   componentDidMount() {
     const d = new Date();
+
+    GetCommunities().then((res) => {
+      res.data.forEach((element) => {
+        this.state.communities.push(element.name);
+      });
+      this.setState({ communities: this.state.communities });
+      console.log(this.state.communities);
+    });
     ParagraphArray(d, this.state.start_off, this.state.end_off).then((res) => {
       this.setState({
         paragraphs: res,
       });
+      console.log(this.state.paragraphs);
     });
-    console.log(this.state.paragraphs);
   }
 
   render() {
@@ -219,6 +231,7 @@ export class ParagraphList extends Component {
               sendDataComment={this.props.sendDataComment}
               p_id={element.id}
               userID={element.user_id}
+              canAction={this.state.communities.includes(element.communityName)}
             />
           );
         })}

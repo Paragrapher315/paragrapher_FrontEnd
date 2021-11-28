@@ -22,6 +22,7 @@ import Chip from "@material-ui/core/Chip";
 import EditIcon from "@material-ui/icons/Edit";
 import ParagraphEditor from "./ParagraphEditor";
 import Link from "@material-ui/core/Link";
+import * as moment from "jalali-moment";
 function randomColor(input) {
   let hex = Math.floor(input * 0xf125ff);
   let color = "#" + hex.toString(16);
@@ -46,6 +47,10 @@ function Paragraph(props) {
     window.location.replace("/edit/community/");
     ParagraphEditor();
   };
+
+  const persianDate = new Date(props.date.replace("-", "/")).toLocaleString(
+    "fa-IR"
+  );
 
   return (
     <ThemeProvider theme={theme}>
@@ -95,7 +100,7 @@ function Paragraph(props) {
                   className={classes.typography}
                   style={{ marginRight: "0.5rem", fontSize: 12 }}
                 >
-                  {props.date}
+                  {persianDate}
                 </Typography>
                 {Array.isArray(props.tags)
                   ? props.tags.map((e) => {
@@ -141,7 +146,7 @@ function Paragraph(props) {
               {props.book}
             </Typography>
             <Typography style={{ float: "left", paddingLeft: "2vw" }}>
-              {props.author}
+              {props.author} :
             </Typography>
           </CardContent>
           <CardActions disableSpacing>
