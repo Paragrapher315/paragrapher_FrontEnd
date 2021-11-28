@@ -19,6 +19,7 @@ import { create } from "jss";
 import CreateIcon from "@material-ui/icons/Create";
 import references from "../../assets/References.json";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useHistory } from "react-router-dom";
 // import Particles from "react-tsparticles";
 import { jssPreset, StylesProvider, ThemeProvider } from "@material-ui/styles";
 import axios from "axios";
@@ -30,15 +31,16 @@ import {
 } from "../../Utils/Connection";
 function MainPage(props) {
   const classes = useStyles(theme);
-
   const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
   const [darkMode, setDarkMode] = useState(false);
+  const history = useHistory();
   // const [innerCreateParaTrigger, setInnerCreateParaTrigger] = useState(false);
   function getData(val, val2) {
     props.sendData(val, val2);
   }
   function setCreatePara() {
-    props.openCreator();
+    // props.openCreator();
+    history.push("/paragraph/create");
   }
   function getDataComment(val, val2) {
     props.sendDataComment(val, val2);

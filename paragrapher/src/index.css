@@ -8,7 +8,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   direction: rtl;
   background-color: #d4e1e7;
-  overflow-x: hidden;
+  overflow: none;
 }
 
 code {
@@ -19,6 +19,6 @@ code {
   padding: 0;
   margin: 0;
 }
-/* html {
-  overflow-x: none;
-} */
+html {
+  overflow: none;
+}

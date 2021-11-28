@@ -48,7 +48,7 @@ function App(props) {
     history.push('/paragraph/comment/' + val2 + '/' + val);
   }
   return (
-    
+      <Router>
       <StylesProvider jss={jss}>
       <div className="App">
         < Header isLoggedIn={isLoggedIn} style={{ position: "sticky", top: 0 }}/>
@@ -80,8 +80,7 @@ function App(props) {
         <Footer/>
       </div>
       </StylesProvider>
-    
-
+      </Router>
   )  
 }
 export default App;

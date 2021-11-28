@@ -28,6 +28,7 @@ import { makeURL } from "../../Utils/Common";
 import references from "../../assets/References.json";
 import { DeleteParagraph, isLiked, Like } from "../../Utils/Connection";
 import { Delete } from "@material-ui/icons";
+import { useHistory } from "react-router-dom";
 function randomColor(input) {
   let hex = Math.floor(input * 0xf125ff);
   let color = "#" + hex.toString(16);
@@ -42,6 +43,8 @@ function Paragraph(props) {
       });
     else return false;
   }
+
+  const history = useHistory();
   const something = useState(likeIsOn());
 
   const [liked, setLiked] = useState(null);
@@ -55,10 +58,14 @@ function Paragraph(props) {
     // send like data to backend
   };
   function demoMethod() {
-    props.sendData(props.p_id, props.communityName);
+    // props.sendData(props.p_id, props.communityName);
+    history.push("/paragraph/edit/" + props.communityName + "/" + props.p_id);
   }
   function demoMethod2() {
-    props.sendDataComment(props.p_id, props.communityName);
+    // props.sendDataComment(props.p_id, props.communityName);
+    history.push(
+      "/paragraph/comment/" + props.communityName + "/" + props.p_id
+    );
   }
   function handleDelete() {
     DeleteParagraph(props.communityName, props.p_id.toString());
