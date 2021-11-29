@@ -512,3 +512,20 @@ export const GetCommunityParagraphs = async (communityName, start, end) => {
     return res;
 
 }
+export const GetBestCommunities = async (count) => {
+    const address = "/community/best";
+    let res;
+    await axios
+        .get(makeURL(address))
+        .then((response) => {
+            console.log("Best Communities Response", response);
+            res = response.data;
+        })
+        .catch((error) => {
+            console.log("Best Communities Error", error);
+        })
+    while(res.length > count) {
+        res.pop()
+    }
+    return res;
+}

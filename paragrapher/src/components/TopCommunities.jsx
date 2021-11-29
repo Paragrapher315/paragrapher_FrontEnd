@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { useState } from "react";
 import {
   List,
   ListItem,
@@ -14,6 +15,7 @@ import {
 } from "@material-ui/core";
 import { useStyles, theme } from "./theme";
 import { ThemeProvider } from "@material-ui/styles";
+import { GetBestCommunities } from "../Utils/Connection";
 function randomColor() {
   let hex = Math.floor(Math.random() * 0xffffff);
   let color = "#" + hex.toString(16);
@@ -21,6 +23,7 @@ function randomColor() {
   return color;
 }
 function TopCommunities() {
+  const [bestCommunities, setBestCommunities] = useState(GetBestCommunities(3));
   return (
     <ThemeProvider theme={theme}>
       <Card
