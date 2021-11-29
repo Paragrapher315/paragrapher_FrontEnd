@@ -213,7 +213,11 @@ class CommunityMainPage extends React.Component {
                     />
                   </Tabs>
                 </Paper>
-                <Box p={3} hidden={this.state.tabValue != 0}>
+                <Box
+                  p={3}
+                  hidden={this.state.tabValue != 0}
+                  style={{ minHeight: "54.5vh" }}
+                >
                   <div>
                     {this.state.bestParagraphs.map((bp) => (
                       <Paragraph
@@ -233,7 +237,11 @@ class CommunityMainPage extends React.Component {
                     ))}
                   </div>
                 </Box>
-                <Box p={3} hidden={this.state.tabValue != 1}>
+                <Box
+                  p={3}
+                  hidden={this.state.tabValue != 1}
+                  style={{ minHeight: "54.5vh" }}
+                >
                   <div>
                     {this.state.allParagraphs.map((p) => (
                       <Paragraph
@@ -253,7 +261,11 @@ class CommunityMainPage extends React.Component {
                     ))}
                   </div>
                 </Box>
-                <Box p={3} hidden={this.state.tabValue != 3}>
+                <Box
+                  p={3}
+                  hidden={this.state.tabValue != 3}
+                  style={{ minHeight: "54.5vh" }}
+                >
                   <Grid item xs={12}>
                     <Card>
                       <CardContent>
