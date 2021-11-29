@@ -21,6 +21,7 @@ import references from "../../assets/References.json";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useHistory } from "react-router-dom";
 // import Particles from "react-tsparticles";
+import { CircularProgress } from "@material-ui/core";
 import { jssPreset, StylesProvider, ThemeProvider } from "@material-ui/styles";
 import axios from "axios";
 import {
@@ -115,7 +116,12 @@ function MainPage(props) {
                           <Grid item lg={1} md={1}>
                             <Avatar>ا</Avatar>
                           </Grid>
-                          <Grid item lg={10} md={10}>
+                          <Grid
+                            item
+                            lg={10}
+                            md={10}
+                            style={{ paddingRight: "1vw" }}
+                          >
                             <TextField
                               variant="filled"
                               label="گراف کنید"
@@ -135,7 +141,7 @@ function MainPage(props) {
                             <IconButton
                               variant="outlined"
                               color="secondary"
-                              style={{ marginRight: "1vw" }}
+                              // style={{ marginRight: "1vw" }}
                             >
                               <CreateIcon />
                             </IconButton>
@@ -189,6 +195,7 @@ export class ParagraphList extends Component {
     start_off: 0,
     end_off: 10,
     communities: [],
+    hasmore: true,
   };
   getData = (params) => {
     this.props.sendData(params[0], params[1]);
@@ -211,37 +218,70 @@ export class ParagraphList extends Component {
       });
     });
   }
+  fetchData = () => {
+    const d = new Date();
+    let lastCount = this.state.paragraphs.length;
+    this.setState({ end_off: this.state.end_off + 10 });
+    ParagraphArray(d, this.state.start_off, this.state.end_off).then((res) => {
+      this.setState({
+        paragraphs: res,
+      });
+    });
+    if (lastCount == this.state.paragraphs.length) {
+      this.setState({ hasmore: false });
+    } else {
+      this.setState({ hasmore: true });
+    }
+  };
 
   render() {
     return (
       <div>
-        {this.state.paragraphs.map((element) => {
-          // var isliked = false;
-          // if (this.state.communities.includes(element.communityName))
-          //   isLiked(element.communityName, element.id).then((res) => {
-          //     isliked = res.message;
-          //     console.log(isliked);
-          //   });
-          return (
-            <Paragraph
-              user={element.username}
-              text={element.text}
-              date={element.date}
-              communityName={element.communityName}
-              avatar={element.userAvatar}
-              author={element.author}
-              tags={element.tags.split(",")}
-              canAction={true}
-              isMine={element.username == getUser()}
-              book={element.book}
-              sendData={this.props.sendData}
-              sendDataComment={this.props.sendDataComment}
-              p_id={element.id}
-              userID={element.user_id}
-              canAction={this.state.communities.includes(element.communityName)}
-            />
-          );
-        })}
+        <InfiniteScroll
+          dataLength={this.state.paragraphs.length}
+          next={this.fetchData}
+          hasMore={this.state.hasmore}
+          loader={
+            <div style={{ textAlign: "center" }}>
+              <CircularProgress color="secondary" size="3rem" />
+            </div>
+          }
+          endMessage={
+            <p style={{ textAlign: "center" }}>
+              <b>متاسفانه تموم شد!</b>
+            </p>
+          }
+        >
+          {this.state.paragraphs.map((element) => {
+            // var isliked = false;
+            // if (this.state.communities.includes(element.communityName))
+            //   isLiked(element.communityName, element.id).then((res) => {
+            //     isliked = res.message;
+            //     console.log(isliked);
+            //   });
+            return (
+              <Paragraph
+                user={element.username}
+                text={element.text}
+                date={element.date}
+                communityName={element.communityName}
+                avatar={element.userAvatar}
+                author={element.author}
+                tags={element.tags.split(",")}
+                canAction={true}
+                isMine={element.username == getUser()}
+                book={element.book}
+                sendData={this.props.sendData}
+                sendDataComment={this.props.sendDataComment}
+                p_id={element.id}
+                userID={element.user_id}
+                canAction={this.state.communities.includes(
+                  element.communityName
+                )}
+              />
+            );
+          })}
+        </InfiniteScroll>
       </div>
     );
   }

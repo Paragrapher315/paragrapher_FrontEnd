@@ -124,7 +124,7 @@ function Paragraph(props) {
                 >
                   {persianDate}
                 </Typography>
-                {Array.isArray(props.tags)
+                {Array.isArray(props.tags) && props.tags[0] != ""
                   ? props.tags.map((e) => {
                       return (
                         <Chip
