@@ -192,7 +192,7 @@ function LandingPage2() {
                     style={{ margin: "auto 2vw" }}
                   >
                     <Paragraph
-                      author="اردا"
+                      user="اردا"
                       isPotd={false}
                       date="24 آبان 1502"
                       avatar="ا"
@@ -251,7 +251,7 @@ function LandingPage2() {
                     style={{ margin: "0 2vw" }}
                   >
                     <Paragraph
-                      author="اردا"
+                      user="اردا"
                       isPotd={false}
                       date="24 آبان 1502"
                       avatar="ا"
