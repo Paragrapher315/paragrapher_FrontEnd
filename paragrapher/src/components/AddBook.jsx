@@ -16,28 +16,57 @@ import {
   Button,
   Avatar,
 } from "@material-ui/core";
+import AddBoxIcon from "@material-ui/icons/AddBox";
+import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 class AddBook extends React.Component {
+  state = {
+    showAddImageButton: false,
+  };
   render() {
     return (
-      <Card style={{ width: "75vw", padding: "1vh 1vw" }}>
+      <Card style={{ padding: "1vh 1vw", margin: "2vh 5vw" }}>
         <form>
           <Grid container>
-            <Grid item xs={12} lg={6} md={6}>
+            <Grid item xs={12} lg={4} md={4}>
               <div
                 style={{
                   borderRadius: "15%",
                   backgroundColor: "gray",
-                  width: "50%",
-                  paddingTop: "50%",
-                  margin: "1vh auto",
+                  width: "80%",
+                  paddingTop: "80%",
+                  margin: "auto",
+                  position: "relative",
                 }}
-              ></div>
+                onMouseEnter={() => this.setState({ showAddImageButton: true })}
+                onMouseLeave={() =>
+                  this.setState({ showAddImageButton: false })
+                }
+              >
+                {this.state.showAddImageButton ? (
+                  <div
+                    style={{
+                      position: "absolute",
+                      bottom: "45%",
+                      right: "45%",
+                      padding: "1vh 1vw",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {}}
+                  >
+                    <AddAPhotoIcon
+                      style={{
+                        opacity: "60%",
+                      }}
+                    />
+                  </div>
+                ) : null}
+              </div>
             </Grid>
             <Grid
               item
               xs={12}
-              lg={6}
-              md={6}
+              lg={8}
+              md={8}
               style={{ padding: "0 1vw", margin: "auto" }}
             >
               <Grid container spacing={2}>
@@ -88,7 +117,7 @@ class AddBook extends React.Component {
               </Grid>
             </Grid>
           </Grid>
-          <Grid container>
+          <Grid container style={{ padding: "0 1vw", marginTop: "2vh" }}>
             <Grid item xs={12}>
               <TextField
                 variant="filled"
@@ -99,7 +128,8 @@ class AddBook extends React.Component {
                   width: "100%",
                 }}
                 multiline
-                minRows={5}
+                minRows={7}
+                maxRows={7}
               />
             </Grid>
             <Grid item xs={12}>
