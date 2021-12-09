@@ -571,3 +571,26 @@ export const SearchBook = async (Text, start, end) => {
     return res;
 
 }
+
+
+
+
+export const SearchAuthor = async (Text, start, end) => {
+    const address = "/search?type=author&text="+Text;
+    let res;
+    await axios
+        .put(makeURL(address), {
+            start_off: start, 
+            end_off: end
+        })
+        .then((response) => {
+            console.log("Search result is :", response);
+            res = response;
+        })
+        .catch((error) => {
+            console.log("Search result is :", error);
+            res = error;
+        })
+    return res;
+
+}
