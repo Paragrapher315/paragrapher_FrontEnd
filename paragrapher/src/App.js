@@ -29,6 +29,7 @@ import Paragraph from './components/Paragraph/Paragraph';
 import ParagraphCommentor from './components/Paragraph/ParagraphCommentor';
 import CommunityMainPage from './components/CommunityMainPage';
 import CreateCommunity from './components/CreateCommunity/CreateCommunity.jsx'
+import BuyCredit from './components/BuyCredits/BuyCredit';
 function App(props) {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
@@ -74,6 +75,9 @@ function App(props) {
             </Route>
             <Route path="/CreateCommunity" exact={true}>
               <CreateCommunity/>
+            </Route>
+            <Route path="/BuyCredits" exact>
+              <BuyCredit classes={classes} theme={theme}/>
             </Route>
           </Switch>
         </div>

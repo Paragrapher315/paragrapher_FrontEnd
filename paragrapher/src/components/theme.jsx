@@ -54,6 +54,13 @@ export const useStyles = makeStyles((theme) => ({
     fontFamily: '"BYekan"',
     fontWeight: "bold",
   },
+  cardNotHovered: {
+    transition: "transform 0.3s ease-in-out,background-color 0.5s",
+  },
+  cardHovered: {
+    transform: "scale3d(1.05, 1.05, 1)",
+    backgroundColor: "#8ECAE6",
+  },
   grow: {
     flexGrow: 1,
   },

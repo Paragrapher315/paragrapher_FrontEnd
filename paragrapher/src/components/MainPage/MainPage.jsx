@@ -141,6 +141,7 @@ function MainPage(props) {
                             <IconButton
                               variant="outlined"
                               color="secondary"
+                              onClick={setCreatePara}
                               // style={{ marginRight: "1vw" }}
                             >
                               <CreateIcon />
@@ -243,7 +244,7 @@ export class ParagraphList extends Component {
           hasMore={this.state.hasmore}
           loader={
             <div style={{ textAlign: "center" }}>
-              <CircularProgress color="secondary" size="3rem" />
+              <CircularProgress color="secondary" size="2rem" />
             </div>
           }
           endMessage={
