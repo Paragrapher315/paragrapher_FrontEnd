@@ -1,87 +1,135 @@
-import React from "react";
-import axios from "axios";
-import { makeURL } from "../../Utils/Common";
-import references from "../../assets/References.json";
-import Avatar from "../Profile/Avatar";
-import BadgeAvatars from "../Profile/Avatar";
-import { TextField } from "@material-ui/core";
-import { EditBio, EditPass, EditDob, EditName } from "../../Utils/Connection";
-import { Button } from "@mui/material";
-import { Input } from "@material-ui/core";
-import community from "../CreateCommunity/Community";
-import MyCommunityList from "./MyCommunityList";
-import { Link } from "react-router-dom";
-class Profile extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      email: "",
-      name: "",
-      bio: "",
-      dob: "",
-      oldPass: "",
-      newPass: "",
-      confirmNewPass: "",
-      img: null,
-      new_img: null,
-      loaded: 0,
-      new_img_src: null,
-      myCommunityList: [],
-    };
-  }
-
-  componentDidMount() {
+import {
+    Typography,
+    Button,
+    Grid,
+    ButtonGroup,
+    TextField,
+    ThemeProvider,
+    Avatar,
+    Hidden,
+    Card,
+    CardContent,
+    Tabs,
+    Tab,
+    Box,
+    AppBar,
+    Paper,
+  } from "@material-ui/core";
+  import PeopleIcon from '@material-ui/icons/People';
+  import ChatIcon from '@material-ui/icons/Chat';
+  import EditIcon from '@material-ui/icons/Edit';
+  import PersonPinIcon from '@material-ui/icons/PersonPin';
+  import PhoneIcon from '@material-ui/icons/Phone';
+  import NotificationsIcon from "@material-ui/icons/Notifications";
+  import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+  import React, { Component } from "react";
+  import { theme } from "../theme";
+  //import communityBgImage from "../assets/CommunityTestBg.png";
+  import Paragraph from "../Paragraph/Paragraph";
+  import {
+    JoinCommunity,
+    EnableNotification,
+    CheckCommunityJoined,
+    CheckCommunitySubscribed,
+    LeaveCommunity,
+    GetCommunityInfo,
+    BestCommunityParagraphs,
+    GetCommunityParagraphs,
+  } from "../../Utils/Connection";
+  import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
+  import { getUser } from "../../Utils/Common";
+  import axios from "axios";
+  import { makeURL } from "../../Utils/Common";
+  import references from "../../assets/References.json";
+  import BadgeAvatars from "../Profile/Avatar";
+  import MyParagraphList from "./MyParagraphList";
+  import MyCommunityList from "./MyCommunityList";
+  import { Link } from "react-router-dom";
+  import MenuBookIcon from '@material-ui/icons/MenuBook';
+  import JoindCommunityList from "./JoindCommunityList";
+  import { EditBio, EditPass, EditDob, EditName} from "../../Utils/Connection";
+  class Profile extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          username: "",
+          email: "",
+          name: "",
+          bio: "",
+          dob: "",
+          oldPass: "",
+          newPass: "",
+          confirmNewPass: "",
+          img: null,
+          new_img: null,
+          loaded: 0,
+          new_img_src: null,
+          myCommunityList: [],
+          joindCommunityList:[],
+          myParagraphs:[],
+          tabValue: 0,
+        };
+    }
+    
+    componentDidMount() {
     this.loadData();
-  }
+    this.loadParagraphs();
+    }
 
-  handleselectedFile = (event) => {
+    handleselectedFile = (event) => {
     this.setState({
-      new_img: event.target.files[0],
-      loaded: 0,
-      new_img_src: URL.createObjectURL(event.target.files[0]),
+        new_img: event.target.files[0],
+        loaded: 0,
+        new_img_src: URL.createObjectURL(event.target.files[0]),
     });
-  };
+    };
 
-  handleUpload = () => {
+    handleUpload = () => {
     const data = new FormData();
     data.append("file", this.state.new_img);
     console.log("data append   ", data);
 
     axios
-      .post(makeURL(references.url_upload_pp), data, {
+        .post(makeURL(references.url_upload_pp), data, {
         onUploadProgress: (ProgressEvent) => {
-          console.log("progress event", ProgressEvent);
-          this.setState({
+            console.log("progress event", ProgressEvent);
+            this.setState({
             loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
-          });
-          if ((ProgressEvent.loaded / ProgressEvent.total) * 100 == 100) {
+            });
+            if ((ProgressEvent.loaded / ProgressEvent.total) * 100 == 100) {
             window.location.reload();
-          }
+            }
         },
-      })
-      .then((res) => {
+        })
+        .then((res) => {
         console.log(res.statusText);
-      });
-  };
+        });
+    };
 
-  loadData = async () => {
+    loadData = async () => {
     await axios
-      .get(makeURL(references.url_profile_info))
-      .then((response) => {
+        .get(makeURL(references.url_profile_info))
+        .then((response) => {
         console.log(response.data[0].communities);
         for (let i = 0; i < response.data[0].communities.length; i++) {
-          console.log(i, response.data[0].communities[i].role);
-          if (response.data[0].communities[i].role === 1) {
+            console.log(i, response.data[0].communities[i].role);
+            if (response.data[0].communities[i].role === 1) {
             console.log(i);
             this.setState({
-              myCommunityList: this.state.myCommunityList.concat(
+                myCommunityList: this.state.myCommunityList.concat(
                 response.data[0].communities[i]
-              ),
+                ),
             });
 
             //this.setState({ myCommunityList: response.data[0].username });
-          }
+            }
+            else{
+            this.setState({
+                joindCommunityList: this.state.joindCommunityList.concat(
+                response.data[0].communities[i]
+                ),
+            });
+            }
         }
         //this.setState({myCommunityList: response.data[0].communities});
         //console.log(response.data[0].communities[0].community.link,"1111111");
@@ -94,136 +142,136 @@ class Profile extends React.Component {
         this.setState({ img: response.data[0].avatar });
         console.log(response.data[0].avatar);
         console.log("********************************", response.data[0].dob);
-      })
-      .catch((error) => {
+        })
+        .catch((error) => {
         window.alert(error);
-      });
-  };
-  checkPassBeforeSend() {
+        });
+    };
+
+    loadParagraphs = async () => {
+    await axios
+        .get(makeURL(references.url_myparagraph))
+        .then((response) => {
+        console.log("para###",response.data.res);
+        for (let i = 0; i < response.data.res.length; i++) {
+            //console.log(i, response.data[0].communities[i].role);
+            console.log(i);
+            console.log(response.data.res[i].community_name)
+            this.setState({
+            myParagraphs: this.state.myParagraphs.concat(
+                response.data.res[i]
+            ),
+            });
+        }
+        
+        })
+        .catch((error) => {
+        window.alert(error);
+        });
+    };
+    checkPassBeforeSend() {
     if (this.state.confirmNewPass !== this.state.newPass) {
-      document.getElementById("errors").innerHTML =
+        document.getElementById("errors").innerHTML =
         "رمز جدید و تکرار آن مطابقت ندارد!";
     } else {
-      this.EditPass();
+        this.EditPass();
     }
-  }
-  EditPass = async () => {
+    }
+    EditPass = async () => {
     let message = "";
     await axios
-      .post(makeURL(references.url_change_pass), {
+        .post(makeURL(references.url_change_pass), {
         old_password: this.state.oldPass,
         new_password: this.state.newPass,
-      })
-      .then((response) => {
+        })
+        .then((response) => {
         if (response.data.message == "Wrong password entered.") {
-          document.getElementById("errors").innerHTML =
+            document.getElementById("errors").innerHTML =
             "پسور وارد شده با پسور قبلی شما مطابقت ندارد";
         } else {
-          window.alert("رمز شما با موفقیت تغییر کرد");
-          window.location.reload();
+            window.alert("رمز شما با موفقیت تغییر کرد");
+            window.location.reload();
         }
-      })
-      .catch((error) => {
+        })
+        .catch((error) => {
         // window.alert("خطای سرور. لطفا دوباره تلاش کنید");
         console.log(error, error.response.data);
         if (error.response.data.message == "Wrong password entered.") {
-          document.getElementById("errors").innerHTML =
+            document.getElementById("errors").innerHTML =
             "پسور وارد شده با پسور قبلی شما مطابقت ندارد";
         } else if (error.response.status == 401) {
-          message = error.response.data.message;
+            message = error.response.data.message;
         } else {
-          message = error.response.data;
+            message = error.response.data;
         }
-      });
-    return message;
-  };
-
-  render() {
-    return (
-      <div className="container">
-        <div
-          className="row p-4 d-flex align-items-start"
-          style={{ minHeight: "500px" }}
-        >
-          <div className="col-12 col-lg-3 px-5 px-md-2">
-            <div
-              //yyy
-              //className="d-none d-md-flex nav flex-column nav-pills me-3"
-              className="nav bg-white flex-column nav-pills"
-              id="v-pills-tab"
-              role="tablist"
-              aria-orientation="vertical"
-            >
-              <button
-                className="text-start nav-link active"
-                id="v-pills-home-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#v-pills-home"
-                type="button"
-                role="tab"
-                aria-controls="v-pills-home"
-                aria-selected="true"
-              >
-                ویرایش مشخصات
-              </button>
-              <button
-                className="text-start nav-link"
-                id="v-pills-profile-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#v-pills-profile"
-                type="button"
-                role="tab"
-                aria-controls="v-pills-profile"
-                aria-selected="false"
-              >
-                پاراگراف های من
-              </button>
-              <button
-                className="text-start nav-link"
-                id="v-pills-messages-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#v-pills-messages"
-                type="button"
-                role="tab"
-                aria-controls="v-pills-messages"
-                aria-selected="false"
-              >
-                کامیونیتی های من
-              </button>
-              <button
-                className="text-start nav-link"
-                id="v-pills-settings-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#v-pills-settings"
-                type="button"
-                role="tab"
-                aria-controls="v-pills-settings"
-                aria-selected="false"
-              >
-                کتابهای خریداری شده
-              </button>
-            </div>
-          </div>
-
-          <div
-            className="col-12 col-lg-9 tab-content border-start"
-            //className="col-12"
-            id="v-pills-tabContent"
-          >
-            <div
-              className="tab-pane fade show active"
-              id="v-pills-home"
-              role="tabpanel"
-              aria-labelledby="v-pills-home-tab"
-            >
-              <div className="container p-5 py-2">
+        });
+        return message;
+    };
+    render() {
+      return (
+        <ThemeProvider theme={theme}>
+          <div>
+            <div style={{ padding: "1vh 10vw" }}>
+              <Grid container spacing={2}>
+                <div style={{ width: "100%" }}>
+                  <Paper
+                    style={{
+                      width: "100%",
+                      padding: "3vh 3vw 0 3vw",
+                      marginTop: "2vh",
+                    }}
+                  >
+                    
+                    <Tabs
+                      centered
+                      variant="fullWidth"
+                      indicatorColor="primary"
+                    textColor="primary"
+                      value={this.state.tabValue}
+                    >
+                      <Tab icon={<EditIcon />}
+                        label="ویرایش مشخصات"
+                        style={{ fontFamily: "BYekan" }}
+                        onClick={() => this.setState({ tabValue: 0 })}
+                        active
+                      />
+                      <Tab icon={<ChatIcon/>}
+                        label="پاراگراف های من"
+                        style={{ fontFamily: "BYekan" }}
+                        onClick={() => this.setState({ tabValue: 1 })}
+                      />
+                      <Tab
+                        label="کامیونیتی های من"
+                        icon={<PeopleIcon/>}
+                        style={{ fontFamily: "BYekan" }}
+                        onClick={() => this.setState({ tabValue: 2 })}
+                      />
+                      <Tab 
+                        label="کامیونیتی های عضو شده"
+                        icon={<PeopleOutlineIcon/>}
+                        style={{ fontFamily: "BYekan" }}
+                        onClick={() => this.setState({ tabValue: 3 })}
+                      />
+                       <Tab icon={<MenuBookIcon />} label="کتابهای خریداری شده"
+                       style={{ fontFamily: "BYekan" }} 
+                       disabled
+                       onClick={() => this.setState({ tabValue: 4 })}
+                       />
+                    </Tabs>
+                  </Paper>
+                  <Box
+                    p={3}
+                    hidden={this.state.tabValue != 0}
+                    style={{ minHeight: "54.5vh" }}
+                  >
+                      <div className="container p-5 py-2">
                 <div className="row p-1">
                   <div id="liveAlertPlaceholder"></div>
                 </div>
                 <div
-                  className="row border border-primary"
+                  className="row rounded bg-white"
                   id="changeProfile"
-                  style={{ borderRadius: "40px", overflow: "hidden" }}
+                  style={{ overflow: "hidden" }}
                 >
                   <div className="col-12 p-3 col-lg-3 bg-light">
                     <br />
@@ -558,7 +606,7 @@ class Profile extends React.Component {
                       <div className="col"></div>
                       <div className="col-8">
                         <div className="d-grid gap-2">
-                          <button
+                          {/* <button
                             className="btn btn-success"
                             type="button"
                             onClick={() => {
@@ -573,7 +621,30 @@ class Profile extends React.Component {
                             }}
                           >
                             اعمال تغییرات
-                          </button>
+                          </button> */}
+
+                          <Button
+                          color="secondary"
+                          variant="contained"
+                          component="span"
+                          className="w-100"
+                          
+                          style={{ fontFamily: "BYekan" }}
+                          onClick={() => {
+                            EditBio(this.state.bio);
+                            {
+                              EditDob(this.state.dob);
+                            }
+                            {
+                              EditName(this.state.name);
+                            }
+                            alert("تغییرات با موفقیت انجام شد", "success");
+                          }}
+                        >
+                          اعمال تغییرات 
+                          
+                          
+                        </Button>
                         </div>
                       </div>
                       <div className="col"></div>
@@ -581,54 +652,66 @@ class Profile extends React.Component {
                   </div>
                 </div>
               </div>
-            </div>
-            <div
-              className="tab-pane fade"
-              id="v-pills-profile"
-              role="tabpanel"
-              aria-labelledby="v-pills-profile-tab"
-            >
-              ...
-            </div>
-            <div
-              className="tab-pane fade py-3"
-              id="v-pills-messages"
-              role="tabpanel"
-              aria-labelledby="v-pills-messages-tab"
-            >
-              <Link to="/CreateCommunity">
-                <button type="button" className="btn btn-danger">
-                  ساخت کامیونیتی جدید{" "}
-                </button>
-              </Link>
 
-              <MyCommunityList items={this.state.myCommunityList} />
-            </div>
-            <div
-              className="tab-pane fade"
-              id="v-pills-settings"
-              role="tabpanel"
-              aria-labelledby="v-pills-settings-tab"
-            >
-              ...
+                  </Box>
+                  <Box
+                    p={3}
+                    hidden={this.state.tabValue != 1}
+                    style={{ minHeight: "54.5vh" }}
+                  >
+                    <div>
+                        <MyParagraphList items={this.state.myParagraphs}/>
+                    </div>
+                  </Box>
+                  <Box
+                    p={3}
+                    hidden={this.state.tabValue != 2}
+                    style={{ minHeight: "54.5vh" }}
+                  >
+                    <Link to="/CreateCommunity">
+                        <button type="button" className="btn btn-info">
+                        ساخت کامیونیتی جدید{" "}
+                        </button>
+                    </Link>
+                    <p></p>
+                    <MyCommunityList items={this.state.myCommunityList} />
+                  </Box>
+
+
+                  <Box
+                    p={3}
+                    hidden={this.state.tabValue != 3}
+                    style={{ minHeight: "54.5vh" }}
+                  >
+                    <JoindCommunityList items={this.state.joindCommunityList} />
+                  </Box>
+
+                  <Box
+                    p={4}
+                    hidden={this.state.tabValue != 4}
+                    style={{ minHeight: "54.5vh" }}
+                  >
+                    آخری
+                  </Box>
+                </div>
+              </Grid>
             </div>
           </div>
-        </div>
-      </div>
-    );
+        </ThemeProvider>
+      );
+    }
   }
-}
-export default Profile;
-
-function alert(message, type) {
-  var alertPlaceholder = document.getElementById("liveAlertPlaceholder");
-  var wrapper = document.createElement("div");
-  wrapper.innerHTML =
-    '<div class="alert alert-' +
-    type +
-    ' alert-dismissible" role="alert">' +
-    message +
-    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-
-  alertPlaceholder.append(wrapper);
-}
+  function alert(message, type) {
+    var alertPlaceholder = document.getElementById("liveAlertPlaceholder");
+    var wrapper = document.createElement("div");
+    wrapper.innerHTML =
+      '<div class="alert alert-' +
+      type +
+      ' alert-dismissible" role="alert">' +
+      message +
+      '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+  
+    alertPlaceholder.append(wrapper);
+  }
+  export default Profile;
+  
