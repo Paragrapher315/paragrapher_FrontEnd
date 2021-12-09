@@ -1,6 +1,6 @@
 import React from "react";
 import Community from "../CreateCommunity/Community";
-class MyCommunityList extends React.Component{
+class JoindCommunityList extends React.Component{
     
     render(){
         return(
@@ -32,4 +32,4 @@ function ChangeToPersian(month){
     }
 
 }
-export default MyCommunityList;
+export default JoindCommunityList;
