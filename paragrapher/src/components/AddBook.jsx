@@ -22,11 +22,24 @@ import { theme } from "./theme";
 class AddBook extends React.Component {
   state = {
     showAddImageButton: false,
+    bookImage: null,
+  };
+  HandleFileSelect = (e) => {
+    if (e.target.files.length === 0) {
+      return;
+    }
+
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      this.background.style.backgroundImage = `url(${fileReader.result})`;
+    };
+    fileReader.readAsDataURL(e.target.files[0]);
+    this.setState({ bookImage: e.target.files[0] });
   };
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <Card style={{ padding: "1vh 1vw", margin: "2vh 5vw" }}>
+        <Card style={{ padding: "3vh 1vw", margin: "2vh 5vw" }}>
           <form>
             <Grid container>
               <Grid item xs={12} lg={4} md={4}>
@@ -38,7 +51,10 @@ class AddBook extends React.Component {
                     paddingTop: "80%",
                     margin: "auto",
                     position: "relative",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "contain",
                   }}
+                  ref={(bg) => (this.background = bg)}
                   onMouseEnter={() =>
                     this.setState({ showAddImageButton: true })
                   }
@@ -55,12 +71,16 @@ class AddBook extends React.Component {
                         padding: "1vh 1vw",
                         cursor: "pointer",
                       }}
-                      onClick={() => {}}
+                      onClick={() => {
+                        this.fileInput.click();
+                      }}
                     >
-                      <AddAPhotoIcon
-                        style={{
-                          opacity: "60%",
-                        }}
+                      <AddAPhotoIcon />
+                      <input
+                        type="file"
+                        onChange={this.HandleFileSelect}
+                        ref={(fi) => (this.fileInput = fi)}
+                        style={{ display: "none" }}
                       />
                     </div>
                   ) : null}
@@ -121,7 +141,11 @@ class AddBook extends React.Component {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid container style={{ padding: "0 1vw", marginTop: "2vh" }}>
+            <Grid
+              container
+              spacing={2}
+              style={{ padding: "0 1vw", marginTop: "2vh" }}
+            >
               <Grid item xs={12}>
                 <TextField
                   variant="filled"
@@ -137,7 +161,13 @@ class AddBook extends React.Component {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Button />
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  style={{ float: "left" }}
+                >
+                  افزودن کتاب
+                </Button>
               </Grid>
             </Grid>
           </form>

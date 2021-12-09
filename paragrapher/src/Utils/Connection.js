@@ -529,3 +529,20 @@ export const GetBestCommunities = async (count) => {
     }
     return res;
 }
+export const AddBookToShop = async (communityName, bookName, bookGenre, bookAuthor, bookDescription, bookPrice) => {
+    const address = "/community/" + communityName + "/store/book"
+    await axios
+        .post(makeURL(address), {
+            name: bookName, 
+            genre: bookGenre, 
+            author: bookAuthor, 
+            description: bookDescription, 
+            price: bookPrice
+        })
+        .then((response) => {
+            console.log(response)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+}
