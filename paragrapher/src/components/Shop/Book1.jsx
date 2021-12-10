@@ -6,11 +6,18 @@ class Book1 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        name: "شازده کوچولو",
-        genre: "",
-        author: "سنت اگزوپری",
-        description: "یک کتاب که از خواندن آن لذت خواهید برد",
-        price: "5000"
+            id: props.id,
+            name: props.name,
+            genre: props.genre,
+            author: props.author,
+            price: props.price,
+            modified_time: props.modified_time,
+            reserved_time: props.reserved_time,
+            description: props.description,
+            seller_id: props.seller_id,
+            community_id: props.community_id,
+            community_name: props.community_name,
+            image: props.image
     
     };
   }

@@ -529,3 +529,20 @@ export const GetBestCommunities = async (count) => {
     }
     return res;
 }
+
+
+export const AllBooks = async (communityName) => {
+    const address = "/community/" + communityName+"/store/book?start_off=0&end_off=30";
+    let res;
+    await axios
+        .patch(makeURL(address), {})
+        .then((response) => {
+            console.log("Community Books:", response);
+            res = response;
+        })
+        .catch((error) => {
+            console.log("Community Books err:", error.response);
+            res = error;
+        })
+    return res;
+}

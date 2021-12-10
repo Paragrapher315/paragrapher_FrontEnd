@@ -30,6 +30,7 @@ import {
   GetCommunityInfo,
   BestCommunityParagraphs,
   GetCommunityParagraphs,
+  AllBooks
 } from "../Utils/Connection";
 import { getUser } from "../Utils/Common";
 import Book from "./Shop/Book";
@@ -47,6 +48,7 @@ class CommunityMainPage extends React.Component {
     isJoined: false,
     isSub: false,
     membersCount: 0,
+    books:[]
   };
   async componentDidMount() {
     var splitted = window.location.toString().split("/");
@@ -73,8 +75,12 @@ class CommunityMainPage extends React.Component {
     BestCommunityParagraphs(this.state.name).then((ret) => {
       this.setState({ bestParagraphs: ret.data });
     });
+    AllBooks(this.state.name).then((ret) => {
+      console.log("%%%%%%%",ret.data.books)
+      this.setState({ books: ret.data.books });
+    });
     if (this.state.isJoined) {
-      GetCommunityParagraphs(this.state.name, 0, 10).then((ret) => {
+      GetCommunityParagraphs(this.state.name, 0, 30).then((ret) => {
         this.setState({ allParagraphs: ret.data });
       });
     }
@@ -270,8 +276,7 @@ class CommunityMainPage extends React.Component {
                   style={{ minHeight: "54.5vh" }}
                 >
                   <Grid item xs={12}>
-                    {/* <Shop/> */}
-                    <Shop1/>
+                  <Shop1 items={this.state.books}/>
                     
                   </Grid>
                 </Box>
