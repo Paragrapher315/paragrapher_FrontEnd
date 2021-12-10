@@ -48,7 +48,6 @@ class BuyCredit extends React.Component {
                   </Typography>
                   <div style={{ height: "15vh" }}>
                     <CardMedia
-                      title="media"
                       image={money}
                       style={{
                         width: "50%",
@@ -126,7 +125,6 @@ class BuyCredit extends React.Component {
                   </Typography>
                   <div style={{ height: "15vh" }}>
                     <CardMedia
-                      title="media"
                       image={money2}
                       style={{
                         width: "70%",
@@ -203,7 +201,6 @@ class BuyCredit extends React.Component {
                   </Typography>
                   <div style={{ height: "15vh" }}>
                     <CardMedia
-                      title="media"
                       image={money3}
                       style={{
                         width: "70%",
