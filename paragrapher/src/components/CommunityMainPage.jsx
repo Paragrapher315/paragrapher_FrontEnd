@@ -276,6 +276,12 @@ class CommunityMainPage extends React.Component {
                   style={{ minHeight: "54.5vh" }}
                 >
                   <Grid item xs={12}>
+
+                    
+                    <Button variant="contained"
+                              color="secondary" style={{ fontFamily: "BYekan" }}>افزودن کتاب برای فروش</Button>
+                  
+                  <p/>
                   <Shop1 items={this.state.books}/>
                     
                   </Grid>
