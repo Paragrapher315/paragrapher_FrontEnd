@@ -2,6 +2,7 @@ import React from "react";
 import c1 from "../../assets/c1.jpg";
 import c2 from "../../assets/c2.jpg";
 import c3n from "../../assets/c3n.jpg";
+import Book from "./Book";
 class Carousel extends React.Component {
   constructor(props) {
     super(props);
@@ -29,25 +30,13 @@ class Carousel extends React.Component {
   </div>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src={c1} class="d-block w-100" alt="..." style={{height:"380px"}}/>
-      <div class="carousel-caption d-none d-md-block">
-        <h5>First slide label</h5>
-        <p>Some representative placeholder content for the first slide.</p>
-      </div>
+    <Book></Book>
     </div>
     <div class="carousel-item">
-      <img src={c3n} class="d-block w-100" alt="..." style={{height:"380px"}}/>
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Second slide label</h5>
-        <p>Some representative placeholder content for the second slide.</p>
-      </div>
+    <Book></Book>
     </div>
     <div class="carousel-item">
-      <img src={c2} class="d-block w-100" alt="..." style={{height:"380px"}}/>
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Second slide label</h5>
-        <p>Some representative placeholder content for the second slide.</p>
-      </div>
+      <Book></Book>
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">

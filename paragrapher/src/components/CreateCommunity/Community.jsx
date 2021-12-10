@@ -9,7 +9,8 @@ class community extends React.Component{
           bio:props.bio,
           numberOfmembers:props.numberOfmembers,
           date:props.date,
-          view:props.veiw
+          view:props.veiw,
+          badge:props.badge
         };
         console.log(this.state.img)
         
@@ -24,6 +25,7 @@ class community extends React.Component{
     render(){
         return(
             <div class="card w3-hover-shadow m-2 text-center pb-0">
+              <div class="badge bg-secondary text-white position-absolute" style={{top: "0.5rem" , right: "0.5rem"}}>{this.state.badge}</div>
             <img src={this.state.img} class="card-img-top" alt="..."/>
             <div class="card-body">
                 <h5 class="card-title">{this.state.name}</h5>

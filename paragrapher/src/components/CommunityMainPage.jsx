@@ -32,6 +32,10 @@ import {
   GetCommunityParagraphs,
 } from "../Utils/Connection";
 import { getUser } from "../Utils/Common";
+import Book from "./Shop/Book";
+import Shop from "./Shop/Shop";
+import Book1 from "./Shop/Book1";
+import Shop1 from "./Shop/Shop1";
 class CommunityMainPage extends React.Component {
   state = {
     tabValue: 0,
@@ -202,7 +206,6 @@ class CommunityMainPage extends React.Component {
                     />
                     <Tab
                       label="فروشگاه"
-                      disabled
                       style={{ fontFamily: "BYekan" }}
                       onClick={() => this.setState({ tabValue: 2 })}
                     />
@@ -260,6 +263,17 @@ class CommunityMainPage extends React.Component {
                       />
                     ))}
                   </div>
+                </Box>
+                <Box
+                  p={3}
+                  hidden={this.state.tabValue != 2}
+                  style={{ minHeight: "54.5vh" }}
+                >
+                  <Grid item xs={12}>
+                    {/* <Shop/> */}
+                    <Shop1/>
+                    
+                  </Grid>
                 </Box>
                 <Box
                   p={3}

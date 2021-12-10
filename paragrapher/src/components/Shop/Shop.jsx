@@ -21,23 +21,14 @@ class Shop extends React.Component {
 
   render() {
     return (
-        <div className="container">
-            <div className="row">
-                <img className="w-100" src={topShop}></img>
-            </div>
-            <div className="row">
-                <div className="col">
-                    
+        <div className="row">
+                <div className="col-12 col-md-6 col-xl-6">
+                        <Book/>
                 </div>
-
-                <div className="col-10">
-                <Book/>
-                </div>
-                <div className="col">
-                    
+                <div className="col-12 col-md-6 col-xl-6">
+                        <Book/>
                 </div>
             </div>
-        </div>
      
     );
   }

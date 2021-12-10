@@ -26,7 +26,7 @@ class Book extends React.Component {
 
   render() {
     return (
-        <div class="card mb-3" style={{maxWidth: "540px"}}>
+        <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-5">
       <img src={c1} class="img-fluid rounded-start h-100" alt="..."/>
