@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid, ThemeProvider } from "@material-ui/core";
+import { Grid, TextField, ThemeProvider } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -26,7 +26,7 @@ class BuyCredit extends React.Component {
           <Grid container spacing={2}>
             <Grid item xs={12} lg={4} md={4}>
               <Card
-                style={{ borderRadius: "2%", height: "75vh" }}
+                style={{ borderRadius: "2%", minHeight: "80vh" }}
                 className={this.props.classes.cardNotHovered}
                 classes={{
                   root: this.state.class1.raised
@@ -46,7 +46,7 @@ class BuyCredit extends React.Component {
                   <Typography style={{ textAlign: "center", fontSize: 30 }}>
                     پلن اول
                   </Typography>
-                  <div style={{ height: "15vh" }}>
+                  <div style={{ height: "30vh" }}>
                     <CardMedia
                       image={money}
                       style={{
@@ -93,7 +93,11 @@ class BuyCredit extends React.Component {
                     <Button
                       variant="contained"
                       color="secondary"
-                      style={{ fontSize: 25, width: "15vh" }}
+                      style={{
+                        fontSize: 25,
+                        width: "15vh",
+                        marginBottom: "5vh",
+                      }}
                     >
                       خرید
                     </Button>
@@ -103,7 +107,7 @@ class BuyCredit extends React.Component {
             </Grid>
             <Grid item xs={12} lg={4} md={4}>
               <Card
-                style={{ borderRadius: "2%", height: "75vh" }}
+                style={{ borderRadius: "2%", minHeight: "80vh" }}
                 className={this.props.classes.cardNotHovered}
                 classes={{
                   root: this.state.class2.raised
@@ -123,7 +127,7 @@ class BuyCredit extends React.Component {
                   <Typography style={{ textAlign: "center", fontSize: 30 }}>
                     پلن دوم
                   </Typography>
-                  <div style={{ height: "15vh" }}>
+                  <div style={{ height: "30vh" }}>
                     <CardMedia
                       image={money2}
                       style={{
@@ -169,7 +173,11 @@ class BuyCredit extends React.Component {
                     <Button
                       variant="contained"
                       color="secondary"
-                      style={{ fontSize: 25, width: "15vh" }}
+                      style={{
+                        fontSize: 25,
+                        width: "15vh",
+                        marginBottom: "5vh",
+                      }}
                     >
                       خرید
                     </Button>
@@ -179,7 +187,7 @@ class BuyCredit extends React.Component {
             </Grid>
             <Grid item xs={12} lg={4} md={4}>
               <Card
-                style={{ borderRadius: "2%", height: "75vh" }}
+                style={{ borderRadius: "2%", minHeight: "80vh" }}
                 className={this.props.classes.cardNotHovered}
                 classes={{
                   root: this.state.class3.raised
@@ -195,22 +203,22 @@ class BuyCredit extends React.Component {
                 raised={this.state.class3.raised}
                 zdepth={this.state.class3.shadow}
               >
-                <CardContent>
+                <CardContent style={{ textAlign: "center" }}>
                   <Typography style={{ textAlign: "center", fontSize: 30 }}>
                     پلن سوم
                   </Typography>
-                  <div style={{ height: "15vh" }}>
+                  <div style={{ height: "30vh" }}>
                     <CardMedia
                       image={money3}
                       style={{
-                        width: "70%",
-                        paddingTop: "40%",
-
+                        width: "88%",
+                        paddingTop: "50%",
                         margin: "auto",
-                        marginTop: "2vh",
+                        marginTop: "3vh",
                       }}
                     />
                   </div>
+
                   <Typography
                     style={{
                       textAlign: "center",
@@ -218,7 +226,7 @@ class BuyCredit extends React.Component {
                       paddingTop: "5vh",
                     }}
                   >
-                    <span style={{ padding: "0 1vw 0 1vw", fontSize: 80 }}>
+                    <span style={{ padding: "0 1vw 0 0vw", fontSize: 80 }}>
                       {" "}
                       50000{" "}
                     </span>
@@ -246,11 +254,40 @@ class BuyCredit extends React.Component {
                     <Button
                       variant="contained"
                       color="secondary"
-                      style={{ fontSize: 25, width: "15vh" }}
+                      style={{
+                        fontSize: 25,
+                        width: "15vh",
+                        marginBottom: "5vh",
+                      }}
                     >
                       خرید
                     </Button>
                   </div>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} lg={12} md={12}>
+              <Card>
+                <CardContent>
+                  <Typography style={{ fontSize: 25 }}>
+                    شارژ مبلغ دلخواه
+                  </Typography>
+                  <TextField
+                    style={{ width: "50%", paddingTop: "2vh" }}
+                    variant="filled"
+                    placeholder="مبلغ به تومان"
+                  ></TextField>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    style={{
+                      float: "left",
+                      marginTop: "3vh",
+                      marginLeft: "3vw",
+                    }}
+                  >
+                    انجام تراکنش
+                  </Button>
                 </CardContent>
               </Card>
             </Grid>
