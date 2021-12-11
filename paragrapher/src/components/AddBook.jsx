@@ -19,11 +19,24 @@ import {
 } from "@material-ui/core";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import { theme } from "./theme";
+import { AddBookToShop, AddBookPic } from "../Utils/Connection";
+import { AllInboxOutlined } from "@material-ui/icons";
 class AddBook extends React.Component {
   state = {
     showAddImageButton: false,
     bookImage: null,
+    bookName: null,
+    bookAuthor: null,
+    bookGenre: null,
+    bookPrice: null,
+    bookInfo: null,
+    communityName: null,
   };
+  async componentDidMount() {
+    var splitted = window.location.toString().split("/");
+    await this.setState({ communityName: splitted.pop() });
+    console.log(this.state.communityName);
+  }
   HandleFileSelect = (e) => {
     if (e.target.files.length === 0) {
       return;
@@ -35,6 +48,11 @@ class AddBook extends React.Component {
     };
     fileReader.readAsDataURL(e.target.files[0]);
     this.setState({ bookImage: e.target.files[0] });
+  };
+  handleImageUpload = (bookID) => {
+    const data = new FormData();
+    data.append("file", this.state.bookImage);
+    AddBookPic(this.state.communityName, bookID, data);
   };
   render() {
     return (
@@ -103,6 +121,9 @@ class AddBook extends React.Component {
                         textAlign: "right",
                         width: "100%",
                       }}
+                      onChange={(e) => {
+                        this.setState({ bookName: e.target.value });
+                      }}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -113,6 +134,9 @@ class AddBook extends React.Component {
                         direction: "rtl",
                         textAlign: "right",
                         width: "100%",
+                      }}
+                      onChange={(e) => {
+                        this.setState({ bookAuthor: e.target.value });
                       }}
                     />
                   </Grid>
@@ -125,6 +149,9 @@ class AddBook extends React.Component {
                         textAlign: "right",
                         width: "100%",
                       }}
+                      onChange={(e) => {
+                        this.setState({ bookGenre: e.target.value });
+                      }}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -135,6 +162,9 @@ class AddBook extends React.Component {
                         direction: "rtl",
                         textAlign: "right",
                         width: "100%",
+                      }}
+                      onChange={(e) => {
+                        this.setState({ bookPrice: e.target.value });
                       }}
                     />
                   </Grid>
@@ -158,6 +188,9 @@ class AddBook extends React.Component {
                   multiline
                   minRows={7}
                   maxRows={7}
+                  onChange={(e) => {
+                    this.setState({ bookInfo: e.target.value });
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -165,6 +198,19 @@ class AddBook extends React.Component {
                   variant="contained"
                   color="secondary"
                   style={{ float: "left" }}
+                  onClick={() =>
+                    AddBookToShop(
+                      this.state.communityName,
+                      this.state.bookName,
+                      this.state.bookGenre,
+                      this.state.bookAuthor,
+                      this.state.bookInfo,
+                      this.state.bookPrice
+                    ).then((res) => {
+                      // console.log(res);
+                      this.handleImageUpload(res);
+                    })
+                  }
                 >
                   افزودن کتاب
                 </Button>
