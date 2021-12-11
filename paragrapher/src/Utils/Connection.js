@@ -555,7 +555,7 @@ export const AddBookPic = async (communityName, bookID, data) => {
         .post(makeURL(address), data)
         .then((res) => {console.log("image is done" + res)})
         .catch((error) => {console.log(error)})
-
+}
 export const SearchCommunity = async (Text, start, end) => {
     const address = "/search?type=community&text="+Text;
     let res;
