@@ -24,12 +24,17 @@ import {theme,useStyles} from "./components/theme";
 import { jssPreset, StylesProvider } from '@material-ui/styles';
 import rtl from "jss-rtl";
 import { create } from 'jss';
+import Shop from './components/Shop/Shop';
 import { withRouter } from 'react-router-dom';
 import Paragraph from './components/Paragraph/Paragraph';
 import ParagraphCommentor from './components/Paragraph/ParagraphCommentor';
 import CommunityMainPage from './components/CommunityMainPage';
 import CreateCommunity from './components/CreateCommunity/CreateCommunity.jsx'
 import AddBook from './components/AddBook';
+import CommunitySearch from './components/Search/CommunitySearch';
+import BookSearch from './components/Search/BookSearch';
+import AuthorSearch from './components/Search/AuthorSearch';
+// import NewProfile from './components/Profile/NewProfile';
 function App(props) {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
@@ -61,6 +66,9 @@ function App(props) {
             <Route path="/profile" exact={true}>
               <Profile/>
             </Route>
+            {/* <Route path="/Newprofile" exact={true}>
+              <NewProfile/>
+            </Route> */}
             <Route path="/paragraph/edit/:handle">
                 <ParagraphEditor classes={classes} />
             </Route>
@@ -78,6 +86,15 @@ function App(props) {
             </Route>  
             <Route path="/AddBook/:handle" exact={true}>
               <AddBook />
+            </Route>
+            <Route path="/SearchCommunity/:handle" exact={true}>
+              <CommunitySearch/>
+            </Route>
+            <Route path="/SearchBook/:handle" exact={true}>
+              <BookSearch/>
+            </Route>
+            <Route path="/SearchAuthor/:handle" exact={true}>
+              <AuthorSearch/>
             </Route>
           </Switch>
         </div>

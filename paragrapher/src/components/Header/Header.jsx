@@ -36,7 +36,7 @@ import InputBase from "@material-ui/core/InputBase";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 import { Hidden } from "@material-ui/core";
 import { Logout } from "../../Utils/Connection.js";
-
+import Search from "../Search/Search";
 function Header(props) {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
@@ -122,18 +122,9 @@ function Header(props) {
               </Link>
             </Typography>
 
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                disabled
-                placeholder="جستجو"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              />
+            <div style={{width:"32%"}}>
+              
+              <Search></Search>
             </div>
 
             <div className={classes.grow} />
