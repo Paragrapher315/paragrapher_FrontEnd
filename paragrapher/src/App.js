@@ -92,8 +92,8 @@ function App(props) {
             <Route path="/SearchAuthor/:handle" exact={true}>
               <AuthorSearch/>
             </Route>
-            <Route path="/ShowBook/:handle" exact={true}>
-              <ShowBook theme={theme} classes={classes} communityName="mamad"/>
+            <Route path="/community/:handle/ShowBook/:handle" exact={true}>
+              <ShowBook theme={theme} classes={classes}/>
             </Route>
           </Switch>
         </div>
