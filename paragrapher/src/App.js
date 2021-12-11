@@ -24,6 +24,7 @@ import {theme,useStyles} from "./components/theme";
 import { jssPreset, StylesProvider } from '@material-ui/styles';
 import rtl from "jss-rtl";
 import { create } from 'jss';
+import Shop from './components/Shop/Shop';
 import { withRouter } from 'react-router-dom';
 import Paragraph from './components/Paragraph/Paragraph';
 import ParagraphCommentor from './components/Paragraph/ParagraphCommentor';
