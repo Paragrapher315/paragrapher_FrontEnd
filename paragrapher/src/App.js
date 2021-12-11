@@ -30,6 +30,7 @@ import Paragraph from './components/Paragraph/Paragraph';
 import ParagraphCommentor from './components/Paragraph/ParagraphCommentor';
 import CommunityMainPage from './components/CommunityMainPage';
 import CreateCommunity from './components/CreateCommunity/CreateCommunity.jsx'
+import AddBook from './components/AddBook';
 import CommunitySearch from './components/Search/CommunitySearch';
 import BookSearch from './components/Search/BookSearch';
 import AuthorSearch from './components/Search/AuthorSearch';
@@ -82,6 +83,9 @@ function App(props) {
             </Route>
             <Route path="/CreateCommunity" exact={true}>
               <CreateCommunity/>
+            </Route>  
+            <Route path="/AddBook/:handle" exact={true}>
+              <AddBook />
             </Route>
             <Route path="/SearchCommunity/:handle" exact={true}>
               <CommunitySearch/>
