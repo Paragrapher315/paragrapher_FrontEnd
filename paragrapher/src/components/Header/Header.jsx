@@ -122,8 +122,7 @@ function Header(props) {
               </Link>
             </Typography>
 
-            <div style={{width:"32%"}}>
-              
+            <div style={{ width: "32%" }}>
               <Search></Search>
             </div>
 

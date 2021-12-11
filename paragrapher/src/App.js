@@ -34,6 +34,7 @@ import AddBook from './components/AddBook';
 import CommunitySearch from './components/Search/CommunitySearch';
 import BookSearch from './components/Search/BookSearch';
 import AuthorSearch from './components/Search/AuthorSearch';
+import ShowBook from './components/ShowBook/ShowBook';
 // import NewProfile from './components/Profile/NewProfile';
 function App(props) {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
@@ -95,6 +96,9 @@ function App(props) {
             </Route>
             <Route path="/SearchAuthor/:handle" exact={true}>
               <AuthorSearch/>
+            </Route>
+            <Route path="/community/:handle/ShowBook/:handle" exact={true}>
+              <ShowBook theme={theme} classes={classes}/>
             </Route>
           </Switch>
         </div>
