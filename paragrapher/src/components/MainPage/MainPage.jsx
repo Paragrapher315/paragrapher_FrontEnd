@@ -83,7 +83,7 @@ function MainPage(props) {
             <Grid item lg={8} md={8} xs={12}>
               <Grid container spacing={2} style={{ padding: "0 2vw" }}>
                 <Grid item xs={12}>
-                  <Paragraph
+                  {/* <Paragraph
                     user="کیا"
                     date="26 آبان 1400"
                     isPotd={true}
@@ -91,14 +91,15 @@ function MainPage(props) {
                     avatar="ک"
                     author="نیچه"
                     tags={["ترسناک", "جنایی", "ماجرایی"]}
-                    canAction={false}
+                    canAction={true}
                     isMine={true}
                     book="فلان"
                     sendData={getData}
                     sendDataComment={getDataComment}
                     p_id={"20211127205112352646,20211127205124664310"}
                     text="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد."
-                  />
+                  /> */}
+                  <ParagraphOfTheDay />
                 </Grid>
                 <Hidden xsDown>
                   <Grid item lg={12} md={12}>
@@ -182,10 +183,70 @@ function MainPage(props) {
   );
 }
 
-export class ParagraphList extends Component {
+export class ParagraphOfTheDay extends React.Component {
   state = {
     paragraphs: [],
     start_off: 0,
+    end_off: 1,
+    communities: [],
+    hasmore: true,
+  };
+  getData = (params) => {
+    this.props.sendData(params[0], params[1]);
+  };
+  getCommentData = (params) => {
+    this.props.sendData(params[0], params[1]);
+  };
+  componentDidMount() {
+    const d = new Date();
+    GetCommunities().then((res) => {
+      Array.isArray(res) &&
+        res.data.forEach((element) => {
+          this.state.communities.push(element.name);
+        });
+      this.setState({ communities: this.state.communities });
+    });
+    ParagraphArray(d, this.state.start_off, this.state.end_off).then((res) => {
+      this.setState({
+        paragraphs: res,
+      });
+    });
+  }
+  render() {
+    return (
+      <div>
+        {this.state.paragraphs.map((element) => {
+          return (
+            <Paragraph
+              user={element.username}
+              text={element.text}
+              date={element.date}
+              communityName={element.communityName}
+              avatar={element.userAvatar}
+              author={element.author}
+              tags={element.tags.split(",")}
+              canAction={true}
+              isMine={element.username == getUser()}
+              book={element.book}
+              sendData={this.props.sendData}
+              sendDataComment={this.props.sendDataComment}
+              p_id={element.id}
+              isPotd={true}
+              userID={element.user_id}
+              // eslint-disable-next-line react/jsx-no-duplicate-props
+              canAction={this.state.communities.includes(element.communityName)}
+            />
+          );
+        })}
+      </div>
+    );
+  }
+}
+
+export class ParagraphList extends Component {
+  state = {
+    paragraphs: [],
+    start_off: 2,
     end_off: 10,
     communities: [],
     hasmore: true,
@@ -198,7 +259,6 @@ export class ParagraphList extends Component {
   };
   componentDidMount() {
     const d = new Date();
-
     GetCommunities().then((res) => {
       Array.isArray(res) &&
         res.data.forEach((element) => {

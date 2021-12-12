@@ -24,8 +24,8 @@ import Shop from './components/Shop/Shop';
 import { withRouter } from 'react-router-dom';
 import Paragraph from './components/Paragraph/Paragraph';
 import ParagraphCommentor from './components/Paragraph/ParagraphCommentor';
-import CommunityMainPage from './components/CommunityMainPage';
-import CreateCommunity from './components/CreateCommunity/CreateCommunity.jsx'
+// import CommunityMainPage from './components/CommunityMainPage';
+// import CreateCommunity from './components/CreateCommunity/CreateCommunity.jsx'
 import AddBook from './components/AddBook';
 import CommunitySearch from './components/Search/CommunitySearch';
 import BookSearch from './components/Search/BookSearch';

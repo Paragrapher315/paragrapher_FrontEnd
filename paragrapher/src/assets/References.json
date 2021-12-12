@@ -28,7 +28,7 @@
     "url_community": "/community/",
     "url_create_community": "/community/create",
     "url_best_community": "/community/best",
-    "url_add_credit":"/account/credit"
+    "url_add_credit":"/account/credit",
     "url_myparagraph": "/account/paragraphs",
     "url_showbook":"/store/book/info/"
 }

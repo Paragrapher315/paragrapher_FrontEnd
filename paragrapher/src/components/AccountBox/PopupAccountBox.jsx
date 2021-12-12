@@ -37,6 +37,7 @@ function PopupAccountBox(props) {
 }
 
 //<div className="innerPopup col-12 col-sm-8 col-md-6 col-lg-5 d-flex justify-content-center">
+// eslint-disable-next-line no-lone-blocks
 {
   /* <button className="closeButton" onClick={() => props.setTrigger(false)}>Close!</button> */
 }
