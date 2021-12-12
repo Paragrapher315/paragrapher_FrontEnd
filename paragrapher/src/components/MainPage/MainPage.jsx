@@ -200,7 +200,7 @@ export class ParagraphOfTheDay extends React.Component {
   componentDidMount() {
     const d = new Date();
     GetCommunities().then((res) => {
-      Array.isArray(res) &&
+      Array.isArray(res.data) &&
         res.data.forEach((element) => {
           this.state.communities.push(element.name);
         });
@@ -225,7 +225,6 @@ export class ParagraphOfTheDay extends React.Component {
               avatar={element.userAvatar}
               author={element.author}
               tags={element.tags.split(",")}
-              canAction={true}
               isMine={element.username == getUser()}
               book={element.book}
               sendData={this.props.sendData}
@@ -260,7 +259,7 @@ export class ParagraphList extends Component {
   componentDidMount() {
     const d = new Date();
     GetCommunities().then((res) => {
-      Array.isArray(res) &&
+      Array.isArray(res.data) &&
         res.data.forEach((element) => {
           this.state.communities.push(element.name);
         });
