@@ -20,6 +20,18 @@ import { create } from 'jss';
 import CommunityMainPage from './components/CommunityMainPage';
 import CreateCommunity from './components/CreateCommunity/CreateCommunity.jsx'
 import BuyCredit from './components/BuyCredits/BuyCredit';
+import Shop from './components/Shop/Shop';
+import { withRouter } from 'react-router-dom';
+import Paragraph from './components/Paragraph/Paragraph';
+import ParagraphCommentor from './components/Paragraph/ParagraphCommentor';
+import CommunityMainPage from './components/CommunityMainPage';
+import CreateCommunity from './components/CreateCommunity/CreateCommunity.jsx'
+import AddBook from './components/AddBook';
+import CommunitySearch from './components/Search/CommunitySearch';
+import BookSearch from './components/Search/BookSearch';
+import AuthorSearch from './components/Search/AuthorSearch';
+import ShowBook from './components/ShowBook/ShowBook';
+// import NewProfile from './components/Profile/NewProfile';
 function App(props) {
   const [drawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
@@ -51,6 +63,9 @@ function App(props) {
             <Route path="/profile" exact={true}>
               <Profile/>
             </Route>
+            {/* <Route path="/Newprofile" exact={true}>
+              <NewProfile/>
+            </Route> */}
             <Route path="/paragraph/edit/:handle">
                 <ParagraphEditor classes={classes} />
             </Route>
@@ -65,6 +80,21 @@ function App(props) {
             </Route>
             <Route path="/CreateCommunity" exact={true}>
               <CreateCommunity/>
+            </Route>  
+            <Route path="/AddBook/:handle" exact={true}>
+              <AddBook />
+            </Route>
+            <Route path="/SearchCommunity/:handle" exact={true}>
+              <CommunitySearch/>
+            </Route>
+            <Route path="/SearchBook/:handle" exact={true}>
+              <BookSearch/>
+            </Route>
+            <Route path="/SearchAuthor/:handle" exact={true}>
+              <AuthorSearch/>
+            </Route>
+            <Route path="/community/:handle/ShowBook/:handle" exact={true}>
+              <ShowBook theme={theme} classes={classes}/>
             </Route>
             <Route path="/BuyCredits" exact>
               <BuyCredit classes={classes} theme={theme}/>

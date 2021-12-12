@@ -529,3 +529,110 @@ export const GetBestCommunities = async (count) => {
     }
     return res;
 }
+export const AddBookToShop = async (communityName, bookName, bookGenre, bookAuthor, bookDescription, bookPrice) => {
+    const address = "/community/" + communityName + "/store/book"
+    let bookID = null
+    await axios
+        .post(makeURL(address), {
+            name: bookName, 
+            genre: bookGenre, 
+            author: bookAuthor, 
+            description: bookDescription, 
+            price: bookPrice
+        })
+        .then((response) => {
+            console.log(response)
+            bookID = response.data.res.id
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    return bookID
+}
+export const AddBookPic = async (communityName, bookID, data) => {
+    const address = "/community/" + communityName + "/store/book/picture?book_id=" + bookID;
+    await axios
+        .post(makeURL(address), data)
+        .then((res) => {console.log("image is done" + res)})
+        .catch((error) => {console.log(error)})
+}
+export const SearchCommunity = async (Text, start, end) => {
+    const address = "/search?type=community&text="+Text;
+    let res;
+    await axios
+        .put(makeURL(address), {
+            start_off: start, 
+            end_off: end
+        })
+        .then((response) => {
+            console.log("Search result is :", response);
+            res = response;
+        })
+        .catch((error) => {
+            console.log("Search result is :", error);
+            res = error;
+        })
+    return res;
+
+}
+
+
+
+export const SearchBook = async (Text, start, end) => {
+    const address = "/search?type=book&text="+Text;
+    let res;
+    await axios
+        .put(makeURL(address), {
+            start_off: start, 
+            end_off: end
+        })
+        .then((response) => {
+            console.log("Search result is :", response);
+            res = response;
+        })
+        .catch((error) => {
+            console.log("Search result is :", error);
+            res = error;
+        })
+    return res;
+
+}
+
+
+
+
+export const SearchAuthor = async (Text, start, end) => {
+    const address = "/search?type=author&text="+Text;
+    let res;
+    await axios
+        .put(makeURL(address), {
+            start_off: start, 
+            end_off: end
+        })
+        .then((response) => {
+            console.log("Search result is :", response);
+            res = response;
+        })
+        .catch((error) => {
+            console.log("Search result is :", error);
+            res = error;
+        })
+    return res;
+
+}
+
+export const AllBooks = async (communityName) => {
+    const address = "/community/" + communityName+"/store/book?start_off=0&end_off=30";
+    let res;
+    await axios
+        .patch(makeURL(address), {})
+        .then((response) => {
+            console.log("Community Books:", response);
+            res = response;
+        })
+        .catch((error) => {
+            console.log("Community Books err:", error.response);
+            res = error;
+        })
+    return res;
+}

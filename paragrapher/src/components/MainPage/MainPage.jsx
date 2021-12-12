@@ -200,9 +200,10 @@ export class ParagraphList extends Component {
     const d = new Date();
 
     GetCommunities().then((res) => {
-      res.data.forEach((element) => {
-        this.state.communities.push(element.name);
-      });
+      Array.isArray(res) &&
+        res.data.forEach((element) => {
+          this.state.communities.push(element.name);
+        });
       this.setState({ communities: this.state.communities });
     });
     ParagraphArray(d, this.state.start_off, this.state.end_off).then((res) => {
