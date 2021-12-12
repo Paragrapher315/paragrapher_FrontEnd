@@ -18,13 +18,11 @@ import { jssPreset, StylesProvider } from '@material-ui/styles';
 import rtl from "jss-rtl";
 import { create } from 'jss';
 import CommunityMainPage from './components/CommunityMainPage';
-import CreateCommunity from './components/CreateCommunity/CreateCommunity.jsx'
 import BuyCredit from './components/BuyCredits/BuyCredit';
 import Shop from './components/Shop/Shop';
 import { withRouter } from 'react-router-dom';
 import Paragraph from './components/Paragraph/Paragraph';
 import ParagraphCommentor from './components/Paragraph/ParagraphCommentor';
-import CommunityMainPage from './components/CommunityMainPage';
 import CreateCommunity from './components/CreateCommunity/CreateCommunity.jsx'
 import AddBook from './components/AddBook';
 import CommunitySearch from './components/Search/CommunitySearch';

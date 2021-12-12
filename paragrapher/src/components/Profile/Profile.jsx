@@ -252,11 +252,11 @@ import {
                         style={{ fontFamily: "BYekan" }}
                         onClick={() => this.setState({ tabValue: 3 })}
                       />
-                       <Tab icon={<MenuBookIcon />} label="کتابهای خریداری شده"
+                       {/* <Tab icon={<MenuBookIcon />} label="کتابهای خریداری شده"
                        style={{ fontFamily: "BYekan" }} 
                        disabled
                        onClick={() => this.setState({ tabValue: 4 })}
-                       />
+                       /> */}
                     </Tabs>
                   </Paper>
                   <Box

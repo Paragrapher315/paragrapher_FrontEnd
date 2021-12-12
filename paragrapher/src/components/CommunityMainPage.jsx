@@ -15,6 +15,7 @@ import {
   AppBar,
   Paper,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import React, { Component } from "react";
@@ -48,7 +49,8 @@ class CommunityMainPage extends React.Component {
     isJoined: false,
     isSub: false,
     membersCount: 0,
-    books:[]
+    books:[],
+    addbookLink:"",
   };
   async componentDidMount() {
     var splitted = window.location.toString().split("/");
@@ -84,6 +86,7 @@ class CommunityMainPage extends React.Component {
         this.setState({ allParagraphs: ret.data });
       });
     }
+    this.addbookLink="/AddBook/"+this.state.name
   }
 
   render() {
@@ -277,9 +280,11 @@ class CommunityMainPage extends React.Component {
                 >
                   <Grid item xs={12}>
 
-                    
-                    <Button variant="contained"
+                  <Link to={this.addbookLink}>
+                  <Button variant="contained"
                               color="secondary" style={{ fontFamily: "BYekan" }}>افزودن کتاب برای فروش</Button>
+              </Link>
+                    
                   
                   <p/>
                   <Shop1 items={this.state.books}/>
