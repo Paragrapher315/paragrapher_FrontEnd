@@ -1,9 +1,8 @@
-import React, { Component, useState, useEffect } from "react";
-import { Grid, Paper, Hidden, Switch, Card } from "@material-ui/core";
-import { BrowserView, MobileView } from "react-device-detect";
+/* eslint-disable eqeqeq */
+import React, { Component, useState } from "react";
+import { Grid, Hidden, Card } from "@material-ui/core";
 import Paragraph from "../Paragraph/Paragraph";
 import { theme, useStyles } from "../theme";
-import SideBar from "./SideBar";
 import TopCommunities from "../TopCommunities";
 import RecentProducts from "../RecentProducts";
 import { CardContent } from "@mui/material";
@@ -11,25 +10,18 @@ import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import { TextField } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
-import { getUser, makeURL } from "../../Utils/Common";
+import { getUser } from "../../Utils/Common";
 import IconButton from "@material-ui/core/IconButton";
 import { Typography } from "@material-ui/core";
 import rtl from "jss-rtl";
 import { create } from "jss";
 import CreateIcon from "@material-ui/icons/Create";
-import references from "../../assets/References.json";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useHistory } from "react-router-dom";
 // import Particles from "react-tsparticles";
 import { CircularProgress } from "@material-ui/core";
 import { jssPreset, StylesProvider, ThemeProvider } from "@material-ui/styles";
-import axios from "axios";
-import {
-  GetCommunities,
-  GetParagraphs,
-  isLiked,
-  ParagraphArray,
-} from "../../Utils/Connection";
+import { GetCommunities, ParagraphArray } from "../../Utils/Connection";
 function MainPage(props) {
   const classes = useStyles(theme);
   const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -229,8 +221,10 @@ export class ParagraphList extends Component {
       });
     });
     if (lastCount == this.state.paragraphs.length) {
+      console.log(this.state.hasmore);
       this.setState({ hasmore: false });
     } else {
+      console.log(this.state.hasmore);
       this.setState({ hasmore: true });
     }
   };
@@ -276,6 +270,7 @@ export class ParagraphList extends Component {
                 sendDataComment={this.props.sendDataComment}
                 p_id={element.id}
                 userID={element.user_id}
+                // eslint-disable-next-line react/jsx-no-duplicate-props
                 canAction={this.state.communities.includes(
                   element.communityName
                 )}

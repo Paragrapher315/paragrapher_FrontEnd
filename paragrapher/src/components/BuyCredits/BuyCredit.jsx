@@ -1,22 +1,75 @@
-import React, { Component } from "react";
+import React from "react";
 import { Grid, TextField, ThemeProvider } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
 import { Typography } from "@material-ui/core";
 import money from "../../assets/money.png";
 import money2 from "../../assets/money2.png";
 import money3 from "../../assets/money3.png";
-import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
 import { Button } from "@material-ui/core";
+import axios from "axios";
+import { makeURL } from "../../Utils/Common";
+import references from "../../assets/References";
+import { Addchart } from "@mui/icons-material";
 
 class BuyCredit extends React.Component {
   state = {
     class1: { raised: false, shadow: 1 },
     class2: { raised: false, shadow: 1 },
     class3: { raised: false, shadow: 1 },
+    moneyAmount: null,
+    helperText: null,
+    error: false,
+  };
+
+  handleAmountChange = (event) => {
+    if (!isNaN(event.target.value)) {
+      this.setState({ error: false });
+      this.setState({ moneyAmount: event.target.value });
+      this.setState({ helperText: null });
+    } else {
+      this.setState({ error: true });
+      this.setState({ helperText: "مقدار وارد شده عدد نیست" });
+      this.setState({ moneyAmount: event.target.value });
+    }
+  };
+
+  handleAddCredit1 = () => {
+    this.addCredit(10500);
+  };
+  handleAddCredit2 = () => {
+    this.addCredit(23000);
+  };
+  handleAddCredit3 = () => {
+    this.addCredit(60000);
+  };
+  handleAddCredit4 = () => {
+    if (this.state.moneyAmount < 1000) {
+      window.alert("حداقل مقدار شارژ برابر 1000 تومان است");
+    } else if (this.state.moneyAmount % 1000 !== 0) {
+      window.alert("مقدار شارژ باید بر 1000 تومان بخشپذیر باشد");
+    } else {
+      this.addCredit(this.state.moneyAmount);
+    }
+  };
+
+  addCredit = async (amount) => {
+    if (!isNaN(amount)) {
+      let mon = parseInt(amount);
+      await axios
+        .post(makeURL(references.url_add_credit), {
+          amount: mon,
+        })
+        .then((res) => {
+          console.log(res);
+          window.alert("افزایش اعتبار با موفقیت انجام شد");
+          window.location.replace("/profile");
+        })
+        .catch((res) => {
+          window.alert(res);
+        });
+    } else window.alert("مقدار وارد شده عدد نیست");
   };
 
   render() {
@@ -98,6 +151,8 @@ class BuyCredit extends React.Component {
                         width: "15vh",
                         marginBottom: "5vh",
                       }}
+                      id={10500}
+                      onClick={this.handleAddCredit1}
                     >
                       خرید
                     </Button>
@@ -178,6 +233,8 @@ class BuyCredit extends React.Component {
                         width: "15vh",
                         marginBottom: "5vh",
                       }}
+                      id={23000}
+                      onClick={this.handleAddCredit2}
                     >
                       خرید
                     </Button>
@@ -259,6 +316,8 @@ class BuyCredit extends React.Component {
                         width: "15vh",
                         marginBottom: "5vh",
                       }}
+                      id={60000}
+                      onClick={this.handleAddCredit3}
                     >
                       خرید
                     </Button>
@@ -273,9 +332,13 @@ class BuyCredit extends React.Component {
                     شارژ مبلغ دلخواه
                   </Typography>
                   <TextField
+                    error={this.state.error}
+                    helperText={this.state.helperText}
                     style={{ width: "50%", paddingTop: "2vh" }}
                     variant="filled"
-                    placeholder="مبلغ به تومان"
+                    label="مبلغ به تومان"
+                    onChange={this.handleAmountChange}
+                    value={this.state.moneyAmount}
                   ></TextField>
                   <Button
                     variant="contained"
@@ -285,6 +348,8 @@ class BuyCredit extends React.Component {
                       marginTop: "3vh",
                       marginLeft: "3vw",
                     }}
+                    id={404}
+                    onClick={this.handleAddCredit4}
                   >
                     انجام تراکنش
                   </Button>

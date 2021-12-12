@@ -28,6 +28,7 @@ import { makeURL } from "../../Utils/Common";
 import { cookie } from "../../Utils/Common";
 import { EditBio } from "../../Utils/Connection";
 import { Input } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 
 class ProfileForm extends React.Component {
   constructor(props) {
