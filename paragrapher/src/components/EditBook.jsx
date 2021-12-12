@@ -221,7 +221,7 @@ class EditBook extends React.Component {
                   onClick={() =>
                     EditBookData(
                       this.state.communityName,
-                      this.state.bookInfo,
+                      this.state.bookID,
                       this.state.bookName,
                       this.state.bookGenre,
                       this.state.bookAuthor,
@@ -229,12 +229,13 @@ class EditBook extends React.Component {
                       this.state.bookPrice
                     ).then(() => {
                       console.log("edited successfully");
-                      //   window.location.replace(
-                      //     "/community/" +
-                      //       this.state.communityName +
-                      //       "/ShowBook/" +
-                      //       this.state.bookID
-                      //   );
+                      this.handleImageUpload(this.state.bookID);
+                      window.location.replace(
+                        "/community/" +
+                          this.state.communityName +
+                          "/ShowBook/" +
+                          this.state.bookID
+                      );
                     })
                   }
                 >

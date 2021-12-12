@@ -31,7 +31,7 @@ import {
   GetCommunityInfo,
   BestCommunityParagraphs,
   GetCommunityParagraphs,
-  AllBooks
+  AllBooks,
 } from "../Utils/Connection";
 import { getUser } from "../Utils/Common";
 import Book from "./Shop/Book";
@@ -49,8 +49,8 @@ class CommunityMainPage extends React.Component {
     isJoined: false,
     isSub: false,
     membersCount: 0,
-    books:[],
-    addbookLink:"",
+    books: [],
+    addbookLink: "",
   };
   async componentDidMount() {
     var splitted = window.location.toString().split("/");
@@ -78,7 +78,7 @@ class CommunityMainPage extends React.Component {
       this.setState({ bestParagraphs: ret.data });
     });
     AllBooks(this.state.name).then((ret) => {
-      console.log("%%%%%%%",ret.data.books)
+      console.log("%%%%%%%", ret.data.books);
       this.setState({ books: ret.data.books });
     });
     if (this.state.isJoined) {
@@ -86,7 +86,7 @@ class CommunityMainPage extends React.Component {
         this.setState({ allParagraphs: ret.data });
       });
     }
-    this.addbookLink="/AddBook/"+this.state.name
+    this.addbookLink = "/community/" + this.state.name + "/AddBook/";
   }
 
   render() {
@@ -279,16 +279,18 @@ class CommunityMainPage extends React.Component {
                   style={{ minHeight: "54.5vh" }}
                 >
                   <Grid item xs={12}>
+                    <Link to={this.addbookLink}>
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        style={{ fontFamily: "BYekan" }}
+                      >
+                        افزودن کتاب برای فروش
+                      </Button>
+                    </Link>
 
-                  <Link to={this.addbookLink}>
-                  <Button variant="contained"
-                              color="secondary" style={{ fontFamily: "BYekan" }}>افزودن کتاب برای فروش</Button>
-              </Link>
-                    
-                  
-                  <p/>
-                  <Shop1 items={this.state.books}/>
-                    
+                    <p />
+                    <Shop1 items={this.state.books} />
                   </Grid>
                 </Box>
                 <Box
