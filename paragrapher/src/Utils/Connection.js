@@ -636,3 +636,36 @@ export const AllBooks = async (communityName) => {
         })
     return res;
 }
+
+export const LoadBookData = async (bookID) => {
+    const address = references.url_showbook + bookID
+    let res;
+    await axios 
+        .get(makeURL(address))
+        .then((response) => {
+            res = response.data
+        })
+        .catch((error) => {
+            console.log("error in getting book from server " + error)
+        })
+    return res;
+}
+
+export const EditBookData = async (communityName, bookID, bookName, bookGenre, bookAuthor, bookInfo, bookPrice) => {
+    const address = "/community/" + communityName + "/store/book"
+    await axios
+        .put(makeURL(address), {
+            book_id: bookID, 
+            name: bookName, 
+            genre: bookGenre, 
+            author: bookAuthor, 
+            description: bookInfo, 
+            price: bookPrice
+        })
+        .then((response) => {
+            console.log(response)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+}

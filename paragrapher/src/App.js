@@ -29,6 +29,7 @@ import CommunitySearch from './components/Search/CommunitySearch';
 import BookSearch from './components/Search/BookSearch';
 import AuthorSearch from './components/Search/AuthorSearch';
 import ShowBook from './components/ShowBook/ShowBook';
+import EditBook from './components/EditBook';
 // import NewProfile from './components/Profile/NewProfile';
 function App(props) {
   const [drawerAnchor] = useState(false);
@@ -79,7 +80,7 @@ function App(props) {
             <Route path="/CreateCommunity" exact={true}>
               <CreateCommunity/>
             </Route>  
-            <Route path="/AddBook/:handle" exact={true}>
+            <Route path="/community/:handle/AddBook/" exact={true}>
               <AddBook />
             </Route>
             <Route path="/SearchCommunity/:handle" exact={true}>
@@ -96,6 +97,9 @@ function App(props) {
             </Route>
             <Route path="/BuyCredits" exact>
               <BuyCredit classes={classes} theme={theme}/>
+            </Route>
+            <Route path="/community/:handle/EditBook/:handle" exact={true}>
+              <EditBook/>
             </Route>
           </Switch>
         </div>

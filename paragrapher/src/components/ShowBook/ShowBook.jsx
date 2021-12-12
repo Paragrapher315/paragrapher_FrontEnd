@@ -18,7 +18,7 @@ import React, { Component } from "react";
 import picture from "../../assets/bookCover.jpg";
 import { makeURL } from "../../Utils/Common";
 import references from "../../assets/References.json";
-import { GetCommunityInfo } from "../../Utils/Connection";
+import { GetCommunityInfo, LoadBookData } from "../../Utils/Connection";
 
 class ShowBook extends React.Component {
   state = {
@@ -44,16 +44,16 @@ class ShowBook extends React.Component {
   }
 
   loadData = async (bookID) => {
-    await axios.get(makeURL(references.url_showbook + bookID)).then((res) => {
-      this.setState({ bookName: res.data.book.name });
-      this.setState({ bookAuthor: res.data.book.author });
-      this.setState({ bookGenre: res.data.book.genre });
-      this.setState({ bookDesc: res.data.book.description });
-      this.setState({ bookPrice: res.data.book.price });
-      if (res.data.book.image != null) {
-        console.log(res.data.book.image);
+    await LoadBookData(bookID).then((b) => {
+      this.setState({ bookName: b.book.name });
+      this.setState({ bookAuthor: b.book.author });
+      this.setState({ bookGenre: b.book.genre });
+      this.setState({ bookDesc: b.book.description });
+      this.setState({ bookPrice: b.book.price });
+      if (b.book.image != null) {
+        console.log(b.book.image);
         this.setState({
-          bookImage: references.url_address + res.data.book.image,
+          bookImage: references.url_address + b.book.image,
         });
         this.setState({ hasImage: true });
       } else {

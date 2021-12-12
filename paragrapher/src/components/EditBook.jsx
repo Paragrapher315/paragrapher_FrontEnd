@@ -19,9 +19,11 @@ import {
 } from "@material-ui/core";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import { theme } from "./theme";
-import { AddBookToShop, AddBookPic } from "../Utils/Connection";
+import { EditBookData, AddBookPic } from "../Utils/Connection";
 import { AllInboxOutlined } from "@material-ui/icons";
-class AddBook extends React.Component {
+import { LoadBookData } from "../Utils/Connection";
+
+class EditBook extends React.Component {
   state = {
     showAddImageButton: false,
     bookImage: null,
@@ -31,12 +33,23 @@ class AddBook extends React.Component {
     bookPrice: null,
     bookInfo: null,
     communityName: null,
+    bookID: null,
   };
   async componentDidMount() {
     var splitted = window.location.toString().split("/");
+    await this.setState({ bookID: splitted.pop() });
     splitted.pop();
     await this.setState({ communityName: splitted.pop() });
+    console.log(this.state.bookID);
     console.log(this.state.communityName);
+    await LoadBookData(this.state.bookID).then((b) => {
+      this.setState({ bookName: b.book.name });
+      this.setState({ bookAuthor: b.book.author });
+      this.setState({ bookGenre: b.book.genre });
+      this.setState({ bookInfo: b.book.description });
+      this.setState({ bookPrice: b.book.price });
+      this.setState({ bookImage: b.book.image });
+    });
   }
   HandleFileSelect = (e) => {
     if (e.target.files.length === 0) {
@@ -72,6 +85,7 @@ class AddBook extends React.Component {
                     position: "relative",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "contain",
+                    backgroundImage: `url(${this.state.bookImage})`,
                   }}
                   ref={(bg) => (this.background = bg)}
                   onMouseEnter={() =>
@@ -125,6 +139,7 @@ class AddBook extends React.Component {
                       onChange={(e) => {
                         this.setState({ bookName: e.target.value });
                       }}
+                      value={this.state.bookName}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -139,6 +154,7 @@ class AddBook extends React.Component {
                       onChange={(e) => {
                         this.setState({ bookAuthor: e.target.value });
                       }}
+                      value={this.state.bookAuthor}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -153,6 +169,7 @@ class AddBook extends React.Component {
                       onChange={(e) => {
                         this.setState({ bookGenre: e.target.value });
                       }}
+                      value={this.state.bookGenre}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -167,6 +184,7 @@ class AddBook extends React.Component {
                       onChange={(e) => {
                         this.setState({ bookPrice: e.target.value });
                       }}
+                      value={this.state.bookPrice}
                     />
                   </Grid>
                 </Grid>
@@ -192,6 +210,7 @@ class AddBook extends React.Component {
                   onChange={(e) => {
                     this.setState({ bookInfo: e.target.value });
                   }}
+                  value={this.state.bookInfo}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -200,22 +219,22 @@ class AddBook extends React.Component {
                   color="secondary"
                   style={{ float: "left" }}
                   onClick={() =>
-                    AddBookToShop(
+                    EditBookData(
                       this.state.communityName,
+                      this.state.bookInfo,
                       this.state.bookName,
                       this.state.bookGenre,
                       this.state.bookAuthor,
                       this.state.bookInfo,
                       this.state.bookPrice
-                    ).then((res) => {
-                      // console.log(res);
-                      this.handleImageUpload(res);
-                      window.location.replace(
-                        "/community/" +
-                          this.state.communityName +
-                          "/ShowBook/" +
-                          res
-                      );
+                    ).then(() => {
+                      console.log("edited successfully");
+                      //   window.location.replace(
+                      //     "/community/" +
+                      //       this.state.communityName +
+                      //       "/ShowBook/" +
+                      //       this.state.bookID
+                      //   );
                     })
                   }
                 >
@@ -230,4 +249,4 @@ class AddBook extends React.Component {
   }
 }
 
-export default AddBook;
+export default EditBook;
