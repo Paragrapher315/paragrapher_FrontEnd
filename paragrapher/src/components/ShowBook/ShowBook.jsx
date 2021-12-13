@@ -221,6 +221,7 @@ class ShowBook extends React.Component {
                           color="secondary"
                           style={{ fontSize: 20, width: "100%" }}
                           onClick={this.buyBook}
+                          disabled
                         >
                           خرید کتاب
                         </Button>
@@ -327,9 +328,34 @@ class ShowBook extends React.Component {
                             color="secondary"
                             style={{ fontSize: 20, width: "100%" }}
                             onClick={this.buyBook}
+                            disabled
                           >
                             خرید کتاب
                           </Button>
+                          {this.state.canEdit && (
+                            <div
+                              style={{
+                                textAlign: "center",
+                                paddingTop: "5vh",
+                              }}
+                            >
+                              <Button
+                                variant="contained"
+                                color="secondary"
+                                style={{ fontSize: 20, width: "100%" }}
+                                onClick={() => {
+                                  window.location.replace(
+                                    "/community/" +
+                                      this.state.bookCommunity +
+                                      "/EditBook/" +
+                                      this.state.bookID
+                                  );
+                                }}
+                              >
+                                ویرایش کتاب
+                              </Button>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </Grid>

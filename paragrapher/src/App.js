@@ -13,20 +13,20 @@ import { theme, useStyles } from "./components/theme";
 import { jssPreset, StylesProvider } from "@material-ui/styles";
 import rtl from "jss-rtl";
 
-import { create } from 'jss';
-import CommunityMainPage from './components/CommunityMainPage';
-import BuyCredit from './components/BuyCredits/BuyCredit';
-import Shop from './components/Shop/Shop';
-import { withRouter } from 'react-router-dom';
-import Paragraph from './components/Paragraph/Paragraph';
-import ParagraphCommentor from './components/Paragraph/ParagraphCommentor';
-import CreateCommunity from './components/CreateCommunity/CreateCommunity.jsx'
-import AddBook from './components/AddBook';
-import CommunitySearch from './components/Search/CommunitySearch';
-import BookSearch from './components/Search/BookSearch';
-import AuthorSearch from './components/Search/AuthorSearch';
-import ShowBook from './components/ShowBook/ShowBook';
-import EditBook from './components/EditBook';
+import { create } from "jss";
+import CommunityMainPage from "./components/CommunityMainPage";
+import BuyCredit from "./components/BuyCredits/BuyCredit";
+import Shop from "./components/Shop/Shop";
+import { withRouter } from "react-router-dom";
+import Paragraph from "./components/Paragraph/Paragraph";
+import ParagraphCommentor from "./components/Paragraph/ParagraphCommentor";
+import CreateCommunity from "./components/CreateCommunity/CreateCommunity.jsx";
+import AddBook from "./components/AddBook";
+import CommunitySearch from "./components/Search/CommunitySearch";
+import BookSearch from "./components/Search/BookSearch";
+import AuthorSearch from "./components/Search/AuthorSearch";
+import ShowBook from "./components/ShowBook/ShowBook";
+import EditBook from "./components/EditBook.jsx";
 // import NewProfile from './components/Profile/NewProfile';
 function App(props) {
   const [drawerAnchor] = useState(false);
@@ -85,34 +85,35 @@ function App(props) {
                 <ParagraphCommentor classes={classes} />
             </Route> */}
 
-            <Route path="/community/:handle" exact={true}>
-              <CommunityMainPage/>
-            </Route>
-            <Route path="/CreateCommunity" exact={true}>
-              <CreateCommunity/>
-            </Route>  
-            <Route path="/community/:handle/AddBook/" exact={true}>
-              <AddBook />
-            </Route>
-            <Route path="/SearchCommunity/:handle" exact={true}>
-              <CommunitySearch/>
-            </Route>
-            <Route path="/SearchBook/:handle" exact={true}>
-              <BookSearch/>
-            </Route>
-            <Route path="/SearchAuthor/:handle" exact={true}>
-              <AuthorSearch/>
-            </Route>
-            <Route path="/community/:handle/ShowBook/:handle" exact={true}>
-              <ShowBook theme={theme} classes={classes}/>
-            </Route>
-            <Route path="/BuyCredits" exact>
-              <BuyCredit classes={classes} theme={theme}/>
-            </Route>
-            <Route path="/community/:handle/EditBook/:handle" exact={true}>
-              <EditBook/>
-            </Route>
-          </Switch>
+              <Route path="/community/:handle" exact={true}>
+                <CommunityMainPage />
+              </Route>
+              <Route path="/CreateCommunity" exact={true}>
+                <CreateCommunity />
+              </Route>
+              <Route path="/community/:handle/AddBook/" exact={true}>
+                <AddBook />
+              </Route>
+              <Route path="/SearchCommunity/:handle" exact={true}>
+                <CommunitySearch />
+              </Route>
+              <Route path="/SearchBook/:handle" exact={true}>
+                <BookSearch />
+              </Route>
+              <Route path="/SearchAuthor/:handle" exact={true}>
+                <AuthorSearch />
+              </Route>
+              <Route path="/community/:handle/ShowBook/:handle" exact={true}>
+                <ShowBook theme={theme} classes={classes} />
+              </Route>
+              <Route path="/BuyCredits" exact>
+                <BuyCredit classes={classes} theme={theme} />
+              </Route>
+              <Route path="/community/:handle/EditBook/:handle" exact={true}>
+                <EditBook />
+              </Route>
+            </Switch>
+          </div>
         </div>
       </StylesProvider>
     </Router>
