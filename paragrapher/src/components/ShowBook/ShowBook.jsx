@@ -37,6 +37,9 @@ class ShowBook extends React.Component {
 
   async componentDidMount() {
     var splitted = window.location.toString().split("/");
+    if (splitted[splitted.length - 1] === "") {
+      splitted.pop();
+    }
     await this.setState({ bookID: splitted.pop() });
     splitted.pop();
     await this.setState({ bookCommunity: splitted.pop() });

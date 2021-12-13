@@ -57,6 +57,9 @@ class ProfileEditor extends React.Component {
     // console.log("this is a mother fucker", window.location.toString());
 
     var splitted = window.location.toString().split("/");
+    if (splitted[splitted.length - 1] === "") {
+      splitted.pop();
+    }
     await this.setState({ p_id: splitted.pop() });
     await this.setState({ communityName: splitted.pop() });
 

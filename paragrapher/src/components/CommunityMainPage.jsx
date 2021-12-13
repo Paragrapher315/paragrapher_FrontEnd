@@ -54,8 +54,10 @@ class CommunityMainPage extends React.Component {
   };
   async componentDidMount() {
     var splitted = window.location.toString().split("/");
+    if (splitted[splitted.length - 1] === "") {
+      splitted.pop();
+    }
     await this.setState({ name: splitted.pop() });
-
     this.setState({
       isJoined: await CheckCommunityJoined(this.state.name),
     });
