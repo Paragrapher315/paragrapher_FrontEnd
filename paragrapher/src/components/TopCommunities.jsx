@@ -13,6 +13,7 @@ import {
   Typography,
   Avatar,
 } from "@material-ui/core";
+import references from "../assets/References.json";
 import { useStyles, theme } from "./theme";
 import { ThemeProvider } from "@material-ui/styles";
 import { GetBestCommunities, GetCommunities } from "../Utils/Connection";
@@ -79,10 +80,11 @@ class TopCommunities extends React.Component {
                             width: "2.5rem",
                             height: "2.5rem",
                           }}
+                          src={references.url_address + bc.avatar}
                           aria-label="recipe"
                         >
                           <Typography style={{ fontFamily: "BYekan" }}>
-                            ک
+                            {bc.name[0]}
                           </Typography>
                         </Avatar>
                       </ListItemAvatar>

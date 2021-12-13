@@ -12,6 +12,7 @@ import {
   Typography,
   Avatar,
 } from "@material-ui/core";
+import references from "../assets/References.json";
 import { useStyles, theme } from "./theme";
 import { ThemeProvider } from "@material-ui/styles";
 import { GetRecentBook } from "../Utils/Connection";
@@ -76,10 +77,11 @@ class RecentProducts extends React.Component {
                             width: "2.5rem",
                             height: "2.5rem",
                           }}
+                          src={references.url_address + rp.image}
                           aria-label="recipe"
                         >
                           <Typography style={{ fontFamily: "BYekan" }}>
-                            ک
+                            {rp.name[0]}
                           </Typography>
                         </Avatar>
                       </ListItemAvatar>
