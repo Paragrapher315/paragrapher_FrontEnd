@@ -53,7 +53,9 @@ class CommunityMainPage extends React.Component {
     addbookLink: "",
   };
   async componentDidMount() {
-    var splitted = window.location.toString().split("/");
+    var splitted = decodeURIComponent(window.location.toString()).split("/");
+    console.log(splitted);
+    console.log(window.location.toString());
     if (splitted[splitted.length - 1] === "") {
       splitted.pop();
     }

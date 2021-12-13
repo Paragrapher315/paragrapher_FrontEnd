@@ -71,7 +71,9 @@ class ProfileEditor extends React.Component {
     } else if (this.state.paragraph === "") {
       window.alert(" متن پاراگراف خالی است");
     } else {
-      if (this.state.author == "") this.setState({ author: getUser() });
+      if (this.state.author === "") {
+        this.setState({ author: getUser() });
+      }
       CreateParagraph(
         this.state.community,
         this.state.author,

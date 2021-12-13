@@ -57,6 +57,7 @@ function Paragraph(props) {
     Like(props.communityName, props.p_id).then((res) => {
       setLiked(!liked);
     });
+    console.log(references.url_address + props.avatar);
     // send like data to backend
   };
   function demoMethod() {
@@ -88,6 +89,7 @@ function Paragraph(props) {
                   width: "3rem",
                   height: "3rem",
                 }}
+                src={references.url_address + props.avatar}
                 aria-label="recipe"
               >
                 <Typography className={classes.typography}>
@@ -170,7 +172,7 @@ function Paragraph(props) {
               {props.book}
             </Typography>
             <Typography style={{ float: "left", paddingLeft: "2vw" }}>
-              {props.author} :
+              {props.author} {props.author !== "" && ":"}
             </Typography>
           </CardContent>
           <CardActions disableSpacing>

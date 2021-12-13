@@ -308,6 +308,7 @@ export class ParagraphList extends Component {
           }
         >
           {this.state.paragraphs.map((element) => {
+            console.log(element);
             // var isliked = false;
             // if (this.state.communities.includes(element.communityName))
             //   isLiked(element.communityName, element.id).then((res) => {
