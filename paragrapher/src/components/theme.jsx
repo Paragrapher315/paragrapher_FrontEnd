@@ -1,6 +1,5 @@
 import { alpha, createTheme, makeStyles } from "@material-ui/core";
 import bgImage from "../assets/wp3503092.jpg";
-import React from "react";
 
 export const theme = createTheme({
   palette: {

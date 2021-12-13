@@ -1,5 +1,5 @@
-import React, { Component, useState } from "react";
-import styled from "styled-components";
+/* eslint-disable eqeqeq */
+import React, { useState } from "react";
 import PeopleDiscussion from "../../assets/PeopleDiscussion.png";
 import {
   LoginBackDrop,
@@ -13,12 +13,9 @@ import {
   CloseButton,
 } from "../common";
 import LoginForm from "./LoginForm";
-import { motion } from "framer-motion";
 import RegisterForm from "./RegisterForm";
 import "../../../node_modules/font-awesome/css/font-awesome.css";
 import { AccountContext } from "./accountContext";
-import { Margin } from "@mui/icons-material";
-import { act } from "react-dom/test-utils";
 const backdropReference = {
   expanded: {
     width: "210%",

@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable no-unused-vars */
 import React, { Component, useContext } from "react";
 import { useState } from "react";
 import { Register } from "../../Utils/Connection";

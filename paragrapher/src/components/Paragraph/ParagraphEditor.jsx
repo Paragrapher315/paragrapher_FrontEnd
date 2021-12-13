@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable no-unused-vars */
 import React, { Component } from "react";
 import rtl from "jss-rtl";
 import {
@@ -31,6 +33,7 @@ import { withRouter } from "react-router";
 import references from "../../assets/References.json";
 import { getUser, makeURL } from "../../Utils/Common";
 import axios from "axios";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 class ProfileEditor extends React.Component {
   state = {
     isShown: true,
@@ -44,6 +47,9 @@ class ProfileEditor extends React.Component {
     error: false,
     helperText: "",
     p_id: "",
+    tagOptions: [],
+    bookOptions: [],
+    authorOptions: [],
   };
   async componentDidMount() {
     // console.log(this.props.match.params);
@@ -138,16 +144,43 @@ class ProfileEditor extends React.Component {
   handleParagraphChange = (e) => {
     this.setState({ paragraph: e.target.value });
   };
-  handleBookChange = (e) => {
-    this.setState({ book: e.target.value });
+  handleBookChange = async (event, value) => {
+    this.setState({ book: value });
+    await axios
+      .put(makeURL(references.url_suggestion + value + "&type=book"))
+      .then((res) => {
+        Array.isArray(res.data.res) &&
+          this.setState({
+            bookOptions: res.data.res.filter(this.onlyUnique),
+          });
+      });
   };
-  handleAuthorChange = (e) => {
-    this.setState({ author: e.target.value });
+  handleAuthorChange = async (event, value) => {
+    this.setState({ author: value });
+    await axios
+      .put(makeURL(references.url_suggestion + value + "&type=author"))
+      .then((res) => {
+        Array.isArray(res.data.res) &&
+          this.setState({
+            authorOptions: res.data.res.filter(this.onlyUnique),
+          });
+      });
   };
-  handleTagChange = (e) => {
-    this.setState({ tag: e.target.value });
+  onlyUnique = (value, index, self) => {
+    return self.indexOf(value) === index;
+  };
+  handleTagChange = async (event, value) => {
     this.setState({ error: false });
     this.setState({ helperText: "" });
+    this.setState({ tag: value });
+    await axios
+      .put(makeURL(references.url_suggestion + value + "&type=tag"))
+      .then((res) => {
+        Array.isArray(res.data.res) &&
+          this.setState({
+            tagOptions: res.data.res.filter(this.onlyUnique),
+          });
+      });
   };
   render() {
     return (
@@ -235,42 +268,53 @@ class ProfileEditor extends React.Component {
                   <Grid item xs={12}>
                     <Grid container spacing={2}>
                       <Grid item lg={6} md={6} xs={12}>
-                        <TextField
-                          variant="filled"
-                          label="نام کتاب"
-                          style={{
-                            direction: "rtl",
-                            textAlign: "right",
-                            width: "100%",
-                          }}
-                          onChange={this.handleBookChange}
+                        <Autocomplete
+                          options={this.state.bookOptions}
                           value={this.state.book}
-                          inputProps={{
-                            textAlign: "right",
-                            fontFamily: "BYekan",
-                          }}
-
-                          // InputLabelProps={{
-                          //   classes: {
-                          //     root: this.props.classes.labelRoot,
-                          //     shrink: this.props.classes.shrink,
-                          //   },
-                          // }}
+                          onInputChange={this.handleBookChange}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              variant="filled"
+                              label="نام کتاب"
+                              // onChange={this.handleAuthorChange}
+                              // value={this.state.author}
+                              // name={params.inputProps.value}
+                              style={{ width: "100%" }}
+                              // InputLabelProps={{
+                              //   classes: {
+                              //     root: this.props.classes.labelRoot,
+                              //     shrink: this.props.classes.shrink,
+                              //   },
+                              // }}
+                              // onClick={console.log(params)}
+                            />
+                          )}
                         />
                       </Grid>
                       <Grid item lg={6} md={6} xs={12}>
-                        <TextField
-                          variant="filled"
-                          label="نام نویسنده"
+                        <Autocomplete
+                          options={this.state.authorOptions}
                           value={this.state.author}
-                          onChange={this.handleAuthorChange}
-                          style={{ width: "100%" }}
-                          // InputLabelProps={{
-                          //   classes: {
-                          //     root: this.props.classes.labelRoot,
-                          //     shrink: this.props.classes.shrink,
-                          //   },
-                          // }}
+                          onInputChange={this.handleAuthorChange}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              variant="filled"
+                              label="نام نویسنده"
+                              // onChange={this.handleAuthorChange}
+                              // value={this.state.author}
+                              // name={params.inputProps.value}
+                              style={{ width: "100%" }}
+                              // InputLabelProps={{
+                              //   classes: {
+                              //     root: this.props.classes.labelRoot,
+                              //     shrink: this.props.classes.shrink,
+                              //   },
+                              // }}
+                              // onClick={console.log(params)}
+                            />
+                          )}
                         />
                       </Grid>
                     </Grid>
@@ -290,13 +334,20 @@ class ProfileEditor extends React.Component {
                   />
                 </Grid>
                 <Grid item xs={6} lg={3}>
-                  <TextField
-                    error={this.state.error}
-                    label="تگ"
+                  <Autocomplete
+                    options={this.state.tagOptions}
                     value={this.state.tag}
-                    onChange={this.handleTagChange}
-                    variant="filled"
-                    helperText={this.state.helperText}
+                    onInputChange={this.handleTagChange}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        variant="filled"
+                        error={this.state.error}
+                        label="تگ"
+                        helperText={this.state.helperText}
+                        style={{ width: "100%" }}
+                      />
+                    )}
                   />
                 </Grid>
                 <Grid item xs={6} lg={3}>
