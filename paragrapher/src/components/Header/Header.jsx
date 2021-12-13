@@ -13,6 +13,7 @@ import { BrowserView, MobileView } from "react-device-detect";
 import { useHistory } from "react-router-dom";
 import { cookie } from "../../Utils/Common";
 import Fade from "@material-ui/core/Fade";
+import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import references from "../../assets/References.json";
 import {
   createTheme,
@@ -59,6 +60,9 @@ function Header(props) {
     // send some data to backend to remove cookie
     window.location.replace("/");
   };
+  function goToBuyCredits() {
+    window.location.replace("/BuyCredits");
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -130,11 +134,15 @@ function Header(props) {
 
             {isLoggedIn ? (
               <div className={classes.icons}>
+                <IconButton color="inherit" onClick={goToBuyCredits}>
+                  <MonetizationOnIcon />
+                </IconButton>
                 <IconButton color="inherit" disabled>
                   <Badge badgeContent={0} color="secondary">
                     <NotificationsIcon />
                   </Badge>
                 </IconButton>
+
                 <IconButton
                   edge="end"
                   onClick={handleProfileMenuOpen}
