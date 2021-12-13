@@ -19,9 +19,12 @@ import {
 } from "@material-ui/core";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import { theme } from "./theme";
-import { AddBookToShop, AddBookPic } from "../Utils/Connection";
+import { EditBookData, AddBookPic } from "../Utils/Connection";
 import { AllInboxOutlined } from "@material-ui/icons";
-class AddBook extends React.Component {
+import { LoadBookData } from "../Utils/Connection";
+import references from "../assets/References.json";
+
+class EditBook extends React.Component {
   state = {
     showAddImageButton: false,
     bookImage: null,
@@ -31,6 +34,9 @@ class AddBook extends React.Component {
     bookPrice: null,
     bookInfo: null,
     communityName: null,
+    bookID: null,
+    bookImageURL: null,
+    uploadedImage: null,
     emptyBookName: false,
     emptyAuthor: false,
     emptyGenre: false,
@@ -38,6 +44,7 @@ class AddBook extends React.Component {
     emptyInfo: false,
     hasEmpty: false,
   };
+
   CheckEmpty() {
     this.setState({
       emptyAuthor: false,
@@ -63,33 +70,49 @@ class AddBook extends React.Component {
       this.setState({ emptyInfo: true, hasEmpty: true });
     }
   }
-  async HandleAddBook() {
+  async handleEditBook() {
     await this.CheckEmpty();
     if (this.state.hasEmpty === false) {
-      await AddBookToShop(
+      EditBookData(
         this.state.communityName,
+        this.state.bookID,
         this.state.bookName,
         this.state.bookGenre,
         this.state.bookAuthor,
         this.state.bookInfo,
         this.state.bookPrice
-      ).then((res) => {
-        // console.log(res);
-        this.handleImageUpload(res);
+      ).then(() => {
+        console.log("edited successfully");
+        if (this.state.uploadedImage === true) {
+          window.alert("sending image too");
+          this.handleImageUpload(this.state.bookID);
+        }
         window.location.replace(
-          "/community/" + this.state.communityName + "/ShowBook/" + res
+          "/community/" +
+            this.state.communityName +
+            "/ShowBook/" +
+            this.state.bookID
         );
       });
     }
   }
+
   async componentDidMount() {
     var splitted = window.location.toString().split("/");
-    // console.log(splitted.pop());
-    while (splitted.pop() !== "AddBook") {
-      console.log("Not yet");
-    }
+    await this.setState({ bookID: splitted.pop() });
+    splitted.pop();
     await this.setState({ communityName: splitted.pop() });
+    console.log(this.state.bookID);
     console.log(this.state.communityName);
+    await LoadBookData(this.state.bookID).then((b) => {
+      this.setState({ bookName: b.book.name });
+      this.setState({ bookAuthor: b.book.author });
+      this.setState({ bookGenre: b.book.genre });
+      this.setState({ bookInfo: b.book.description });
+      this.setState({ bookPrice: b.book.price });
+      this.setState({ bookImageURL: b.book.image });
+    });
+    console.log(this.state.bookImageURL);
   }
   HandleFileSelect = (e) => {
     if (e.target.files.length === 0) {
@@ -98,12 +121,12 @@ class AddBook extends React.Component {
 
     const fileReader = new FileReader();
     fileReader.onload = () => {
-      console.log(fileReader.result);
       this.background.style.backgroundImage = `url(${fileReader.result})`;
     };
     fileReader.readAsDataURL(e.target.files[0]);
     this.setState({ bookImage: e.target.files[0] });
-    console.log(this.state.bookImage);
+    this.setState({ uploadedImage: true });
+    this.setState({ bookImageURL: null });
   };
   handleImageUpload = (bookID) => {
     const data = new FormData();
@@ -127,6 +150,9 @@ class AddBook extends React.Component {
                     position: "relative",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "contain",
+                    backgroundImage: `url(${
+                      references.url_address + this.state.bookImageURL
+                    })`,
                   }}
                   ref={(bg) => (this.background = bg)}
                   onMouseEnter={() =>
@@ -180,9 +206,12 @@ class AddBook extends React.Component {
                       onChange={(e) => {
                         this.setState({ bookName: e.target.value });
                       }}
-                      onClick={() => {
-                        console.log(this.state.bookImage);
+                      value={this.state.bookName}
+                      inputProps={{
+                        textAlign: "right",
+                        fontFamily: "BYekan",
                       }}
+                      InputLabelProps={{ shrink: true }}
                       error={this.state.emptyBookName}
                       helperText={
                         this.state.emptyBookName
@@ -203,6 +232,12 @@ class AddBook extends React.Component {
                       onChange={(e) => {
                         this.setState({ bookAuthor: e.target.value });
                       }}
+                      value={this.state.bookAuthor}
+                      inputProps={{
+                        textAlign: "right",
+                        fontFamily: "BYekan",
+                      }}
+                      InputLabelProps={{ shrink: true }}
                       error={this.state.emptyAuthor}
                       helperText={
                         this.state.emptyAuthor
@@ -223,6 +258,12 @@ class AddBook extends React.Component {
                       onChange={(e) => {
                         this.setState({ bookGenre: e.target.value });
                       }}
+                      value={this.state.bookGenre}
+                      inputProps={{
+                        textAlign: "right",
+                        fontFamily: "BYekan",
+                      }}
+                      InputLabelProps={{ shrink: true }}
                       error={this.state.emptyGenre}
                       helperText={
                         this.state.emptyGenre
@@ -243,6 +284,12 @@ class AddBook extends React.Component {
                       onChange={(e) => {
                         this.setState({ bookPrice: e.target.value });
                       }}
+                      value={this.state.bookPrice}
+                      inputProps={{
+                        textAlign: "right",
+                        fontFamily: "BYekan",
+                      }}
+                      InputLabelProps={{ shrink: true }}
                       error={this.state.emptyPrice}
                       helperText={
                         this.state.emptyPrice
@@ -274,6 +321,12 @@ class AddBook extends React.Component {
                   onChange={(e) => {
                     this.setState({ bookInfo: e.target.value });
                   }}
+                  value={this.state.bookInfo}
+                  inputProps={{
+                    textAlign: "right",
+                    fontFamily: "BYekan",
+                  }}
+                  InputLabelProps={{ shrink: true }}
                   error={this.state.emptyInfo}
                   helperText={
                     this.state.emptyInfo
@@ -287,9 +340,9 @@ class AddBook extends React.Component {
                   variant="contained"
                   color="secondary"
                   style={{ float: "left" }}
-                  onClick={() => this.HandleAddBook()}
+                  onClick={() => this.handleEditBook()}
                 >
-                  افزودن کتاب
+                  ویرایش کتاب
                 </Button>
               </Grid>
             </Grid>
@@ -300,4 +353,4 @@ class AddBook extends React.Component {
   }
 }
 
-export default AddBook;
+export default EditBook;

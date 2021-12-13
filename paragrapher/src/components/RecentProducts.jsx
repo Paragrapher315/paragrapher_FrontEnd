@@ -14,168 +14,113 @@ import {
 } from "@material-ui/core";
 import { useStyles, theme } from "./theme";
 import { ThemeProvider } from "@material-ui/styles";
+import { GetRecentBook } from "../Utils/Connection";
 function randomColor() {
   let hex = Math.floor(Math.random() * 0xffffff);
   let color = "#" + hex.toString(16);
 
   return color;
 }
-function RecentProducts() {
-  return (
-    <ThemeProvider theme={theme}>
-      <Card
-        style={{
-          padding: "0 1vw",
-          margin: "0 0 2vh 0",
-        }}
-      >
-        <CardHeader
-          action={
-            <Button
-              disabled
-              style={{ fontFamily: "BYekan", backgroundColor: "#219EBC" }}
-            >
-              تمام محصولات
-            </Button>
-          }
-          title={
-            <Typography style={{ fontFamily: "BYekan", textAlign: "right" }}>
-              آخرین محصولات
-            </Typography>
-          }
-          style={{ paddingBottom: "0" }}
-        />
-        <CardContent style={{ padding: "0" }}>
-          <List>
-            <ListItem alignItems="flex-start" button disabled>
-              <ListItemAvatar>
-                <Avatar
-                  style={{
-                    backgroundColor: randomColor(),
-                    width: "2.5rem",
-                    height: "2.5rem",
-                  }}
-                  aria-label="recipe"
-                >
-                  <Typography style={{ fontFamily: "BYekan" }}>ک</Typography>
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary={
-                  <Typography
-                    style={{
-                      fontFamily: "BYekan",
-                      textAlign: "right",
-                      fontSize: "2vh",
-                    }}
+class RecentProducts extends React.Component {
+  state = {
+    recentProducts: [],
+  };
+  componentDidMount() {
+    GetRecentBook().then((res) => {
+      console.log("I'm here", res);
+      this.setState({ recentProducts: res });
+    });
+  }
+  render() {
+    return (
+      <ThemeProvider theme={theme}>
+        <Card
+          style={{
+            padding: "0 1vw",
+            margin: "0 0 2vh 0",
+          }}
+        >
+          <CardHeader
+            action={
+              <Button
+                disabled
+                style={{ fontFamily: "BYekan", backgroundColor: "#219EBC" }}
+              >
+                تمام محصولات
+              </Button>
+            }
+            title={
+              <Typography style={{ fontFamily: "BYekan", textAlign: "right" }}>
+                آخرین محصولات
+              </Typography>
+            }
+            style={{ paddingBottom: "0" }}
+          />
+          <CardContent style={{ padding: "0" }}>
+            <List>
+              {console.log(this.state.recentProducts)}
+              {this.state.recentProducts.map((rp) => {
+                return (
+                  <div
+                    onClick={() =>
+                      window.location.replace(
+                        "/community/" + rp.community_name + "/ShowBook/" + rp.id
+                      )
+                    }
                   >
-                    محصول اول
-                  </Typography>
-                }
-                secondary={
-                  <Typography
-                    style={{
-                      fontFamily: "BYekan",
-                      textAlign: "right",
-                      fontSize: "2vh",
-                    }}
-                  >
-                    1000 تومان
-                  </Typography>
-                }
-              />
-            </ListItem>
-            <Divider
-              component="li"
-              style={{ marginRight: "5vw", marginLeft: "1vw" }}
-            />
-
-            <ListItem alignItems="flex-start" button disabled>
-              <ListItemAvatar>
-                <Avatar
-                  style={{
-                    backgroundColor: randomColor(),
-                    width: "2.5rem",
-                    height: "2.5rem",
-                  }}
-                  aria-label="recipe"
-                >
-                  <Typography style={{ fontFamily: "BYekan" }}>ک</Typography>
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary={
-                  <Typography
-                    style={{
-                      fontFamily: "BYekan",
-                      textAlign: "right",
-                      fontSize: "2vh",
-                    }}
-                  >
-                    محصول دوم
-                  </Typography>
-                }
-                secondary={
-                  <Typography
-                    style={{
-                      fontFamily: "BYekan",
-                      textAlign: "right",
-                      fontSize: "2vh",
-                    }}
-                  >
-                    1000 تومان
-                  </Typography>
-                }
-              />
-            </ListItem>
-            <Divider
-              component="li"
-              style={{ marginRight: "5vw", marginLeft: "1vw" }}
-            />
-
-            <ListItem alignItems="flex-start" button disabled>
-              <ListItemAvatar>
-                <Avatar
-                  style={{
-                    backgroundColor: randomColor(),
-                    width: "2.5rem",
-                    height: "2.5rem",
-                  }}
-                  aria-label="recipe"
-                >
-                  <Typography style={{ fontFamily: "BYekan" }}>ک</Typography>
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary={
-                  <Typography
-                    style={{
-                      fontFamily: "BYekan",
-                      textAlign: "right",
-                      fontSize: "2vh",
-                    }}
-                  >
-                    محصول سوم
-                  </Typography>
-                }
-                secondary={
-                  <Typography
-                    style={{
-                      fontFamily: "BYekan",
-                      textAlign: "right",
-                      fontSize: "2vh",
-                    }}
-                  >
-                    1000 تومان
-                  </Typography>
-                }
-              />
-            </ListItem>
-          </List>
-        </CardContent>
-      </Card>
-    </ThemeProvider>
-  );
+                    <ListItem alignItems="flex-start" button>
+                      <ListItemAvatar>
+                        <Avatar
+                          style={{
+                            backgroundColor: randomColor(),
+                            width: "2.5rem",
+                            height: "2.5rem",
+                          }}
+                          aria-label="recipe"
+                        >
+                          <Typography style={{ fontFamily: "BYekan" }}>
+                            ک
+                          </Typography>
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={
+                          <Typography
+                            style={{
+                              fontFamily: "BYekan",
+                              textAlign: "right",
+                              fontSize: "2vh",
+                            }}
+                          >
+                            {rp.name}
+                          </Typography>
+                        }
+                        secondary={
+                          <Typography
+                            style={{
+                              fontFamily: "BYekan",
+                              textAlign: "right",
+                              fontSize: "2vh",
+                            }}
+                          >
+                            {rp.price}
+                          </Typography>
+                        }
+                      />
+                    </ListItem>
+                    <Divider
+                      component="li"
+                      style={{ marginRight: "5vw", marginLeft: "1vw" }}
+                    />
+                  </div>
+                );
+              })}
+            </List>
+          </CardContent>
+        </Card>
+      </ThemeProvider>
+    );
+  }
 }
 
 export default RecentProducts;

@@ -18,7 +18,7 @@ import React, { Component } from "react";
 import picture from "../../assets/bookCover.jpg";
 import { makeURL } from "../../Utils/Common";
 import references from "../../assets/References.json";
-import { GetCommunityInfo } from "../../Utils/Connection";
+import { GetCommunityInfo, LoadBookData } from "../../Utils/Connection";
 
 class ShowBook extends React.Component {
   state = {
@@ -32,6 +32,7 @@ class ShowBook extends React.Component {
     hasImage: false,
     communityInfo: "",
     bookPrice: 0,
+    canEdit: false,
   };
 
   async componentDidMount() {
@@ -44,16 +45,18 @@ class ShowBook extends React.Component {
   }
 
   loadData = async (bookID) => {
-    await axios.get(makeURL(references.url_showbook + bookID)).then((res) => {
-      this.setState({ bookName: res.data.book.name });
-      this.setState({ bookAuthor: res.data.book.author });
-      this.setState({ bookGenre: res.data.book.genre });
-      this.setState({ bookDesc: res.data.book.description });
-      this.setState({ bookPrice: res.data.book.price });
-      if (res.data.book.image != null) {
-        console.log(res.data.book.image);
+    await LoadBookData(bookID).then((b) => {
+      console.log(b);
+      this.setState({ bookName: b.book.name });
+      this.setState({ bookAuthor: b.book.author });
+      this.setState({ bookGenre: b.book.genre });
+      this.setState({ bookDesc: b.book.description });
+      this.setState({ bookPrice: b.book.price });
+      this.setState({ canEdit: b.book.editable });
+      if (b.book.image != null) {
+        console.log(b.book.image);
         this.setState({
-          bookImage: references.url_address + res.data.book.image,
+          bookImage: references.url_address + b.book.image,
         });
         this.setState({ hasImage: true });
       } else {
@@ -222,6 +225,30 @@ class ShowBook extends React.Component {
                           خرید کتاب
                         </Button>
                       </div>
+                      {this.state.canEdit && (
+                        <div
+                          style={{
+                            textAlign: "center",
+                            paddingTop: "5vh",
+                          }}
+                        >
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            style={{ fontSize: 20, width: "100%" }}
+                            onClick={() => {
+                              window.location.replace(
+                                "/community/" +
+                                  this.state.bookCommunity +
+                                  "/EditBook/" +
+                                  this.state.bookID
+                              );
+                            }}
+                          >
+                            ویرایش کتاب
+                          </Button>
+                        </div>
+                      )}
                     </Grid>
                   </Hidden>
                   <Hidden smUp>
