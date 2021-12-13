@@ -52,6 +52,7 @@ class ShowBook extends React.Component {
       this.setState({ bookGenre: b.book.genre });
       this.setState({ bookDesc: b.book.description });
       this.setState({ bookPrice: b.book.price });
+      this.setState({ canEdit: b.book.editable });
       if (b.book.image != null) {
         console.log(b.book.image);
         this.setState({
@@ -224,6 +225,30 @@ class ShowBook extends React.Component {
                           خرید کتاب
                         </Button>
                       </div>
+                      {this.state.canEdit && (
+                        <div
+                          style={{
+                            textAlign: "center",
+                            paddingTop: "5vh",
+                          }}
+                        >
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            style={{ fontSize: 20, width: "100%" }}
+                            onClick={() => {
+                              window.location.replace(
+                                "/community/" +
+                                  this.state.bookCommunity +
+                                  "/EditBook/" +
+                                  this.state.bookID
+                              );
+                            }}
+                          >
+                            ویرایش کتاب
+                          </Button>
+                        </div>
+                      )}
                     </Grid>
                   </Hidden>
                   <Hidden smUp>

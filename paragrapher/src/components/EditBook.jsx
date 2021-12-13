@@ -70,21 +70,28 @@ class EditBook extends React.Component {
       this.setState({ emptyInfo: true, hasEmpty: true });
     }
   }
-  async HandleAddBook() {
+  async handleEditBook() {
     await this.CheckEmpty();
     if (this.state.hasEmpty === false) {
-      await AddBookToShop(
+      EditBookData(
         this.state.communityName,
+        this.state.bookID,
         this.state.bookName,
         this.state.bookGenre,
         this.state.bookAuthor,
         this.state.bookInfo,
         this.state.bookPrice
-      ).then((res) => {
-        // console.log(res);
-        this.handleImageUpload(res);
+      ).then(() => {
+        console.log("edited successfully");
+        if (this.state.uploadedImage === true) {
+          window.alert("sending image too");
+          this.handleImageUpload(this.state.bookID);
+        }
         window.location.replace(
-          "/community/" + this.state.communityName + "/ShowBook/" + res
+          "/community/" +
+            this.state.communityName +
+            "/ShowBook/" +
+            this.state.bookID
         );
       });
     }
@@ -333,28 +340,7 @@ class EditBook extends React.Component {
                   variant="contained"
                   color="secondary"
                   style={{ float: "left" }}
-                  onClick={() =>
-                    EditBookData(
-                      this.state.communityName,
-                      this.state.bookID,
-                      this.state.bookName,
-                      this.state.bookGenre,
-                      this.state.bookAuthor,
-                      this.state.bookInfo,
-                      this.state.bookPrice
-                    ).then(() => {
-                      console.log("edited successfully");
-                      if (this.state.uploadedImage === true) {
-                        this.handleImageUpload(this.state.bookID);
-                      }
-                      window.location.replace(
-                        "/community/" +
-                          this.state.communityName +
-                          "/ShowBook/" +
-                          this.state.bookID
-                      );
-                    })
-                  }
+                  onClick={() => this.handleEditBook()}
                 >
                   ویرایش کتاب
                 </Button>
