@@ -34,7 +34,10 @@ class AddBook extends React.Component {
   };
   async componentDidMount() {
     var splitted = window.location.toString().split("/");
-    splitted.pop();
+    // console.log(splitted.pop());
+    while (splitted.pop() !== "AddBook") {
+      console.log("Not yet");
+    }
     await this.setState({ communityName: splitted.pop() });
     console.log(this.state.communityName);
   }
@@ -45,10 +48,12 @@ class AddBook extends React.Component {
 
     const fileReader = new FileReader();
     fileReader.onload = () => {
+      console.log(fileReader.result);
       this.background.style.backgroundImage = `url(${fileReader.result})`;
     };
     fileReader.readAsDataURL(e.target.files[0]);
     this.setState({ bookImage: e.target.files[0] });
+    console.log(this.state.bookImage);
   };
   handleImageUpload = (bookID) => {
     const data = new FormData();
@@ -124,6 +129,9 @@ class AddBook extends React.Component {
                       }}
                       onChange={(e) => {
                         this.setState({ bookName: e.target.value });
+                      }}
+                      onClick={() => {
+                        console.log(this.state.bookImage);
                       }}
                     />
                   </Grid>

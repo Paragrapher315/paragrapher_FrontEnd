@@ -22,6 +22,7 @@ import { theme } from "./theme";
 import { EditBookData, AddBookPic } from "../Utils/Connection";
 import { AllInboxOutlined } from "@material-ui/icons";
 import { LoadBookData } from "../Utils/Connection";
+import references from "../assets/References.json";
 
 class EditBook extends React.Component {
   state = {
@@ -34,6 +35,8 @@ class EditBook extends React.Component {
     bookInfo: null,
     communityName: null,
     bookID: null,
+    bookImageURL: null,
+    uploadedImage: null,
   };
   async componentDidMount() {
     var splitted = window.location.toString().split("/");
@@ -48,8 +51,9 @@ class EditBook extends React.Component {
       this.setState({ bookGenre: b.book.genre });
       this.setState({ bookInfo: b.book.description });
       this.setState({ bookPrice: b.book.price });
-      this.setState({ bookImage: b.book.image });
+      this.setState({ bookImageURL: b.book.image });
     });
+    console.log(this.state.bookImageURL);
   }
   HandleFileSelect = (e) => {
     if (e.target.files.length === 0) {
@@ -62,6 +66,8 @@ class EditBook extends React.Component {
     };
     fileReader.readAsDataURL(e.target.files[0]);
     this.setState({ bookImage: e.target.files[0] });
+    this.setState({ uploadedImage: true });
+    this.setState({ bookImageURL: null });
   };
   handleImageUpload = (bookID) => {
     const data = new FormData();
@@ -85,7 +91,9 @@ class EditBook extends React.Component {
                     position: "relative",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "contain",
-                    backgroundImage: `url(${this.state.bookImage})`,
+                    backgroundImage: `url(${
+                      references.url_address + this.state.bookImageURL
+                    })`,
                   }}
                   ref={(bg) => (this.background = bg)}
                   onMouseEnter={() =>
@@ -229,7 +237,9 @@ class EditBook extends React.Component {
                       this.state.bookPrice
                     ).then(() => {
                       console.log("edited successfully");
-                      this.handleImageUpload(this.state.bookID);
+                      if (this.state.uploadedImage === true) {
+                        this.handleImageUpload(this.state.bookID);
+                      }
                       window.location.replace(
                         "/community/" +
                           this.state.communityName +
@@ -239,7 +249,7 @@ class EditBook extends React.Component {
                     })
                   }
                 >
-                  افزودن کتاب
+                  ویرایش کتاب
                 </Button>
               </Grid>
             </Grid>
