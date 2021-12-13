@@ -84,15 +84,23 @@ class EditBook extends React.Component {
       ).then(() => {
         console.log("edited successfully");
         if (this.state.uploadedImage === true) {
-          window.alert("sending image too");
-          this.handleImageUpload(this.state.bookID);
+          // window.alert("sending image too");
+          this.handleImageUpload(this.state.bookID).then(() => {
+            window.location.replace(
+              "/community/" +
+                this.state.communityName +
+                "/ShowBook/" +
+                this.state.bookID
+            );
+          });
+        } else {
+          window.location.replace(
+            "/community/" +
+              this.state.communityName +
+              "/ShowBook/" +
+              this.state.bookID
+          );
         }
-        window.location.replace(
-          "/community/" +
-            this.state.communityName +
-            "/ShowBook/" +
-            this.state.bookID
-        );
       });
     }
   }
@@ -128,10 +136,10 @@ class EditBook extends React.Component {
     this.setState({ uploadedImage: true });
     this.setState({ bookImageURL: null });
   };
-  handleImageUpload = (bookID) => {
+  handleImageUpload = async (bookID) => {
     const data = new FormData();
     data.append("file", this.state.bookImage);
-    AddBookPic(this.state.communityName, bookID, data);
+    await AddBookPic(this.state.communityName, bookID, data).then();
   };
   render() {
     return (

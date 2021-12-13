@@ -75,10 +75,11 @@ class AddBook extends React.Component {
         this.state.bookPrice
       ).then((res) => {
         // console.log(res);
-        this.handleImageUpload(res);
-        window.location.replace(
-          "/community/" + this.state.communityName + "/ShowBook/" + res
-        );
+        this.handleImageUpload(res).then(() => {
+          window.location.replace(
+            "/community/" + this.state.communityName + "/ShowBook/" + res
+          );
+        });
       });
     }
   }
@@ -100,15 +101,16 @@ class AddBook extends React.Component {
     fileReader.onload = () => {
       console.log(fileReader.result);
       this.background.style.backgroundImage = `url(${fileReader.result})`;
+      fileReader.readAsDataURL(e.target.files[0]).then(() => {
+        this.setState({ bookImage: e.target.files[0] });
+      });
     };
-    fileReader.readAsDataURL(e.target.files[0]);
-    this.setState({ bookImage: e.target.files[0] });
     console.log(this.state.bookImage);
   };
-  handleImageUpload = (bookID) => {
+  handleImageUpload = async (bookID) => {
     const data = new FormData();
     data.append("file", this.state.bookImage);
-    AddBookPic(this.state.communityName, bookID, data);
+    await AddBookPic(this.state.communityName, bookID, data).then();
   };
   render() {
     return (
