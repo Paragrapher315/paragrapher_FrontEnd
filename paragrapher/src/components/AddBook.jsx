@@ -31,7 +31,57 @@ class AddBook extends React.Component {
     bookPrice: null,
     bookInfo: null,
     communityName: null,
+    emptyBookName: false,
+    emptyAuthor: false,
+    emptyGenre: false,
+    emptyPrice: false,
+    emptyInfo: false,
+    hasEmpty: false,
   };
+  CheckEmpty() {
+    this.setState({
+      emptyAuthor: false,
+      emptyBookName: false,
+      emptyGenre: false,
+      emptyPrice: false,
+      emptyInfo: false,
+      hasEmpty: false,
+    });
+    if (this.state.bookName == null || this.state.bookName == "") {
+      this.setState({ emptyBookName: true, hasEmpty: true });
+    }
+    if (this.state.bookAuthor == null || this.state.bookAuthor == "") {
+      this.setState({ emptyAuthor: true, hasEmpty: true });
+    }
+    if (this.state.bookGenre == null || this.state.bookGenre == "") {
+      this.setState({ emptyGenre: true, hasEmpty: true });
+    }
+    if (this.state.bookPrice == null || this.state.bookPrice == "") {
+      this.setState({ emptyPrice: true, hasEmpty: true });
+    }
+    if (this.state.bookInfo == null || this.state.bookInfo == "") {
+      this.setState({ emptyInfo: true, hasEmpty: true });
+    }
+  }
+  async HandleAddBook() {
+    await this.CheckEmpty();
+    if (this.state.hasEmpty === false) {
+      await AddBookToShop(
+        this.state.communityName,
+        this.state.bookName,
+        this.state.bookGenre,
+        this.state.bookAuthor,
+        this.state.bookInfo,
+        this.state.bookPrice
+      ).then((res) => {
+        // console.log(res);
+        this.handleImageUpload(res);
+        window.location.replace(
+          "/community/" + this.state.communityName + "/ShowBook/" + res
+        );
+      });
+    }
+  }
   async componentDidMount() {
     var splitted = window.location.toString().split("/");
     // console.log(splitted.pop());
@@ -133,6 +183,12 @@ class AddBook extends React.Component {
                       onClick={() => {
                         console.log(this.state.bookImage);
                       }}
+                      error={this.state.emptyBookName}
+                      helperText={
+                        this.state.emptyBookName
+                          ? "نام کتاب نمی تواند خالی باشد"
+                          : ""
+                      }
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -147,6 +203,12 @@ class AddBook extends React.Component {
                       onChange={(e) => {
                         this.setState({ bookAuthor: e.target.value });
                       }}
+                      error={this.state.emptyAuthor}
+                      helperText={
+                        this.state.emptyAuthor
+                          ? "نام نویسنده نمی تواند خالی باشد"
+                          : ""
+                      }
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -161,6 +223,12 @@ class AddBook extends React.Component {
                       onChange={(e) => {
                         this.setState({ bookGenre: e.target.value });
                       }}
+                      error={this.state.emptyGenre}
+                      helperText={
+                        this.state.emptyGenre
+                          ? "ژانر کتاب نمی تواند خالی باشد"
+                          : ""
+                      }
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -175,6 +243,12 @@ class AddBook extends React.Component {
                       onChange={(e) => {
                         this.setState({ bookPrice: e.target.value });
                       }}
+                      error={this.state.emptyPrice}
+                      helperText={
+                        this.state.emptyPrice
+                          ? "قیمت کتاب نمی تواند خالی باشد"
+                          : ""
+                      }
                     />
                   </Grid>
                 </Grid>
@@ -200,6 +274,12 @@ class AddBook extends React.Component {
                   onChange={(e) => {
                     this.setState({ bookInfo: e.target.value });
                   }}
+                  error={this.state.emptyInfo}
+                  helperText={
+                    this.state.emptyInfo
+                      ? "توضیحات کتاب نمی تواند خالی باشد"
+                      : ""
+                  }
                 />
               </Grid>
               <Grid item xs={12}>
@@ -207,25 +287,7 @@ class AddBook extends React.Component {
                   variant="contained"
                   color="secondary"
                   style={{ float: "left" }}
-                  onClick={() =>
-                    AddBookToShop(
-                      this.state.communityName,
-                      this.state.bookName,
-                      this.state.bookGenre,
-                      this.state.bookAuthor,
-                      this.state.bookInfo,
-                      this.state.bookPrice
-                    ).then((res) => {
-                      // console.log(res);
-                      this.handleImageUpload(res);
-                      window.location.replace(
-                        "/community/" +
-                          this.state.communityName +
-                          "/ShowBook/" +
-                          res
-                      );
-                    })
-                  }
+                  onClick={() => this.HandleAddBook()}
                 >
                   افزودن کتاب
                 </Button>

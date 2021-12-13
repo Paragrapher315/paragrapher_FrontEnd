@@ -669,3 +669,17 @@ export const EditBookData = async (communityName, bookID, bookName, bookGenre, b
             console.log(error)
         })
 }
+export const GetRecentBook = async () => {
+    const address = "/store/book"
+    let res;
+    await axios 
+        .get(makeURL(address))
+        .then((response) => {
+            console.log(response.data.res)
+            res = response.data.res;
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    return res;
+}

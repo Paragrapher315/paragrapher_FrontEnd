@@ -32,6 +32,7 @@ class ShowBook extends React.Component {
     hasImage: false,
     communityInfo: "",
     bookPrice: 0,
+    canEdit: false,
   };
 
   async componentDidMount() {
@@ -45,6 +46,7 @@ class ShowBook extends React.Component {
 
   loadData = async (bookID) => {
     await LoadBookData(bookID).then((b) => {
+      console.log(b);
       this.setState({ bookName: b.book.name });
       this.setState({ bookAuthor: b.book.author });
       this.setState({ bookGenre: b.book.genre });

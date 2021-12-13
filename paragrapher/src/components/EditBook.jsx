@@ -148,6 +148,11 @@ class EditBook extends React.Component {
                         this.setState({ bookName: e.target.value });
                       }}
                       value={this.state.bookName}
+                      inputProps={{
+                        textAlign: "right",
+                        fontFamily: "BYekan",
+                      }}
+                      InputLabelProps={{ shrink: true }}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -163,6 +168,11 @@ class EditBook extends React.Component {
                         this.setState({ bookAuthor: e.target.value });
                       }}
                       value={this.state.bookAuthor}
+                      inputProps={{
+                        textAlign: "right",
+                        fontFamily: "BYekan",
+                      }}
+                      InputLabelProps={{ shrink: true }}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -178,6 +188,11 @@ class EditBook extends React.Component {
                         this.setState({ bookGenre: e.target.value });
                       }}
                       value={this.state.bookGenre}
+                      inputProps={{
+                        textAlign: "right",
+                        fontFamily: "BYekan",
+                      }}
+                      InputLabelProps={{ shrink: true }}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -193,6 +208,11 @@ class EditBook extends React.Component {
                         this.setState({ bookPrice: e.target.value });
                       }}
                       value={this.state.bookPrice}
+                      inputProps={{
+                        textAlign: "right",
+                        fontFamily: "BYekan",
+                      }}
+                      InputLabelProps={{ shrink: true }}
                     />
                   </Grid>
                 </Grid>
@@ -219,6 +239,11 @@ class EditBook extends React.Component {
                     this.setState({ bookInfo: e.target.value });
                   }}
                   value={this.state.bookInfo}
+                  inputProps={{
+                    textAlign: "right",
+                    fontFamily: "BYekan",
+                  }}
+                  InputLabelProps={{ shrink: true }}
                 />
               </Grid>
               <Grid item xs={12}>
