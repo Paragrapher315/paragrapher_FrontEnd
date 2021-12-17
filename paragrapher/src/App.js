@@ -70,7 +70,10 @@ function App(props) {
                 )}
               </Route>
               <Route path="/profile" exact={true}>
-                <Profile />
+                <Profile initialTabValue="0"/>
+              </Route>
+              <Route path="/profile/myCommunities" exact={true}>
+                <Profile initialTabValue="2"/>
               </Route>
               {/* <Route path="/Newprofile" exact={true}>
               <NewProfile/>

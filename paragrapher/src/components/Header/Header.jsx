@@ -168,6 +168,13 @@ function Header(props) {
                     </li>
                   </MenuItem>
                   <MenuItem
+                    onClick={() => {
+                      window.location.replace("/profile/myCommunities");
+                    }}
+                  >
+                    کامیونیتی های من
+                  </MenuItem>
+                  <MenuItem
                     onClick={handleLogout}
                     className={classes.typography}
                   >
