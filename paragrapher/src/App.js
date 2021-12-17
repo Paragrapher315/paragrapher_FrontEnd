@@ -27,6 +27,7 @@ import BookSearch from "./components/Search/BookSearch";
 import AuthorSearch from "./components/Search/AuthorSearch";
 import ShowBook from "./components/ShowBook/ShowBook";
 import EditBook from "./components/EditBook.jsx";
+import { GetCredit } from "./Utils/Connection.js";
 // import NewProfile from './components/Profile/NewProfile';
 function App(props) {
   const [drawerAnchor] = useState(false);
@@ -34,6 +35,7 @@ function App(props) {
   const [isLoggedIn, setLoggedIn] = useState(
     cookie.get("x-access-token") !== undefined ? true : false
   );
+  const [currentCredit, setCurrentCredit] = useState(isLoggedIn ? GetCredit().then() : null);
   const classes = useStyles(theme);
   const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
   const history = useHistory();
@@ -48,12 +50,19 @@ function App(props) {
     // window.history.pushState(null,"/other-page", { p_id: p_id });
     history.push("/paragraph/comment/" + val2 + "/" + val);
   }
+  async function handleGetCredit() {
+    await
+      GetCredit().then((res) => setCurrentCredit(res))
+    return currentCredit
+  }
   return (
     <Router>
+      {console.log("balance in the APP.JS", currentCredit)}
       <StylesProvider jss={jss}>
         <div className="App">
           <Header
             isLoggedIn={isLoggedIn}
+            currentCredit={handleGetCredit().then((a) => {return a})}
             style={{ position: "sticky", top: 0 }}
           />
           <div>

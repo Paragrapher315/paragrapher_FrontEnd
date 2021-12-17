@@ -704,3 +704,17 @@ export const GetRecentBook = async () => {
     });
   return res;
 };
+export const GetCredit = async () => {
+  let res;
+  await axios
+    .get(makeURL(references.url_profile_info))
+    .then((response) => {
+      res = response.data[0].credit;
+    })
+    .catch((error) => {
+      console.log(error)
+      res = error;
+    })
+    console.log("This is the balance", res)
+  return res;
+}

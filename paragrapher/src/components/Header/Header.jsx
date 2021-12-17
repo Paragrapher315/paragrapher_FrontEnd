@@ -22,6 +22,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Avatar,
 } from "@material-ui/core";
 import PopupAccountBox from "../AccountBox/PopupAccountBox";
 import { ThemeProvider } from "@material-ui/styles";
@@ -43,6 +44,7 @@ function Header(props) {
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
   const classes = useStyles(theme);
   const [isLoggedIn, setLoggedIn] = useState(props.isLoggedIn);
+  const [myCredit, setMyCredit] = useState(props.currentCredit);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -157,6 +159,13 @@ function Header(props) {
                   onClose={handleClose}
                   TransitionComponent={Fade}
                 >
+                  <MenuItem>
+                    <Avatar />
+                    <div>
+                      <Typography>اعتبار: {myCredit}</Typography>
+                      {console.log("painnnnnnnnn", myCredit)}
+                    </div>
+                  </MenuItem>
                   <MenuItem
                     onClick={() => {
                       history.push(references.url_profile);
