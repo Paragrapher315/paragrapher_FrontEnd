@@ -249,6 +249,8 @@ class CommunityMainPage extends React.Component {
                         book={bp.ref_book}
                         isMine={bp.user_name == getUser()}
                         communityName={bp.community_name}
+                        likeCount={bp.ima_count}
+                        commentCount={bp.reply_count}
                       />
                     ))}
                   </div>
@@ -273,6 +275,8 @@ class CommunityMainPage extends React.Component {
                         book={p.ref_book}
                         isMine={p.user_name == getUser()}
                         communityName={p.community_name}
+                        likeCount={p.ima_count}
+                        commentCount={p.reply_count}
                       />
                     ))}
                   </div>

@@ -76,6 +76,43 @@ function Paragraph(props) {
   const persianDate = new Date(props.date.replace("-", "/")).toLocaleString(
     "fa-IR"
   );
+  function easyLikeCount() {
+    let easyCount;
+    let easyString;
+    if (props.likeCount > 1000000) {
+      easyCount = props.likeCount / 1000000;
+      easyCount = Math.round(easyCount * 10) / 10;
+      easyString = easyCount + "میلیون";
+    } else if (props.likeCount > 1000) {
+      easyCount = props.likeCount / 1000;
+      easyCount = Math.round(easyCount * 10) / 10;
+      easyString = easyCount + "هزار";
+    } else {
+      easyCount = props.likeCount;
+      easyString = easyCount;
+    }
+    // window.alert("Like Counter is : ", props.likeCount);
+    return easyString;
+  }
+
+  function easyCommentCount() {
+    let easyCount;
+    let easyString;
+    if (props.commentCount > 1000000) {
+      easyCount = props.commentCount / 1000000;
+      easyCount = Math.round(easyCount * 10) / 10;
+      easyString = easyCount + "میلیون";
+    } else if (props.commentCount > 1000) {
+      easyCount = props.commentCount / 1000;
+      easyCount = Math.round(easyCount * 10) / 10;
+      easyString = easyCount + "هزار";
+    } else {
+      easyCount = props.commentCount;
+      easyString = easyCount;
+    }
+    // window.alert("Like Counter is : ", props.likeCount);
+    return easyString;
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -178,16 +215,29 @@ function Paragraph(props) {
           <CardActions disableSpacing>
             {props.canAction ? (
               <CardActions disableSpacing>
-                <IconButton aria-label="like paragraph" onClick={handleLike}>
-                  {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-                </IconButton>
-                <IconButton
-                  disabled
-                  aria-label="show comments"
-                  onClick={demoMethod2}
-                >
-                  <CommentIcon />
-                </IconButton>
+                <div>
+                  <IconButton aria-label="like paragraph" onClick={handleLike}>
+                    {liked ? (
+                      <FavoriteIcon style={{ marginLeft: "0.5vw" }} />
+                    ) : (
+                      <FavoriteBorderIcon style={{ marginLeft: "0.5vw" }} />
+                    )}
+                    <Typography display="inline">{easyLikeCount()}</Typography>
+                  </IconButton>
+                </div>
+                <div>
+                  <IconButton
+                    disabled
+                    aria-label="show comments"
+                    onClick={demoMethod2}
+                  >
+                    <CommentIcon style={{ marginLeft: "0.5vw" }} />
+                    <Typography display="inline">
+                      {easyCommentCount()}
+                    </Typography>
+                  </IconButton>
+                </div>
+
                 {/* <IconButton aria-label="" style={{ visibility: "hidden" }}>
                   <SendIcon style={{ transform: "rotate(180deg)" }} />
                 </IconButton> */}

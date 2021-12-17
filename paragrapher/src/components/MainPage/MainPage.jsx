@@ -331,6 +331,8 @@ export class ParagraphList extends Component {
                 sendDataComment={this.props.sendDataComment}
                 p_id={element.id}
                 userID={element.user_id}
+                likeCount={element.ima_count}
+                commentCount={element.reply_count}
                 // eslint-disable-next-line react/jsx-no-duplicate-props
                 canAction={this.state.communities.includes(
                   element.communityName
