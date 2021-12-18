@@ -718,3 +718,17 @@ export const GetCredit = async () => {
     console.log("This is the balance", res)
   return res;
 }
+export const GetHeaderProfile = async () => {
+  let res = [];
+  await axios
+    .get(makeURL(references.url_profile_info))
+    .then((response) => {
+      res[0] = response.data[0].avatar;
+      res[1] = response.data[0].username;
+    })
+    .catch((error) => {
+      console.log(error)
+      res = error;
+    })
+  return res
+}

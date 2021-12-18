@@ -37,14 +37,20 @@ import { useStyles } from "../theme";
 import InputBase from "@material-ui/core/InputBase";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 import { Hidden } from "@material-ui/core";
-import { Logout } from "../../Utils/Connection.js";
+import { GetHeaderProfile, Logout } from "../../Utils/Connection.js";
+import { GetCredit } from "../../Utils/Connection.js";
 import Search from "../Search/Search";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardMedia from "@material-ui/core/CardMedia";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import CardActionArea from "@material-ui/core/CardActionArea";
 function Header(props) {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
   const classes = useStyles(theme);
   const [isLoggedIn, setLoggedIn] = useState(props.isLoggedIn);
-  const [myCredit, setMyCredit] = useState(props.currentCredit);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -159,13 +165,9 @@ function Header(props) {
                   onClose={handleClose}
                   TransitionComponent={Fade}
                 >
-                  <MenuItem>
-                    <Avatar />
-                    <div>
-                      <Typography>اعتبار: {myCredit}</Typography>
-                      {console.log("painnnnnnnnn", myCredit)}
-                    </div>
-                  </MenuItem>
+                  {/* <MenuItem>
+                  </MenuItem> */}
+                  <AvatarCredit />
                   <MenuItem
                     onClick={() => {
                       history.push(references.url_profile);
@@ -215,5 +217,43 @@ function Header(props) {
       </Box>
     </ThemeProvider>
   );
+}
+class AvatarCredit extends React.Component {
+  state = {
+    avatarImage: null,
+    creditAmount: null,
+    accountName: null,
+    creditText: null,
+  };
+  componentDidMount = async () => {
+    await GetCredit().then((res) => {
+      this.setState({
+        creditAmount: res,
+      });
+      this.setState({
+        creditText: "اعتبار:" + this.state.creditAmount + "تومان",
+      });
+    });
+    await GetHeaderProfile().then((res) => {
+      this.setState({ avatarImage: res[0] });
+      this.setState({ accountName: res[1] });
+    });
+  };
+  render() {
+    return (
+      <div>
+        <div>
+          <Card>
+            <CardHeader>
+              avatar=
+              {<Avatar src={references.url_address + this.state.avatarImage} />}
+              title={this.state.accountName}
+              subheader={this.state.creditText}
+            </CardHeader>
+          </Card>
+        </div>
+      </div>
+    );
+  }
 }
 export default Header;

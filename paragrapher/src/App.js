@@ -50,11 +50,6 @@ function App(props) {
     // window.history.pushState(null,"/other-page", { p_id: p_id });
     history.push("/paragraph/comment/" + val2 + "/" + val);
   }
-  async function handleGetCredit() {
-    await
-      GetCredit().then((res) => setCurrentCredit(res))
-    return currentCredit
-  }
   return (
     <Router>
       {console.log("balance in the APP.JS", currentCredit)}
@@ -62,7 +57,6 @@ function App(props) {
         <div className="App">
           <Header
             isLoggedIn={isLoggedIn}
-            currentCredit={handleGetCredit().then((a) => {return a})}
             style={{ position: "sticky", top: 0 }}
           />
           <div>
