@@ -40,6 +40,7 @@ import { Hidden } from "@material-ui/core";
 import { GetHeaderProfile, Logout } from "../../Utils/Connection.js";
 import { GetCredit } from "../../Utils/Connection.js";
 import Search from "../Search/Search";
+import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -165,10 +166,14 @@ function Header(props) {
                   onClose={handleClose}
                   TransitionComponent={Fade}
                 >
-                  {/* <MenuItem>
-                  </MenuItem> */}
-                  <AvatarCredit />
                   <MenuItem
+                    onClick={() => {
+                      window.location.replace("/profile");
+                    }}
+                  >
+                    <AvatarCredit />
+                  </MenuItem>
+                  {/* <MenuItem
                     onClick={() => {
                       history.push(references.url_profile);
                     }}
@@ -177,7 +182,7 @@ function Header(props) {
                     <li>
                       <Link to="/profile">حساب کاربری</Link>
                     </li>
-                  </MenuItem>
+                  </MenuItem> */}
                   <MenuItem
                     onClick={() => {
                       window.location.replace("/profile/myCommunities");
@@ -226,32 +231,43 @@ class AvatarCredit extends React.Component {
     creditText: null,
   };
   componentDidMount = async () => {
-    await GetCredit().then((res) => {
-      this.setState({
-        creditAmount: res,
-      });
-      this.setState({
-        creditText: "اعتبار:" + this.state.creditAmount + "تومان",
-      });
-    });
+    // await GetCredit().then((res) => {
+    //   this.setState({
+    //     creditAmount: res,
+    //   });
+    //   this.setState({
+    //     creditText: "اعتبار:" + this.state.creditAmount + "تومان",
+    //   });
+    // });
     await GetHeaderProfile().then((res) => {
-      this.setState({ avatarImage: res[0] });
-      this.setState({ accountName: res[1] });
+      this.setState({
+        avatarImage: res.avatar,
+        accountName: res.username,
+        creditAmount: res.credit,
+      });
+      this.setState({
+        creditText: "اعتبار: " + this.state.creditAmount + " تومان",
+      });
     });
   };
   render() {
     return (
       <div>
-        <div>
-          <Card>
-            <CardHeader>
-              avatar=
-              {<Avatar src={references.url_address + this.state.avatarImage} />}
-              title={this.state.accountName}
-              subheader={this.state.creditText}
-            </CardHeader>
-          </Card>
-        </div>
+        <Grid container spacing={1}>
+          <Grid item xs={4}>
+            <Avatar src={references.url_address + this.state.avatarImage} />
+          </Grid>
+          <Grid item xs={8}>
+            <Grid container>
+              <Grid item xs={12}>
+                <Typography>{this.state.accountName}</Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography>{this.state.creditText}</Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
       </div>
     );
   }

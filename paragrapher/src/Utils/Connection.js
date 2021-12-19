@@ -285,7 +285,7 @@ export const GetCommunities = async () => {
       message = response;
     })
     .catch((error) => {
-      console.log(error, error.response.data);
+      // console.log(error, error.response.data);
       if (error.response.status === 401) {
         message = error.response.data.message;
       } else {
@@ -719,12 +719,11 @@ export const GetCredit = async () => {
   return res;
 }
 export const GetHeaderProfile = async () => {
-  let res = [];
+  let res;
   await axios
-    .get(makeURL(references.url_profile_info))
+    .get(makeURL("/account/profile/header"))
     .then((response) => {
-      res[0] = response.data[0].avatar;
-      res[1] = response.data[0].username;
+      res = response.data.profile;
     })
     .catch((error) => {
       console.log(error)
