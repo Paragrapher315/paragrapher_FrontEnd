@@ -168,28 +168,35 @@ export const CreateParagraph = async (
   return message;
 };
 
-// export const CreateComment = async (communityID,paragraph,p_id) => {
-//     let message = ""
-//     await axios
-//         .post(makeURL(references.url_create_paragraph + '/' +  communityID + '/paragraph/reply'), {
-//             text:paragraph,
-//             p_id:p_id,
-//         })
-//         .then((response) => {
-//             console.log(response);
-//             window.location.replace("/community/" + communityID );
-//         })
-//         .catch((error) => {
-
-//             console.log(error, error.response.data);
-//             if(error.response.status == 401) {
-//                 message = error.response.data.message;
-//             } else {
-//                 message = error.response.data;
-//             }
-//         })
-//     return message;
-// }
+export const CreateComment = async (communityID, paragraph, p_id) => {
+  let message = "";
+  await axios
+    .post(
+      makeURL(
+        references.url_create_paragraph +
+          "/" +
+          communityID +
+          "/paragraph/comment"
+      ),
+      {
+        text: paragraph,
+        p_id: p_id,
+      }
+    )
+    .then((response) => {
+      console.log(response);
+      window.location.replace("/community/" + communityID);
+    })
+    .catch((error) => {
+      console.log(error, error.response.data);
+      if (error.response.status == 401) {
+        message = error.response.data.message;
+      } else {
+        message = error.response.data;
+      }
+    });
+  return message;
+};
 
 export const EditParagraph = async (
   communityName,
@@ -703,4 +710,28 @@ export const GetRecentBook = async () => {
       console.log(error);
     });
   return res;
+};
+export const GetComments = async (community, p_id, start_off, end_off) => {
+  let result;
+  await axios
+    .get(
+      makeURL(
+        "/community/" +
+          community +
+          "/paragraph/" +
+          p_id +
+          "/comment?start_off=" +
+          start_off +
+          "&end_off=" +
+          end_off
+      )
+    )
+    .then((response) => {
+      result = response;
+    })
+    .catch((res) => {
+      result = res;
+      window.alert(res);
+    });
+  return result;
 };

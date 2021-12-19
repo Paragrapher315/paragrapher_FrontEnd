@@ -1,5 +1,5 @@
 {
-  "url_address": "http://localhost:5000",
+  "url_address": "http://localhost:8080",
   "url_register": "/register",
   "url_login": "/login",
   "url_profile": "/profile",
@@ -31,5 +31,6 @@
   "url_add_credit": "/account/credit",
   "url_myparagraph": "/account/paragraphs",
   "url_showbook": "/store/book/info/",
-  "url_suggestion": "/suggestion?text="
+  "url_suggestion": "/suggestion?text=",
+  "url_notifications": "/account/notifications"
 }

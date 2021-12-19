@@ -11,7 +11,12 @@ import { Link as UiLink } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import { BrowserView, MobileView } from "react-device-detect";
 import { useHistory } from "react-router-dom";
-import { cookie } from "../../Utils/Common";
+import { cookie, makeURL, persianDate } from "../../Utils/Common";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Grow from "@material-ui/core/Grow";
+import Paper from "@material-ui/core/Paper";
+import Popper from "@material-ui/core/Popper";
+import MenuList from "@material-ui/core/MenuList";
 import Fade from "@material-ui/core/Fade";
 import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import references from "../../assets/References.json";
@@ -38,21 +43,39 @@ import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 import { Hidden } from "@material-ui/core";
 import { Logout } from "../../Utils/Connection.js";
 import Search from "../Search/Search";
+import axios from "axios";
 function Header(props) {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
   const classes = useStyles(theme);
   const [isLoggedIn, setLoggedIn] = useState(props.isLoggedIn);
-
+  const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef(null);
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
+  function handleListKeyDown(event) {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      setOpen(false);
+    }
+  }
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleClose2 = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   const history = useHistory();
   const handleLogout = () => {
     Logout();
@@ -137,11 +160,62 @@ function Header(props) {
                 <IconButton color="inherit" onClick={goToBuyCredits}>
                   <MonetizationOnIcon />
                 </IconButton>
-                <IconButton color="inherit" disabled>
+
+                <IconButton
+                  color="inherit"
+                  ref={anchorRef}
+                  aria-controls={open ? "menu-list-grow" : undefined}
+                  aria-haspopup="true"
+                  onClick={handleToggle}
+                >
                   <Badge badgeContent={0} color="secondary">
                     <NotificationsIcon />
                   </Badge>
                 </IconButton>
+                <Popper
+                  open={open}
+                  anchorEl={anchorRef.current}
+                  role={undefined}
+                  transition
+                  disablePortal
+                >
+                  {({ TransitionProps, placement }) => (
+                    <Grow
+                      {...TransitionProps}
+                      style={{
+                        transformOrigin:
+                          placement === "bottom"
+                            ? "center top"
+                            : "center bottom",
+                      }}
+                    >
+                      <Paper style={{ minWidth: "20vw" }}>
+                        <ClickAwayListener onClickAway={handleClose2}>
+                          <MenuList
+                            autoFocusItem={open}
+                            id="menu-list-grow"
+                            onKeyDown={handleListKeyDown}
+                          >
+                            <div
+                              style={{
+                                margin: "auto",
+                                borderBottom: "2px solid lightgrey",
+                                height: "100%",
+                                width: "80%",
+                              }}
+                            >
+                              <Typography>اطلاعیه ها</Typography>
+                            </div>
+                            <NotificationsList
+                              classes={classes}
+                              history={history}
+                            />
+                          </MenuList>
+                        </ClickAwayListener>
+                      </Paper>
+                    </Grow>
+                  )}
+                </Popper>
 
                 <IconButton
                   edge="end"
@@ -200,4 +274,99 @@ function Header(props) {
     </ThemeProvider>
   );
 }
+
+class NotificationsList extends React.Component {
+  state = {
+    Notifications: [],
+  };
+
+  componentDidMount = async () => {
+    await axios.get(makeURL(references.url_notifications)).then((res) => {
+      this.setState({ Notifications: res.data[0] });
+    });
+    this.setState({ Notifications: this.state.Notifications.reverse() });
+    this.setState({ Notifications: this.state.Notifications.slice(0, 5) });
+  };
+
+  render() {
+    return (
+      <div>
+        {this.state.Notifications.map((e) => {
+          let type;
+          switch (e.subject) {
+            case "کتاب جدید اضافه شد":
+              type = 0;
+              break;
+            case "فروش موفق":
+              type = 0;
+              break;
+            case "خرید موفق":
+              type = 0;
+              break;
+            case "خوش امدگویی":
+              type = 1;
+              break;
+            default:
+              type = 2;
+              break;
+          }
+          if (type === 0) {
+            return (
+              <MenuItem>
+                <div>
+                  <Typography style={{ fontSize: 18 }}>{e.subject}</Typography>
+                  <Typography style={{ fontSize: 10 }}>
+                    {persianDate(e.date)}
+                  </Typography>
+                  <Typography style={{ fontSize: 15 }}>{e.text}</Typography>
+                </div>
+              </MenuItem>
+            );
+          } else if (type === 1) {
+            return (
+              <MenuItem
+                onClick={() => {
+                  let sth = e.text.split(" ");
+                  window.location.replace("/community/" + sth[2]);
+                }}
+              >
+                <div>
+                  <Typography style={{ fontSize: 18 }}>{e.subject}</Typography>
+                  <Typography style={{ fontSize: 10 }}>
+                    {persianDate(e.date)}
+                  </Typography>
+                  <Typography style={{ fontSize: 15 }}>{e.text}</Typography>
+                </div>
+              </MenuItem>
+            );
+          } else {
+            return (
+              <MenuItem
+                onClick={() => {
+                  window.location.replace("/profile/notifications");
+                }}
+              >
+                <div>
+                  <Typography style={{ fontSize: 18 }}>{e.subject}</Typography>
+                  <Typography style={{ fontSize: 10 }}>
+                    {persianDate(e.date)}
+                  </Typography>
+                  <Typography style={{ fontSize: 15 }}>{e.text}</Typography>
+                </div>
+              </MenuItem>
+            );
+          }
+        })}
+        <div style={{ margin: "auto", width: "90%" }}>
+          <Typography style={{ fontSize: 16 }} component="div">
+            <Link color="primary" href="/profile/notifications">
+              مشاهده همه
+            </Link>
+          </Typography>
+        </div>
+      </div>
+    );
+  }
+}
+
 export default Header;

@@ -15,6 +15,7 @@ import {
   ListItemIcon,
   ListItemText,
   Card,
+  CircularProgress,
 } from "@material-ui/core";
 import { theme } from "../theme";
 import { ThemeProvider } from "@material-ui/styles";
@@ -22,9 +23,10 @@ import { jssPreset } from "@material-ui/styles";
 import { menuItemClasses } from "@mui/material";
 import Button from "@material-ui/core/Button";
 import {
-  // CreateComment,
+  CreateComment,
   CreateParagraph,
   EditParagraph,
+  GetComments,
   GetParagraph,
 } from "../../Utils/Connection";
 import Chip from "@material-ui/core/Chip";
@@ -34,6 +36,7 @@ import references from "../../assets/References.json";
 import { getUser, makeURL } from "../../Utils/Common";
 import axios from "axios";
 import Paragraph from "./Paragraph";
+import InfiniteScroll from "react-infinite-scroll-component";
 class ParagraphCommentor extends React.Component {
   state = {
     isShown: true,
@@ -55,14 +58,13 @@ class ParagraphCommentor extends React.Component {
     // console.log(this.props.match.params);
     // this.props.history.
     // console.log("this is a mother fucker", window.location.toString());
-    console.log(this);
+
     var splitted = window.location.toString().split("/");
     if (splitted[splitted.length - 1] === "") {
       splitted.pop();
     }
     await this.setState({ p_id: splitted.pop() });
     await this.setState({ communityName: splitted.pop() });
-    console.log(this);
 
     // if (this.props.p_id) {
     //   this.setState({ p_id: this.props.p_id });
@@ -99,7 +101,6 @@ class ParagraphCommentor extends React.Component {
         }
       )
       .then((response) => {
-        console.log(response);
         this.setState({ communityName: response.data.community_name });
         this.setState({ author: response.data.author });
         this.setState({ book: response.data.ref_book });
@@ -114,11 +115,11 @@ class ParagraphCommentor extends React.Component {
       });
   };
   handleCreateParagraph = () => {
-    // CreateComment(
-    //   this.state.communityName,
-    //   this.state.paragraph2,
-    //   this.state.p_id
-    // );
+    CreateComment(
+      this.state.communityName,
+      this.state.paragraph2,
+      this.state.p_id
+    );
   };
   handleParagraphChange = (e) => {
     this.setState({ paragraph2: e.target.value });
@@ -331,6 +332,10 @@ class ParagraphCommentor extends React.Component {
               </Grid>
             </form>
           </Card>
+          <CommentsList
+            p_id={this.state.p_id}
+            communityName={this.state.communityName}
+          />
         </ThemeProvider>
       </div>
     );
@@ -338,3 +343,115 @@ class ParagraphCommentor extends React.Component {
 }
 
 export default ParagraphCommentor;
+
+export class CommentsList extends Component {
+  state = {
+    comments: [],
+    start_off: 0,
+    end_off: 5,
+    communities: [],
+    hasmore: false,
+    p_id: "",
+    communityName: "",
+  };
+  getData = (params) => {
+    this.props.sendData(params[0], params[1]);
+  };
+  getCommentData = (params) => {
+    this.props.sendData(params[0], params[1]);
+  };
+  componentDidMount = async () => {
+    var splitted = window.location.toString().split("/");
+    if (splitted[splitted.length - 1] === "") {
+      splitted.pop();
+    }
+    await this.setState({ p_id: splitted.pop() });
+    await this.setState({ communityName: splitted.pop() });
+    await GetComments(
+      this.state.communityName,
+      this.state.p_id,
+      this.state.start_off,
+      this.state.end_off
+    ).then((res) => {
+      this.setState({
+        comments: res.data.replies,
+      });
+    });
+    if (this.state.comments.length !== 0) {
+      this.setState({ hasmore: true });
+    }
+    this.setState({ end_off: this.state.end_off + 5 });
+  };
+  fetchData = async () => {
+    let arr = this.state.comments;
+    await GetComments(
+      this.state.communityName,
+      this.state.p_id,
+      this.state.start_off,
+      this.state.end_off
+    ).then((res) => {
+      this.setState({
+        comments: res.data.replies,
+      });
+    });
+    this.setState({ end_off: this.state.end_off + 5 });
+    if (arr.length === this.state.comments.length) {
+      this.setState({ hasmore: false });
+    }
+  };
+
+  render() {
+    return (
+      <div style={{ paddingTop: "5vh" }}>
+        <InfiniteScroll
+          dataLength={this.state.comments.length}
+          next={this.fetchData}
+          hasMore={this.state.hasmore}
+          loader={
+            <div style={{ textAlign: "center" }}>
+              <CircularProgress color="secondary" size="2rem" />
+            </div>
+          }
+          endMessage={
+            <p style={{ textAlign: "center" }}>
+              <b>متاسفانه تموم شد!</b>
+            </p>
+          }
+        >
+          {Array.isArray(this.state.comments) &&
+            this.state.comments.map((element) => {
+              console.log(element);
+              // var isliked = false;
+              // if (this.state.communities.includes(element.communityName))
+              //   isLiked(element.communityName, element.id).then((res) => {
+              //     isliked = res.message;
+              //     console.log(isliked);
+              //   });
+              return (
+                <Paragraph
+                  user={element.user_name}
+                  text={element.p_text}
+                  date={element.date}
+                  communityName={element.community_name}
+                  avatar={element.userAvatar}
+                  author={element.author}
+                  tags={element.tags.split(",")}
+                  canAction={true}
+                  isMine={element.username == getUser()}
+                  book={element.ref_book}
+                  sendData={this.props.sendData}
+                  sendDataComment={this.props.sendDataComment}
+                  p_id={element.id}
+                  userID={element.user_id}
+                  // eslint-disable-next-line react/jsx-no-duplicate-props
+                  canAction={this.state.communities.includes(
+                    element.communityName
+                  )}
+                />
+              );
+            })}
+        </InfiniteScroll>
+      </div>
+    );
+  }
+}

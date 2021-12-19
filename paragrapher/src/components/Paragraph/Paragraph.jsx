@@ -66,9 +66,7 @@ function Paragraph(props) {
   }
   function demoMethod2() {
     // props.sendDataComment(props.p_id, props.communityName);
-    history.push(
-      "/paragraph/comment/" + props.communityName + "/" + props.p_id
-    );
+    history.push("/paragraph/" + props.communityName + "/" + props.p_id);
   }
   function handleDelete() {
     DeleteParagraph(props.communityName, props.p_id.toString());
@@ -181,11 +179,7 @@ function Paragraph(props) {
                 <IconButton aria-label="like paragraph" onClick={handleLike}>
                   {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                 </IconButton>
-                <IconButton
-                  disabled
-                  aria-label="show comments"
-                  onClick={demoMethod2}
-                >
+                <IconButton aria-label="show comments" onClick={demoMethod2}>
                   <CommentIcon />
                 </IconButton>
                 {/* <IconButton aria-label="" style={{ visibility: "hidden" }}>
