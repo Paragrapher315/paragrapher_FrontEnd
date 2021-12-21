@@ -31,5 +31,6 @@
   "url_add_credit": "/account/credit",
   "url_myparagraph": "/account/paragraphs",
   "url_showbook": "/store/book/info/",
-  "url_suggestion": "/suggestion?text="
+  "url_suggestion": "/suggestion?text=",
+  "url_notifications": "/account/notifications"
 }

@@ -78,6 +78,9 @@ function App(props) {
               <Route path="/profile/myCommunities" exact={true}>
                 <Profile initialTabValue="2"/>
               </Route>
+              <Route path="/profile/notifications" exact={true}>
+                <Profile initialTabValue="4" />
+              </Route>
               {/* <Route path="/Newprofile" exact={true}>
               <NewProfile/>
             </Route> */}
@@ -87,10 +90,9 @@ function App(props) {
               <Route path="/paragraph/create">
                 <ParagraphCreator classes={classes} />
               </Route>
-              {/* <Route path="/paragraph/comment/:handle">
+              <Route path="/paragraph/:handle">
                 <ParagraphCommentor classes={classes} />
-            </Route> */}
-
+              </Route>
               <Route path="/community/:handle" exact={true}>
                 <CommunityMainPage />
               </Route>

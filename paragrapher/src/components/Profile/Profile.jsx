@@ -37,7 +37,7 @@ import {
   GetCommunityParagraphs,
 } from "../../Utils/Connection";
 import PeopleOutlineIcon from "@material-ui/icons/PeopleOutline";
-import { getUser } from "../../Utils/Common";
+import { getUser, persianDate } from "../../Utils/Common";
 import axios from "axios";
 import { makeURL } from "../../Utils/Common";
 import references from "../../assets/References.json";
@@ -48,6 +48,7 @@ import { Link } from "react-router-dom";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
 import JoindCommunityList from "./JoindCommunityList";
 import { EditBio, EditPass, EditDob, EditName } from "../../Utils/Connection";
+import { CardHeader } from "@material-ui/core";
 class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -68,13 +69,22 @@ class Profile extends React.Component {
       joindCommunityList: [],
       myParagraphs: [],
       tabValue: this.props.initialTabValue,
+      Notifications: [],
     };
   }
 
   componentDidMount() {
     this.loadData();
     this.loadParagraphs();
+    this.loadNotifications();
   }
+
+  loadNotifications = async () => {
+    await axios.get(makeURL(references.url_notifications)).then((res) => {
+      this.setState({ Notifications: res.data[0] });
+    });
+    this.setState({ Notifications: this.state.Notifications.reverse() });
+  };
 
   handleselectedFile = (event) => {
     this.setState({
@@ -248,6 +258,12 @@ class Profile extends React.Component {
                       icon={<PeopleOutlineIcon />}
                       style={{ fontFamily: "BYekan" }}
                       onClick={() => this.setState({ tabValue: 3 })}
+                    />
+                    <Tab
+                      label="اطلاعیه ها"
+                      icon={<PeopleOutlineIcon />}
+                      style={{ fontFamily: "BYekan" }}
+                      onClick={() => this.setState({ tabValue: 4 })}
                     />
                     {/* <Tab icon={<MenuBookIcon />} label="کتابهای خریداری شده"
                        style={{ fontFamily: "BYekan" }} 
@@ -708,7 +724,42 @@ class Profile extends React.Component {
                   hidden={this.state.tabValue != 4}
                   style={{ minHeight: "54.5vh" }}
                 >
-                  آخری
+                  <Paper style={{ padding: "3vh", backgroundColor: "#8bc0cc" }}>
+                    {this.state.Notifications.map((e) => {
+                      return (
+                        <Card
+                          style={{
+                            marginBottom: "1vh",
+                            boxShadow: "0.5vh 0.5vh 1vh #66838b",
+                            paddingBottom: "1vh",
+                          }}
+                        >
+                          <CardHeader
+                            title={e.subject}
+                            subheader={persianDate(e.date)}
+                          />
+                          <CardContent>
+                            <Typography>{e.text}</Typography>
+                            {e.subject === "خوش امدگویی" && (
+                              <Button
+                                onClick={() => {
+                                  let value = e.text.split(" ");
+                                  window.location.replace(
+                                    "/community/" + value[2]
+                                  );
+                                }}
+                                style={{ float: "left" }}
+                                color="secondary"
+                                variant="contained"
+                              >
+                                رفتن به اجتماع
+                              </Button>
+                            )}
+                          </CardContent>
+                        </Card>
+                      );
+                    })}
+                  </Paper>
                 </Box>
               </div>
             </Grid>

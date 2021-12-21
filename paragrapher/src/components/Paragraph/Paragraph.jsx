@@ -66,9 +66,7 @@ function Paragraph(props) {
   }
   function demoMethod2() {
     // props.sendDataComment(props.p_id, props.communityName);
-    history.push(
-      "/paragraph/comment/" + props.communityName + "/" + props.p_id
-    );
+    history.push("/paragraph/" + props.communityName + "/" + props.p_id);
   }
   function handleDelete() {
     DeleteParagraph(props.communityName, props.p_id.toString());
@@ -237,7 +235,6 @@ function Paragraph(props) {
                     </Typography>
                   </IconButton>
                 </div>
-
                 {/* <IconButton aria-label="" style={{ visibility: "hidden" }}>
                   <SendIcon style={{ transform: "rotate(180deg)" }} />
                 </IconButton> */}

@@ -248,7 +248,7 @@ export class ParagraphList extends Component {
     start_off: 2,
     end_off: 10,
     communities: [],
-    hasmore: true,
+    hasmore: false,
   };
   getData = (params) => {
     this.props.sendData(params[0], params[1]);
@@ -270,21 +270,22 @@ export class ParagraphList extends Component {
         paragraphs: res,
       });
     });
+    if (this.state.paragraphs !== 0) {
+      this.setState({ hasmore: true });
+    }
   }
   fetchData = () => {
     const d = new Date();
-    let lastCount = this.state.paragraphs.length;
+    let arr = this.state.paragraphs;
     this.setState({ end_off: this.state.end_off + 10 });
     ParagraphArray(d, this.state.start_off, this.state.end_off).then((res) => {
       this.setState({
         paragraphs: res,
       });
     });
-    if (lastCount == this.state.paragraphs.length) {
-      console.log(this.state.hasmore);
+    if (arr.length == this.state.paragraphs.length) {
       this.setState({ hasmore: false });
     } else {
-      console.log(this.state.hasmore);
       this.setState({ hasmore: true });
     }
   };
