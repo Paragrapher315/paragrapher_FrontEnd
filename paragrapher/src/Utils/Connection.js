@@ -731,3 +731,29 @@ export const GetHeaderProfile = async () => {
     })
   return res
 }
+export const RefreshLogin = async() => {
+  let message = "";
+  if(cookie.get("x-access-token") === undefined) {
+    message = "there is no cookie to update"
+  } else {
+    await axios
+    .post(makeURL("/login/refresh"), {})
+    .then((response) => {
+      setUserSession(response.data.token, response.data.username);
+      var today = new Date();
+      var expirationDate = new Date();
+      expirationDate.setDate(today.getDate() + 1);
+      cookie.remove("x-access-token");
+      cookie.set("x-access-token", response.data.token, {
+        path: "/",
+        expires: expirationDate,
+      }); // add expire
+      message = "successful refreshed login";
+    })
+    .catch((error) => {
+      console.log("error in refresh login", error);
+      message = error
+    })
+  }
+  return message;
+}
