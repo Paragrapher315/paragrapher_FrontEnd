@@ -21,6 +21,7 @@ import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import React, { Component } from "react";
 import { theme } from "./theme";
 import communityBgImage from "../assets/CommunityTestBg.png";
+import references from "../assets/References.json";
 import Paragraph from "./Paragraph/Paragraph";
 import {
   JoinCommunity,
@@ -240,7 +241,7 @@ class CommunityMainPage extends React.Component {
                         user={bp.user_name}
                         isPotd={false}
                         date={bp.date}
-                        avatar="ا"
+                        avatar={bp.avatar}
                         canAction={this.state.isJoined}
                         text={bp.p_text}
                         author={bp.author}
@@ -264,7 +265,7 @@ class CommunityMainPage extends React.Component {
                         user={p.user_name}
                         isPotd={false}
                         date={p.date}
-                        avatar="ا"
+                        avatar={p.avatar}
                         canAction={this.state.isJoined}
                         text={p.p_text}
                         author={p.author}

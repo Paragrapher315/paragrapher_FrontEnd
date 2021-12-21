@@ -433,7 +433,7 @@ export class CommentsList extends Component {
                   text={element.p_text}
                   date={element.date}
                   communityName={element.community_name}
-                  avatar={element.userAvatar}
+                  avatar={element.avatar}
                   author={element.author}
                   tags={element.tags.split(",")}
                   canAction={true}
