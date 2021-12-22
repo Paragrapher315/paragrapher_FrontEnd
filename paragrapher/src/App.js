@@ -28,6 +28,7 @@ import AuthorSearch from "./components/Search/AuthorSearch";
 import ShowBook from "./components/ShowBook/ShowBook";
 import EditBook from "./components/EditBook.jsx";
 import { GetCredit } from "./Utils/Connection.js";
+import CommunityUserManager from "./components/CommunityAdminPanel/CommunityUsersManager"
 // import NewProfile from './components/Profile/NewProfile';
 function App(props) {
   const [drawerAnchor] = useState(false);
@@ -117,6 +118,9 @@ function App(props) {
               </Route>
               <Route path="/community/:handle/EditBook/:handle" exact={true}>
                 <EditBook />
+              </Route>
+              <Route path="/admin" exact={true}>
+                <CommunityUserManager communityName="snake" />
               </Route>
             </Switch>
           </div>

@@ -757,3 +757,16 @@ export const RefreshLogin = async() => {
   }
   return message;
 }
+export const CheckAdmin = async (communityName) => {
+  let message;
+  const address = "/community/" + communityName + "/admin"
+  await axios
+    .get(makeURL(address))
+    .then((response) => {
+      console.log("isAdmin: ", response)
+    })
+    .catch((error) => {
+      message = error;
+      console.log("isAdmin error", error)
+    })
+}
