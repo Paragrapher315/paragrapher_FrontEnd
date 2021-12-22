@@ -27,6 +27,7 @@ import BookSearch from "./components/Search/BookSearch";
 import AuthorSearch from "./components/Search/AuthorSearch";
 import ShowBook from "./components/ShowBook/ShowBook";
 import EditBook from "./components/EditBook.jsx";
+import ProfileShow from "./components/Profile/ProfileShow";
 // import NewProfile from './components/Profile/NewProfile';
 function App(props) {
   const [drawerAnchor] = useState(false);
@@ -111,6 +112,10 @@ function App(props) {
               </Route>
               <Route path="/community/:handle/EditBook/:handle" exact={true}>
                 <EditBook />
+              </Route>
+
+              <Route path="/show" exact={true}>
+                <ProfileShow/>
               </Route>
             </Switch>
           </div>
