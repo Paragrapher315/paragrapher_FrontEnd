@@ -28,6 +28,7 @@ import AuthorSearch from "./components/Search/AuthorSearch";
 import ShowBook from "./components/ShowBook/ShowBook";
 import EditBook from "./components/EditBook.jsx";
 import ProfileShow from "./components/Profile/ProfileShow";
+import Error404 from "./components/Error404";
 // import NewProfile from './components/Profile/NewProfile';
 function App(props) {
   const [drawerAnchor] = useState(false);
@@ -73,6 +74,9 @@ function App(props) {
               <Route path="/profile" exact={true}>
                 <Profile />
               </Route>
+              <Route path="/404" exact={true}>
+                <Error404></Error404>
+              </Route>
               {/* <Route path="/Newprofile" exact={true}>
               <NewProfile/>
             </Route> */}
@@ -114,7 +118,7 @@ function App(props) {
                 <EditBook />
               </Route>
 
-              <Route path="/show" exact={true}>
+              <Route path="/Users/:handle" exact={true}>
                 <ProfileShow/>
               </Route>
             </Switch>
