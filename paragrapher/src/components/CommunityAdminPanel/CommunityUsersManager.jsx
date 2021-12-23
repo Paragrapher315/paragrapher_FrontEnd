@@ -7,44 +7,57 @@ import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
-import { Button } from "@material-ui/core";
+import { Button, Grid, ThemeProvider } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
-import { CheckAdmin } from "../../Utils/Connection";
+import { CheckAdmin, GetCommunityMembersList } from "../../Utils/Connection";
+import { theme } from "../theme";
+import references from "../../assets/References.json";
 class CommunityUserManager extends React.Component {
   state = {
-    isAdmin: true,
     communityName: null,
     membersList: [],
   };
-  componentDidMount() {
+  componentDidMount = async () => {
     console.log("communityName is : ", this.props.communityName);
     this.setState({ communityName: this.props.communityName });
-    CheckAdmin(this.props.communityName).then();
-    // Check if user is admin
-    // Get Communtiy Mambers list
-  }
+    await GetCommunityMembersList(this.props.communityName).then((mems) => {
+      this.setState({ membersList: mems });
+    });
+  };
   render() {
     return (
-      <div>
-        {this.state.isAdmin ? (
-          <div>
-            <Card>
-              <CardHeader
-                avatar={<Avatar>ک</Avatar>}
-                action={<Button style={{ marginTop: "1.4vh" }}>حذف</Button>}
-                title={
-                  <Typography style={{ marginRight: "0.6vw" }}>
-                    اسم فرد
-                  </Typography>
-                }
-              />
-              {/* <CardContent>"salam"</CardContent> */}
-            </Card>
-          </div>
-        ) : (
-          <div>You are not admin</div>
-        )}
-      </div>
+      <ThemeProvider theme={theme}>
+        <div>
+          <Grid container spacing={2} style={{ padding: "2vh 1vw" }}>
+            {this.state.membersList.map((member) => {
+              return (
+                <Grid item lg={3} md={6} xs={12}>
+                  <Card>
+                    <CardHeader
+                      avatar={
+                        <Avatar src={references.url_address + member.avatar}>
+                          <Typography>{member.username[0]}</Typography>
+                        </Avatar>
+                      }
+                      action={
+                        <Button disabled style={{ marginTop: "1.4vh" }}>
+                          حذف
+                        </Button>
+                      }
+                      title={
+                        <Typography style={{ marginRight: "0.6vw" }}>
+                          {member.username}
+                        </Typography>
+                      }
+                    />
+                    {/* <CardContent>"salam"</CardContent> */}
+                  </Card>
+                </Grid>
+              );
+            })}
+          </Grid>
+        </div>
+      </ThemeProvider>
     );
   }
 }

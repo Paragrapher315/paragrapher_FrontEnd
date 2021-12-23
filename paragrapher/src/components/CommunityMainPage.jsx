@@ -14,6 +14,7 @@ import {
   Box,
   AppBar,
   Paper,
+  CardHeader,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import NotificationsIcon from "@material-ui/icons/Notifications";
@@ -32,12 +33,14 @@ import {
   BestCommunityParagraphs,
   GetCommunityParagraphs,
   AllBooks,
+  CheckAdmin,
 } from "../Utils/Connection";
 import { getUser } from "../Utils/Common";
 import Book from "./Shop/Book";
 import Shop from "./Shop/Shop";
 import Book1 from "./Shop/Book1";
 import Shop1 from "./Shop/Shop1";
+import CommunityUserManager from "./CommunityAdminPanel/CommunityUsersManager";
 class CommunityMainPage extends React.Component {
   state = {
     tabValue: 0,
@@ -51,6 +54,7 @@ class CommunityMainPage extends React.Component {
     membersCount: 0,
     books: [],
     addbookLink: "",
+    isAdmin: false,
   };
   async componentDidMount() {
     var splitted = decodeURIComponent(window.location.toString()).split("/");
@@ -91,6 +95,9 @@ class CommunityMainPage extends React.Component {
       });
     }
     this.addbookLink = "/community/" + this.state.name + "/AddBook/";
+    await CheckAdmin(this.state.name).then((resp) => {
+      this.setState({ isAdmin: resp });
+    });
   }
 
   render() {
@@ -227,6 +234,15 @@ class CommunityMainPage extends React.Component {
                       style={{ fontFamily: "BYekan" }}
                       onClick={() => this.setState({ tabValue: 3 })}
                     />
+                    {this.state.isAdmin ? (
+                      <Tab
+                        label="ویرایش"
+                        style={{ fontFamily: "BYekan" }}
+                        onClick={() => this.setState({ tabValue: 4 })}
+                      />
+                    ) : (
+                      ""
+                    )}
                   </Tabs>
                 </Paper>
                 <Box
@@ -315,6 +331,35 @@ class CommunityMainPage extends React.Component {
                       </CardContent>
                     </Card>
                   </Grid>
+                </Box>
+                <Box
+                  p={3}
+                  hidden={this.state.tabValue != 4}
+                  style={{ minHeight: "54.5vh" }}
+                >
+                  <Card>
+                    <CardHeader>
+                      title=
+                      {
+                        <Typography style={{ marginRight: "0.6vw" }}>
+                          "ویرایش اطلاعات کامیونیتی"
+                        </Typography>
+                      }
+                    </CardHeader>
+                  </Card>
+                  <Card>
+                    <CardHeader>
+                      title=
+                      {
+                        <Typography style={{ marginRight: "0.6vw" }}>
+                          "مدیریت اعضا"
+                        </Typography>
+                      }
+                    </CardHeader>
+                    <CardContent>
+                      <CommunityUserManager communityName={this.state.name} />
+                    </CardContent>
+                  </Card>
                 </Box>
               </div>
             </Grid>

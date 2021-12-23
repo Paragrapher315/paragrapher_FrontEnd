@@ -763,10 +763,26 @@ export const CheckAdmin = async (communityName) => {
   await axios
     .get(makeURL(address))
     .then((response) => {
-      console.log("isAdmin: ", response)
+      console.log("isAdmin: ", response.data.message)
+      message = response.data.message;
     })
     .catch((error) => {
       message = error;
       console.log("isAdmin error", error)
     })
+    return message
+  }
+export const GetCommunityMembersList = async (communityName) => {
+  let message;
+  const address = "/community/" + communityName + "/members"
+  await axios
+    .get(makeURL(address))
+    .then((response) => {
+      console.log("community members list", response.data)
+      message = response.data
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  return message
 }

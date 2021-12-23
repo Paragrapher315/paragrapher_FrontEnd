@@ -119,9 +119,6 @@ function App(props) {
               <Route path="/community/:handle/EditBook/:handle" exact={true}>
                 <EditBook />
               </Route>
-              <Route path="/admin" exact={true}>
-                <CommunityUserManager communityName="snake" />
-              </Route>
             </Switch>
           </div>
         </div>
