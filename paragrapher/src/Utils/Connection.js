@@ -786,3 +786,17 @@ export const GetCommunityMembersList = async (communityName) => {
     })
   return message
 }
+export const DeleteCommunityMember = async (communityName, username) => {
+  let message;
+  const address = "/community/" + communityName + "/admin";
+  await axios
+    .delete(makeURL(address), {
+      username: username
+    })
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((error) => { 
+      console.log(error)
+    })
+}

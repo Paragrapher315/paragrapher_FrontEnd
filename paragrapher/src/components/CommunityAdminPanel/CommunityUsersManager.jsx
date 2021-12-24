@@ -9,7 +9,11 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import { Button, Grid, ThemeProvider } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
-import { CheckAdmin, GetCommunityMembersList } from "../../Utils/Connection";
+import {
+  CheckAdmin,
+  GetCommunityMembersList,
+  DeleteCommunityMember,
+} from "../../Utils/Connection";
 import { theme } from "../theme";
 import references from "../../assets/References.json";
 class CommunityUserManager extends React.Component {
@@ -56,7 +60,15 @@ class CommunityUserManager extends React.Component {
                               پروفایل
                             </Button>
                             {this.state.isAdmin && (
-                              <Button disabled style={{ marginTop: "1.4vh" }}>
+                              <Button
+                                style={{ marginTop: "1.4vh" }}
+                                onClick={() => {
+                                  DeleteCommunityMember(
+                                    this.state.communityName,
+                                    member.username
+                                  ).then(window.location.reload());
+                                }}
+                              >
                                 حذف
                               </Button>
                             )}
