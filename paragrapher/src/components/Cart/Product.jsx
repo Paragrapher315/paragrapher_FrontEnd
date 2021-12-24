@@ -1,6 +1,7 @@
 import React from "react";
 import references from "../../assets/References.json";
 import { Link } from "react-router-dom";
+import { DeleteFromCart } from "../../Utils/Connection";
 class Product extends React.Component {
   constructor(props) {
     super(props);
@@ -105,7 +106,7 @@ class Product extends React.Component {
                     {/* <button class="btn btn-white border-secondary bg-white btn-md mb-2">
                         <i class="fas fa-sync"></i>
                     </button> */}
-                    <button class="btn btn-outline-danger btn-md mb-2">
+                    <button class="btn btn-outline-danger btn-md mb-2" onClick={()=>DeleteFromCart(this.state.id)}>
                         <i class="bi bi-trash"></i>
                     </button>
                 </div>

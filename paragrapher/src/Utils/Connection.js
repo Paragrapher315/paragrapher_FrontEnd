@@ -723,3 +723,20 @@ export const ReserveBook = async (id) => {
     });
   return res;
 };
+
+
+export const DeleteFromCart = async (book_id) => {
+  let message = "";
+  await axios
+    .post(makeURL("/store/book/reserve"), {
+      id:book_id
+    })
+    .then((response) => {
+      window.location.reload();
+      window.alert("کتاب با موفقیت از سبد خرید شما حذف شد")
+    })
+    .catch((error) => {
+      console.log("delete error: ",error);
+    });
+  return message;
+};
