@@ -34,6 +34,7 @@ import {
   GetCommunityParagraphs,
   AllBooks,
   CheckAdmin,
+  GetCommunityMembersList,
 } from "../Utils/Connection";
 import { getUser } from "../Utils/Common";
 import Book from "./Shop/Book";
@@ -55,6 +56,7 @@ class CommunityMainPage extends React.Component {
     books: [],
     addbookLink: "",
     isAdmin: false,
+    membersList: [],
   };
   async componentDidMount() {
     var splitted = decodeURIComponent(window.location.toString()).split("/");
@@ -63,7 +65,8 @@ class CommunityMainPage extends React.Component {
     if (splitted[splitted.length - 1] === "") {
       splitted.pop();
     }
-    await this.setState({ name: splitted.pop() });
+    const communityName = splitted.pop();
+    await this.setState({ name: communityName });
     this.setState({
       isJoined: await CheckCommunityJoined(this.state.name),
     });
@@ -97,6 +100,9 @@ class CommunityMainPage extends React.Component {
     this.addbookLink = "/community/" + this.state.name + "/AddBook/";
     await CheckAdmin(this.state.name).then((resp) => {
       this.setState({ isAdmin: resp });
+    });
+    await GetCommunityMembersList(communityName).then((mems) => {
+      this.setState({ membersList: mems });
     });
   }
 
@@ -234,15 +240,11 @@ class CommunityMainPage extends React.Component {
                       style={{ fontFamily: "BYekan" }}
                       onClick={() => this.setState({ tabValue: 3 })}
                     />
-                    {this.state.isAdmin ? (
-                      <Tab
-                        label="ویرایش"
-                        style={{ fontFamily: "BYekan" }}
-                        onClick={() => this.setState({ tabValue: 4 })}
-                      />
-                    ) : (
-                      ""
-                    )}
+                    <Tab
+                      label="اعضا"
+                      style={{ fontFamily: "BYekan" }}
+                      onClick={() => this.setState({ tabValue: 4 })}
+                    />
                   </Tabs>
                 </Paper>
                 <Box
@@ -338,26 +340,12 @@ class CommunityMainPage extends React.Component {
                   style={{ minHeight: "54.5vh" }}
                 >
                   <Card>
-                    <CardHeader>
-                      title=
-                      {
-                        <Typography style={{ marginRight: "0.6vw" }}>
-                          "ویرایش اطلاعات کامیونیتی"
-                        </Typography>
-                      }
-                    </CardHeader>
-                  </Card>
-                  <Card>
-                    <CardHeader>
-                      title=
-                      {
-                        <Typography style={{ marginRight: "0.6vw" }}>
-                          "مدیریت اعضا"
-                        </Typography>
-                      }
-                    </CardHeader>
                     <CardContent>
-                      <CommunityUserManager communityName={this.state.name} />
+                      <CommunityUserManager
+                        communityName={this.state.name}
+                        isAdmin={this.state.isAdmin}
+                        membersList={this.state.membersList}
+                      />
                     </CardContent>
                   </Card>
                 </Box>
