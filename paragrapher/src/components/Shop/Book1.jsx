@@ -3,6 +3,7 @@ import c1 from "../../assets/c1.jpg";
 import c2 from "../../assets/c2.jpg";
 import c3n from "../../assets/c3n.jpg";
 import { Link } from "react-router-dom";
+import { ReserveBook } from "../../Utils/Connection";
 import references from "../../assets/References.json";
 class Book1 extends React.Component {
   constructor(props) {
@@ -79,10 +80,10 @@ class Book1 extends React.Component {
 
         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
           <div class="text-center">
-            <a class="btn disabled btn-outline-secondary mt-auto">
+          <button class="btn btn-outline-secondary mt-auto" onClick={()=>ReserveBook(this.state.id)}>
               {" "}
               افزودن به سبد <i class="bi bi-cart-plus"></i>
-            </a>
+              </button>
           </div>
         </div>
       </div>

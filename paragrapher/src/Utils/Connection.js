@@ -704,3 +704,22 @@ export const GetRecentBook = async () => {
     });
   return res;
 };
+export const ReserveBook = async (id) => {
+  const address = "/store/book/reserve";
+  let res;
+  await axios
+    .post(makeURL(address), {
+      id:id
+    })
+    .then((response) => {
+      window.alert("کتاب با موفقیت به سبد خرید اضافه شد");
+      window.location.reload();
+      console.log("Reserve result is :", response);
+      res = response;
+    })
+    .catch((error) => {
+      console.log("Reserve error is :", error);
+      res = error;
+    });
+  return res;
+};
