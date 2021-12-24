@@ -19,6 +19,7 @@ class Product extends React.Component {
         image: props.image,
         //image1: references.url_address + props.image,
         view: "",
+        viewC:"",
       };
   }
 
@@ -35,6 +36,7 @@ class Product extends React.Component {
     console.log(this.state.image1);
     this.view =
       "/community/" + this.state.community_name + "/ShowBook/" + this.state.id;
+    this.viewC= "/community/"+this.state.community_name;
   }
 
   render() {
@@ -69,24 +71,37 @@ class Product extends React.Component {
         <tr>
             <td data-th="Product">
                 <div class="row">
-                    <div class="col-md-3 text-left">
+                    <div class="col-md-5 text-left">
                         <img src={this.state.image} alt="" class="img-fluid d-none d-md-block rounded mb-2 shadow "/>
                     </div>
-                    <div class="col-md-9 text-left mt-sm-2">
+                    <div class="col-md-7 text-left mt-5">
                         <Link to={this.view}>
-                            <h4>{this.state.name}</h4>
+                            <h5>{this.state.name} اثر {this.state.author}</h5>
                         </Link>
                         
-                        <p class="font-weight-light">{this.state.author}</p>
+                        
                     </div>
                 </div>
             </td>
-            <td data-th="Price">{this.state.price}</td>
+            <td data-th="Price">
+                <div className="row mt-5">
+                    <h5>
+                    {this.state.price} تومان
+                    </h5>
+                
+                </div>
+                
+            </td>
             <td data-th="Quantity">
-                <a href="#">{this.state.community_name}</a>
+                <div className="row mt-5">
+                    <Link to={this.viewC}>
+                        <h5>{this.state.community_name}</h5>
+                    </Link>
+                </div>
+                
             </td>
             <td class="actions" data-th="">
-                <div class="text-right">
+                <div class="text-right mt-5">
                     {/* <button class="btn btn-white border-secondary bg-white btn-md mb-2">
                         <i class="fas fa-sync"></i>
                     </button> */}
