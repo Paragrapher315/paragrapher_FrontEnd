@@ -29,6 +29,7 @@ import ShowBook from "./components/ShowBook/ShowBook";
 import EditBook from "./components/EditBook.jsx";
 import ProfileShow from "./components/Profile/ProfileShow";
 import Error404 from "./components/Error404";
+import Cart from "./components/Cart/Cart";
 // import NewProfile from './components/Profile/NewProfile';
 function App(props) {
   const [drawerAnchor] = useState(false);
@@ -120,6 +121,9 @@ function App(props) {
 
               <Route path="/Users/:handle" exact={true}>
                 <ProfileShow/>
+              </Route>
+              <Route path="/Cart" exact={true}>
+                <Cart/>
               </Route>
             </Switch>
           </div>
