@@ -1,15 +1,40 @@
 import React from "react";
-
+import references from "../../assets/References.json";
+import { Link } from "react-router-dom";
 class Product extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      
-    };
+        id: props.id,
+        name: props.name,
+        genre: props.genre,
+        author: props.author,
+        price: props.price,
+        modified_time: props.modified_time,
+        reserved_time: props.reserved_time,
+        description: props.description,
+        seller_id: props.seller_id,
+        community_id: props.community_id,
+        community_name: props.community_name,
+        image: props.image,
+        //image1: references.url_address + props.image,
+        view: "",
+      };
   }
 
   componentDidMount() {
-    
+    if (this.state.image === null) {
+      // this.setState({image:"https://dummyimage.com/450x300/dee2e6/6c757d.jpg"})
+      this.setState({
+        image:
+          "https://via.placeholder.com/250x250/5fa9f8/ffffff",
+      });
+    } else {
+      this.setState({ image: this.state.image1 });
+    }
+    console.log(this.state.image1);
+    this.view =
+      "/community/" + this.state.community_name + "/ShowBook/" + this.state.id;
   }
 
   render() {
@@ -45,17 +70,20 @@ class Product extends React.Component {
             <td data-th="Product">
                 <div class="row">
                     <div class="col-md-3 text-left">
-                        <img src="https://via.placeholder.com/250x250/5fa9f8/ffffff" alt="" class="img-fluid d-none d-md-block rounded mb-2 shadow "/>
+                        <img src={this.state.image} alt="" class="img-fluid d-none d-md-block rounded mb-2 shadow "/>
                     </div>
                     <div class="col-md-9 text-left mt-sm-2">
-                        <h4>نام این محصول</h4>
-                        <p class="font-weight-light">نویسنده این محصول</p>
+                        <Link to={this.view}>
+                            <h4>{this.state.name}</h4>
+                        </Link>
+                        
+                        <p class="font-weight-light">{this.state.author}</p>
                     </div>
                 </div>
             </td>
-            <td data-th="Price">$49.00</td>
+            <td data-th="Price">{this.state.price}</td>
             <td data-th="Quantity">
-                <a href="#">اجتماع اول</a>
+                <a href="#">{this.state.community_name}</a>
             </td>
             <td class="actions" data-th="">
                 <div class="text-right">

@@ -33,7 +33,7 @@ class Cart extends React.Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <Product/>
+                                    <Product image={null} name="test1"/>
                                     <Product/>
 
                                 </tbody>
