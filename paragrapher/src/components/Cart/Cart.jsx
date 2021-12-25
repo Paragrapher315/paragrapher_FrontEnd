@@ -3,7 +3,7 @@ import Product from "./Product";
 import axios from "axios";
 import { makeURL } from "../../Utils/Common";
 import { Link } from "react-router-dom";
-
+import { Buy } from "../../Utils/Connection";
 class Cart extends React.Component {
   constructor(props) {
     super(props);
@@ -41,9 +41,9 @@ class Cart extends React.Component {
 
   render() {
     return (
-        <div class="container mt-5 mb-5 bg-white col-lg-9">
-            <section class="pt-5 pb-5">
-                <div class="container">
+        <div class="container mt-5 mb-5 bg-white col-11 col-md-10 col-lg-9">
+            {/* <div class="row pt-5 pb-5"> */}
+                {/* <div class="container"> */}
                     <div class="row w-100">
                         <div class="col-lg-12 col-md-12 col-12">
                             <h3 class="display-5 mb-2 text-center">سبد خرید</h3>
@@ -89,8 +89,8 @@ class Cart extends React.Component {
                     </div>
                     <div class="row mt-4 d-flex align-items-center">
                         <div class="col-sm-6 order-md-2 text-right">
-                            <a href="#" class="btn btn-primary mb-4 btn-lg pl-5 pr-5">پرداخت</a>
-                            <a href="#" class="ms-3 btn btn-primary mb-4 btn-lg pl-5 pr-5">شارژ کیف پول</a>
+                            <a href="#" onClick={()=>Buy()} class="btn btn-primary mb-4 btn-lg pl-5 pr-5">پرداخت</a>
+                            <a href="/BuyCredits" class="ms-3 btn btn-primary mb-4 btn-lg pl-5 pr-5">شارژ کیف پول</a>
                         </div>
                         <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
                             
@@ -98,9 +98,9 @@ class Cart extends React.Component {
                             <i class="bi bi-arrow-right"></i>بازگشت به صفحه اصلی
                             </a>
                         </div>
-                    </div>
-                </div>
-            </section>
+                    {/* </div> */}
+                {/* </div> */}
+            </div>
         </div>
     );
   }

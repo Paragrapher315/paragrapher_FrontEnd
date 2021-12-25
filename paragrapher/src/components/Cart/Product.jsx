@@ -73,7 +73,7 @@ class Product extends React.Component {
             <td data-th="Product">
                 <div class="row">
                     <div class="col-md-5 text-left">
-                        <img src={this.state.image} alt="" class="img-fluid d-none d-md-block rounded mb-2 shadow "/>
+                        <img src={this.state.image} alt="" class="img-fluid d-none d-md-block rounded mb-2 shadow " />
                     </div>
                     <div class="col-md-7 text-left mt-5">
                         <Link to={this.view}>
