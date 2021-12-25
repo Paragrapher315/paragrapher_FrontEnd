@@ -28,6 +28,9 @@ import AuthorSearch from "./components/Search/AuthorSearch";
 import ShowBook from "./components/ShowBook/ShowBook";
 import EditBook from "./components/EditBook.jsx";
 import { GetCredit } from "./Utils/Connection.js";
+import ProfileShow from "./components/Profile/ProfileShow";
+import Error404 from "./components/Error404";
+import Cart from "./components/Cart/Cart";
 // import NewProfile from './components/Profile/NewProfile';
 function App(props) {
   const [drawerAnchor] = useState(false);
@@ -78,6 +81,9 @@ function App(props) {
               <Route path="/profile/myCommunities" exact={true}>
                 <Profile initialTabValue="2"/>
               </Route>
+              <Route path="/404" exact={true}>
+                <Error404></Error404>
+              </Route>
               {/* <Route path="/Newprofile" exact={true}>
               <NewProfile/>
             </Route> */}
@@ -117,6 +123,13 @@ function App(props) {
               </Route>
               <Route path="/community/:handle/EditBook/:handle" exact={true}>
                 <EditBook />
+              </Route>
+
+              <Route path="/Users/:handle" exact={true}>
+                <ProfileShow/>
+              </Route>
+              <Route path="/Cart" exact={true}>
+                <Cart/>
               </Route>
             </Switch>
           </div>

@@ -757,3 +757,63 @@ export const RefreshLogin = async() => {
   }
   return message;
 }
+export const ReserveBook = async (id) => {
+  const address = "/store/book/reserve";
+  let res;
+  await axios
+    .post(makeURL(address), {
+      id:id
+    })
+    .then((response) => {
+      window.alert("کتاب با موفقیت به سبد خرید اضافه شد");
+      window.location.assign("/Cart");
+      console.log("Reserve result is :", response);
+      res = response;
+    })
+    .catch((error) => {
+      console.log("Reserve error is :", error);
+      res = error;
+    });
+  return res;
+};
+
+
+export const DeleteFromCart = async (book_id) => {
+  let message = "";
+  await axios
+    .post(makeURL("/store/book/reserve"), {
+      id:book_id
+    })
+    .then((response) => {
+      window.location.reload();
+      window.alert("کتاب با موفقیت از سبد خرید شما حذف شد")
+    })
+    .catch((error) => {
+      console.log("delete error: ",error);
+    });
+  return message;
+};
+
+
+
+
+
+export const Buy = async () => {
+  const address = "/store/book/reserve";
+  let message = "";
+  await axios
+    .patch(makeURL(address), {})
+    .then((response) => {
+      window.alert("پرداخت با موفقیت انجام شد");
+      window.location.reload();
+      console.log(response);
+      message = response.data.message;
+    })
+    .catch((error) => {
+      window.alert("موجودی حساب شما کافی نیست!!");
+      console.log(error.data);
+      console.log("mmmmm",error);
+    });
+    
+  return message;
+};
