@@ -28,6 +28,10 @@ class Search extends React.Component{
         else if(text.target.value.split(":")[0]=="نویسنده ها"){
             window.location.assign("/SearchAuthor/"+val)
         }
+        else if(text.target.value.split(":")[0]=="محصول ها"){
+            window.alert(val);
+            window.location.assign("/SearchStore/"+val)
+        }
         else{
             this.setState({Text:text.target.value})
             
@@ -48,9 +52,10 @@ class Search extends React.Component{
                 />
                 <div dir="rtl">
                     <datalist id="datalistOptions">
-                        <option value={"نویسنده ها:"+this.state.Text}>{" در دسته نویسنده ها "}</option>
-                        <option value={"اجتماع ها:"+this.state.Text}>{" در دسته اجتماع ها "}</option>
-                        <option value={"کتاب ها:"+this.state.Text}>{" در دسته کتاب ها "}</option>
+                        <option value={"نویسنده ها:"+this.state.Text}>{" جستجو در پاراگراف های این نویسنده "}</option>
+                        <option value={"اجتماع ها:"+this.state.Text}>{" جستجوی اجتماع های با این نام "}</option>
+                        <option value={"کتاب ها:"+this.state.Text}>{" جستجو در پاراگراف های این کتاب "}</option>
+                        <option value={"محصول ها:"+this.state.Text}>{"جستجو در محصولات با این نام "}</option>
                     </datalist>
                 </div>
             </div>
