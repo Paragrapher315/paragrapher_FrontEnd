@@ -9,6 +9,7 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import { Button, Grid, ThemeProvider } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
+import { getUser } from "../../Utils/Common";
 import {
   CheckAdmin,
   GetCommunityMembersList,
@@ -18,15 +19,33 @@ import { theme } from "../theme";
 import references from "../../assets/References.json";
 class CommunityUserManager extends React.Component {
   state = {
+    communityName: "",
     isAdmin: false,
     membersList: [],
   };
+  handleMemberDelete = async (member) => {
+    await DeleteCommunityMember(this.state.communityName, member.username).then(
+      () => {
+        window.location.reload();
+      }
+    );
+  };
   componentDidMount = async () => {
-    console.log("communityName is : ", this.props.communityName);
-    this.setState({ isAdmin: this.props.isAdmin });
-    this.setState({ communityName: this.props.communityName });
-    this.setState({ membersList: this.props.membersList });
-    console.log("***** admin state *****", this.props.isAdmin); // don't remove this line (you might think it's funny but the project won't work without this, puff)
+    var splitted = decodeURIComponent(window.location.toString()).split("/");
+    console.log(splitted);
+    console.log(window.location.toString());
+    if (splitted[splitted.length - 1] === "") {
+      splitted.pop();
+    }
+    let cname = splitted.pop();
+    this.setState({ communityName: cname });
+    await CheckAdmin(cname).then((resp) => {
+      this.setState({ isAdmin: resp });
+    });
+    await GetCommunityMembersList(cname).then((mems) => {
+      this.setState({ membersList: mems });
+    });
+    console.log("user manager data");
   };
   render() {
     return (
@@ -50,28 +69,23 @@ class CommunityUserManager extends React.Component {
                               style={{ marginTop: "1.4vh" }}
                               onClick={() => {
                                 window.location.replace(
-                                  "/community/" +
-                                    this.state.communityName +
-                                    "/members/" +
-                                    member.username
+                                  "/Users/" + member.username
                                 ); // might need a change in the address
                               }}
                             >
                               پروفایل
                             </Button>
-                            {this.state.isAdmin && (
-                              <Button
-                                style={{ marginTop: "1.4vh" }}
-                                onClick={() => {
-                                  DeleteCommunityMember(
-                                    this.state.communityName,
-                                    member.username
-                                  ).then(window.location.reload());
-                                }}
-                              >
-                                حذف
-                              </Button>
-                            )}
+                            {this.state.isAdmin &&
+                              getUser() !== member.username && (
+                                <Button
+                                  style={{ marginTop: "1.4vh" }}
+                                  onClick={() =>
+                                    this.handleMemberDelete(member)
+                                  }
+                                >
+                                  حذف
+                                </Button>
+                              )}
                           </div>
                         }
                         title={

@@ -791,7 +791,9 @@ export const DeleteCommunityMember = async (communityName, username) => {
   const address = "/community/" + communityName + "/admin";
   await axios
     .delete(makeURL(address), {
-      username: username
+      data: {
+        username: username
+      }
     })
     .then((response) => {
       console.log(response)

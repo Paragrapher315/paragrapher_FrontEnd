@@ -55,8 +55,6 @@ class CommunityMainPage extends React.Component {
     membersCount: 0,
     books: [],
     addbookLink: "",
-    isAdmin: false,
-    membersList: [],
   };
   async componentDidMount() {
     var splitted = decodeURIComponent(window.location.toString()).split("/");
@@ -98,12 +96,6 @@ class CommunityMainPage extends React.Component {
       });
     }
     this.addbookLink = "/community/" + this.state.name + "/AddBook/";
-    await CheckAdmin(this.state.name).then((resp) => {
-      this.setState({ isAdmin: resp });
-    });
-    await GetCommunityMembersList(communityName).then((mems) => {
-      this.setState({ membersList: mems });
-    });
   }
 
   render() {
@@ -240,11 +232,13 @@ class CommunityMainPage extends React.Component {
                       style={{ fontFamily: "BYekan" }}
                       onClick={() => this.setState({ tabValue: 3 })}
                     />
-                    <Tab
-                      label="اعضا"
-                      style={{ fontFamily: "BYekan" }}
-                      onClick={() => this.setState({ tabValue: 4 })}
-                    />
+                    {this.state.isJoined && (
+                      <Tab
+                        label="اعضا"
+                        style={{ fontFamily: "BYekan" }}
+                        onClick={() => this.setState({ tabValue: 4 })}
+                      />
+                    )}
                   </Tabs>
                 </Paper>
                 <Box
@@ -341,11 +335,7 @@ class CommunityMainPage extends React.Component {
                 >
                   <Card>
                     <CardContent>
-                      <CommunityUserManager
-                        communityName={this.state.name}
-                        isAdmin={this.state.isAdmin}
-                        membersList={this.state.membersList}
-                      />
+                      {this.state.isJoined && <CommunityUserManager />}
                     </CardContent>
                   </Card>
                 </Box>
