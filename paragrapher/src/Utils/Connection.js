@@ -793,3 +793,136 @@ export const NotificationsCount = async () => {
   });
   return result;
 };
+  return res
+}
+export const RefreshLogin = async() => {
+  let message = "";
+  if(cookie.get("x-access-token") === undefined) {
+    message = "there is no cookie to update"
+  } else {
+    await axios
+    .post(makeURL("/login/refresh"), {})
+    .then((response) => {
+      setUserSession(response.data.token, response.data.username);
+      var today = new Date();
+      var expirationDate = new Date();
+      expirationDate.setDate(today.getDate() + 1);
+      cookie.remove("x-access-token");
+      cookie.set("x-access-token", response.data.token, {
+        path: "/",
+        expires: expirationDate,
+      }); // add expire
+      message = "successful refreshed login";
+    })
+    .catch((error) => {
+      console.log("error in refresh login", error);
+      message = error
+    })
+  }
+  return message;
+}
+export const ReserveBook = async (id) => {
+  const address = "/store/book/reserve";
+  let res;
+  await axios
+    .post(makeURL(address), {
+      id:id
+    })
+    .then((response) => {
+      window.alert("کتاب با موفقیت به سبد خرید اضافه شد");
+      window.location.assign("/Cart");
+      console.log("Reserve result is :", response);
+      res = response;
+    })
+    .catch((error) => {
+      console.log("Reserve error is :", error);
+      res = error;
+    });
+  return res;
+};
+
+
+export const DeleteFromCart = async (book_id) => {
+  let message = "";
+  await axios
+    .post(makeURL("/store/book/reserve"), {
+      id:book_id
+    })
+    .then((response) => {
+      window.location.reload();
+      window.alert("کتاب با موفقیت از سبد خرید شما حذف شد")
+    })
+    .catch((error) => {
+      console.log("delete error: ",error);
+    });
+  return message;
+};
+
+
+
+
+
+export const Buy = async () => {
+  const address = "/store/book/reserve";
+  let message = "";
+  await axios
+    .patch(makeURL(address), {})
+    .then((response) => {
+      window.alert("پرداخت با موفقیت انجام شد");
+      window.location.reload();
+      console.log(response);
+      message = response.data.message;
+    })
+    .catch((error) => {
+      window.alert("موجودی حساب شما کافی نیست!!");
+      console.log(error.data);
+      console.log("mmmmm",error);
+    });
+    
+  return message;
+};
+export const CheckAdmin = async (communityName) => {
+  let message;
+  const address = "/community/" + communityName + "/admin"
+  await axios
+    .get(makeURL(address))
+    .then((response) => {
+      console.log("isAdmin: ", response.data.message)
+      message = response.data.message;
+    })
+    .catch((error) => {
+      message = error;
+      console.log("isAdmin error", error)
+    })
+    return message
+  }
+export const GetCommunityMembersList = async (communityName) => {
+  let message;
+  const address = "/community/" + communityName + "/members"
+  await axios
+    .get(makeURL(address))
+    .then((response) => {
+      console.log("community members list", response.data)
+      message = response.data
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  return message
+}
+export const DeleteCommunityMember = async (communityName, username) => {
+  let message;
+  const address = "/community/" + communityName + "/admin";
+  await axios
+    .delete(makeURL(address), {
+      data: {
+        username: username
+      }
+    })
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((error) => { 
+      console.log(error)
+    })
+}
