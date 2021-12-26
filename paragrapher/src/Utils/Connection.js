@@ -642,6 +642,25 @@ export const SearchAuthor = async (Text, start, end) => {
   return res;
 };
 
+export const SearchStore = async (Text, start, end) => {
+  const address = "/search?type=store&text=" + Text;
+  let res;
+  await axios
+    .put(makeURL(address), {
+      start_off: start,
+      end_off: end,
+    })
+    .then((response) => {
+      console.log("Search result is :", response);
+      res = response;
+    })
+    .catch((error) => {
+      console.log("Search result is :", error);
+      res = error;
+    });
+  return res;
+};
+
 export const AllBooks = async (communityName) => {
   const address =
     "/community/" + communityName + "/store/book?start_off=0&end_off=30";

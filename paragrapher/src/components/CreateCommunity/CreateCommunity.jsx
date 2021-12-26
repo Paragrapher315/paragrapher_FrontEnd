@@ -9,6 +9,7 @@ import CommunityExamples from "./CommunityExamples";
 import axios from "axios";
 import { makeURL } from "../../Utils/Common";
 import references from "../../assets/References.json";
+import { GetBestCommunities } from "../../Utils/Connection";
 class CreateCommunity extends React.Component {
   constructor(props) {
     super(props);
@@ -19,10 +20,30 @@ class CreateCommunity extends React.Component {
       password: "",
       passwordConfirm: "",
       isPublic: 0,
+      bestCommunities:[],
+      name1: "",
+      img1: "",
+      bio1: "",
+      numberOfmembers1: "",
+      date1: "",
+      name2:"",
+      img2:"",
+      bio2:"",
+      numberOfmembers2: "",
+      date2: "",
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    GetBestCommunities().then((res) => {
+      console.log(".....",res.length);
+      this.setState({ bestCommunities: res });
+      this.setState({name1:res[0].name});
+      this.setState({date1:res[0].creation_year});
+      this.setState({date1:res[0].creation_year});
+      console.log(".....",res[0].name);
+    });
+  }
   CreateCommunity = async () => {
     document.getElementById("bioErr").innerHTML = "";
     document.getElementById("nameErr").innerHTML = "";

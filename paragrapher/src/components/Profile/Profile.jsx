@@ -150,7 +150,7 @@ class Profile extends React.Component {
         this.setState({ dob: response.data[0].dob });
         this.setState({ img: response.data[0].avatar });
         console.log(response.data[0].avatar);
-        console.log("********************************", response.data[0].dob);
+        console.log(response.data[0].dob);
       })
       .catch((error) => {
         window.alert(error);
@@ -603,8 +603,8 @@ class Profile extends React.Component {
                               }}
                               id="Dob"
                               type="date"
-                              // defaultValue = {this.state.dob}
-                              defaultValue="2017-05-24"
+                              value = {this.state.dob}
+                              // defaultValue="2017-05-24"
                               onChange={(e) =>
                                 this.setState({ dob: e.target.value })
                               }
