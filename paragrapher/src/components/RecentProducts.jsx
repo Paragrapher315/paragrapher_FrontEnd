@@ -16,6 +16,7 @@ import references from "../assets/References.json";
 import { useStyles, theme } from "./theme";
 import { ThemeProvider } from "@material-ui/styles";
 import { GetRecentBook } from "../Utils/Connection";
+import { stringToColor } from "./TopCommunities";
 function randomColor() {
   let hex = Math.floor(Math.random() * 0xffffff);
   let color = "#" + hex.toString(16);
@@ -44,7 +45,9 @@ class RecentProducts extends React.Component {
           <CardHeader
             action={
               <Button
-                disabled
+                onClick={() => {
+                  window.location.replace("/books");
+                }}
                 style={{ fontFamily: "BYekan", backgroundColor: "#219EBC" }}
               >
                 تمام محصولات
@@ -73,7 +76,7 @@ class RecentProducts extends React.Component {
                       <ListItemAvatar>
                         <Avatar
                           style={{
-                            backgroundColor: randomColor(),
+                            backgroundColor: stringToColor(rp.name),
                             width: "2.5rem",
                             height: "2.5rem",
                           }}

@@ -42,7 +42,11 @@ import { useStyles } from "../theme";
 import InputBase from "@material-ui/core/InputBase";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 import { Hidden } from "@material-ui/core";
-import { GetHeaderProfile, Logout } from "../../Utils/Connection.js";
+import {
+  GetHeaderProfile,
+  Logout,
+  NotificationsCount,
+} from "../../Utils/Connection.js";
 import { GetCredit } from "../../Utils/Connection.js";
 import Search from "../Search/Search";
 
@@ -62,6 +66,12 @@ function Header(props) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [NotifCount, SetNotifCount] = useState(null);
+  useEffect(() =>
+    NotificationsCount().then((data) => {
+      SetNotifCount(data);
+    })
+  );
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
@@ -178,7 +188,7 @@ function Header(props) {
                   aria-haspopup="true"
                   onClick={handleToggle}
                 >
-                  <Badge badgeContent={0} color="secondary">
+                  <Badge badgeContent={NotifCount} color="secondary">
                     <NotificationsIcon />
                   </Badge>
                 </IconButton>
@@ -364,70 +374,30 @@ class NotificationsList extends React.Component {
     return (
       <div>
         {this.state.Notifications.map((e) => {
-          let type;
-          switch (e.subject) {
-            case "کتاب جدید اضافه شد":
-              type = 0;
-              break;
-            case "فروش موفق":
-              type = 0;
-              break;
-            case "خرید موفق":
-              type = 0;
-              break;
-            case "خوش امدگویی":
-              type = 1;
-              break;
-            default:
-              type = 2;
-              break;
+          let link = "/profile/notifications";
+          if (e.subject == "خوش امدگویی") {
+            if (e.text.split(" ")[2] == "ی") link = "/profile/notifications";
+            else link = "/community/" + e.related_info;
+          } else if (e.subject.split(" ")[0] === "پاراگراف") {
+            link = e.related_info;
+          } else if (e.subject === "کتاب جدید اضافه شد") {
+            link = e.related_info;
           }
-          if (type === 0) {
-            return (
-              <MenuItem>
-                <div>
-                  <Typography style={{ fontSize: 18 }}>{e.subject}</Typography>
-                  <Typography style={{ fontSize: 10 }}>
-                    {persianDate(e.date)}
-                  </Typography>
-                  <Typography style={{ fontSize: 15 }}>{e.text}</Typography>
-                </div>
-              </MenuItem>
-            );
-          } else if (type === 1) {
-            return (
-              <MenuItem
-                onClick={() => {
-                  let sth = e.text.split(" ");
-                  window.location.replace("/community/" + sth[2]);
-                }}
-              >
-                <div>
-                  <Typography style={{ fontSize: 18 }}>{e.subject}</Typography>
-                  <Typography style={{ fontSize: 10 }}>
-                    {persianDate(e.date)}
-                  </Typography>
-                  <Typography style={{ fontSize: 15 }}>{e.text}</Typography>
-                </div>
-              </MenuItem>
-            );
-          } else {
-            return (
-              <MenuItem
-                onClick={() => {
-                  window.location.replace("/profile/notifications");
-                }}
-              >
-                <div>
-                  <Typography style={{ fontSize: 18 }}>{e.subject}</Typography>
-                  <Typography style={{ fontSize: 10 }}>
-                    {persianDate(e.date)}
-                  </Typography>
-                  <Typography style={{ fontSize: 15 }}>{e.text}</Typography>
-                </div>
-              </MenuItem>
-            );
-          }
+          return (
+            <MenuItem
+              onClick={() => {
+                window.location.replace(link);
+              }}
+            >
+              <div>
+                <Typography style={{ fontSize: 18 }}>{e.subject}</Typography>
+                <Typography style={{ fontSize: 10 }}>
+                  {persianDate(e.date)}
+                </Typography>
+                <Typography style={{ fontSize: 15 }}>{e.text}</Typography>
+              </div>
+            </MenuItem>
+          );
         })}
         <div style={{ margin: "auto", width: "90%" }}>
           <Typography style={{ fontSize: 16 }} component="div">

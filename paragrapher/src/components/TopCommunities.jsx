@@ -16,13 +16,26 @@ import {
 import references from "../assets/References.json";
 import { useStyles, theme } from "./theme";
 import { ThemeProvider } from "@material-ui/styles";
-import { GetBestCommunities, GetCommunities } from "../Utils/Connection";
+import { GetBestCommunities, GetMyCommunities } from "../Utils/Connection";
+export function stringToColor(str) {
+  var hash = 0;
+  for (var i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  var colour = "#";
+  for (var i = 0; i < 3; i++) {
+    var value = (hash >> (i * 8)) & 0xff;
+    colour += ("00" + value.toString(16)).substr(-2);
+  }
+  return colour;
+}
+
 function randomColor() {
   let hex = Math.floor(Math.random() * 0xffffff);
   let color = "#" + hex.toString(16);
-
   return color;
 }
+
 function returnTopCommunities() {
   GetBestCommunities(3).then((res) => {
     console.log(res);
@@ -50,7 +63,9 @@ class TopCommunities extends React.Component {
           <CardHeader
             action={
               <Button
-                disabled
+                onClick={() => {
+                  window.location.replace("/communities");
+                }}
                 style={{ fontFamily: "BYekan", backgroundColor: "#219EBC" }}
               >
                 تمام کامیونیتی ها
@@ -76,7 +91,7 @@ class TopCommunities extends React.Component {
                       <ListItemAvatar>
                         <Avatar
                           style={{
-                            backgroundColor: randomColor(),
+                            backgroundColor: stringToColor(bc.name),
                             width: "2.5rem",
                             height: "2.5rem",
                           }}

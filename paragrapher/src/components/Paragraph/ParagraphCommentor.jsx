@@ -53,6 +53,7 @@ class ParagraphCommentor extends React.Component {
     user: "",
     paragraph2: "",
     date: "2020-10-12",
+    avatar: null,
   };
   async componentDidMount() {
     // console.log(this.props.match.params);
@@ -108,6 +109,7 @@ class ParagraphCommentor extends React.Component {
         this.setState({ paragraph: response.data.p_text });
         this.setState({ user: response.data.user_name });
         this.setState({ date: response.data.date });
+        this.setState({ avatar: response.data.avatar });
       })
       .catch((error) => {
         window.alert(error);
@@ -134,6 +136,7 @@ class ParagraphCommentor extends React.Component {
           <Paragraph
             user={this.state.user}
             date={this.state.date}
+            avatar={this.state.avatar}
             text={this.state.paragraph}
             author={this.state.author}
             book={this.state.book}
@@ -377,10 +380,11 @@ export class CommentsList extends Component {
         comments: res.data.replies,
       });
     });
-    if (this.state.comments.length !== 0) {
+    if (this.state.comments.length === 5) {
       this.setState({ hasmore: true });
     }
     this.setState({ end_off: this.state.end_off + 5 });
+    this.setState({ start_off: this.state.start_off + 5 });
   };
   fetchData = async () => {
     let arr = this.state.comments;
@@ -390,11 +394,15 @@ export class CommentsList extends Component {
       this.state.start_off,
       this.state.end_off
     ).then((res) => {
+      res.data.replies.forEach((value) => {
+        this.state.comments.push(value);
+      });
       this.setState({
-        comments: res.data.replies,
+        comments: this.state.comments,
       });
     });
     this.setState({ end_off: this.state.end_off + 5 });
+    this.setState({ start_off: this.state.start_off + 5 });
     if (arr.length === this.state.comments.length) {
       this.setState({ hasmore: false });
     }

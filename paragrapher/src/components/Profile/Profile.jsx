@@ -740,19 +740,44 @@ class Profile extends React.Component {
                           />
                           <CardContent>
                             <Typography>{e.text}</Typography>
-                            {e.subject === "خوش امدگویی" && (
+                            {e.subject === "خوش امدگویی" &&
+                              e.text.split(" ")[2] !== "ی" && (
+                                <Button
+                                  onClick={() => {
+                                    let value = e.text.split(" ");
+                                    window.location.replace(
+                                      "/community/" + value[2]
+                                    );
+                                  }}
+                                  style={{ float: "left" }}
+                                  color="secondary"
+                                  variant="contained"
+                                >
+                                  رفتن به اجتماع
+                                </Button>
+                              )}
+                            {e.subject.split(" ")[0] === "پاراگراف" && (
                               <Button
                                 onClick={() => {
-                                  let value = e.text.split(" ");
-                                  window.location.replace(
-                                    "/community/" + value[2]
-                                  );
+                                  window.location.replace(e.related_info);
                                 }}
                                 style={{ float: "left" }}
                                 color="secondary"
                                 variant="contained"
                               >
-                                رفتن به اجتماع
+                                رفتن به پاراگراف
+                              </Button>
+                            )}
+                            {e.subject === "کتاب جدید اضافه شد" && (
+                              <Button
+                                onClick={() => {
+                                  window.location.replace(e.related_info);
+                                }}
+                                style={{ float: "left" }}
+                                color="secondary"
+                                variant="contained"
+                              >
+                                رفتن به کتاب
                               </Button>
                             )}
                           </CardContent>

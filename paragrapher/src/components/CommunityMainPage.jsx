@@ -39,6 +39,7 @@ import Book from "./Shop/Book";
 import Shop from "./Shop/Shop";
 import Book1 from "./Shop/Book1";
 import Shop1 from "./Shop/Shop1";
+import { ParaCreate } from "./MainPage/MainPage";
 class CommunityMainPage extends React.Component {
   state = {
     tabValue: 0,
@@ -236,6 +237,9 @@ class CommunityMainPage extends React.Component {
                   style={{ minHeight: "54.5vh" }}
                 >
                   <div>
+                    {this.state.isJoined && (
+                      <ParaCreate communityName={this.state.name} />
+                    )}
                     {this.state.bestParagraphs.map((bp) => (
                       <Paragraph
                         user={bp.user_name}
@@ -262,6 +266,9 @@ class CommunityMainPage extends React.Component {
                   style={{ minHeight: "54.5vh" }}
                 >
                   <div>
+                    {this.state.isJoined && (
+                      <ParaCreate communityName={this.state.name} />
+                    )}
                     {this.state.allParagraphs.map((p) => (
                       <Paragraph
                         user={p.user_name}

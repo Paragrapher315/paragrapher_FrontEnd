@@ -31,6 +31,7 @@ import references from "../../assets/References.json";
 import { DeleteParagraph, isLiked, Like } from "../../Utils/Connection";
 import { Delete } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
+import { stringToColor } from "../TopCommunities";
 function randomColor(input) {
   let hex = Math.floor(input * 0xf125ff);
   let color = "#" + hex.toString(16);
@@ -50,13 +51,23 @@ function Paragraph(props) {
   const something = useState(likeIsOn());
 
   const [liked, setLiked] = useState(null);
+  const [LikeCount, SetLikeCount] = useState(props.likeCount);
+  const [CommentCount, SetCommentCount] = useState(props.commentCount);
 
   const classes = useStyles(theme);
 
   const handleLike = () => {
     Like(props.communityName, props.p_id).then((res) => {
       setLiked(!liked);
+      if (liked) {
+        SetLikeCount(LikeCount - 1);
+        easyLikeCount();
+      } else {
+        SetLikeCount(LikeCount + 1);
+        easyLikeCount();
+      }
     });
+
     console.log(references.url_address + props.avatar);
     // send like data to backend
   };
@@ -77,16 +88,16 @@ function Paragraph(props) {
   function easyLikeCount() {
     let easyCount;
     let easyString;
-    if (props.likeCount > 1000000) {
-      easyCount = props.likeCount / 1000000;
+    if (LikeCount > 1000000) {
+      easyCount = LikeCount / 1000000;
       easyCount = Math.round(easyCount * 10) / 10;
       easyString = easyCount + "میلیون";
-    } else if (props.likeCount > 1000) {
-      easyCount = props.likeCount / 1000;
+    } else if (LikeCount > 1000) {
+      easyCount = LikeCount / 1000;
       easyCount = Math.round(easyCount * 10) / 10;
       easyString = easyCount + "هزار";
     } else {
-      easyCount = props.likeCount;
+      easyCount = LikeCount;
       easyString = easyCount;
     }
     // window.alert("Like Counter is : ", props.likeCount);
@@ -96,16 +107,16 @@ function Paragraph(props) {
   function easyCommentCount() {
     let easyCount;
     let easyString;
-    if (props.commentCount > 1000000) {
-      easyCount = props.commentCount / 1000000;
+    if (CommentCount > 1000000) {
+      easyCount = CommentCount / 1000000;
       easyCount = Math.round(easyCount * 10) / 10;
       easyString = easyCount + "میلیون";
-    } else if (props.commentCount > 1000) {
-      easyCount = props.commentCount / 1000;
+    } else if (CommentCount > 1000) {
+      easyCount = CommentCount / 1000;
       easyCount = Math.round(easyCount * 10) / 10;
       easyString = easyCount + "هزار";
     } else {
-      easyCount = props.commentCount;
+      easyCount = CommentCount;
       easyString = easyCount;
     }
     // window.alert("Like Counter is : ", props.likeCount);
@@ -120,7 +131,7 @@ function Paragraph(props) {
             avatar={
               <Avatar
                 style={{
-                  backgroundColor: randomColor(parseInt(props.userID)),
+                  backgroundColor: stringToColor(props.user),
                   width: "3rem",
                   height: "3rem",
                 }}
@@ -224,11 +235,7 @@ function Paragraph(props) {
                   </IconButton>
                 </div>
                 <div>
-                  <IconButton
-                    disabled
-                    aria-label="show comments"
-                    onClick={demoMethod2}
-                  >
+                  <IconButton aria-label="show comments" onClick={demoMethod2}>
                     <CommentIcon style={{ marginLeft: "0.5vw" }} />
                     <Typography display="inline">
                       {easyCommentCount()}

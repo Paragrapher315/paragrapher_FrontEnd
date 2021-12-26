@@ -28,6 +28,8 @@ import AuthorSearch from "./components/Search/AuthorSearch";
 import ShowBook from "./components/ShowBook/ShowBook";
 import EditBook from "./components/EditBook.jsx";
 import { GetCredit } from "./Utils/Connection.js";
+import ShowCommunities from "./components/ShowCommunities/ShowCommunities";
+import ShowBooks from "./components/ShowCommunities/ShowBooks";
 // import NewProfile from './components/Profile/NewProfile';
 function App(props) {
   const [drawerAnchor] = useState(false);
@@ -35,7 +37,9 @@ function App(props) {
   const [isLoggedIn, setLoggedIn] = useState(
     cookie.get("x-access-token") !== undefined ? true : false
   );
-  const [currentCredit, setCurrentCredit] = useState(isLoggedIn ? GetCredit().then() : null);
+  const [currentCredit, setCurrentCredit] = useState(
+    isLoggedIn ? GetCredit().then() : null
+  );
   const classes = useStyles(theme);
   const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
   const history = useHistory();
@@ -73,10 +77,10 @@ function App(props) {
                 )}
               </Route>
               <Route path="/profile" exact={true}>
-                <Profile initialTabValue="0"/>
+                <Profile initialTabValue="0" />
               </Route>
               <Route path="/profile/myCommunities" exact={true}>
-                <Profile initialTabValue="2"/>
+                <Profile initialTabValue="2" />
               </Route>
               <Route path="/profile/notifications" exact={true}>
                 <Profile initialTabValue="4" />
@@ -119,6 +123,12 @@ function App(props) {
               </Route>
               <Route path="/community/:handle/EditBook/:handle" exact={true}>
                 <EditBook />
+              </Route>
+              <Route path="/communities" exact={true}>
+                <ShowCommunities theme={theme} classes={classes} />
+              </Route>
+              <Route path="/books" exact={true}>
+                <ShowBooks theme={theme} classes={classes} />
               </Route>
             </Switch>
           </div>

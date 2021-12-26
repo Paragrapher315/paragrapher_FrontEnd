@@ -284,7 +284,7 @@ export const GetParagraph = async (p_id) => {
   return message;
 };
 
-export const GetCommunities = async () => {
+export const GetMyCommunities = async () => {
   let message = "";
   await axios
     .get(makeURL("/community/show"))
@@ -348,6 +348,8 @@ export const ParagraphArray = async (d, start_off, end_off) => {
       user_id: element.paragraph.user_id,
       username: element.user.username,
       userAvatar: element.user.avatar,
+      imaCount: element.paragraph.ima_count,
+      replyCount: element.paragraph.reply_count,
     });
   });
   return message;
@@ -697,11 +699,11 @@ export const EditBookData = async (
       console.log(error);
     });
 };
-export const GetRecentBook = async () => {
+export const GetRecentBook = async (start_off = 0, end_off = 5) => {
   const address = "/store/book";
   let res;
   await axios
-    .get(makeURL(address))
+    .get(makeURL(address + "?start_off=" + start_off + "&end_off=" + end_off))
     .then((response) => {
       console.log(response.data.res);
       res = response.data.res;
@@ -722,7 +724,6 @@ export const GetCredit = async () => {
       console.log(error);
       res = error;
     });
-  console.log("This is the balance", res);
   return res;
 };
 export const GetHeaderProfile = async () => {
@@ -738,6 +739,7 @@ export const GetHeaderProfile = async () => {
     });
   return res;
 };
+
 export const GetComments = async (community, p_id, start_off, end_off) => {
   let result;
   await axios
@@ -760,5 +762,34 @@ export const GetComments = async (community, p_id, start_off, end_off) => {
       result = res;
       window.alert(res);
     });
+  return result;
+};
+
+export const GetCommunities = async (start_off, end_off) => {
+  let result;
+  await axios
+    .get(
+      makeURL(
+        references.url_best_community +
+          "?start_off=" +
+          start_off +
+          "&end_off=" +
+          end_off
+      )
+    )
+    .then((res) => {
+      result = res.data;
+    })
+    .catch((err) => {
+      result = err;
+      window.alert(err);
+    });
+  return result;
+};
+export const NotificationsCount = async () => {
+  let result;
+  await axios.get(makeURL(references.url_notifications)).then((res) => {
+    result = res.data[0].length;
+  });
   return result;
 };

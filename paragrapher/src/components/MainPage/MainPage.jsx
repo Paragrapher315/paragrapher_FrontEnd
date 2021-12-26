@@ -1,6 +1,6 @@
 /* eslint-disable eqeqeq */
-import React, { Component, useState } from "react";
-import { Grid, Hidden, Card } from "@material-ui/core";
+import React, { Component, useEffect, useState } from "react";
+import { Grid, Hidden, Card, CardActions } from "@material-ui/core";
 import Paragraph from "../Paragraph/Paragraph";
 import { theme, useStyles } from "../theme";
 import TopCommunities from "../TopCommunities";
@@ -19,9 +19,15 @@ import CreateIcon from "@material-ui/icons/Create";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useHistory } from "react-router-dom";
 // import Particles from "react-tsparticles";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, CardHeader } from "@material-ui/core";
+import references from "../../assets/References.json";
+import Skeleton from "@material-ui/lab/Skeleton";
 import { jssPreset, StylesProvider, ThemeProvider } from "@material-ui/styles";
-import { GetCommunities, ParagraphArray } from "../../Utils/Connection";
+import {
+  GetHeaderProfile,
+  GetMyCommunities,
+  ParagraphArray,
+} from "../../Utils/Connection";
 function MainPage(props) {
   const classes = useStyles(theme);
   const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -103,46 +109,7 @@ function MainPage(props) {
                 </Grid>
                 <Hidden xsDown>
                   <Grid item lg={12} md={12}>
-                    <Card>
-                      <CardContent>
-                        <Grid container>
-                          <Grid item lg={1} md={1}>
-                            <Avatar>ا</Avatar>
-                          </Grid>
-                          <Grid
-                            item
-                            lg={10}
-                            md={10}
-                            style={{ paddingRight: "1vw" }}
-                          >
-                            <TextField
-                              variant="filled"
-                              label="گراف کنید"
-                              style={{
-                                direction: "rtl",
-                                textAlign: "right",
-                                width: "100%",
-                              }}
-                              inputProps={{
-                                textAlign: "right",
-                                fontFamily: "BYekan",
-                              }}
-                              onClick={setCreatePara}
-                            ></TextField>
-                          </Grid>
-                          <Grid item lg={1} md={1}>
-                            <IconButton
-                              variant="outlined"
-                              color="secondary"
-                              onClick={setCreatePara}
-                              // style={{ marginRight: "1vw" }}
-                            >
-                              <CreateIcon />
-                            </IconButton>
-                          </Grid>
-                        </Grid>
-                      </CardContent>
-                    </Card>
+                    <ParaCreate />
                   </Grid>
                 </Hidden>
                 <Grid item xs={12}>
@@ -164,6 +131,7 @@ function MainPage(props) {
                   <ParagraphList
                     sendData={getData}
                     sendDataComment={getDataComment}
+                    classes={classes}
                   />
                 </Grid>
               </Grid>
@@ -199,7 +167,7 @@ export class ParagraphOfTheDay extends React.Component {
   };
   componentDidMount() {
     const d = new Date();
-    GetCommunities().then((res) => {
+    GetMyCommunities().then((res) => {
       Array.isArray(res.data) &&
         res.data.forEach((element) => {
           this.state.communities.push(element.name);
@@ -234,6 +202,8 @@ export class ParagraphOfTheDay extends React.Component {
               userID={element.user_id}
               // eslint-disable-next-line react/jsx-no-duplicate-props
               canAction={this.state.communities.includes(element.communityName)}
+              likeCount={element.imaCount}
+              commentCount={element.replyCount}
             />
           );
         })}
@@ -258,7 +228,7 @@ export class ParagraphList extends Component {
   };
   componentDidMount() {
     const d = new Date();
-    GetCommunities().then((res) => {
+    GetMyCommunities().then((res) => {
       Array.isArray(res.data) &&
         res.data.forEach((element) => {
           this.state.communities.push(element.name);
@@ -270,7 +240,7 @@ export class ParagraphList extends Component {
         paragraphs: res,
       });
     });
-    if (this.state.paragraphs !== 0) {
+    if (this.state.paragraphs.length === 9) {
       this.setState({ hasmore: true });
     }
   }
@@ -278,10 +248,12 @@ export class ParagraphList extends Component {
     const d = new Date();
     let arr = this.state.paragraphs;
     this.setState({ end_off: this.state.end_off + 10 });
+    this.setState({ start_off: this.state.start_off + 10 });
     ParagraphArray(d, this.state.start_off, this.state.end_off).then((res) => {
-      this.setState({
-        paragraphs: res,
+      res.forEach((value) => {
+        this.state.paragraphs.push(value);
       });
+      this.setState({ paragraphs: this.state.paragraphs });
     });
     if (arr.length == this.state.paragraphs.length) {
       this.setState({ hasmore: false });
@@ -299,7 +271,61 @@ export class ParagraphList extends Component {
           hasMore={this.state.hasmore}
           loader={
             <div style={{ textAlign: "center" }}>
-              <CircularProgress color="secondary" size="2rem" />
+              <Card className={this.props.classes.card}>
+                <CardHeader
+                  avatar={
+                    <Skeleton
+                      animation="wave"
+                      variant="circle"
+                      width={40}
+                      height={40}
+                    />
+                  }
+                  action={null}
+                  title={
+                    <Skeleton
+                      animation="wave"
+                      height="1vh"
+                      width="40%"
+                      style={{ marginBottom: 6 }}
+                    />
+                  }
+                  subheader={
+                    <div>
+                      <Skeleton animation="wave" height="1vh" width="25%" />
+                    </div>
+                  }
+                />
+
+                {/* <Skeleton
+                  animation="wave"
+                  variant="rect"
+                  className={this.props.classes.media}
+                /> */}
+
+                <CardContent>
+                  <React.Fragment>
+                    <Skeleton
+                      animation="wave"
+                      height="1vh"
+                      style={{ marginBottom: "0.5vh" }}
+                    />
+                    <Skeleton
+                      animation="wave"
+                      height="1vh"
+                      width="100%"
+                      style={{ marginBottom: "0.5vh" }}
+                    />
+                    <Skeleton
+                      animation="wave"
+                      height="1vh"
+                      width="80%"
+                      style={{ marginBottom: "0.5vh" }}
+                    />
+                  </React.Fragment>
+                </CardContent>
+              </Card>
+              {/* <CircularProgress color="secondary" size="2rem" /> */}
             </div>
           }
           endMessage={
@@ -348,3 +374,68 @@ export class ParagraphList extends Component {
 }
 
 export default MainPage;
+
+export class ParaCreate extends React.Component {
+  state = {
+    avatar: "",
+    username: "",
+    communityName: "",
+  };
+  setCreatePara = () => {
+    // props.openCreator();
+    window.location.replace("/paragraph/create/" + this.state.communityName);
+  };
+  componentDidMount = async () => {
+    await GetHeaderProfile().then((res) => {
+      this.setState({ avatar: res.avatar });
+      this.setState({ username: res.username });
+    });
+    if (this.props.communityName !== undefined) {
+      this.setState({ communityName: this.props.communityName });
+    }
+  };
+
+  render() {
+    return (
+      <div style={{ marginBottom: "2vh" }}>
+        <Card>
+          <CardContent>
+            <Grid container>
+              <Grid item lg={1} md={1}>
+                <Avatar src={references.url_address + this.state.avatar}>
+                  {this.state.username[0]}
+                </Avatar>
+              </Grid>
+              <Grid item lg={10} md={10} style={{ paddingRight: "1vw" }}>
+                <TextField
+                  variant="filled"
+                  label="گراف کنید"
+                  style={{
+                    direction: "rtl",
+                    textAlign: "right",
+                    width: "100%",
+                  }}
+                  inputProps={{
+                    textAlign: "right",
+                    fontFamily: "BYekan",
+                  }}
+                  onClick={this.setCreatePara}
+                ></TextField>
+              </Grid>
+              <Grid item lg={1} md={1}>
+                <IconButton
+                  variant="outlined"
+                  color="secondary"
+                  onClick={this.setCreatePara}
+                  // style={{ marginRight: "1vw" }}
+                >
+                  <CreateIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+}

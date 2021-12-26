@@ -106,6 +106,11 @@ class ProfileEditor extends React.Component {
         if (this.state.author == getUser()) {
           this.setState({ isShown: false });
         }
+        if (this.state.tags[0] === "") {
+          let newArr = this.state.tags;
+          newArr.splice(0, 1);
+          this.setState({ tags: newArr });
+        }
       })
       .catch((error) => {
         window.alert(error);

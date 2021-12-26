@@ -29,6 +29,7 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     textAlign: "center",
   },
+
   typography: {
     fontFamily: "BYekan",
     textDecoration: "none",
@@ -40,6 +41,7 @@ export const useStyles = makeStyles((theme) => ({
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
   },
+
   headerText: {
     fontSize: ["80px", "!important"],
     fontFamily: ["BYekan", "!important"],
@@ -158,11 +160,12 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: "#8ECAE6",
   },
   paragraphDiv: {
-    padding: "10vh 10vw",
+    padding: "10vh 0vw",
     width: "100%",
     [theme.breakpoints.up("md")]: {
       width: "80%",
     },
+    margin: "auto",
   },
   // labelRoot: {
   //   right: 0,
