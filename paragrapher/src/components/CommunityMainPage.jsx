@@ -14,6 +14,7 @@ import {
   Box,
   AppBar,
   Paper,
+  CardHeader,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import NotificationsIcon from "@material-ui/icons/Notifications";
@@ -32,12 +33,15 @@ import {
   BestCommunityParagraphs,
   GetCommunityParagraphs,
   AllBooks,
+  CheckAdmin,
+  GetCommunityMembersList,
 } from "../Utils/Connection";
 import { getUser } from "../Utils/Common";
 import Book from "./Shop/Book";
 import Shop from "./Shop/Shop";
 import Book1 from "./Shop/Book1";
 import Shop1 from "./Shop/Shop1";
+import CommunityUserManager from "./CommunityAdminPanel/CommunityUsersManager";
 class CommunityMainPage extends React.Component {
   state = {
     tabValue: 0,
@@ -59,7 +63,8 @@ class CommunityMainPage extends React.Component {
     if (splitted[splitted.length - 1] === "") {
       splitted.pop();
     }
-    await this.setState({ name: splitted.pop() });
+    const communityName = splitted.pop();
+    await this.setState({ name: communityName });
     this.setState({
       isJoined: await CheckCommunityJoined(this.state.name),
     });
@@ -227,6 +232,13 @@ class CommunityMainPage extends React.Component {
                       style={{ fontFamily: "BYekan" }}
                       onClick={() => this.setState({ tabValue: 3 })}
                     />
+                    {this.state.isJoined && (
+                      <Tab
+                        label="اعضا"
+                        style={{ fontFamily: "BYekan" }}
+                        onClick={() => this.setState({ tabValue: 4 })}
+                      />
+                    )}
                   </Tabs>
                 </Paper>
                 <Box
@@ -315,6 +327,17 @@ class CommunityMainPage extends React.Component {
                       </CardContent>
                     </Card>
                   </Grid>
+                </Box>
+                <Box
+                  p={3}
+                  hidden={this.state.tabValue != 4}
+                  style={{ minHeight: "54.5vh" }}
+                >
+                  <Card>
+                    <CardContent>
+                      {this.state.isJoined && <CommunityUserManager />}
+                    </CardContent>
+                  </Card>
                 </Box>
               </div>
             </Grid>
