@@ -29,7 +29,7 @@ class Search extends React.Component{
             window.location.assign("/SearchAuthor/"+val)
         }
         else if(text.target.value.split(":")[0]=="محصول ها"){
-            window.alert(val);
+            
             window.location.assign("/SearchStore/"+val)
         }
         else{
