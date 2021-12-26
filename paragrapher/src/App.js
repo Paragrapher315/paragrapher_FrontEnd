@@ -34,6 +34,7 @@ import ProfileShow from "./components/Profile/ProfileShow";
 import Error404 from "./components/Error404";
 import Cart from "./components/Cart/Cart";
 import CommunityUserManager from "./components/CommunityAdminPanel/CommunityUsersManager";
+import StoreSearch from "./components/Search/StoreSearch";
 // import NewProfile from './components/Profile/NewProfile';
 function App(props) {
   const [drawerAnchor] = useState(false);
@@ -121,6 +122,9 @@ function App(props) {
               </Route>
               <Route path="/SearchAuthor/:handle" exact={true}>
                 <AuthorSearch />
+              </Route>
+              <Route path="/SearchStore/:handle" exact={true}>
+                <StoreSearch/>
               </Route>
               <Route path="/community/:handle/ShowBook/:handle" exact={true}>
                 <ShowBook theme={theme} classes={classes} />
