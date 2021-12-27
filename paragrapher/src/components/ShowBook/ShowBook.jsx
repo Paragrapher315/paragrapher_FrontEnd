@@ -519,7 +519,7 @@ export class ShowBook extends React.Component {
 
               <Carousel
                 autoPlay
-                animation="slide"
+                animation="fade"
                 PrevIcon={<NavigateNextIcon />}
                 NextIcon={<NavigateBeforeIcon />}
               >

@@ -38,7 +38,9 @@ class Cart extends React.Component {
         }
       })
       .catch((error) => {
-        window.alert(error);
+        if (error.response.status !== 404) {
+          window.alert(error);
+        }
       });
   };
 
