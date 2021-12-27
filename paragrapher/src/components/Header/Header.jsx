@@ -286,11 +286,7 @@ function Header(props) {
                     <MonetizationOnIcon />
                   </IconButton>
                 </Hidden>
-                <IconButton color="inherit" disabled>
-                  <Badge badgeContent={0} color="secondary">
-                    <NotificationsIcon />
-                  </Badge>
-                </IconButton>
+
                 <Hidden xsDown>
                   <IconButton
                     onClick={() => {
