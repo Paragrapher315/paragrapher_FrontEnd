@@ -70,10 +70,12 @@ function Header(props) {
   const anchorRef = React.useRef(null);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [NotifCount, SetNotifCount] = useState(null);
-  useEffect(() =>
-    NotificationsCount().then((data) => {
-      SetNotifCount(data);
-    })
+  useEffect(
+    () =>
+      isLoggedIn &&
+      NotificationsCount().then((data) => {
+        SetNotifCount(data);
+      })
   );
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -122,23 +124,24 @@ function Header(props) {
           //style={{ backgroundColor: "#40a9b3" }}
         >
           <Toolbar style={{ display: "inline-flex" }}>
-            <Hidden mdUp>
-              <IconButton
-                onClick={() => setDrawerAnchor(true)}
-                size="large"
-                edge="start"
-                color="inherit"
-                sx={{ mr: 1 }}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Drawer
-                anchor="right"
-                open={drawerAnchor}
-                onClose={() => setDrawerAnchor(false)}
-              >
-                <List>
-                  {isLoggedIn ? (
+            {isLoggedIn && (
+              <Hidden mdUp>
+                <IconButton
+                  onClick={() => setDrawerAnchor(true)}
+                  size="large"
+                  edge="start"
+                  color="inherit"
+                  sx={{ mr: 1 }}
+                >
+                  <MenuIcon />
+                </IconButton>
+
+                <Drawer
+                  anchor="left"
+                  open={drawerAnchor}
+                  onClose={() => setDrawerAnchor(false)}
+                >
+                  <List>
                     <div>
                       <ListItem
                         button
@@ -185,24 +188,10 @@ function Header(props) {
                         <ListItemText primary="سبد خرید" />
                       </ListItem>
                     </div>
-                  ) : (
-                    <div>
-                      <ListItem button>
-                        <ListItemIcon
-                          onClick={() => {
-                            setDrawerAnchor(false);
-                            setAccountBoxTrigger(true);
-                          }}
-                        >
-                          <PersonOutlineIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="ورود" />
-                      </ListItem>
-                    </div>
-                  )}
-                </List>
-              </Drawer>
-            </Hidden>
+                  </List>
+                </Drawer>
+              </Hidden>
+            )}
 
             <Typography
               href=""
@@ -217,7 +206,7 @@ function Header(props) {
               </Link>
             </Typography>
 
-            <div style={{ width: "32%" }}>
+            <div className={classes.searchBar}>
               <Search></Search>
             </div>
 
@@ -353,10 +342,21 @@ function Header(props) {
                   className={classes.sectionDesktop}
                 >
                   {/* <AccountCircle /> */}
-                  ورود
+                  ورود/ثبت نام
                 </Button>
               </Hidden>
             )}
+            <Hidden mdUp>
+              <Button
+                onClick={() => setAccountBoxTrigger(true)}
+                variant="contained"
+                color="secondary"
+                style={{ fontFamily: "BYekan" }}
+              >
+                {/* <AccountCircle /> */}
+                ورود/ثبت نام
+              </Button>
+            </Hidden>
           </Toolbar>
 
           <PopupAccountBox

@@ -84,6 +84,12 @@ export const useStyles = makeStyles((theme) => ({
     position: "fixed",
     zIndex: 10000,
   },
+  searchBar: {
+    width: "32%",
+    [theme.breakpoints.down("sm")]: {
+      width: "44%",
+    },
+  },
   title: {
     display: "none",
     [theme.breakpoints.up("sm")]: {
