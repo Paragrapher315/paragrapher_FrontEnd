@@ -115,6 +115,15 @@ export class CommunityMainPage extends React.Component {
       this.setState({ relatedComms: res.data.res });
     });
 
+    this.setState({
+      relatedComms: this.state.relatedComms.filter((obj) => {
+        if (obj.name !== this.state.name) {
+          return true;
+        } else {
+          return false;
+        }
+      }),
+    });
     let size = 12;
     if (this.state.width == "xl") {
       size = 3;
