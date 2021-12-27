@@ -938,3 +938,54 @@ export const DeleteCommunityMember = async (communityName, username) => {
       console.log(error);
     });
 };
+export const GetRelatedBooks = async (book_id) => {
+  let message;
+  const address = "/store/book/" + book_id + "/related/book";
+  await axios
+    .get(makeURL(address))
+    .then((response) => {
+      console.log(response);
+      message = response;
+    })
+    .catch((error) => {
+      console.log(error);
+      window.alert(error);
+    });
+  return message;
+};
+export const GetRelatedParagraphs = async (book_id, start_off, end_off) => {
+  let message;
+  const address =
+    "/store/book/" +
+    book_id +
+    "/related/paragraph?start_off=" +
+    start_off +
+    "&end_off=" +
+    end_off;
+  await axios
+    .get(makeURL(address))
+    .then((response) => {
+      console.log(response);
+      message = response;
+    })
+    .catch((error) => {
+      console.log(error);
+      window.alert(error);
+    });
+  return message;
+};
+export const GetRelatedCommunities = async (CommunityName) => {
+  let message;
+  const address = "/community/" + CommunityName + "/search";
+  await axios
+    .get(makeURL(address))
+    .then((response) => {
+      console.log(response);
+      message = response;
+    })
+    .catch((error) => {
+      console.log(error);
+      window.alert(error);
+    });
+  return message;
+};
