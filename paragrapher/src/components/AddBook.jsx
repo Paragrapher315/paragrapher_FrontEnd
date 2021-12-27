@@ -38,6 +38,7 @@ class AddBook extends React.Component {
     emptyPrice: false,
     emptyInfo: false,
     hasEmpty: false,
+    PriceError: "",
   };
   CheckEmpty() {
     this.setState({
@@ -59,6 +60,10 @@ class AddBook extends React.Component {
     }
     if (this.state.bookPrice == null || this.state.bookPrice == "") {
       this.setState({ emptyPrice: true, hasEmpty: true });
+      this.setState({ PriceError: "قیمت کتاب نمی تواند خالی باشد" });
+    } else if (isNaN(this.state.bookPrice)) {
+      this.setState({ emptyPrice: true, hasEmpty: true });
+      this.setState({ PriceError: "قیمت باید عدد باشد" });
     }
     if (this.state.bookInfo == null || this.state.bookInfo == "") {
       this.setState({ emptyInfo: true, hasEmpty: true });
@@ -301,9 +306,7 @@ class AddBook extends React.Component {
                       }}
                       error={this.state.emptyPrice}
                       helperText={
-                        this.state.emptyPrice
-                          ? "قیمت کتاب نمی تواند خالی باشد"
-                          : ""
+                        this.state.emptyPrice ? this.state.PriceError : ""
                       }
                     />
                   </Grid>

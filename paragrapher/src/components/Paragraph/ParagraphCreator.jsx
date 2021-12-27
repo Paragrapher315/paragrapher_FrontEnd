@@ -75,10 +75,10 @@ class ProfileEditor extends React.Component {
     let comName = splitted.pop();
     if (this.state.communityNames.includes(comName)) {
       this.handleCommunity({ target: { value: comName } });
-    }
-    if (comName == "create") {
+    } else if (comName == "create") {
     } else {
       window.alert("شما در این اجتماع عضو نیستید");
+      window.location.replace("/");
     }
   };
   handleCommunity = async (event) => {
