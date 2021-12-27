@@ -6,6 +6,8 @@ import {
   Typography,
   ThemeProvider,
   Button,
+  CardHeader,
+  CardContent,
 } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import axios from "axios";
@@ -16,11 +18,27 @@ import React, { Component } from "react";
 // import { Link } from "react-router-dom";
 // import { ThemeProvider } from "styled-components";
 import picture from "../../assets/bookCover.jpg";
-import { makeURL } from "../../Utils/Common";
+import { getUser, makeURL } from "../../Utils/Common";
 import references from "../../assets/References.json";
-import { GetCommunityInfo, LoadBookData } from "../../Utils/Connection";
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
+import Carousel from "react-material-ui-carousel";
+import {
+  GetCommunityInfo,
+  GetMyCommunities,
+  GetRelatedBooks,
+  GetRelatedParagraphs,
+  LoadBookData,
+} from "../../Utils/Connection";
+import Book1 from "../Shop/Book1";
+import { useMediaQuery } from "@material-ui/core";
+import { withWidth } from "@material-ui/core";
+import PropTypes from "prop-types";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Skeleton from "@material-ui/lab/Skeleton";
+import Paragraph from "../Paragraph/Paragraph";
 
-class ShowBook extends React.Component {
+export class ShowBook extends React.Component {
   state = {
     bookImage: picture,
     bookName: "",
@@ -33,6 +51,14 @@ class ShowBook extends React.Component {
     communityInfo: "",
     bookPrice: 0,
     canEdit: false,
+    relatedBooks: [],
+    items: [],
+    width: this.props.width,
+    paragraphs: [],
+    hasmore: false,
+    start_off: 1,
+    end_off: 10,
+    communities: [],
   };
 
   async componentDidMount() {
@@ -44,12 +70,122 @@ class ShowBook extends React.Component {
     splitted.pop();
     await this.setState({ bookCommunity: splitted.pop() });
     await this.loadData(this.state.bookID);
-    console.log(this.state.bookCommunity);
+    await GetRelatedBooks(this.state.bookID).then((res) => {
+      this.setState({ relatedBooks: res.data.res });
+    });
+    this.setState({
+      relatedBooks: this.state.relatedBooks.filter((obj) => {
+        if (obj.id !== this.state.bookID) {
+          return true;
+        } else {
+          return false;
+        }
+      }),
+    });
+
+    let size = 12;
+    if (this.state.width == "xl") {
+      size = 3;
+    }
+    if (this.state.width == "lg") {
+      size = 3;
+    }
+    if (this.state.width == "md") {
+      size = 4;
+    }
+    if (this.state.width == "sm") {
+      size = 12;
+    }
+    console.log(size);
+    console.log(this.state.width);
+    let sliderItems =
+      this.state.relatedBooks.length > 12 / size
+        ? 12 / size
+        : this.state.relatedBooks.length;
+    let items = [];
+
+    for (let i = 0; i < this.state.relatedBooks.length; i += sliderItems) {
+      if (i % sliderItems === 0) {
+        items.push(
+          <Grid container spacing={0}>
+            {this.state.relatedBooks
+              .slice(i, i + sliderItems)
+              .map((item, index) => {
+                return (
+                  <Grid
+                    item
+                    lg={size}
+                    md={size}
+                    sm={size}
+                    style={{ margin: "auto" }}
+                  >
+                    <Book1
+                      key={index}
+                      id={item.id}
+                      name={item.name}
+                      genre={item.genre}
+                      author={item.author}
+                      price={item.price}
+                      modified_time={item.modified_time}
+                      reserved_time={item.reserved_time}
+                      description={item.description}
+                      seller_id={item.seller_id}
+                      community_id={item.community_id}
+                      community_name={item.community_name}
+                      image={item.image}
+                    />
+                  </Grid>
+                );
+              })}
+          </Grid>
+        );
+      }
+    }
+    this.setState({ items: items });
+    GetMyCommunities().then((res) => {
+      Array.isArray(res.data) &&
+        res.data.forEach((element) => {
+          this.state.communities.push(element.name);
+        });
+      this.setState({ communities: this.state.communities });
+    });
+    GetRelatedParagraphs(
+      this.state.bookID,
+      this.state.start_off,
+      this.state.end_off
+    ).then((res) => {
+      this.setState({
+        paragraphs: res.data.res,
+      });
+    });
+    if (this.state.paragraphs.length === 9) {
+      this.setState({ hasmore: true });
+    }
   }
+  fetchData = () => {
+    const d = new Date();
+    let arr = this.state.paragraphs;
+    this.setState({ end_off: this.state.end_off + 10 });
+    this.setState({ start_off: this.state.start_off + 10 });
+    GetRelatedParagraphs(
+      this.state.bookID,
+      this.state.start_off,
+      this.state.end_off
+    ).then((res) => {
+      res.data.res.forEach((value) => {
+        this.state.paragraphs.push(value);
+      });
+      this.setState({ paragraphs: this.state.paragraphs });
+    });
+    if (arr.length == this.state.paragraphs.length) {
+      this.setState({ hasmore: false });
+    } else {
+      this.setState({ hasmore: true });
+    }
+  };
 
   loadData = async (bookID) => {
     await LoadBookData(bookID).then((b) => {
-      console.log(b);
       this.setState({ bookName: b.book.name });
       this.setState({ bookAuthor: b.book.author });
       this.setState({ bookGenre: b.book.genre });
@@ -366,6 +502,143 @@ class ShowBook extends React.Component {
                 </Grid>
               </Card>
             </Grid>
+            <Grid item lg={12} md={12} xs={12}>
+              <Typography style={{ fontSize: 30 }}>محصولات مشابه</Typography>
+
+              {this.state.relatedBooks.length === 0 && (
+                <Typography
+                  style={{
+                    margin: "auto",
+                    textAlign: "center",
+                    fontSize: 20,
+                  }}
+                >
+                  متاسفانه محصولی موجود نیست !
+                </Typography>
+              )}
+
+              <Carousel
+                autoPlay
+                animation="slide"
+                PrevIcon={<NavigateNextIcon />}
+                NextIcon={<NavigateBeforeIcon />}
+              >
+                {this.state.items}
+              </Carousel>
+            </Grid>
+            <Grid item lg={12} md={12} xs={12}>
+              <Typography style={{ fontSize: 30 }}>
+                پاراگراف های مرتبط
+              </Typography>
+
+              <InfiniteScroll
+                dataLength={this.state.paragraphs.length}
+                next={this.fetchData}
+                hasMore={this.state.hasmore}
+                loader={
+                  <div style={{ textAlign: "center" }}>
+                    <Card className={this.props.classes.card}>
+                      <CardHeader
+                        avatar={
+                          <Skeleton
+                            animation="wave"
+                            variant="circle"
+                            width={40}
+                            height={40}
+                          />
+                        }
+                        action={null}
+                        title={
+                          <Skeleton
+                            animation="wave"
+                            height="1vh"
+                            width="40%"
+                            style={{ marginBottom: 6 }}
+                          />
+                        }
+                        subheader={
+                          <div>
+                            <Skeleton
+                              animation="wave"
+                              height="1vh"
+                              width="25%"
+                            />
+                          </div>
+                        }
+                      />
+
+                      {/* <Skeleton
+                  animation="wave"
+                  variant="rect"
+                  className={this.props.classes.media}
+                /> */}
+
+                      <CardContent>
+                        <React.Fragment>
+                          <Skeleton
+                            animation="wave"
+                            height="1vh"
+                            style={{ marginBottom: "0.5vh" }}
+                          />
+                          <Skeleton
+                            animation="wave"
+                            height="1vh"
+                            width="100%"
+                            style={{ marginBottom: "0.5vh" }}
+                          />
+                          <Skeleton
+                            animation="wave"
+                            height="1vh"
+                            width="80%"
+                            style={{ marginBottom: "0.5vh" }}
+                          />
+                        </React.Fragment>
+                      </CardContent>
+                    </Card>
+                    {/* <CircularProgress color="secondary" size="2rem" /> */}
+                  </div>
+                }
+                endMessage={
+                  <p style={{ textAlign: "center" }}>
+                    <b>متاسفانه تموم شد!</b>
+                  </p>
+                }
+              >
+                {this.state.paragraphs.map((element) => {
+                  console.log(element);
+                  // var isliked = false;
+                  // if (this.state.communities.includes(element.communityName))
+                  //   isLiked(element.communityName, element.id).then((res) => {
+                  //     isliked = res.message;
+                  //     console.log(isliked);
+                  //   });
+                  return (
+                    <Paragraph
+                      user={element.username}
+                      text={element.text}
+                      date={element.date}
+                      communityName={element.communityName}
+                      avatar={element.userAvatar}
+                      author={element.author}
+                      tags={element.tags.split(",")}
+                      canAction={true}
+                      isMine={element.username == getUser()}
+                      book={element.book}
+                      sendData={this.props.sendData}
+                      sendDataComment={this.props.sendDataComment}
+                      p_id={element.id}
+                      userID={element.user_id}
+                      likeCount={element.ima_count}
+                      commentCount={element.reply_count}
+                      // eslint-disable-next-line react/jsx-no-duplicate-props
+                      canAction={this.state.communities.includes(
+                        element.communityName
+                      )}
+                    />
+                  );
+                })}
+              </InfiniteScroll>
+            </Grid>
           </Grid>
         </div>
       </ThemeProvider>
@@ -373,4 +646,8 @@ class ShowBook extends React.Component {
   }
 }
 
-export default ShowBook;
+ShowBook.propTypes = {
+  width: PropTypes.oneOf(["lg", "md", "sm", "xl", "xs"]).isRequired,
+};
+
+export default withWidth()(ShowBook);

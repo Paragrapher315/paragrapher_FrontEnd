@@ -15,15 +15,19 @@ import {
   AppBar,
   Paper,
   CardHeader,
+  withWidth,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import NotificationsIcon from "@material-ui/icons/Notifications";
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import React, { Component } from "react";
 import { theme } from "./theme";
 import communityBgImage from "../assets/CommunityTestBg.png";
 import references from "../assets/References.json";
 import Paragraph from "./Paragraph/Paragraph";
+import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
+import PropTypes from "prop-types";
 import {
   JoinCommunity,
   EnableNotification,
@@ -36,6 +40,7 @@ import {
   AllBooks,
   CheckAdmin,
   GetCommunityMembersList,
+  GetRelatedCommunities,
 } from "../Utils/Connection";
 import { getUser } from "../Utils/Common";
 import Book from "./Shop/Book";
@@ -44,7 +49,10 @@ import Book1 from "./Shop/Book1";
 import Shop1 from "./Shop/Shop1";
 import { ParaCreate } from "./MainPage/MainPage";
 import CommunityUserManager from "./CommunityAdminPanel/CommunityUsersManager";
-class CommunityMainPage extends React.Component {
+import Carousel from "react-material-ui-carousel";
+import Community from "./CreateCommunity/Community";
+import { ChangeToPersian } from "./Profile/MyCommunityList";
+export class CommunityMainPage extends React.Component {
   state = {
     tabValue: 0,
     allParagraphs: [],
@@ -57,6 +65,10 @@ class CommunityMainPage extends React.Component {
     membersCount: 0,
     books: [],
     addbookLink: "",
+    items: [],
+    width: this.props.width,
+    relatedComms: [],
+    PrevIcon: NavigateBeforeIcon,
   };
   async componentDidMount() {
     var splitted = decodeURIComponent(window.location.toString()).split("/");
@@ -98,6 +110,66 @@ class CommunityMainPage extends React.Component {
       });
     }
     this.addbookLink = "/community/" + this.state.name + "/AddBook/";
+
+    await GetRelatedCommunities(this.state.name).then((res) => {
+      this.setState({ relatedComms: res.data.res });
+    });
+
+    let size = 12;
+    if (this.state.width == "xl") {
+      size = 3;
+    }
+    if (this.state.width == "lg") {
+      size = 3;
+    }
+    if (this.state.width == "md") {
+      size = 4;
+    }
+    if (this.state.width == "sm") {
+      size = 12;
+    }
+    console.log(size);
+    console.log(this.state.width);
+    let sliderItems =
+      this.state.relatedComms.length > 12 / size
+        ? 12 / size
+        : this.state.relatedComms.length;
+    let items = [];
+
+    for (let i = 0; i < this.state.relatedComms.length; i += sliderItems) {
+      if (i % sliderItems === 0) {
+        items.push(
+          <Grid container spacing={0}>
+            {this.state.relatedComms
+              .slice(i, i + sliderItems)
+              .map((item, index) => {
+                return (
+                  <Grid
+                    item
+                    lg={size}
+                    md={size}
+                    sm={size}
+                    style={{ margin: "auto" }}
+                  >
+                    <Community
+                      name={item.name}
+                      bio={item.description}
+                      numberOfmembers={item.member_count + " عضو"}
+                      img={item.avatar}
+                      date={
+                        ChangeToPersian(item.jalali_date.split(" ")[2]) +
+                        " " +
+                        item.jalali_date.split(" ")[3]
+                      }
+                    />
+                  </Grid>
+                );
+              })}
+          </Grid>
+        );
+      }
+    }
+    this.setState({ items: items });
   }
 
   render() {
@@ -248,6 +320,19 @@ class CommunityMainPage extends React.Component {
                   hidden={this.state.tabValue != 0}
                   style={{ minHeight: "54.5vh" }}
                 >
+                  <Card style={{ padding: "2vh", marginBottom: "2vh" }}>
+                    <Typography style={{ fontSize: 20 }}>
+                      اجتماع های مرتبط
+                    </Typography>
+                    <Carousel
+                      autoPlay
+                      animation="fade"
+                      PrevIcon={<NavigateNextIcon />}
+                      NextIcon={<NavigateBeforeIcon />}
+                    >
+                      {this.state.items}
+                    </Carousel>
+                  </Card>
                   <div>
                     {this.state.isJoined && (
                       <ParaCreate communityName={this.state.name} />
@@ -356,4 +441,8 @@ class CommunityMainPage extends React.Component {
   }
 }
 
-export default CommunityMainPage;
+CommunityMainPage.propTypes = {
+  width: PropTypes.oneOf(["lg", "md", "sm", "xl", "xs"]).isRequired,
+};
+
+export default withWidth()(CommunityMainPage);

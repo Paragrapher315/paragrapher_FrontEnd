@@ -125,7 +125,7 @@ function App(props) {
                 <AuthorSearch />
               </Route>
               <Route path="/SearchStore/:handle" exact={true}>
-                <StoreSearch/>
+                <StoreSearch />
               </Route>
               <Route path="/community/:handle/ShowBook/:handle" exact={true}>
                 <ShowBook theme={theme} classes={classes} />

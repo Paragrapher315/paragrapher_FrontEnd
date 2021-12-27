@@ -567,7 +567,7 @@ export const AddBookToShop = async (
     .then((response) => {
       console.log(response);
       bookID = response.data.res.id;
-      console.log("This is book id in add book function", response.data.res.id)
+      console.log("This is book id in add book function", response.data.res.id);
     })
     .catch((error) => {
       console.log(error);
@@ -943,9 +943,60 @@ export const DeleteCommunityMember = async (communityName, username) => {
 export const AddCreditToUser = async (amount) => {
   await axios
     .post(makeURL(references.url_add_credit), {
-      amount: amount
+      amount: amount,
     })
     .catch((error) => {
       console.log("error in adding credit");
+    });
+};
+export const GetRelatedBooks = async (book_id) => {
+  let message;
+  const address = "/store/book/" + book_id + "/related/book";
+  await axios
+    .get(makeURL(address))
+    .then((response) => {
+      console.log(response);
+      message = response;
     })
-}
+    .catch((error) => {
+      console.log(error);
+      window.alert(error);
+    });
+  return message;
+};
+export const GetRelatedParagraphs = async (book_id, start_off, end_off) => {
+  let message;
+  const address =
+    "/store/book/" +
+    book_id +
+    "/related/paragraph?start_off=" +
+    start_off +
+    "&end_off=" +
+    end_off;
+  await axios
+    .get(makeURL(address))
+    .then((response) => {
+      console.log(response);
+      message = response;
+    })
+    .catch((error) => {
+      console.log(error);
+      window.alert(error);
+    });
+  return message;
+};
+export const GetRelatedCommunities = async (CommunityName) => {
+  let message;
+  const address = "/community/" + CommunityName + "/search";
+  await axios
+    .get(makeURL(address))
+    .then((response) => {
+      console.log(response);
+      message = response;
+    })
+    .catch((error) => {
+      console.log(error);
+      window.alert(error);
+    });
+  return message;
+};
