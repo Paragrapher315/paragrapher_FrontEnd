@@ -65,7 +65,7 @@ class BuyCredit extends React.Component {
           .then((res) => {
             console.log(res);
             window.alert("افزایش اعتبار با موفقیت انجام شد");
-            window.location.replace("/profile");
+            window.location.replace("/PaymentApproved");
           })
           .catch((res) => {
             window.alert(res);
