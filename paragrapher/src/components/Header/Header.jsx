@@ -201,7 +201,16 @@ function Header(props) {
                     <NotificationsIcon />
                   </Badge>
                 </IconButton>
-
+                <Hidden xsDown>
+                  <IconButton
+                    onClick={() => {
+                      window.location.replace("/Cart");
+                    }}
+                    color="inherit"
+                  >
+                    <ShoppingCartIcon />
+                  </IconButton>
+                </Hidden>
                 <IconButton
                   edge="end"
                   onClick={handleProfileMenuOpen}
