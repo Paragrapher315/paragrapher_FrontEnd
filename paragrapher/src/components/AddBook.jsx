@@ -25,6 +25,7 @@ class AddBook extends React.Component {
   state = {
     showAddImageButton: false,
     bookImage: null,
+    bookImageURL: null,
     bookName: null,
     bookAuthor: null,
     bookGenre: null,
@@ -74,12 +75,14 @@ class AddBook extends React.Component {
         this.state.bookInfo,
         this.state.bookPrice
       ).then((res) => {
-        // console.log(res);
+        console.log(res);
         this.handleImageUpload(res).then(() => {
           window.location.replace(
             "/community/" + this.state.communityName + "/ShowBook/" + res
           );
         });
+        // console.log("this is image file", this.state.bookImage);
+        // console.log("this is res of book", res);
       });
     }
   }
@@ -96,16 +99,22 @@ class AddBook extends React.Component {
     if (e.target.files.length === 0) {
       return;
     }
-
-    const fileReader = new FileReader();
-    fileReader.onload = () => {
-      console.log(fileReader.result);
-      this.background.style.backgroundImage = `url(${fileReader.result})`;
-      fileReader.readAsDataURL(e.target.files[0]).then(() => {
-        this.setState({ bookImage: e.target.files[0] });
-      });
-    };
-    console.log(this.state.bookImage);
+    console.log("We are in file select handler", e.target.files);
+    this.setState({
+      bookImage: e.target.files[0],
+      bookImageURL: URL.createObjectURL(e.target.files[0]),
+    });
+    // const fileReader = new FileReader();
+    // fileReader.onload = (ev) => {
+    //   console.log("this is file reader result", fileReader.result);
+    //   // this.background.style.backgroundImage = `url(${fileReader.result})`;
+    //   console.log("File target is", e.target.file[0]);
+    //   fileReader.readAsDataURL(e.target.files[0]).then(() => {
+    //     this.setState({ bookImage: e.target.files[0] });
+    //     console.log("file image selected and state is set");
+    //   });
+    // };
+    // console.log(this.state.bookImage);
   };
   handleImageUpload = async (bookID) => {
     const data = new FormData();
@@ -118,8 +127,8 @@ class AddBook extends React.Component {
         <Card style={{ padding: "3vh 1vw", margin: "2vh 5vw" }}>
           <form>
             <Grid container>
-              <Grid item xs={12} lg={4} md={4}>
-                <div
+              <Grid item xs={12} lg={4} md={4} style={{ padding: "0 1vw" }}>
+                {/* <div
                   style={{
                     borderRadius: "15%",
                     backgroundColor: "gray",
@@ -160,7 +169,52 @@ class AddBook extends React.Component {
                       />
                     </div>
                   ) : null}
-                </div>
+                </div> */}
+                <Card
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    boxShadow: "0vh 0vw 5vh 1vh #396b74",
+                    // margin: "0 1vw",
+                  }}
+                  onMouseEnter={() =>
+                    this.setState({ showAddImageButton: true })
+                  }
+                  onMouseLeave={() =>
+                    this.setState({ showAddImageButton: false })
+                  }
+                >
+                  <Avatar
+                    varient="square"
+                    src={this.state.bookImageURL}
+                    style={{ height: "100%", width: "100%", borderRadius: "0" }}
+                  >
+                    {this.state.showAddImageButton ? (
+                      <div
+                        style={{
+                          position: "absolute",
+                          bottom: "45%",
+                          right: "45%",
+                          padding: "1vh 1vw",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => {
+                          this.fileInput.click();
+                        }}
+                      >
+                        <AddAPhotoIcon />
+                        <input
+                          type="file"
+                          onChange={this.HandleFileSelect}
+                          ref={(fi) => (this.fileInput = fi)}
+                          style={{ display: "none" }}
+                        />
+                      </div>
+                    ) : (
+                      "عکس"
+                    )}
+                  </Avatar>
+                </Card>
               </Grid>
               <Grid
                 item

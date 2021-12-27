@@ -12,7 +12,7 @@ import axios from "axios";
 import { makeURL } from "../../Utils/Common";
 import references from "../../assets/References";
 import { Addchart } from "@mui/icons-material";
-import { AddCreditToUser } from "../../Utils/Connection";
+import { AddCreditToUser, RefreshLogin } from "../../Utils/Connection";
 
 class BuyCredit extends React.Component {
   state = {
@@ -76,6 +76,11 @@ class BuyCredit extends React.Component {
     } else window.alert("مقدار وارد شده عدد نیست");
   };
 
+  componentDidMount() {
+    RefreshLogin().then(() => {
+      console.log("Login Refereshed");
+    });
+  }
   render() {
     return (
       <ThemeProvider theme={this.props.theme}>

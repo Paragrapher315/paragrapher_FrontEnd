@@ -558,6 +558,7 @@ export const AddBookToShop = async (
     .then((response) => {
       console.log(response);
       bookID = response.data.res.id;
+      console.log("This is book id in add book function", response.data.res.id)
     })
     .catch((error) => {
       console.log(error);

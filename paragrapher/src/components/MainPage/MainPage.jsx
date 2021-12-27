@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-import React, { Component, useState } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { Grid, Hidden, Card } from "@material-ui/core";
 import Paragraph from "../Paragraph/Paragraph";
 import { theme, useStyles } from "../theme";
@@ -22,6 +22,7 @@ import { useHistory } from "react-router-dom";
 import { CircularProgress } from "@material-ui/core";
 import { jssPreset, StylesProvider, ThemeProvider } from "@material-ui/styles";
 import { GetCommunities, ParagraphArray } from "../../Utils/Connection";
+import { RefreshLogin } from "../../Utils/Connection";
 function MainPage(props) {
   const classes = useStyles(theme);
   const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -38,6 +39,11 @@ function MainPage(props) {
   function getDataComment(val, val2) {
     props.sendDataComment(val, val2);
   }
+  useEffect(() => {
+    RefreshLogin().then(() => {
+      console.log("Login Refereshed");
+    });
+  });
   return (
     <div>
       <ThemeProvider theme={theme}>

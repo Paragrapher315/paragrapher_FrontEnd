@@ -48,6 +48,7 @@ import { Link } from "react-router-dom";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
 import JoindCommunityList from "./JoindCommunityList";
 import { EditBio, EditPass, EditDob, EditName } from "../../Utils/Connection";
+import { RefreshLogin } from "../../Utils/Connection";
 class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -74,6 +75,9 @@ class Profile extends React.Component {
   componentDidMount() {
     this.loadData();
     this.loadParagraphs();
+    RefreshLogin().then(() => {
+      console.log("Login Refereshed");
+    });
   }
 
   handleselectedFile = (event) => {
