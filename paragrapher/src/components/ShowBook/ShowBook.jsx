@@ -517,7 +517,12 @@ export class ShowBook extends React.Component {
                 </Typography>
               )}
 
-              <Carousel autoPlay animation="slide">
+              <Carousel
+                autoPlay
+                animation="slide"
+                PrevIcon={<NavigateNextIcon />}
+                NextIcon={<NavigateBeforeIcon />}
+              >
                 {this.state.items}
               </Carousel>
             </Grid>
