@@ -346,17 +346,19 @@ function Header(props) {
                 </Button>
               </Hidden>
             )}
-            <Hidden mdUp>
-              <Button
-                onClick={() => setAccountBoxTrigger(true)}
-                variant="contained"
-                color="secondary"
-                style={{ fontFamily: "BYekan" }}
-              >
-                {/* <AccountCircle /> */}
-                ورود/ثبت نام
-              </Button>
-            </Hidden>
+            {!isLoggedIn && (
+              <Hidden mdUp>
+                <Button
+                  onClick={() => setAccountBoxTrigger(true)}
+                  variant="contained"
+                  color="secondary"
+                  style={{ fontFamily: "BYekan" }}
+                >
+                  {/* <AccountCircle /> */}
+                  ورود/ثبت نام
+                </Button>
+              </Hidden>
+            )}
           </Toolbar>
 
           <PopupAccountBox
