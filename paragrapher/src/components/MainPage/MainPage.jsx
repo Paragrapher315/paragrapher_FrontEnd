@@ -27,6 +27,8 @@ import {
   GetHeaderProfile,
   GetMyCommunities,
   ParagraphArray,
+  RefreshLogin,
+  GetCommunities,
 } from "../../Utils/Connection";
 function MainPage(props) {
   const classes = useStyles(theme);
@@ -44,6 +46,11 @@ function MainPage(props) {
   function getDataComment(val, val2) {
     props.sendDataComment(val, val2);
   }
+  useEffect(() => {
+    RefreshLogin().then(() => {
+      console.log("Login Refereshed");
+    });
+  });
   return (
     <div>
       <ThemeProvider theme={theme}>

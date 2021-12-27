@@ -567,6 +567,7 @@ export const AddBookToShop = async (
     .then((response) => {
       console.log(response);
       bookID = response.data.res.id;
+      console.log("This is book id in add book function", response.data.res.id)
     })
     .catch((error) => {
       console.log(error);
@@ -938,3 +939,13 @@ export const DeleteCommunityMember = async (communityName, username) => {
       console.log(error);
     });
 };
+
+export const AddCreditToUser = async (amount) => {
+  await axios
+    .post(makeURL(references.url_add_credit), {
+      amount: amount
+    })
+    .catch((error) => {
+      console.log("error in adding credit");
+    })
+}

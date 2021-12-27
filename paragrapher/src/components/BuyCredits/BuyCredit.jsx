@@ -12,6 +12,7 @@ import axios from "axios";
 import { makeURL } from "../../Utils/Common";
 import references from "../../assets/References";
 import { Addchart } from "@mui/icons-material";
+import { AddCreditToUser, RefreshLogin } from "../../Utils/Connection";
 
 class BuyCredit extends React.Component {
   state = {
@@ -57,21 +58,29 @@ class BuyCredit extends React.Component {
   addCredit = async (amount) => {
     if (!isNaN(amount)) {
       let mon = parseInt(amount);
-      await axios
-        .post(makeURL(references.url_add_credit), {
-          amount: mon,
-        })
-        .then((res) => {
-          console.log(res);
-          window.alert("افزایش اعتبار با موفقیت انجام شد");
-          window.location.replace("/profile");
-        })
-        .catch((res) => {
-          window.alert(res);
-        });
+      let paymentStatus = true;
+      // payment here
+      if (paymentStatus) {
+        await AddCreditToUser(mon)
+          .then((res) => {
+            console.log(res);
+            window.alert("افزایش اعتبار با موفقیت انجام شد");
+            window.location.replace("/PaymentApproved");
+          })
+          .catch((res) => {
+            window.alert(res);
+          });
+      } else {
+        window.alert("a problem in payment");
+      }
     } else window.alert("مقدار وارد شده عدد نیست");
   };
 
+  componentDidMount() {
+    RefreshLogin().then(() => {
+      console.log("Login Refereshed");
+    });
+  }
   render() {
     return (
       <ThemeProvider theme={this.props.theme}>
@@ -153,7 +162,7 @@ class BuyCredit extends React.Component {
                       }}
                       id={10500}
                       onClick={this.handleAddCredit1}
-                      disabled
+                      // disabled
                     >
                       خرید
                     </Button>
@@ -236,7 +245,7 @@ class BuyCredit extends React.Component {
                       }}
                       id={23000}
                       onClick={this.handleAddCredit2}
-                      disabled
+                      // disabled
                     >
                       خرید
                     </Button>
@@ -320,7 +329,7 @@ class BuyCredit extends React.Component {
                       }}
                       id={60000}
                       onClick={this.handleAddCredit3}
-                      disabled
+                      // disabled
                     >
                       خرید
                     </Button>
@@ -353,7 +362,7 @@ class BuyCredit extends React.Component {
                     }}
                     id={404}
                     onClick={this.handleAddCredit4}
-                    disabled
+                    // disabled
                   >
                     انجام تراکنش
                   </Button>

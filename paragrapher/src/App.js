@@ -35,6 +35,7 @@ import Error404 from "./components/Error404";
 import Cart from "./components/Cart/Cart";
 import CommunityUserManager from "./components/CommunityAdminPanel/CommunityUsersManager";
 import StoreSearch from "./components/Search/StoreSearch";
+import PaymentApproved from "./components/PaymentApproved";
 // import NewProfile from './components/Profile/NewProfile';
 function App(props) {
   const [drawerAnchor] = useState(false);
@@ -146,6 +147,9 @@ function App(props) {
               </Route>
               <Route path="/Cart" exact={true}>
                 <Cart />
+              </Route>
+              <Route path="/PaymentApproved" exact={true}>
+                <PaymentApproved />
               </Route>
             </Switch>
           </div>

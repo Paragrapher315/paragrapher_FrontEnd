@@ -49,6 +49,7 @@ import MenuBookIcon from "@material-ui/icons/MenuBook";
 import JoindCommunityList from "./JoindCommunityList";
 import { EditBio, EditPass, EditDob, EditName } from "../../Utils/Connection";
 import { CardHeader } from "@material-ui/core";
+import { RefreshLogin } from "../../Utils/Connection";
 class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -77,6 +78,9 @@ class Profile extends React.Component {
     this.loadData();
     this.loadParagraphs();
     this.loadNotifications();
+    RefreshLogin().then(() => {
+      console.log("Login Refereshed");
+    });
   }
 
   loadNotifications = async () => {
@@ -603,7 +607,7 @@ class Profile extends React.Component {
                               }}
                               id="Dob"
                               type="date"
-                              value = {this.state.dob}
+                              value={this.state.dob}
                               // defaultValue="2017-05-24"
                               onChange={(e) =>
                                 this.setState({ dob: e.target.value })

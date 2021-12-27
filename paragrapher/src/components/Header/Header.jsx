@@ -58,6 +58,9 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import axios from "axios";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import StorefrontIcon from "@material-ui/icons/Storefront";
+import PeopleOutlineIcon from "@material-ui/icons/PeopleOutline";
 function Header(props) {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
@@ -136,7 +139,52 @@ function Header(props) {
               >
                 <List>
                   {isLoggedIn ? (
-                    <div></div>
+                    <div>
+                      <ListItem
+                        button
+                        onClick={() => {
+                          window.location.replace("/communities");
+                        }}
+                      >
+                        <ListItemIcon>
+                          <PeopleOutlineIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="همه کامیونیتی ها" />
+                      </ListItem>
+                      <ListItem
+                        button
+                        onClick={() => {
+                          window.location.replace("/books");
+                        }}
+                      >
+                        <ListItemIcon>
+                          <StorefrontIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="همه محصولات" />
+                      </ListItem>
+                      <ListItem
+                        button
+                        onClick={() => {
+                          window.location.replace("/BuyCredits");
+                        }}
+                      >
+                        <ListItemIcon>
+                          <MonetizationOnIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="افزایش اعتبار" />
+                      </ListItem>
+                      <ListItem
+                        button
+                        onClick={() => {
+                          window.location.replace("/Cart");
+                        }}
+                      >
+                        <ListItemIcon>
+                          <ShoppingCartIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="سبد خرید" />
+                      </ListItem>
+                    </div>
                   ) : (
                     <div>
                       <ListItem button>
@@ -177,10 +225,6 @@ function Header(props) {
 
             {isLoggedIn ? (
               <div className={classes.icons}>
-                <IconButton color="inherit" onClick={goToBuyCredits}>
-                  <MonetizationOnIcon />
-                </IconButton>
-
                 <IconButton
                   color="inherit"
                   ref={anchorRef}
@@ -237,6 +281,26 @@ function Header(props) {
                   )}
                 </Popper>
 
+                <Hidden xsDown>
+                  <IconButton color="inherit" onClick={goToBuyCredits}>
+                    <MonetizationOnIcon />
+                  </IconButton>
+                </Hidden>
+                <IconButton color="inherit" disabled>
+                  <Badge badgeContent={0} color="secondary">
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
+                <Hidden xsDown>
+                  <IconButton
+                    onClick={() => {
+                      window.location.replace("/Cart");
+                    }}
+                    color="inherit"
+                  >
+                    <ShoppingCartIcon />
+                  </IconButton>
+                </Hidden>
                 <IconButton
                   edge="end"
                   onClick={handleProfileMenuOpen}
