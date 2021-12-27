@@ -408,12 +408,12 @@ export class ParaCreate extends React.Component {
         <Card>
           <CardContent>
             <Grid container>
-              <Grid item lg={1} md={1}>
+              <Grid item lg={1} md={1} xs={3}>
                 <Avatar src={references.url_address + this.state.avatar}>
                   {this.state.username[0]}
                 </Avatar>
               </Grid>
-              <Grid item lg={10} md={10} style={{ paddingRight: "1vw" }}>
+              <Grid item lg={10} md={10} xs={7} style={{ paddingRight: "1vw" }}>
                 <TextField
                   variant="filled"
                   label="گراف کنید"
@@ -429,7 +429,7 @@ export class ParaCreate extends React.Component {
                   onClick={this.setCreatePara}
                 ></TextField>
               </Grid>
-              <Grid item lg={1} md={1}>
+              <Grid item lg={1} md={1} xs={2}>
                 <IconButton
                   variant="outlined"
                   color="secondary"
