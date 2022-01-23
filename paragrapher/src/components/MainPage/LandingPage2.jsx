@@ -43,6 +43,7 @@ function LandingPage2() {
         <PopupAccountBox
           trigger={accountBoxTrigger}
           setTrigger={setAccountBoxTrigger}
+          tt="Register"
         />
         <div style={{ padding: "5vh 5vw" }}>
           <Grid container>

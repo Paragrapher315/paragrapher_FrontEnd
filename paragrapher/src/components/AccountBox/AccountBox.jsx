@@ -67,7 +67,7 @@ export function AccountBox(props) {
   const [isExpanded, setExpanded] = useState(false);
   const [isExpanded2, setExpanded2] = useState(false);
   const [isExpanded3, setExpanded3] = useState(false);
-  const [active, setActive] = useState("Login");
+  const [active, setActive] = useState(props.type);
   const playExpandingAnimation = () => {
     setExpanded(true);
     setExpanded3(true);

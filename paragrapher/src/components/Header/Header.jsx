@@ -365,6 +365,7 @@ function Header(props) {
           <PopupAccountBox
             trigger={accountBoxTrigger}
             setTrigger={setAccountBoxTrigger}
+            tt="Login"
           />
         </AppBar>
       </Box>

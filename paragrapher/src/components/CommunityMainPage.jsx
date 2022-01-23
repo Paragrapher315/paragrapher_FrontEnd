@@ -40,9 +40,10 @@ import {
   BestCommunityParagraphs,
   GetCommunityParagraphs,
   AllBooks,
+  GetRelatedCommunities,
   CheckAdmin,
   GetCommunityMembersList,
-  GetRelatedCommunities,
+  DeleteCommunityMember,
 } from "../Utils/Connection";
 import { getUser } from "../Utils/Common";
 import Book from "./Shop/Book";
@@ -70,6 +71,8 @@ export class CommunityMainPage extends React.Component {
     items: [],
     width: this.props.width,
     relatedComms: [],
+    membersList: [],
+    isAdmin: false,
     PrevIcon: NavigateBeforeIcon,
   };
   async componentDidMount() {
@@ -181,6 +184,17 @@ export class CommunityMainPage extends React.Component {
       }
     }
     this.setState({ items: items });
+
+    await GetCommunityMembersList(communityName).then((mems) => {
+      mems.forEach((m) => {
+        this.state.membersList.push(m);
+        console.log(m);
+      });
+      this.setState({ membersList: this.state.membersList });
+    });
+    await CheckAdmin(communityName).then((resp) => {
+      this.setState({ isAdmin: resp });
+    });
   }
 
   setCreatePara = () => {
@@ -462,7 +476,74 @@ export class CommunityMainPage extends React.Component {
                 >
                   <Card>
                     <CardContent>
-                      {this.state.isJoined && <CommunityUserManager />}
+                      {this.state.isJoined && (
+                        <div>
+                          <Grid
+                            container
+                            spacing={2}
+                            style={{ padding: "2vh 1vw" }}
+                          >
+                            {this.state.membersList.length >= 1 &&
+                              this.state.membersList.map((member) => {
+                                return (
+                                  <Grid item lg={4} md={6} xs={12}>
+                                    <Card>
+                                      <CardHeader
+                                        avatar={
+                                          <Avatar
+                                            src={
+                                              references.url_address +
+                                              member.avatar
+                                            }
+                                          >
+                                            <Typography>
+                                              {member.username[0]}
+                                            </Typography>
+                                          </Avatar>
+                                        }
+                                        action={
+                                          <div>
+                                            <Button
+                                              style={{ marginTop: "1.4vh" }}
+                                              onClick={() => {
+                                                window.location.replace(
+                                                  "/Users/" + member.username
+                                                ); // might need a change in the address
+                                              }}
+                                            >
+                                              پروفایل
+                                            </Button>
+                                            {this.state.isAdmin &&
+                                              getUser() !== member.username && (
+                                                <Button
+                                                  style={{ marginTop: "1.4vh" }}
+                                                  onClick={() =>
+                                                    this.handleMemberDelete(
+                                                      member
+                                                    )
+                                                  }
+                                                >
+                                                  حذف
+                                                </Button>
+                                              )}
+                                          </div>
+                                        }
+                                        title={
+                                          <Typography
+                                            style={{ marginRight: "0.6vw" }}
+                                          >
+                                            {member.username}
+                                          </Typography>
+                                        }
+                                      />
+                                      {/* <CardContent>"salam"</CardContent> */}
+                                    </Card>
+                                  </Grid>
+                                );
+                              })}
+                          </Grid>
+                        </div>
+                      )}
                     </CardContent>
                   </Card>
                 </Box>

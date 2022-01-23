@@ -27,7 +27,7 @@ function PopupAccountBox(props) {
         }}
       >
         <Fade in={props.trigger}>
-          <AccountBox setInnerTrigger={props.setTrigger} />
+          <AccountBox setInnerTrigger={props.setTrigger} type={props.tt} />
         </Fade>
       </Modal>
     </div>
