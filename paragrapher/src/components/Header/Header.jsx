@@ -207,10 +207,11 @@ function Header(props) {
             </Typography>
             {isLoggedIn ? (
               <div className={classes.searchBar}>
-              <Search></Search>
-            </div>):(<div></div>)
-            }
-            
+                <Search></Search>
+              </div>
+            ) : (
+              <div></div>
+            )}
 
             <div className={classes.grow} />
 
@@ -366,6 +367,7 @@ function Header(props) {
           <PopupAccountBox
             trigger={accountBoxTrigger}
             setTrigger={setAccountBoxTrigger}
+            tt="Login"
           />
         </AppBar>
       </Box>
