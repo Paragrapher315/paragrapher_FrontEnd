@@ -12,8 +12,8 @@ import { useStyles, theme } from "../theme";
 import { ThemeProvider } from "@material-ui/styles";
 import { useState } from "react";
 import TypeWriter from "./TypeWriter";
-import wmImage from "../../assets/woman.png";
-import peopleImage from "../../assets/people.png";
+import wmImage from "../../assets/LandingPic1.png";
+import peopleImage from "../../assets/LandingPic2.png";
 import PopupAccountBox from "../AccountBox/PopupAccountBox";
 
 function LandingPage2() {

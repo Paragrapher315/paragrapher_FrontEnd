@@ -107,7 +107,7 @@ function App(props) {
                 <ParagraphCommentor classes={classes} />
               </Route>
               <Route path="/community/:handle" exact={true}>
-                <CommunityMainPage />
+                <CommunityMainPage classes={classes} />
               </Route>
               <Route path="/CreateCommunity" exact={true}>
                 <CreateCommunity />

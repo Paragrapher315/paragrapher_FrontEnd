@@ -205,10 +205,11 @@ function Header(props) {
                 پاراگرافر
               </Link>
             </Typography>
-
-            <div className={classes.searchBar}>
-              <Search></Search>
-            </div>
+            {isLoggedIn && (
+              <div className={classes.searchBar}>
+                <Search></Search>
+              </div>
+            )}
 
             <div className={classes.grow} />
 

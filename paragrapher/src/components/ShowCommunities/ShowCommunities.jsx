@@ -227,7 +227,7 @@ class ShowCommunities extends React.Component {
                     }}
                     min={this.state.minValue}
                     max={this.state.maxValue}
-                    step={1000}
+                    step={1}
                   />
                 </div>
               </Card>

@@ -17,7 +17,7 @@ import axios from "axios";
 import React, { Component } from "react";
 // import { Link } from "react-router-dom";
 // import { ThemeProvider } from "styled-components";
-import picture from "../../assets/bookCover.jpg";
+import picture from "../../assets/bookCover.png";
 import { getUser, makeURL } from "../../Utils/Common";
 import references from "../../assets/References.json";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
@@ -56,7 +56,7 @@ export class ShowBook extends React.Component {
     width: this.props.width,
     paragraphs: [],
     hasmore: false,
-    start_off: 1,
+    start_off: 0,
     end_off: 10,
     communities: [],
   };
@@ -253,7 +253,6 @@ export class ShowBook extends React.Component {
                       style={{
                         width: "100%",
                         maxHeight: "80vh",
-                        boxShadow: "0vh 0vw 5vh 1vh #396b74",
                       }}
                     >
                       {/* <div
@@ -614,16 +613,16 @@ export class ShowBook extends React.Component {
                   //   });
                   return (
                     <Paragraph
-                      user={element.username}
-                      text={element.text}
+                      user={element.user_name}
+                      text={element.p_text}
                       date={element.date}
-                      communityName={element.communityName}
-                      avatar={element.userAvatar}
+                      communityName={element.community_name}
+                      avatar={element.avatar}
                       author={element.author}
                       tags={element.tags.split(",")}
                       canAction={true}
                       isMine={element.username == getUser()}
-                      book={element.book}
+                      book={element.ref_book}
                       sendData={this.props.sendData}
                       sendDataComment={this.props.sendDataComment}
                       p_id={element.id}

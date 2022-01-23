@@ -25,6 +25,8 @@ import React, { Component } from "react";
 import { theme } from "./theme";
 import communityBgImage from "../assets/CommunityTestBg.png";
 import references from "../assets/References.json";
+import { Fab } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
 import Paragraph from "./Paragraph/Paragraph";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import PropTypes from "prop-types";
@@ -181,6 +183,10 @@ export class CommunityMainPage extends React.Component {
     this.setState({ items: items });
   }
 
+  setCreatePara = () => {
+    window.location.replace("/paragraph/create/" + this.state.name);
+  };
+
   render() {
     return (
       <ThemeProvider theme={theme}>
@@ -325,9 +331,9 @@ export class CommunityMainPage extends React.Component {
                   </Tabs>
                 </Paper>
                 <Box
-                  p={3}
+                  p={0}
                   hidden={this.state.tabValue != 0}
-                  style={{ minHeight: "54.5vh" }}
+                  style={{ minHeight: "54.5vh", paddingTop: "2vh" }}
                 >
                   <Card style={{ padding: "2vh", marginBottom: "2vh" }}>
                     <Typography style={{ fontSize: 20 }}>
@@ -344,7 +350,26 @@ export class CommunityMainPage extends React.Component {
                   </Card>
                   <div>
                     {this.state.isJoined && (
-                      <ParaCreate communityName={this.state.name} />
+                      <div>
+                        <Hidden xsDown>
+                          <ParaCreate communityName={this.state.name} />
+                        </Hidden>
+                        <Hidden mdUp>
+                          <Fab
+                            variant="extended"
+                            color="primary"
+                            className={this.props.classes.extendedIcon}
+                            onClick={this.setCreatePara}
+                          >
+                            <AddIcon />
+                            <Typography
+                              className={this.props.classes.typography}
+                            >
+                              گراف کنید
+                            </Typography>
+                          </Fab>
+                        </Hidden>
+                      </div>
                     )}
                     {this.state.bestParagraphs.map((bp) => (
                       <Paragraph
@@ -367,9 +392,9 @@ export class CommunityMainPage extends React.Component {
                   </div>
                 </Box>
                 <Box
-                  p={3}
+                  p={0}
                   hidden={this.state.tabValue != 1}
-                  style={{ minHeight: "54.5vh" }}
+                  style={{ minHeight: "54.5vh", paddingTop: "2vh" }}
                 >
                   <div>
                     {this.state.isJoined && (
@@ -396,9 +421,9 @@ export class CommunityMainPage extends React.Component {
                   </div>
                 </Box>
                 <Box
-                  p={3}
+                  p={0}
                   hidden={this.state.tabValue != 2}
-                  style={{ minHeight: "54.5vh" }}
+                  style={{ minHeight: "54.5vh", paddingTop: "2vh" }}
                 >
                   <Grid item xs={12}>
                     <Link to={this.addbookLink}>
@@ -416,9 +441,9 @@ export class CommunityMainPage extends React.Component {
                   </Grid>
                 </Box>
                 <Box
-                  p={3}
+                  p={0}
                   hidden={this.state.tabValue != 3}
-                  style={{ minHeight: "54.5vh" }}
+                  style={{ minHeight: "54.5vh", paddingTop: "2vh" }}
                 >
                   <Grid item xs={12}>
                     <Card>
@@ -431,9 +456,9 @@ export class CommunityMainPage extends React.Component {
                   </Grid>
                 </Box>
                 <Box
-                  p={3}
+                  p={0}
                   hidden={this.state.tabValue != 4}
-                  style={{ minHeight: "54.5vh" }}
+                  style={{ minHeight: "54.5vh", paddingTop: "2vh" }}
                 >
                   <Card>
                     <CardContent>
