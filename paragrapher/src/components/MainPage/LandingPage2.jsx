@@ -15,6 +15,9 @@ import TypeWriter from "./TypeWriter";
 import wmImage from "../../assets/LandingPic1.png";
 import peopleImage from "../../assets/LandingPic2.png";
 import PopupAccountBox from "../AccountBox/PopupAccountBox";
+import { useEffect } from "react";
+import axios from "axios";
+import { GetParagraphs } from "../../Utils/Connection";
 
 function LandingPage2() {
   const classes = useStyles(theme);
@@ -24,6 +27,15 @@ function LandingPage2() {
     "برای به اشتراک گذاشتن مطالعه شما",
     "امن برای کتابخوانی",
   ];
+  let paragraphss;
+
+  useEffect(() => {
+    GetParagraphs(new Date(), 0, 2).then((e) => {
+      paragraphss = e.data.res;
+      if (paragraphs.length == 0) {
+      }
+    });
+  });
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
   const text = "مکانی ";
   Aos.init({ duration: 600 });

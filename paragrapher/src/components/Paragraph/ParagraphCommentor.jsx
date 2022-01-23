@@ -420,11 +420,6 @@ export class CommentsList extends Component {
               <CircularProgress color="secondary" size="2rem" />
             </div>
           }
-          endMessage={
-            <p style={{ textAlign: "center" }}>
-              <b>متاسفانه تموم شد!</b>
-            </p>
-          }
         >
           {Array.isArray(this.state.comments) &&
             this.state.comments.map((element) => {

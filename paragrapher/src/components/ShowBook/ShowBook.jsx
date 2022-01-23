@@ -502,18 +502,17 @@ export class ShowBook extends React.Component {
               </Card>
             </Grid>
             <Grid item lg={12} md={12} xs={12}>
-              <Typography style={{ fontSize: 30 }}>محصولات مشابه</Typography>
-
-              {this.state.relatedBooks.length === 0 && (
-                <Typography
-                  style={{
-                    margin: "auto",
-                    textAlign: "center",
-                    fontSize: 20,
-                  }}
-                >
-                  متاسفانه محصولی موجود نیست !
-                </Typography>
+              {this.state.relatedBooks.length >= 1 && (
+                // <Typography
+                //   style={{
+                //     margin: "auto",
+                //     textAlign: "center",
+                //     fontSize: 20,
+                //   }}
+                // >
+                //   متاسفانه محصولی موجود نیست !
+                // </Typography>
+                <Typography style={{ fontSize: 30 }}>محصولات مشابه</Typography>
               )}
 
               <Carousel
@@ -526,9 +525,11 @@ export class ShowBook extends React.Component {
               </Carousel>
             </Grid>
             <Grid item lg={12} md={12} xs={12}>
-              <Typography style={{ fontSize: 30 }}>
-                پاراگراف های مرتبط
-              </Typography>
+              {this.state.paragraphs.length >= 1 && (
+                <Typography style={{ fontSize: 30, paddingBottom: "2vh" }}>
+                  پاراگراف های مرتبط
+                </Typography>
+              )}
 
               <InfiniteScroll
                 dataLength={this.state.paragraphs.length}
@@ -596,11 +597,6 @@ export class ShowBook extends React.Component {
                     </Card>
                     {/* <CircularProgress color="secondary" size="2rem" /> */}
                   </div>
-                }
-                endMessage={
-                  <p style={{ textAlign: "center" }}>
-                    <b>متاسفانه تموم شد!</b>
-                  </p>
                 }
               >
                 {this.state.paragraphs.map((element) => {

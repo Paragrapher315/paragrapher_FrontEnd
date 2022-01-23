@@ -349,19 +349,6 @@ export class CommunityMainPage extends React.Component {
                   hidden={this.state.tabValue != 0}
                   style={{ minHeight: "54.5vh", paddingTop: "2vh" }}
                 >
-                  <Card style={{ padding: "2vh", marginBottom: "2vh" }}>
-                    <Typography style={{ fontSize: 20 }}>
-                      اجتماع های مرتبط
-                    </Typography>
-                    <Carousel
-                      autoPlay
-                      animation="fade"
-                      PrevIcon={<NavigateNextIcon />}
-                      NextIcon={<NavigateBeforeIcon />}
-                    >
-                      {this.state.items}
-                    </Carousel>
-                  </Card>
                   <div>
                     {this.state.isJoined && (
                       <div>
@@ -466,6 +453,19 @@ export class CommunityMainPage extends React.Component {
                           {this.state.bio}
                         </Typography>
                       </CardContent>
+                    </Card>
+                    <Card style={{ padding: "2vh", marginTop: "2vh" }}>
+                      <Typography style={{ fontSize: 20 }}>
+                        اجتماع های مرتبط
+                      </Typography>
+                      <Carousel
+                        autoPlay
+                        animation="fade"
+                        PrevIcon={<NavigateNextIcon />}
+                        NextIcon={<NavigateBeforeIcon />}
+                      >
+                        {this.state.items}
+                      </Carousel>
                     </Card>
                   </Grid>
                 </Box>

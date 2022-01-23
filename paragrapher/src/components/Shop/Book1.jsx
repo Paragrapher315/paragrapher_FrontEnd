@@ -80,10 +80,13 @@ class Book1 extends React.Component {
 
         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
           <div class="text-center">
-          <button class="btn btn-outline-secondary mt-auto" onClick={()=>ReserveBook(this.state.id)}>
+            <button
+              class="btn btn-outline-secondary mt-auto"
+              onClick={() => ReserveBook(this.state.id)}
+            >
               {" "}
               افزودن به سبد <i class="bi bi-cart-plus"></i>
-              </button>
+            </button>
           </div>
         </div>
       </div>
