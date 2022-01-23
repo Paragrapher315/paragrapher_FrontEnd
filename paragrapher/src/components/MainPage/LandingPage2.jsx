@@ -22,7 +22,7 @@ import h from "../../assets/h.png";
 import k from "../../assets/k.png";
 import s from "../../assets/s.png";
 import sh from "../../assets/sh.jpg";
-import c from "../../assets/c.jpg";
+import c from "../../assets/c.png";
 import hm from "../../assets/hm.png";
 import a from "../../assets/a.png";
 
