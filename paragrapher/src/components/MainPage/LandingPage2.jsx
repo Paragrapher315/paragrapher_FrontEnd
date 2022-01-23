@@ -18,13 +18,13 @@ import PopupAccountBox from "../AccountBox/PopupAccountBox";
 import { useEffect } from "react";
 import axios from "axios";
 import { GetParagraphs } from "../../Utils/Connection";
-import h from "../../assets/h.png"
-import k from "../../assets/k.png"
-import s from "../../assets/s.png"
-import sh from "../../assets/sh.jpg"
-import c from "../../assets/c.jpg"
-import hm from "../../assets/hm.png"
-import a from "../../assets/a.png"
+import h from "../../assets/h.png";
+import k from "../../assets/k.png";
+import s from "../../assets/s.png";
+import sh from "../../assets/sh.jpg";
+import c from "../../assets/c.jpg";
+import hm from "../../assets/hm.png";
+import a from "../../assets/a.png";
 
 function LandingPage2() {
   const classes = useStyles(theme);
@@ -310,101 +310,131 @@ function LandingPage2() {
       <div className="container">
         <br></br>
         <div className="row">
-          <div className="col12 d-flex justify-content-center h3">ساخته شده توسط:</div>
+          <div className="col12 d-flex justify-content-center h3">
+            ساخته شده توسط:
+          </div>
           <div>
             <br></br>
             <br></br>
           </div>
         </div>
-
       </div>
       <div className="container">
         <div className="row d-flex justify-content-center">
           <div className="col-12 col-sm-4 col-md-4 col-lg-2 col-xl-2 ">
             <div className="row">
               <div className="col-12 ">
-                <img src={hm} class="rounded-circle" style={{height:"150px", width:"150px"}}/>
-                </div>
-              <div className="col-12 d-flex justify-content-center">
-                  صدرا حیدری مقدم
+                <img
+                  src={hm}
+                  class="rounded-circle"
+                  style={{ height: "150px", width: "150px" }}
+                />
               </div>
-            <p></p>  
+              <div className="col-12 d-flex justify-content-center">
+                صدرا حیدری مقدم
+              </div>
+              <p></p>
             </div>
           </div>
           <div className="col-12 col-sm-4 col-md-4 col-lg-2 col-xl-2 ">
             <div className="row">
               <div className="col-12 ">
-                <img src={a} class="rounded-circle" style={{height:"150px", width:"150px"}}/>
-                </div>
-              <div className="col-12 d-flex justify-content-center">
-                  یاسین عسکریان
+                <img
+                  src={a}
+                  class="rounded-circle"
+                  style={{ height: "150px", width: "150px" }}
+                />
               </div>
-            <p></p>  
+              <div className="col-12 d-flex justify-content-center">
+                یاسین عسکریان
+              </div>
+              <p></p>
             </div>
           </div>
         </div>
         <div className="row d-flex justify-content-center">
-
           <div className="col-12 col-sm-4 col-md-4 col-lg-2 col-xl-2 ">
             <div className="row">
               <div className="col-12 ">
-                <img src={c} class="rounded-circle" style={{height:"150px", width:"150px"}}/>
-                </div>
-              <div className="col-12 d-flex justify-content-center">
-                  امیررضا کربنی
+                <img
+                  src={c}
+                  class="rounded-circle"
+                  style={{ height: "150px", width: "150px" }}
+                />
               </div>
-            <p></p>  
+              <div className="col-12 d-flex justify-content-center">
+                امیررضا کربنی
+              </div>
+              <p></p>
             </div>
           </div>
           <div className="col-12 col-sm-4 col-md-4 col-lg-2 col-xl-2">
             <div className="row">
               <div className="col-12 ">
-                <img src={k} class="rounded-circle" style={{height:"150px", width:"150px"}}/>
-                </div>
-              <div className="col-12 d-flex justify-content-center">
-              نیما کمبرانی
+                <img
+                  src={k}
+                  class="rounded-circle"
+                  style={{ height: "150px", width: "150px" }}
+                />
               </div>
-            <p></p>  
+              <div className="col-12 d-flex justify-content-center">
+                نیما کمبرانی
+              </div>
+              <p></p>
             </div>
           </div>
           <div className="col-12 col-sm-4 col-md-4 col-lg-2 col-xl-2 ">
             <div className="row">
               <div className="col-12 ">
-                <img src={h} class="rounded-circle" style={{height:"150px", width:"150px"}}/>
-                </div>
-              <div className="col-12 d-flex justify-content-center">
-                  هدیه اسحقی
+                <img
+                  src={h}
+                  class="rounded-circle"
+                  style={{ height: "150px", width: "150px" }}
+                />
               </div>
-            <p></p>  
+              <div className="col-12 d-flex justify-content-center">
+                هدیه اسحقی
+              </div>
+              <p></p>
             </div>
           </div>
           <div className="col-12 col-sm-4 col-md-4 col-lg-2 col-xl-2">
             <div className="row">
               <div className="col-12 ">
-                <img src={sh} class="rounded-circle" style={{height:"150px", width:"150px"}}/>
-                </div>
-              <div className="col-12 d-flex justify-content-center">
-                  کیاکسار شیروانی مقدم
+                <img
+                  src={sh}
+                  class="rounded-circle"
+                  style={{ height: "150px", width: "150px" }}
+                />
               </div>
-            <p></p>  
+              <div className="col-12 d-flex justify-content-center">
+                کیاکسار شیروانی مقدم
+              </div>
+              <p></p>
             </div>
           </div>
           <div className="col-12 col-sm-4 col-md-4 col-lg-2 col-xl-2 ">
             <div className="row">
               <div className="col-12 ">
-                <img src={s} class="rounded-circle" style={{height:"150px", width:"150px"}}/>
-                </div>
-              <div className="col-12 d-flex justify-content-center">
-                  اردا صمدی
+                <img
+                  src={s}
+                  class="rounded-circle"
+                  style={{ height: "150px", width: "150px" }}
+                />
               </div>
-            <p></p>  
+              <div className="col-12 d-flex justify-content-center">
+                اردا صمدی
+              </div>
+              <p></p>
             </div>
           </div>
-
-
         </div>
-        <div><br></br></div>
-        <div><br></br></div>
+        <div>
+          <br></br>
+        </div>
+        <div>
+          <br></br>
+        </div>
       </div>
     </ThemeProvider>
   );
