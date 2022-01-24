@@ -106,7 +106,7 @@ class EditBook extends React.Component {
   }
 
   async componentDidMount() {
-    var splitted = window.location.toString().split("/");
+    var splitted = decodeURIComponent(window.location.toString()).split("/");
     await this.setState({ bookID: splitted.pop() });
     splitted.pop();
     await this.setState({ communityName: splitted.pop() });

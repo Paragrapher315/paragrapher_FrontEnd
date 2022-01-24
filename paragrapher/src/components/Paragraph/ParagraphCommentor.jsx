@@ -60,7 +60,7 @@ class ParagraphCommentor extends React.Component {
     // this.props.history.
     // console.log("this is a mother fucker", window.location.toString());
 
-    var splitted = window.location.toString().split("/");
+    var splitted = decodeURIComponent(window.location.toString()).split("/");
     if (splitted[splitted.length - 1] === "") {
       splitted.pop();
     }
@@ -364,7 +364,7 @@ export class CommentsList extends Component {
     this.props.sendData(params[0], params[1]);
   };
   componentDidMount = async () => {
-    var splitted = window.location.toString().split("/");
+    var splitted = decodeURIComponent(window.location.toString()).split("/");
     if (splitted[splitted.length - 1] === "") {
       splitted.pop();
     }

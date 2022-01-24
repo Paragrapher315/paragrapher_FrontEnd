@@ -68,7 +68,7 @@ class ProfileEditor extends React.Component {
       });
       this.setState({ communityNames: this.state.communityNames });
     });
-    var splitted = window.location.toString().split("/");
+    var splitted = decodeURIComponent(window.location.toString()).split("/");
     if (splitted[splitted.length - 1] === "") {
       splitted.pop();
     }

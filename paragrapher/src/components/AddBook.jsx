@@ -92,7 +92,7 @@ class AddBook extends React.Component {
     }
   }
   async componentDidMount() {
-    var splitted = window.location.toString().split("/");
+    var splitted = decodeURIComponent(window.location.toString()).split("/");
     // console.log(splitted.pop());
     while (splitted.pop() !== "AddBook") {
       console.log("Not yet");

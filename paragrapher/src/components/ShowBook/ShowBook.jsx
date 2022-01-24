@@ -62,7 +62,7 @@ export class ShowBook extends React.Component {
   };
 
   async componentDidMount() {
-    var splitted = window.location.toString().split("/");
+    var splitted = decodeURIComponent(window.location.toString()).split("/");
     if (splitted[splitted.length - 1] === "") {
       splitted.pop();
     }
