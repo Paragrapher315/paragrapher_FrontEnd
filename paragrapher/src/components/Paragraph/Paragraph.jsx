@@ -82,9 +82,14 @@ function Paragraph(props) {
   function handleDelete() {
     DeleteParagraph(props.communityName, props.p_id.toString());
   }
-  const persianDate = new Date(props.date.replace("-", "/")).toLocaleString(
-    "fa-IR"
-  );
+  let persianDate;
+  if (props.date == "null") {
+    persianDate = "";
+  } else {
+    persianDate = new Date(props.date.replace("-", "/")).toLocaleString(
+      "fa-IR"
+    );
+  }
   function easyLikeCount() {
     let easyCount;
     let easyString;
