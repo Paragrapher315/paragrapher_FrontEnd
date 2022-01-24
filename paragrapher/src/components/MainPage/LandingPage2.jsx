@@ -37,12 +37,16 @@ function LandingPage2() {
   let paragraphss = [];
 
   useEffect(() => {
-    GetParagraphs(new Date(), 0, 2).then((e) => {
-      paragraphss = e.data.res;
-      console.log("This is paragraphss", paragraphss);
-      // if (paragraphs.length == 0) {
-      // }
-    });
+    GetParagraphs(new Date(), 0, 2)
+      .then((e) => {
+        paragraphss = e.data.res;
+        console.log("This is paragraphss", paragraphss);
+        // if (paragraphs.length == 0) {
+        // }
+      })
+      .catch((err) => {
+        console.log("error in paragraphsss", err);
+      });
   });
   const [accountBoxTrigger, setAccountBoxTrigger] = useState(false);
   const text = "مکانی ";
