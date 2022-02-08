@@ -47,9 +47,9 @@ class BuyCredit extends React.Component {
   };
   handleAddCredit4 = () => {
     if (this.state.moneyAmount < 1000) {
-      window.alert("حداقل مقدار شارژ برابر 1000 تومان است");
+      // window.alert("حداقل مقدار شارژ برابر 1000 تومان است");
     } else if (this.state.moneyAmount % 1000 !== 0) {
-      window.alert("مقدار شارژ باید بر 1000 تومان بخشپذیر باشد");
+      // window.alert("مقدار شارژ باید بر 1000 تومان بخشپذیر باشد");
     } else {
       this.addCredit(this.state.moneyAmount);
     }
@@ -64,7 +64,7 @@ class BuyCredit extends React.Component {
         await AddCreditToUser(mon)
           .then((res) => {
             console.log(res);
-            window.alert("افزایش اعتبار با موفقیت انجام شد");
+            // window.alert("افزایش اعتبار با موفقیت انجام شد");
             window.location.replace("/PaymentApproved");
           })
           .catch((res) => {

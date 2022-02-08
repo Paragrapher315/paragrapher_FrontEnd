@@ -20,15 +20,15 @@ class CreateCommunity extends React.Component {
       password: "",
       passwordConfirm: "",
       isPublic: 0,
-      bestCommunities:[],
+      bestCommunities: [],
       name1: "",
       img1: "",
       bio1: "",
       numberOfmembers1: "",
       date1: "",
-      name2:"",
-      img2:"",
-      bio2:"",
+      name2: "",
+      img2: "",
+      bio2: "",
       numberOfmembers2: "",
       date2: "",
     };
@@ -36,12 +36,12 @@ class CreateCommunity extends React.Component {
 
   componentDidMount() {
     GetBestCommunities().then((res) => {
-      console.log(".....",res.length);
+      console.log(".....", res.length);
       this.setState({ bestCommunities: res });
-      this.setState({name1:res[0].name});
-      this.setState({date1:res[0].creation_year});
-      this.setState({date1:res[0].creation_year});
-      console.log(".....",res[0].name);
+      this.setState({ name1: res[0].name });
+      this.setState({ date1: res[0].creation_year });
+      this.setState({ date1: res[0].creation_year });
+      console.log(".....", res[0].name);
     });
   }
   CreateCommunity = async () => {

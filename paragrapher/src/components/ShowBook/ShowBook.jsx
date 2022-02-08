@@ -29,6 +29,7 @@ import {
   GetRelatedBooks,
   GetRelatedParagraphs,
   LoadBookData,
+  ReserveBook,
 } from "../../Utils/Connection";
 import Book1 from "../Shop/Book1";
 import { useMediaQuery } from "@material-ui/core";
@@ -358,8 +359,9 @@ export class ShowBook extends React.Component {
                           variant="contained"
                           color="secondary"
                           style={{ fontSize: 20, width: "100%" }}
-                          onClick={this.buyBook}
-                          disabled
+                          onClick={() => {
+                            ReserveBook(this.state.bookID);
+                          }}
                         >
                           خرید کتاب
                         </Button>
@@ -465,8 +467,9 @@ export class ShowBook extends React.Component {
                             variant="contained"
                             color="secondary"
                             style={{ fontSize: 20, width: "100%" }}
-                            onClick={this.buyBook}
-                            disabled
+                            onClick={() => {
+                              ReserveBook(this.state.bookID);
+                            }}
                           >
                             خرید کتاب
                           </Button>

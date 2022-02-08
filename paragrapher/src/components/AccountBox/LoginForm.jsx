@@ -10,6 +10,7 @@ import {
   BoldLink,
 } from "../common";
 import { AccountContext } from "./accountContext";
+import { Snackbar } from "@material-ui/core";
 import { setUserSession } from "../../Utils/Common";
 import "../../../node_modules/font-awesome/css/font-awesome.css";
 import axios from "axios";
@@ -17,12 +18,7 @@ import Cookies from "universal-cookie";
 import { BrowserView, MobileView } from "react-device-detect";
 axios.defaults.withCredentials = true;
 //successful login
-function successfulLogin() {
-  // document.getElementById("box").style.display = "none";
-  // document.getElementById("logout").style.display = "block";
-  window.alert(references.alert_login_successful);
-  window.location.reload();
-}
+
 // //backend respone
 // function backendResponse() {
 //   document.getElementById("Errors").innerHTML = "لطفا دوباره تلاش کنید";
@@ -36,6 +32,15 @@ export function LoginForm(props) {
   const [passwordError, setPasswordError] = useState(null);
   const [error, setError] = useState(null);
   const { switchToRegister } = useContext(AccountContext);
+  const [openSnack, setOpenSnack] = useState(false);
+  function successfulLogin() {
+    // document.getElementById("box").style.display = "none";
+    // document.getElementById("logout").style.display = "block";
+    // window.alert(references.alert_login_successful);
+
+    setOpenSnack(true);
+    window.location.reload();
+  }
   const handleBeforSend = () => {
     setError(null);
     setLoading(true);
@@ -116,63 +121,73 @@ export function LoginForm(props) {
     });
   };
   return (
-    <BoxContainer>
-      <FormContainer>
-        <Input
-          id="username"
-          className="fa"
-          type="username"
-          placeholder="&#xf0e0; نام کاربری"
-          {...username}
-        />
-        <div
-          className="small"
-          style={{ color: "red", textAlign: "right", marginRight: "0.5rem" }}
-          id="UsernameError"
-        >
-          {userError}
-        </div>
-        <Input
-          id="password"
-          className="fa"
-          type="password"
-          placeholder="&#xf084; گذرواژه"
-          {...password}
-        />
-
-        <div
-          className="small"
-          style={{ color: "red", textAlign: "right", marginRight: "0.5rem" }}
-          id="PasswordError"
-        >
-          {passwordError}
-        </div>
-        {loginFailed && (
+    <div>
+      <BoxContainer>
+        <FormContainer>
+          <Input
+            id="username"
+            className="fa"
+            type="username"
+            placeholder="&#xf0e0; نام کاربری"
+            {...username}
+          />
           <div
             className="small"
             style={{ color: "red", textAlign: "right", marginRight: "0.5rem" }}
             id="UsernameError"
           >
-            نام کاربری یا رمز عبور اشتباه است لطفا دوباره امتحان کنید
+            {userError}
           </div>
-        )}
-        <div
-          className="small"
-          style={{ color: "red", textAlign: "right", marginRight: "0.5rem" }}
-          id="Errors"
-        ></div>
-        <SubmitButton
-          type="button"
-          onClick={handleBeforSend}
-          disabled={loading}
-        >
-          {loading ? <CircularProgress color="inherit" size="1rem" /> : "ورود"}
-        </SubmitButton>
-        <BoldLink onClick={switchToRegister}>
-          همین حالا حساب کاربری خود را بسازید!
-        </BoldLink>
-      </FormContainer>
-    </BoxContainer>
+          <Input
+            id="password"
+            className="fa"
+            type="password"
+            placeholder="&#xf084; گذرواژه"
+            {...password}
+          />
+
+          <div
+            className="small"
+            style={{ color: "red", textAlign: "right", marginRight: "0.5rem" }}
+            id="PasswordError"
+          >
+            {passwordError}
+          </div>
+          {loginFailed && (
+            <div
+              className="small"
+              style={{
+                color: "red",
+                textAlign: "right",
+                marginRight: "0.5rem",
+              }}
+              id="UsernameError"
+            >
+              نام کاربری یا رمز عبور اشتباه است لطفا دوباره امتحان کنید
+            </div>
+          )}
+          <div
+            className="small"
+            style={{ color: "red", textAlign: "right", marginRight: "0.5rem" }}
+            id="Errors"
+          ></div>
+          <SubmitButton
+            type="button"
+            onClick={handleBeforSend}
+            disabled={loading}
+          >
+            {loading ? (
+              <CircularProgress color="inherit" size="1rem" />
+            ) : (
+              "ورود"
+            )}
+          </SubmitButton>
+          <BoldLink onClick={switchToRegister}>
+            همین حالا حساب کاربری خود را بسازید!
+          </BoldLink>
+        </FormContainer>
+      </BoxContainer>
+    </div>
   );
 }
 
