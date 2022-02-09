@@ -136,7 +136,7 @@ export function AccountBox(props) {
                 animate={isExpanded3 ? "expanded" : "collapsed"}
                 variants={imgReference}
               >
-                سلام <br /> وارد شوید!
+                سلام <br /> لطفا وارد شوید!
               </LoginHeaderText>
             )}
             {active === "Register" && (
