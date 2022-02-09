@@ -133,7 +133,7 @@ export function RegisterForm(props) {
 
   //after successful register
   function afterSuccessfulRegister() {
-    window.alert(references.alert_register_success);
+    // window.alert(references.alert_register_success);
     switchToLogin();
   }
 

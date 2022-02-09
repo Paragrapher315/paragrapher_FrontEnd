@@ -847,7 +847,7 @@ export const ReserveBook = async (id) => {
       id: id,
     })
     .then((response) => {
-      window.alert("کتاب با موفقیت به سبد خرید اضافه شد");
+      // window.alert("کتاب با موفقیت به سبد خرید اضافه شد");
       window.location.assign("/Cart");
       console.log("Reserve result is :", response);
       res = response;
@@ -867,7 +867,7 @@ export const DeleteFromCart = async (book_id) => {
     })
     .then((response) => {
       window.location.reload();
-      window.alert("کتاب با موفقیت از سبد خرید شما حذف شد");
+      // window.alert("کتاب با موفقیت از سبد خرید شما حذف شد");
     })
     .catch((error) => {
       console.log("delete error: ", error);
@@ -881,7 +881,7 @@ export const Buy = async () => {
   await axios
     .patch(makeURL(address), {})
     .then((response) => {
-      window.alert("پرداخت با موفقیت انجام شد");
+      // window.alert("پرداخت با موفقیت انجام شد");
       window.location.reload();
       console.log(response);
       message = response.data.message;
