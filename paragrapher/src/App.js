@@ -103,6 +103,7 @@ function App(props) {
               <Route path="/paragraph/create">
                 <ParagraphCreator classes={classes} />
               </Route>
+              <Route path="/paragraph/create/LoanOption" exact={true}></Route>
               <Route path="/paragraph/:handle">
                 <ParagraphCommentor classes={classes} />
               </Route>
