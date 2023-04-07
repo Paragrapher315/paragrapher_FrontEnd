@@ -8,6 +8,7 @@ import {
   BoxContainer,
   FormContainer,
   SubmitButton,
+  GoogleButton,
   Input,
   BoldLink,
 } from "../common";
@@ -18,6 +19,10 @@ import "../../../node_modules/font-awesome/css/font-awesome.css";
 import { useTransform } from "framer-motion";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Password } from "@mui/icons-material";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
+import { Button } from "@mui/material";
+
 export function RegisterForm(props) {
   const [loading, setLoading] = useState(false);
   const [emailError, setEmailError] = useState(null);
@@ -30,6 +35,10 @@ export function RegisterForm(props) {
   const passwordConfirm = useFormInput("");
   const [error, setError] = useState(null);
   const { switchToLogin } = useContext(AccountContext);
+  // const login = useGoogleLogin({
+  //   onSuccess: (codeResponse) => console.log(codeResponse),
+  //   flow: "auth-code",
+  // });
   //email validation
   function isEmail(val) {
     let regEmail =
@@ -136,6 +145,9 @@ export function RegisterForm(props) {
     // window.alert(references.alert_register_success);
     switchToLogin();
   }
+  const responseGoogle = (response) => {
+    console.log(response);
+  };
 
   const handleRegister = () => {
     // axios
@@ -166,80 +178,94 @@ export function RegisterForm(props) {
     });
   };
   return (
-    <BoxContainer>
-      <FormContainer>
-        <Input
-          id="email"
-          className="fa"
-          type="Email"
-          placeholder="&#xf0e0; ایمیل"
-          {...email}
-        />
-        <div
-          className="small"
-          style={{ color: "red", textAlign: "right", marginRight: "0.5rem" }}
-          id="EmailError"
-        >
-          {emailError}
-        </div>
-        <Input
-          id="username"
-          className="fa"
-          type="text"
-          placeholder="&#xf007; نام کاربری"
-          {...username}
-        />
-        <span
-          className="small"
-          style={{ color: "red", textAlign: "right", marginRight: "0.5rem" }}
-          id="UsernameError"
-        >
-          {userError}
-        </span>
-        <Input
-          id="password"
-          className="fa"
-          type="password"
-          placeholder="&#xf084; رمز عبور"
-          {...password}
-        />
-        <span
-          className="small"
-          style={{ color: "red", textAlign: "right", marginRight: "0.5rem" }}
-          id="PasswordError"
-        >
-          {passwordError}
-        </span>
-        <Input
-          id="password-confirmation"
-          className="fa"
-          type="password"
-          placeholder="&#xf084; تکرار رمز عبور"
-          {...passwordConfirm}
-        />
-        <span
-          className="small"
-          style={{ color: "red", textAlign: "right", marginRight: "0.5rem" }}
-          id="PasswordConfError"
-        >
-          {passwordConfError}
-        </span>
-        <SubmitButton
-          onClick={handleBeforSend}
-          type="button"
-          disabled={loading}
-        >
-          {loading ? (
-            <CircularProgress color="inherit" size="1rem" />
-          ) : (
-            "ثبت نام"
-          )}
-        </SubmitButton>
-        <BoldLink onClick={switchToLogin}>
-          اگر حساب کاربری دارید از اینجا وارد شوید!
-        </BoldLink>
-      </FormContainer>
-    </BoxContainer>
+    <GoogleOAuthProvider clientId="1004523140107-0bef1ahjupd6nparje9dq4dpfjvtgb8d.apps.googleusercontent.com">
+      <BoxContainer>
+        <FormContainer>
+          <Input
+            id="email"
+            className="fa"
+            type="Email"
+            placeholder="&#xf0e0; ایمیل"
+            {...email}
+          />
+          <div
+            className="small"
+            style={{ color: "red", textAlign: "right", marginRight: "0.5rem" }}
+            id="EmailError"
+          >
+            {emailError}
+          </div>
+          <Input
+            id="username"
+            className="fa"
+            type="text"
+            placeholder="&#xf007; نام کاربری"
+            {...username}
+          />
+          <span
+            className="small"
+            style={{ color: "red", textAlign: "right", marginRight: "0.5rem" }}
+            id="UsernameError"
+          >
+            {userError}
+          </span>
+          <Input
+            id="password"
+            className="fa"
+            type="password"
+            placeholder="&#xf084; رمز عبور"
+            {...password}
+          />
+          <span
+            className="small"
+            style={{ color: "red", textAlign: "right", marginRight: "0.5rem" }}
+            id="PasswordError"
+          >
+            {passwordError}
+          </span>
+          <Input
+            id="password-confirmation"
+            className="fa"
+            type="password"
+            placeholder="&#xf084; تکرار رمز عبور"
+            {...passwordConfirm}
+          />
+          <span
+            className="small"
+            style={{ color: "red", textAlign: "right", marginRight: "0.5rem" }}
+            id="PasswordConfError"
+          >
+            {passwordConfError}
+          </span>
+          <SubmitButton
+            onClick={handleBeforSend}
+            type="button"
+            disabled={loading}
+          >
+            {loading ? (
+              <CircularProgress color="inherit" size="1rem" />
+            ) : (
+              "ثبت نام"
+            )}
+          </SubmitButton>
+          <GoogleButton>
+            <GoogleLogin
+              onClick={() => {}}
+              className="Button"
+              buttonText="ثبت نام با گوگل"
+              isSignedIn={true}
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+              cookiePolicy={"single_host_origin"}
+            />
+          </GoogleButton>
+
+          <BoldLink onClick={switchToLogin}>
+            اگر حساب کاربری دارید از اینجا وارد شوید!
+          </BoldLink>
+        </FormContainer>
+      </BoxContainer>
+    </GoogleOAuthProvider>
   );
 }
 

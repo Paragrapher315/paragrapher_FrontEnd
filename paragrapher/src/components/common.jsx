@@ -241,6 +241,20 @@ export const SubmitButton = styled.button`
     background-color: #4f7ac8;
   }
 `;
+export const GoogleButton = styled.button`
+  width: 100%;
+  margin: 0.3rem 0;
+  color: white;
+  font-size: 4px;
+  font-weight: 600;
+  font-family: "BYekan";
+  border: none;
+  direction: rtl;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all, 240ms ease-in-out;
+  background: #00000000;
+`;
 export const CloseButton = styled.button`
   background: #b1375cc1;
   color: white;

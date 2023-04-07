@@ -1,6 +1,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable no-unused-vars */
 import React, { Component } from "react";
+import LoanOption from "../ShowBook/LoanOption";
 import rtl from "jss-rtl";
 import {
   TextField,
@@ -394,6 +395,7 @@ class ProfileEditor extends React.Component {
                     helperText={this.state.helperText}
                   /> */}
                     </Grid>
+
                     <Grid item xs={6} lg={3}>
                       <Button
                         variant="contained"
@@ -406,6 +408,9 @@ class ProfileEditor extends React.Component {
                       >
                         افزودن تگ
                       </Button>
+                    </Grid>
+                    <Grid item xs={6} lg={3}>
+                      <LoanOption />
                     </Grid>
                     <Grid item lg={6} xs={12}>
                       {Array.isArray(this.state.tags)
