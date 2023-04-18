@@ -247,7 +247,7 @@ class ProfileForm extends React.Component {
                   style={{ marginTop: "10px" }}
                   label="Standard"
                   id="outlined-required"
-                  label="ایمیل"
+                  email="ایمیل"
                   value={this.state.email}
                   // defaultValue="user@mail.com"
                   InputProps={{

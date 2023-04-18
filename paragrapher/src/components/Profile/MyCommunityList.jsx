@@ -1,11 +1,11 @@
 import React from "react";
 import Community from "../CreateCommunity/Community";
-class MyCommunityList extends React.Component {
-  render() {
+const MyCommunityList =(props)=> {
+  
     return (
       <div className="row">
-        {Array.isArray(this.props.items) &&
-          this.props.items.map((item) => (
+        {Array.isArray(props.items) &&
+          props.items.map((item) => (
             <div className="col-12 col-md-6 col-xl-4">
               <Community
                 key={item.c_id}
@@ -24,7 +24,7 @@ class MyCommunityList extends React.Component {
           ))}
       </div>
     );
-  }
+  
 }
 export function ChangeToPersian(month) {
   if (month == "Farvardin" || month == "Ordibehesht" || month == "Khordad") {
