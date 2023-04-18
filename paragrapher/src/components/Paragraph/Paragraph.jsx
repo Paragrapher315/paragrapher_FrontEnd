@@ -67,8 +67,10 @@ function Paragraph(props) {
     Like(props.communityName, props.p_id).then((res) => {
       setLiked(!liked);
       if (liked) {
+
         SetLikeCount(LikeCount - 1);
         easyLikeCount();
+        
       } else {
         SetLikeCount(LikeCount + 1);
         easyLikeCount();
@@ -260,10 +262,10 @@ function Paragraph(props) {
                 {props.isMine && (
                   <>
                     <IconButton onClick={demoMethod}>
-                      <EditIcon />
+                      <EditIcon style={{color:"black"}}/>
                     </IconButton>
                     <IconButton onClick={handleDelete}>
-                      <Delete />
+                      <Delete style={{color:"black"}}/>
                     </IconButton>
                   </>
                 )}
