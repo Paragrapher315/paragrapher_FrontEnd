@@ -2,17 +2,17 @@ import React from "react";
 import Community from "../CreateCommunity/Community";
 import Paragraph from "../Paragraph/Paragraph"
 import { getUser } from "../../Utils/Common";
-class MyParagraphList extends React.Component{
-    
-    render(){
-        return(
-            <div className="row">
-                {this.props.items.map(item => (
-                    <div className="col-12">
-                        {/* <Paragraph
+const MyParagraphList = (props) => {
+
+
+    return (
+        <div className="row">
+            {props.items.map(item => (
+                <div className="col-12">
+                    {/* <Paragraph
                         author={item.author} user={item.user_name} isPotd="ture" date={item.date} book={item.ref_book}
                         /> */}
-                        <Paragraph
+                    <Paragraph
                         user={item.user_name}
                         isPotd={false}
                         date={item.date}
@@ -25,28 +25,28 @@ class MyParagraphList extends React.Component{
                         book={item.ref_book}
                         isMine={true}
                         communityName={item.community_name}
-                      />
-                    </div>
-                
-                ))}
-            </div>
-           
-            
-        );
-    }
+                    />
+                </div>
+
+            ))}
+        </div>
+
+
+    );
+
 }
-function ChangeToPersian(month){
-    if (month=="Farvardin" || month=="Ordibehesht" || month=="Khordad") {
-        return("بهار")
+function ChangeToPersian(month) {
+    if (month == "Farvardin" || month == "Ordibehesht" || month == "Khordad") {
+        return ("بهار")
     }
-    if (month=="Tir" || month=="Mordad" || month=="Shagrivar") {
-        return("تابستان")
+    if (month == "Tir" || month == "Mordad" || month == "Shagrivar") {
+        return ("تابستان")
     }
-    if (month=="Mehr" || month=="Aban" || month=="Azar") {
-        return("پاییز")
+    if (month == "Mehr" || month == "Aban" || month == "Azar") {
+        return ("پاییز")
     }
-    else{
-        return("زمستان")
+    else {
+        return ("زمستان")
     }
 
 }

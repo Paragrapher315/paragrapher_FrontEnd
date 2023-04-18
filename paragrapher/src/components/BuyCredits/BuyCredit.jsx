@@ -162,7 +162,7 @@ class BuyCredit extends React.Component {
                       }}
                       id={10500}
                       onClick={this.handleAddCredit1}
-                      // disabled
+                    // disabled
                     >
                       خرید
                     </Button>
@@ -245,7 +245,7 @@ class BuyCredit extends React.Component {
                       }}
                       id={23000}
                       onClick={this.handleAddCredit2}
-                      // disabled
+                    // disabled
                     >
                       خرید
                     </Button>
@@ -329,7 +329,7 @@ class BuyCredit extends React.Component {
                       }}
                       id={60000}
                       onClick={this.handleAddCredit3}
-                      // disabled
+                    // disabled
                     >
                       خرید
                     </Button>
@@ -340,6 +340,7 @@ class BuyCredit extends React.Component {
             <Grid item xs={12} lg={12} md={12}>
               <Card>
                 <CardContent>
+                  
                   <Typography style={{ fontSize: 25 }}>
                     شارژ مبلغ دلخواه
                   </Typography>
@@ -362,7 +363,7 @@ class BuyCredit extends React.Component {
                     }}
                     id={404}
                     onClick={this.handleAddCredit4}
-                    // disabled
+                  // disabled
                   >
                     انجام تراکنش
                   </Button>
@@ -371,6 +372,7 @@ class BuyCredit extends React.Component {
             </Grid>
           </Grid>
         </div>
+        
       </ThemeProvider>
     );
   }
