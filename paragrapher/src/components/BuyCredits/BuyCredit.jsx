@@ -13,6 +13,7 @@ import { makeURL } from "../../Utils/Common";
 import references from "../../assets/References";
 import { Addchart } from "@mui/icons-material";
 import { AddCreditToUser, RefreshLogin } from "../../Utils/Connection";
+import DiscountForm from "./DiscountCode";
 
 class BuyCredit extends React.Component {
   state = {
@@ -356,7 +357,7 @@ class BuyCredit extends React.Component {
                   ></TextField>
 
                   <div>
-                    <TextField
+                    {/* <TextField
                       error={this.state.error}
                       helperText={this.state.helperText}
                       style={{ width: "20%", paddingTop: "2vh" }}
@@ -364,15 +365,19 @@ class BuyCredit extends React.Component {
                       label="کد تخفیف"
                       onChange={this.handleAmountChange}
                       value={this.state.moneyAmount}
-                    ></TextField>
+                    ></TextField> */}
+
+                    <DiscountForm>
+
+                    </DiscountForm>
 
                     <Button
                       variant="contained"
                       color="secondary"
                       style={{
                         float: "left",
-                        
-                        marginTop: "3vh",
+                        marginTop: "-4.5vh",
+                        marginBottom:"5vh",
                         marginLeft: "45vw",
                       }}
                       id={404}
