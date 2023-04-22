@@ -25,7 +25,9 @@ import sh from "../../assets/sh.jpg";
 import c from "../../assets/c.png";
 import hm from "../../assets/hm.png";
 import a from "../../assets/a.png";
-
+import GoogleLogin from "react-google-login";
+import { UseGoogleLogin } from "@react-oauth/google";
+import { Google } from "@mui/icons-material";
 function LandingPage2() {
   const classes = useStyles(theme);
   const paragraphs = [
@@ -55,6 +57,7 @@ function LandingPage2() {
     "fa-IR"
   );
   Aos.init({ duration: 600 });
+
   return (
     <ThemeProvider theme={theme}>
       {/* welcome part  */}

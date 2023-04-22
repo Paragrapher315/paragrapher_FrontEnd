@@ -17,13 +17,16 @@ import PropTypes from "prop-types";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import Book1 from "../Shop/Book1";
+import Book2 from "../Shop/Book2";
+
+import LoanOption from "./LoanOption";
 
 const BOOKS = [
   {
     id: "1",
     name: " بانگ ني ",
-    author: "هوشنگ ابتهاج",
     genre: "ادبیات",
+    author: "هوشنگ ابتهاج",
     price: "20000",
     modified_time: "2000",
     reserved_time: "2020",
@@ -38,13 +41,14 @@ const BOOKS = [
   {
     id: "2",
     name: " بانگ ني ",
-    author: "هوشنگ ابتهاج",
     genre: "ادبیات",
+    author: "هوشنگ ابتهاج",
     price: "20000",
     modified_time: "2000",
     reserved_time: "2020",
     description:
       "هوشنگ ابتهاج، متخلص به ه. ا. سایه، شاعر و پژوهشگر نامدار ایرانی است که به‌واسطه‌ی بهره‌مندی از استعداد کم‌نظیر در سرودن شعر به هر دو سبک کلاسیک و نو، در میان اهالی ادبیات از موقعیت ویژه‌ای برخوردار است...",
+
     seller_id: "2",
     community_id: "2",
     community_name: "afshin",
@@ -52,7 +56,7 @@ const BOOKS = [
       "https://upload.wikimedia.org/wikipedia/commons/3/3a/Hushang_Ebtehaj_-_%D9%87%D9%88%D8%B4%D9%86%DA%AF_%D8%A7%D8%A8%D8%AA%D9%87%D8%A7%D8%AC.jpg",
   },
 ];
-class ShowBooks extends React.Component {
+class BorrowedBooks extends React.Component {
   state = {
     start_off: 0,
     end_off: 8,
@@ -195,19 +199,6 @@ class ShowBooks extends React.Component {
     this.setState({ start_off: this.state.start_off + 8 });
     await GetRecentBook(this.state.start_off, this.state.end_off).then(
       (res) => {
-        // let array = [];
-        // for (let i = 0; i < res.length; i++) {
-        //   let item = {
-        //     community: {
-        //       name: res[i].name,
-        //       description: res[i].description,
-        //       member_count: res[i].member_count,
-        //       avatar: res[i].avatar,
-        //       jalali_date: res[i].jalali_date,
-        //     },
-        //   };
-        //   array.push(item);
-        // }
         res.forEach((value) => {
           BOOKS.push(value);
         });
@@ -234,47 +225,7 @@ class ShowBooks extends React.Component {
       <ThemeProvider theme={this.props.theme}>
         <div style={{ padding: "2vh" }}>
           <Grid container>
-            <Grid item lg={3} xs={12} md={12}>
-              <Card style={{ minHeight: "30vh" }}>
-                <div style={{ padding: "5vh", paddingBottom: "0" }}>
-                  <Typography
-                    id="range-slider"
-                    style={{ fontSize: "2vh" }}
-                    gutterBottom
-                  >
-                    جستجو
-                  </Typography>
-                  <TextField
-                    variant="filled"
-                    style={{ width: "100%" }}
-                    value={this.state.search}
-                    onChange={this.handleSearchChange}
-                  />
-                </div>
-
-                <div style={{ padding: "5vh" }}>
-                  <Typography
-                    id="range-slider"
-                    style={{ fontSize: "2vh" }}
-                    gutterBottom
-                  >
-                    قیمت
-                  </Typography>
-                  <this.IOSSlider
-                    style={{ paddingTop: "5vh" }}
-                    value={this.state.value}
-                    onChange={this.handleChange}
-                    valueLabelDisplay="on"
-                    valueLabelFormat={(val) => {
-                      return val + "تومان";
-                    }}
-                    min={this.state.minValue}
-                    max={this.state.maxValue}
-                    step={1000}
-                  />
-                </div>
-              </Card>
-            </Grid>
+            <Grid item lg={3} xs={12} md={12}></Grid>
             <Grid item lg={9} style={{ overflowY: "hidden", padding: "1vh" }}>
               <InfiniteScroll
                 dataLength={this.state.shownBooks.length}
@@ -304,7 +255,7 @@ class ShowBooks extends React.Component {
                         md={4}
                         style={{ padding: "1vh" }}
                       >
-                        <Book1
+                        <Book2
                           id={item.id}
                           name={item.name}
                           genre={item.genre}
@@ -331,4 +282,4 @@ class ShowBooks extends React.Component {
   }
 }
 
-export default ShowBooks;
+export default BorrowedBooks;

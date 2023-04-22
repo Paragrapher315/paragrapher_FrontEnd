@@ -56,26 +56,14 @@ class Book1 extends React.Component {
         <div class="card-body p-4">
           <div class="text-center">
             <Link to={this.view}>
-              {/* <button type="button" className="btn btn-danger"> */}
               <h5 class="fw-bolder">
                 {this.state.name} اثر {this.state.author}
               </h5>
               {/* </button> */}
             </Link>
-            {/* <a class="btn"></a> */}
 
-            {/* <p/> */}
-            {/* <div class="d-flex justify-content-center small text-warning mb-2">
-                      <div class="bi-star-fill"></div>
-                      <div class="bi-star-fill"></div>
-                      <div class="bi-star-fill"></div>
-                      <div class="bi-star-fill"></div>
-                      <div class="bi-star-fill"></div>
-                  </div> */}
             <p>{this.state.description}</p>
             <p>{this.state.genre}</p>
-            {/* <span class="text-muted text-decoration-line-through">$20.00</span>
-                  $18.00 */}
             <span class="text-danger">{this.state.price} تومان</span>
           </div>
         </div>
@@ -89,7 +77,6 @@ class Book1 extends React.Component {
               {" "}
               افزودن به سبد <i class="bi bi-cart-plus"></i>
             </button>
-            <LoanOption />
           </div>
         </div>
       </div>

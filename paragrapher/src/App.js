@@ -36,6 +36,7 @@ import Cart from "./components/Cart/Cart";
 import CommunityUserManager from "./components/CommunityAdminPanel/CommunityUsersManager";
 import StoreSearch from "./components/Search/StoreSearch";
 import PaymentApproved from "./components/PaymentApproved";
+import BorrowedBooks from "./components/ShowBook/borrowedBooks";
 // import NewProfile from './components/Profile/NewProfile';
 function App(props) {
   const [drawerAnchor] = useState(false);
@@ -90,6 +91,9 @@ function App(props) {
               </Route>
               <Route path="/profile/notifications" exact={true}>
                 <Profile initialTabValue="4" />
+              </Route>
+              <Route path="/borrowed" exact={true}>
+                <BorrowedBooks />
               </Route>
               <Route path="/404" exact={true}>
                 <Error404></Error404>

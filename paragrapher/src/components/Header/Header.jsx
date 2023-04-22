@@ -60,6 +60,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import axios from "axios";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import StorefrontIcon from "@material-ui/icons/Storefront";
+import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
 import PeopleOutlineIcon from "@material-ui/icons/PeopleOutline";
 function Header(props) {
   const [drawerAnchor, setDrawerAnchor] = useState(false);
@@ -216,6 +217,15 @@ function Header(props) {
             {isLoggedIn ? (
               <div className={classes.icons}>
                 <IconButton
+                  edge="end"
+                  onClick={() => {
+                    window.location.replace("/borrowed");
+                  }}
+                  color="inherit"
+                >
+                  <MenuBookRoundedIcon />
+                </IconButton>
+                <IconButton
                   color="inherit"
                   ref={anchorRef}
                   aria-controls={open ? "menu-list-grow" : undefined}
@@ -294,6 +304,7 @@ function Header(props) {
                 >
                   <AccountCircle />
                 </IconButton>
+
                 <Menu
                   anchorEl={anchorEl}
                   keepMounted
