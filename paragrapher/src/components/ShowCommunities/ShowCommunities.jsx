@@ -13,6 +13,7 @@ import MyCommunityList, { ChangeToPersian } from "../Profile/MyCommunityList";
 import { ThemeProvider } from "@material-ui/styles";
 import { Grid } from "@material-ui/core";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
+import Forums from "./Category";
 class ShowCommunities extends React.Component {
   state = {
     start_off: 0,
@@ -208,6 +209,11 @@ class ShowCommunities extends React.Component {
                     onChange={this.handleSearchChange}
                   />
                 </div>
+
+
+                <Forums></Forums>
+
+
 
                 <div style={{ padding: "5vh" }}>
                   <Typography

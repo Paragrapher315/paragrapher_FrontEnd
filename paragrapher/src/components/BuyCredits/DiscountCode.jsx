@@ -16,6 +16,31 @@ const DiscountForm = () => {
         }
     };
 
+
+    // handlesubmit = () => {
+    //     const { discountCode } = this.state;
+    //     const url = '';
+    //     fetch(url, {
+    //         method: 'POST',
+    //         headers: {
+    //             'content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({ discountCode }),
+    //     })
+    //         .then(response => {
+    //             if (response.ok) {
+    //                 return response.json();
+    //             } else {
+    //                 throw new Error('Failed apply discount');
+    //             }
+    //         })
+    //         .then(data => {
+    //             const { credit } = data;
+    //             this.useState({ credit })
+    //         })
+    //         .catch(error => console.error(error));
+    // }
+
     return (
         <form >
             <label>

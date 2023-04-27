@@ -355,6 +355,12 @@ export const ParagraphArray = async (d, start_off, end_off) => {
   return message;
 };
 
+
+
+
+
+
+
 export const isLiked = async (communityName, p_id) => {
   let message = "";
   await axios
@@ -378,6 +384,11 @@ export const isLiked = async (communityName, p_id) => {
     });
   return message;
 };
+
+
+
+
+
 
 export const Like = async (communityName, p_id) => {
   let message = "";
