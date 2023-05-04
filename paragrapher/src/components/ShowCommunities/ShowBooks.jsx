@@ -68,26 +68,28 @@ class ShowBooks extends React.Component {
   componentDidMount = async () => {
     await GetRecentBook(this.state.start_off, this.state.end_off).then(
       (res) => {
-        // let arr = [];
-        // for (let i = 0; i < res.length; i++) {
-        //   let item = {
-        //     community: {
-        //       name: res[i].name,
-        //       description: res[i].description,
-        //       member_count: res[i].member_count,
-        //       avatar: res[i].avatar,
-        //       jalali_date: res[i].jalali_date,
-        //     },
-        //   };
-        //   arr.push(item);
-        // }
-        this.setState({ books: BOOKS });
-        let book = BOOKS.reduce(
+        let arr = [];
+        for (let i = 0; i < res.length; i++) {
+          let item = {
+            community: {
+              id: res[i].id,
+              name: res[i].name,
+              description: res[i].description,
+              member_count: res[i].member_count,
+              avatar: res[i].avatar,
+              jalali_date: res[i].jalali_date,
+            },
+          };
+          arr.push(item);
+        }
+        this.setState({ books: arr });
+        this.setState({ shownBooks: arr });
+        let book = arr.reduce(
           (prev, curr) => (prev.price < curr.price ? prev : curr),
           {}
         );
         this.setState({ minValue: 0 });
-        book = BOOKS.reduce(
+        book = arr.reduce(
           (prev, curr) => (prev.price > curr.price ? prev : curr),
           {}
         );
@@ -97,7 +99,7 @@ class ShowBooks extends React.Component {
       }
     );
 
-    if (BOOKS.length == 8) {
+    if (this.state.books.length == 8) {
       this.setState({ hasmore: true });
     }
   };
@@ -166,27 +168,27 @@ class ShowBooks extends React.Component {
 
   filter = async () => {
     let arr = [];
-    await this.setState({ shownBooks: [] });
-    await BOOKS.forEach((value) => {
-      if (
-        value.price >= this.state.value[0] &&
-        value.price <= this.state.value[1]
-      ) {
-        this.state.shownBooks.push(value);
-      }
-    });
+    // await this.setState({ shownBooks: [] });
+    // await this.state.books.forEach((value) => {
+    //   if (
+    //     value.price >= this.state.value[0] &&
+    //     value.price <= this.state.value[1]
+    //   ) {
+    //     this.state.shownBooks.push(value);
+    //   }
+    // });
 
-    arr = await this.state.shownBooks.filter((value) => {
-      if (value.name.toLowerCase().includes(this.state.search)) return true;
-      else if (value.genre.toLowerCase().includes(this.state.search))
-        return true;
-      else if (value.author.toLowerCase().includes(this.state.search))
-        return true;
-      else if (value.description.toLowerCase().includes(this.state.search))
-        return true;
-    });
+    // arr = await this.state.shownBooks.filter((value) => {
+    //   if (value.name.toLowerCase().includes(this.state.search)) return true;
+    //   else if (value.genre.toLowerCase().includes(this.state.search))
+    //     return true;
+    //   else if (value.author.toLowerCase().includes(this.state.search))
+    //     return true;
+    //   else if (value.description.toLowerCase().includes(this.state.search))
+    //     return true;
+    // });
 
-    this.setState({ shownBooks: arr });
+    // this.setState({ shownBooks: arr });
   };
 
   fetchData = async () => {
@@ -195,19 +197,22 @@ class ShowBooks extends React.Component {
     this.setState({ start_off: this.state.start_off + 8 });
     await GetRecentBook(this.state.start_off, this.state.end_off).then(
       (res) => {
-        // let array = [];
-        // for (let i = 0; i < res.length; i++) {
-        //   let item = {
-        //     community: {
-        //       name: res[i].name,
-        //       description: res[i].description,
-        //       member_count: res[i].member_count,
-        //       avatar: res[i].avatar,
-        //       jalali_date: res[i].jalali_date,
-        //     },
-        //   };
-        //   array.push(item);
-        // }
+        let array = [];
+        console.log(res);
+        for (let i = 0; i < res.length; i++) {
+          let item = {
+            community: {
+              id: res[i].id,
+              name: res[i].name,
+              description: res[i].description,
+              member_count: res[i].member_count,
+              avatar: res[i].avatar,
+              jalali_date: res[i].jalali_date,
+            },
+          };
+
+          array.push(item);
+        }
         res.forEach((value) => {
           BOOKS.push(value);
         });
@@ -294,6 +299,7 @@ class ShowBooks extends React.Component {
               >
                 <Grid container style={{ overflowY: "hidden", padding: "2vh" }}>
                   {this.state.shownBooks.map((item) => {
+                    console.log(item);
                     return (
                       // <div className="col-12 col-md-6 col-xl-4">
 
@@ -305,18 +311,18 @@ class ShowBooks extends React.Component {
                         style={{ padding: "1vh" }}
                       >
                         <Book1
-                          id={item.id}
-                          name={item.name}
-                          genre={item.genre}
-                          author={item.author}
-                          price={item.price}
-                          modified_time={item.modified_time}
-                          reserved_time={item.reserved_time}
-                          description={item.description}
-                          seller_id={item.seller_id}
-                          community_id={item.community_id}
-                          community_name={item.community_name}
-                          image={item.image}
+                          id={item["community"].id}
+                          name={item["community"].name}
+                          genre={item["community"].genre}
+                          author={item["community"].author}
+                          price={item["community"].price}
+                          modified_time={item["community"].modified_time}
+                          reserved_time={item["community"].reserved_time}
+                          description={item["community"].description}
+                          seller_id={item["community"].seller_id}
+                          community_id={item["community"].community_id}
+                          community_name={item["community"].community_name}
+                          image={item["community"].image}
                         />
                       </Grid>
                     );

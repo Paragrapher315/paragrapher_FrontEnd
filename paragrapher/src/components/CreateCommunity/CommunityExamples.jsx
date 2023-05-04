@@ -26,14 +26,14 @@ class communityExamples extends React.Component {
     };
   }
   componentDidMount() {
-    GetBestCommunities().then((res) => {
-      console.log(".....", res.length);
-      this.setState({ bestCommunities: res });
-      this.setState({ name1: res[0].name });
-      this.setState({ date1: res[0].creation_year });
-      this.setState({ date1: res[0].creation_year });
-      console.log(".....", res[0].name);
-    });
+    // GetBestCommunities().then((res) => {
+    //   console.log(".....", res.length);
+    //   this.setState({ bestCommunities: res });
+    //   this.setState({ name1: res[0].name });
+    //   this.setState({ date1: res[0].creation_year });
+    //   this.setState({ date1: res[0].creation_year });
+    //   console.log(".....", res[0].name);
+    // });
   }
   render() {
     if (this.state.bestCommunities.length >= 2) {
