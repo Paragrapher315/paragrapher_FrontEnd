@@ -13,6 +13,7 @@ import { makeURL } from "../../Utils/Common";
 import references from "../../assets/References";
 import { Addchart } from "@mui/icons-material";
 import { AddCreditToUser, RefreshLogin } from "../../Utils/Connection";
+import DiscountForm from "./DiscountCode";
 
 class BuyCredit extends React.Component {
   state = {
@@ -162,7 +163,7 @@ class BuyCredit extends React.Component {
                       }}
                       id={10500}
                       onClick={this.handleAddCredit1}
-                      // disabled
+                    // disabled
                     >
                       خرید
                     </Button>
@@ -245,7 +246,7 @@ class BuyCredit extends React.Component {
                       }}
                       id={23000}
                       onClick={this.handleAddCredit2}
-                      // disabled
+                    // disabled
                     >
                       خرید
                     </Button>
@@ -329,7 +330,7 @@ class BuyCredit extends React.Component {
                       }}
                       id={60000}
                       onClick={this.handleAddCredit3}
-                      // disabled
+                    // disabled
                     >
                       خرید
                     </Button>
@@ -340,9 +341,11 @@ class BuyCredit extends React.Component {
             <Grid item xs={12} lg={12} md={12}>
               <Card>
                 <CardContent>
+
                   <Typography style={{ fontSize: 25 }}>
                     شارژ مبلغ دلخواه
                   </Typography>
+
                   <TextField
                     error={this.state.error}
                     helperText={this.state.helperText}
@@ -352,25 +355,46 @@ class BuyCredit extends React.Component {
                     onChange={this.handleAmountChange}
                     value={this.state.moneyAmount}
                   ></TextField>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    style={{
-                      float: "left",
-                      marginTop: "3vh",
-                      marginLeft: "3vw",
-                    }}
-                    id={404}
-                    onClick={this.handleAddCredit4}
+
+                  <div>
+                    {/* <TextField
+                      error={this.state.error}
+                      helperText={this.state.helperText}
+                      style={{ width: "20%", paddingTop: "2vh" }}
+                      variant="filled"
+                      label="کد تخفیف"
+                      onChange={this.handleAmountChange}
+                      value={this.state.moneyAmount}
+                    ></TextField> */}
+
+                    <DiscountForm>
+
+                    </DiscountForm>
+
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      style={{
+                        float: "left",
+                        marginTop: "-4.5vh",
+                        marginBottom:"5vh",
+                        marginLeft: "45vw",
+                      }}
+                      id={404}
+                      onClick={this.handleAddCredit4}
                     // disabled
-                  >
-                    انجام تراکنش
-                  </Button>
+                    >
+                      انجام تراکنش
+                    </Button>
+                  </div>
+
+
                 </CardContent>
               </Card>
             </Grid>
           </Grid>
         </div>
+
       </ThemeProvider>
     );
   }

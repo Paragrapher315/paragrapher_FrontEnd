@@ -32,6 +32,10 @@ import { DeleteParagraph, isLiked, Like } from "../../Utils/Connection";
 import { Delete } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 import { stringToColor } from "../TopCommunities";
+
+
+
+
 function randomColor(input) {
   let hex = Math.floor(input * 0xf125ff);
   let color = "#" + hex.toString(16);
@@ -56,12 +60,17 @@ function Paragraph(props) {
 
   const classes = useStyles(theme);
 
+
+
+
   const handleLike = () => {
     Like(props.communityName, props.p_id).then((res) => {
       setLiked(!liked);
       if (liked) {
+
         SetLikeCount(LikeCount - 1);
         easyLikeCount();
+        
       } else {
         SetLikeCount(LikeCount + 1);
         easyLikeCount();
@@ -130,8 +139,8 @@ function Paragraph(props) {
 
   return (
     <ThemeProvider theme={theme}>
-      <div style={{ marginBottom: "0.5rem" }}>
-        <Card>
+      <div style={{ marginBottom: "1rem" }}>
+        <Card style={{borderRadius:"1rem"}}>
           <CardHeader
             avatar={
               <Avatar
@@ -212,7 +221,7 @@ function Paragraph(props) {
           <CardContent>
             <Typography
               variant="body2"
-              color="textSecondary"
+              color="black"
               component="p"
               className={classes.typography}
               style={{ textAlign: "right" }}
@@ -230,7 +239,7 @@ function Paragraph(props) {
             {props.canAction ? (
               <CardActions disableSpacing>
                 <div>
-                  <IconButton aria-label="like paragraph" onClick={handleLike}>
+                  <IconButton style={{color:"red"}} aria-label="like paragraph" onClick={handleLike}>
                     {liked ? (
                       <FavoriteIcon style={{ marginLeft: "0.5vw" }} />
                     ) : (
@@ -240,7 +249,7 @@ function Paragraph(props) {
                   </IconButton>
                 </div>
                 <div>
-                  <IconButton aria-label="show comments" onClick={demoMethod2}>
+                  <IconButton style={{color:"#84d5fa"}} aria-label="show comments" onClick={demoMethod2}>
                     <CommentIcon style={{ marginLeft: "0.5vw" }} />
                     <Typography display="inline">
                       {easyCommentCount()}
@@ -253,10 +262,10 @@ function Paragraph(props) {
                 {props.isMine && (
                   <>
                     <IconButton onClick={demoMethod}>
-                      <EditIcon />
+                      <EditIcon style={{color:"black"}}/>
                     </IconButton>
                     <IconButton onClick={handleDelete}>
-                      <Delete />
+                      <Delete style={{color:"black"}}/>
                     </IconButton>
                   </>
                 )}

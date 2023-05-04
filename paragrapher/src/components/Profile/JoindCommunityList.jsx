@@ -1,11 +1,11 @@
 import React from "react";
 import Community from "../CreateCommunity/Community";
-class JoindCommunityList extends React.Component{
+const JoindCommunityList =(props)=>{
     
-    render(){
+    
         return(
             <div className="row">
-                {this.props.items.map(item => (
+                {props.items.map(item => (
                     <div className="col-12 col-md-6 col-xl-3">
                         <Community key={item.c_id} name={item.community.name} bio={item.community.description} numberOfmembers={item.community.member_count + " عضو"} img={item.community.avatar} date={ChangeToPersian(item.community.jalali_date.split(" ")[2]) +" "+item.community.jalali_date.split(" ")[3]} badge="عضو" />
                     </div>
@@ -15,7 +15,7 @@ class JoindCommunityList extends React.Component{
            
             
         );
-    }
+    
 }
 function ChangeToPersian(month){
     if (month=="Farvardin" || month=="Ordibehesht" || month=="Khordad") {
