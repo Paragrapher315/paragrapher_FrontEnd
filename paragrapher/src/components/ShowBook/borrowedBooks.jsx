@@ -7,7 +7,11 @@ import {
 } from "@material-ui/core";
 import React, { Component } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { GetCommunities, GetRecentBook } from "../../Utils/Connection";
+import {
+  GetBorrowedBook,
+  GetCommunities,
+  GetRecentBook,
+} from "../../Utils/Connection";
 import Community from "../CreateCommunity/Community";
 import MyCommunityList, { ChangeToPersian } from "../Profile/MyCommunityList";
 import { ThemeProvider } from "@material-ui/styles";
@@ -70,45 +74,44 @@ class BorrowedBooks extends React.Component {
   };
 
   componentDidMount = async () => {
-    await GetRecentBook(this.state.start_off, this.state.end_off).then(
-      (res) => {
-        // let arr = [];
-        // for (let i = 0; i < res.length; i++) {
-        //   let item = {
-        //     community: {
-        //       name: res[i].name,
-        //       description: res[i].description,
-        //       member_count: res[i].member_count,
-        //       avatar: res[i].avatar,
-        //       jalali_date: res[i].jalali_date,
-        //     },
-        //   };
-        //   arr.push(item);
-        // }
-        this.setState({ books: BOOKS });
-        let book = BOOKS.reduce(
-          (prev, curr) => (prev.price < curr.price ? prev : curr),
-          {}
-        );
-        this.setState({ minValue: 0 });
-        book = BOOKS.reduce(
-          (prev, curr) => (prev.price > curr.price ? prev : curr),
-          {}
-        );
-        this.setState({ maxValue: book.price });
-        this.setState({ value: [this.state.minValue, this.state.maxValue] });
-        this.filter();
+    await GetBorrowedBook().then((res) => {
+      let arr = [];
+      for (let i = 0; i < res.length; i++) {
+        let item = {
+          id: res[i].id,
+          name: res[i].name,
+          description: res[i].description,
+          member_count: res[i].member_count,
+          avatar: res[i].avatar,
+          jalali_date: res[i].jalali_date,
+          price: res[i].price,
+        };
+        arr.push(item);
       }
-    );
+      this.setState({ books: arr });
+      this.setState({ shownBooks: arr });
+      let book = arr.reduce(
+        (prev, curr) => (prev.price < curr.price ? prev : curr),
+        {}
+      );
+      this.setState({ minValue: 0 });
+      book = arr.reduce(
+        (prev, curr) => (prev.price > curr.price ? prev : curr),
+        {}
+      );
+      this.setState({ maxValue: book.price });
+      this.setState({ value: [this.state.minValue, this.state.maxValue] });
+      // this.filter();
+    });
 
-    if (BOOKS.length == 8) {
+    if (this.state.books.length == 8) {
       this.setState({ hasmore: true });
     }
   };
 
   handleSearchChange = (e) => {
     this.setState({ search: e.target.value });
-    this.filter();
+    // this.filter();
   };
   iOSBoxShadow =
     "0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)";
@@ -165,7 +168,7 @@ class BorrowedBooks extends React.Component {
 
   handleChange = (event, value) => {
     this.setState({ value: value });
-    this.filter();
+    // this.filter();
   };
 
   filter = async () => {
@@ -218,7 +221,7 @@ class BorrowedBooks extends React.Component {
         }
       }
     );
-    await this.filter();
+    // await this.filter();
   };
   render() {
     return (
@@ -229,7 +232,7 @@ class BorrowedBooks extends React.Component {
             <Grid item lg={9} style={{ overflowY: "hidden", padding: "1vh" }}>
               <InfiniteScroll
                 dataLength={this.state.shownBooks.length}
-                next={this.fetchData}
+                // next={this.fetchData}
                 hasMore={this.state.hasmore}
                 loader={
                   <div style={{ textAlign: "center" }}>
