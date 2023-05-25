@@ -39,6 +39,7 @@ class Book1 extends React.Component {
       this.setState({ image: this.state.image1 });
     }
     console.log(this.state.image1);
+    console.log(this.state.id);
     this.view =
       "/community/" + this.state.community_name + "/ShowBook/" + this.state.id;
   }
@@ -89,7 +90,7 @@ class Book1 extends React.Component {
               {" "}
               افزودن به سبد <i class="bi bi-cart-plus"></i>
             </button>
-            <LoanOption />
+            <LoanOption book_id={this.state.id} />
           </div>
         </div>
       </div>

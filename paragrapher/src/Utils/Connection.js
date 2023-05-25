@@ -719,6 +719,20 @@ export const EditBookData = async (
       console.log(error);
     });
 };
+export const GetBorrowedBook = async () => {
+  const address = "/borrowed_books";
+  let res;
+  await axios
+    .get(makeURL(address))
+    .then((response) => {
+      console.log(response.data.borrowed_books);
+      res = response.data.borrowed_books;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  return res;
+};
 export const GetRecentBook = async (start_off = 0, end_off = 5) => {
   const address = "/store/book";
   let res;
@@ -731,6 +745,18 @@ export const GetRecentBook = async (start_off = 0, end_off = 5) => {
     .catch((error) => {
       console.log(error);
     });
+  return res;
+};
+export const setBookLoan = async (book_id, day_count) => {
+  const address = "/loan";
+  let res;
+  console.log(book_id);
+  await axios
+    .put(makeURL(address), { book_id: book_id, day_count: day_count })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {});
   return res;
 };
 export const GetCredit = async () => {

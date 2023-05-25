@@ -1,13 +1,16 @@
 import React, { useState } from "react";
+import { setBookLoan } from "../../Utils/Connection";
 import "./LoanOptionCss.css";
 
-function LoanOption() {
+function LoanOption({ book_id }) {
   const [showContent, setShowContent] = useState(false);
 
   const [daysValue, setDaysValue] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
   const [isShown, setIsShown] = useState(false);
-
+  const sendLoanValue = (id, day_count) => {
+    setBookLoan(id, day_count);
+  };
   const handleButtonClick = () => {
     setShowContent(true);
   };
@@ -17,11 +20,13 @@ function LoanOption() {
 
   const handleCalculateClick = (event) => {
     event.preventDefault();
-    let cost = 0;
-    for (let i = 1; i <= daysValue; i++) {
-      cost += 500;
-    }
-    setTotalCost(cost);
+    // let cost = 0;
+    // for (let i = 1; i <= daysValue; i++) {
+    //   cost += 500;
+    // }
+    // setTotalCost(cost);
+    console.log(book_id);
+    sendLoanValue(book_id, daysValue);
   };
 
   return (
