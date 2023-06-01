@@ -140,7 +140,7 @@ class BuyCredit extends React.Component {
                     style={{
                       textAlign: "center",
                       fontSize: 25,
-                      paddingTop: "5vh",
+                      paddingTop: "0.5vh",
                     }}
                   >
                     با پرداخت تنها
@@ -208,7 +208,7 @@ class BuyCredit extends React.Component {
                     style={{
                       textAlign: "center",
                       fontSize: 25,
-                      paddingTop: "5vh",
+                      paddingTop: "0.5vh",
                     }}
                   >
                     <span style={{ padding: "0 1vw 0 0vw", fontSize: 80 }}>
@@ -307,7 +307,7 @@ class BuyCredit extends React.Component {
                     style={{
                       textAlign: "center",
                       fontSize: 25,
-                      paddingTop: "5vh",
+                      paddingTop: "0.5vh",
                     }}
                   >
                     با پرداخت تنها

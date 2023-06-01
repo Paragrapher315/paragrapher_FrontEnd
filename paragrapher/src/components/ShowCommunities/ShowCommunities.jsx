@@ -7,12 +7,13 @@ import {
 } from "@material-ui/core";
 import React, { Component } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { GetCommunities } from "../../Utils/Connection";
+import { GetCommunities } from "../../Utils/Connection"; //////Line 799 in utils/connention////////
 import Community from "../CreateCommunity/Community";
 import MyCommunityList, { ChangeToPersian } from "../Profile/MyCommunityList";
 import { ThemeProvider } from "@material-ui/styles";
 import { Grid } from "@material-ui/core";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
+
 class ShowCommunities extends React.Component {
   state = {
     start_off: 0,
@@ -25,6 +26,11 @@ class ShowCommunities extends React.Component {
     shownComms: [],
     search: "",
   };
+  constructor(props) {
+    super(props);
+
+  }
+  
 
   iOSBoxShadow =
     "0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)";
@@ -186,97 +192,138 @@ class ShowCommunities extends React.Component {
       }
     );
   };
-  render() {
-    return (
-      <ThemeProvider theme={this.props.theme}>
-        <div style={{ padding: "2vh" }}>
-          <Grid container>
-            <Grid item lg={3} xs={12} md={0}>
-              <Card style={{ minHeight: "40vh" }}>
-                <div style={{ padding: "5vh", paddingBottom: "0" }}>
-                  <Typography
-                    id="range-slider"
-                    style={{ fontSize: "2vh" }}
-                    gutterBottom
-                  >
-                    جستجو
-                  </Typography>
-                  <TextField
-                    variant="filled"
-                    style={{ width: "100%" }}
-                    value={this.state.search}
-                    onChange={this.handleSearchChange}
-                  />
-                </div>
 
-                <div style={{ padding: "5vh" }}>
-                  <Typography
-                    id="range-slider"
-                    style={{ fontSize: "2vh" }}
-                    gutterBottom
-                  >
-                    تعداد اعضا
-                  </Typography>
-                  <this.IOSSlider
-                    style={{ paddingTop: "5vh" }}
-                    value={this.state.value}
-                    onChange={this.handleChange}
-                    valueLabelDisplay="on"
-                    valueLabelFormat={(val) => {
-                      return val + "نفر";
-                    }}
-                    min={this.state.minValue}
-                    max={this.state.maxValue}
-                    step={1}
-                  />
-                </div>
-              </Card>
-            </Grid>
-            <Grid item lg={9} style={{ padding: "1vh" }}>
-              <InfiniteScroll
-                dataLength={this.state.shownComms.length}
-                next={this.fetchData}
-                hasMore={this.state.hasmore}
-                loader={
-                  <div style={{ textAlign: "center" }}>
-                    <CircularProgress color="secondary" size="2rem" />
+  
+
+render() {
+  
+  const { communities } = this.state;
+  const categories = [
+    { id: 1, name: 'شلوغ ترین کامیونیتی' },
+    { id: 2, name: 'پرطرفدارترین کامیونیتی' },
+    { id: 3, name: 'کامیونیتی های مورد علاقه' },
+  ];
+
+
+  return (
+    <ThemeProvider theme={this.props.theme}>
+      <div style={{ padding: "2vh" }}>
+        <Grid container>
+          <Grid item lg={3} xs={12} md={0}>
+            <Card style={{ minHeight: "40vh" }}>
+              <div style={{ padding: "5vh", paddingBottom: "0" }}>
+                <Typography
+                  id="range-slider"
+                  style={{ fontSize: "2vh" }}
+                  gutterBottom
+                >
+                  جستجو
+                </Typography>
+                <TextField
+                  variant="filled"
+                  style={{ width: "100%" }}
+                  value={this.state.search}
+                  onChange={this.handleSearchChange}
+                />
+              </div>
+
+
+
+
+
+              <div>
+                {categories.map((category) => (
+                  <div key={category.id}>
+                    <h2>{category.name}</h2>
+                    {communities
+                      .filter((community) => community.category === category.name)
+                      .map((community) => (
+
+                        <div key={community.id}>
+
+                          <p>{community.name}</p>
+
+                        </div>
+                      ))}
                   </div>
-                }
-                endMessage={
-                  <p style={{ textAlign: "center" }}>
-                    <b>متاسفانه تموم شد!</b>
-                  </p>
-                }
-                style={{ overflowY: "hidden" }}
-              >
-                <Grid container style={{ overflowY: "hidden" }}>
-                  {this.state.shownComms.map((item) => {
-                    return (
-                      // <div className="col-12 col-md-6 col-xl-4">
+                ))}
+              </div>
 
-                      <Grid item xs={12} lg={3} md={4}>
-                        <Community
-                          name={item.name}
-                          bio={item.description}
-                          numberOfmembers={item.member_count + " عضو"}
-                          img={item.avatar}
-                          date={
-                            ChangeToPersian(item.jalali_date.split(" ")[2]) +
-                            " " +
-                            item.jalali_date.split(" ")[3]
-                          }
-                        />
-                      </Grid>
-                    );
-                  })}
-                </Grid>
-              </InfiniteScroll>
-            </Grid>
+
+
+
+
+
+
+
+              <div style={{ padding: "5vh" }}>
+                <Typography
+                  id="range-slider"
+                  style={{ fontSize: "2vh" }}
+                  gutterBottom
+                >
+                  تعداد اعضا
+                </Typography>
+                <this.IOSSlider
+                  style={{ paddingTop: "5vh" }}
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                  valueLabelDisplay="on"
+                  valueLabelFormat={(val) => {
+                    return val + "نفر";
+                  }}
+                  min={this.state.minValue}
+                  max={this.state.maxValue}
+                  step={1}
+                />
+              </div>
+            </Card>
           </Grid>
-        </div>
-      </ThemeProvider>
-    );
-  }
+          <Grid item lg={9} style={{ padding: "1vh" }}>
+            <InfiniteScroll
+              dataLength={this.state.shownComms.length}
+              next={this.fetchData}
+              hasMore={this.state.hasmore}
+              loader={
+                <div style={{ textAlign: "center" }}>
+                  <CircularProgress color="secondary" size="2rem" />
+                </div>
+              }
+              endMessage={
+                <p style={{ textAlign: "center" }}>
+                  <b>متاسفانه تموم شد!</b>
+                </p>
+              }
+              style={{ overflowY: "hidden" }}
+            >
+              <Grid container style={{ overflowY: "hidden" }}>
+                {this.state.shownComms.map((item) => {
+                  return (
+                    // <div className="col-12 col-md-6 col-xl-4">
+
+                    <Grid item xs={12} lg={3} md={4}>
+                      <Community
+                        name={item.name}
+                        bio={item.description}
+                        numberOfmembers={item.member_count + " عضو"}
+                        img={item.avatar}
+                        date={
+                          ChangeToPersian(item.jalali_date.split(" ")[2]) +
+                          " " +
+                          item.jalali_date.split(" ")[3]
+                        }
+                      />
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            </InfiniteScroll>
+          </Grid>
+        </Grid>
+      </div>
+    </ThemeProvider>
+  );
+}
 }
 
 export default ShowCommunities;
