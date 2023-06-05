@@ -1,86 +1,141 @@
-import React from "react";
-import c1 from "../../assets/c1.jpg";
-import c2 from "../../assets/c2.jpg";
-import c3n from "../../assets/c3n.jpg";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ReserveBook } from "../../Utils/Connection";
 import references from "../../assets/References.json";
 import LoanOption from "../ShowBook/LoanOption";
-class Book1 extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      id: props.id,
-      name: props.name,
-      genre: props.genre,
-      author: props.author,
-      price: props.price,
-      modified_time: props.modified_time,
-      reserved_time: props.reserved_time,
-      description: props.description,
-      seller_id: props.seller_id,
-      community_id: props.community_id,
-      community_name: props.community_name,
-      image: props.image,
-      // image1: references.url_address + props.image,
-      image1: props.image,
-      view: "",
-    };
-  }
+import {
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  CardActions,
+  IconButton,
+  Typography,
+  Button,
+  makeStyles,
+} from "@material-ui/core";
+import { red } from "@material-ui/core/colors";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import NewReleasesIcon from "@material-ui/icons/NewReleases";
 
-  componentDidMount() {
-    if (this.state.image === null) {
-      // this.setState({image:"https://dummyimage.com/450x300/dee2e6/6c757d.jpg"})
-      this.setState({
-        image:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF4jN6kIAxYjwJYFdZfE3QPHnINMXm5EjExQ&usqp=CAU",
-      });
-    } else {
-      this.setState({ image: this.state.image1 });
-    }
-    console.log(this.state.image1);
-    this.view =
-      "/community/" + this.state.community_name + "/ShowBook/" + this.state.id;
-  }
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 345,
+    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.25)",
+  },
+  media: {
+    height: 0,
+    paddingTop: "56.25%", // 16:9
+  },
+  button: {
+    margin: "0 auto",
+    display: "block",
+    marginTop: theme.spacing(2),
+    backgroundColor: "#4caf50",
+    color: "#fff",
+    fontWeight: "bold",
+    textTransform: "none",
+    background: "linear-gradient(to right, #4caf50, #6fbf73)",
+    "&:hover": {
+      background: "linear-gradient(to right, #388e3c, #4caf50)",
+    },
+  },
+  title: {
+    fontFamily: "'Montserrat', sans-serif",
+    fontWeight: "bold",
+    color: "#fff",
+    marginBottom: theme.spacing(1),
+    background: "#388e3c",
+    padding: theme.spacing(1),
+  },
+  description: {
+    fontFamily: "'Open Sans', sans-serif",
+    color: "#666",
+    marginBottom: theme.spacing(2),
+  },
+}));
 
-  render() {
-    return (
-      <div class="card h-100 w3-hover-shadow">
-        <div
-          class="badge bg-danger text-white position-absolute"
-          style={{ top: "0.5rem", right: "0.5rem" }}
-        >
-          جدید
-        </div>
-        <img class="card-img-top" src={this.state.image} alt="..." />
-        <div class="card-body p-4">
-          <div class="text-center">
-            <Link to={this.view}>
-              <h5 class="fw-bolder">
-                {this.state.name} اثر {this.state.author}
-              </h5>
-              {/* </button> */}
-            </Link>
+function Book2(props) {
+  const classes = useStyles();
 
-            <p>{this.state.description}</p>
-            <p>{this.state.genre}</p>
-            <span class="text-danger">{this.state.price} تومان</span>
-          </div>
-        </div>
+  const [image, setImage] = useState(
+    props.image ? references.url_address + props.image : null
+  );
 
-        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-          <div class="text-center">
-            <button
-              class="btn btn-outline-secondary mt-auto"
-              onClick={() => ReserveBook(this.state.id)}
-            >
-              {" "}
-              افزودن به سبد <i class="bi bi-cart-plus"></i>
-            </button>
-          </div>
-        </div>
-      </div>
+  const handleImageError = () => {
+    setImage(
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF4jN6kIAxYjwJYFdZfE3QPHnINMXm5EjExQ&usqp=CAU"
     );
-  }
+  };
+
+  useEffect(() => {
+    if (props.image === null) {
+      setImage(
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF4jN6kIAxYjwJYFdZfE3QPHnINMXm5EjExQ&usqp=CAU"
+      );
+    } else {
+      setImage(references.url_address + props.image);
+    }
+  }, [props.image]);
+
+  const handleReserveClick = () => {
+    ReserveBook(props.id);
+  };
+
+  return (
+    <Card className={classes.root}>
+      <CardHeader
+        title={`${props.name} اثر ${props.author}`}
+        className={classes.title}
+        action={
+          <IconButton aria-label="new release icon">
+            <NewReleasesIcon color="secondary" />
+          </IconButton>
+        }
+      />
+      <Link to={`/community/${props.community_name}/ShowBook/${props.id}`}>
+        <CardMedia
+          className={classes.media}
+          image={image}
+          title={`${props.name} اثر ${props.author}`}
+          onError={handleImageError}
+        />
+      </Link>
+      <CardContent>
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          component="p"
+          className={classes.description}
+        >
+          {props.description}
+        </Typography>
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          component="p"
+          className={classes.description}
+        >
+          {props.genre}
+        </Typography>
+        <Typography variant="body1" color="secondary" component="p">
+          {props.price} تومان
+        </Typography>
+      </CardContent>
+      <CardActions disableSpacing>
+        <Button
+          variant="contained"
+          color="secondary"
+          size="large"
+          className={classes.button}
+          startIcon={<ShoppingCartIcon />}
+          onClick={handleReserveClick}
+        >
+          افزودن به سبد
+        </Button>
+      </CardActions>
+    </Card>
+  );
 }
-export default Book1;
+
+export default Book2;
