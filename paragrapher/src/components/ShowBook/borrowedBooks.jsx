@@ -239,11 +239,6 @@ class BorrowedBooks extends React.Component {
                     <CircularProgress color="secondary" size="2rem" />
                   </div>
                 }
-                endMessage={
-                  <p style={{ textAlign: "center" }}>
-                    <b>متاسفانه تموم شد!</b>
-                  </p>
-                }
                 style={{ overflowY: "hidden" }}
               >
                 <Grid container style={{ overflowY: "hidden", padding: "2vh" }}>
