@@ -42,24 +42,24 @@ class Cart extends React.Component {
     // const { discountCode } = this.state;
 
     // // ارسال درخواست به بک‌اند
-    // axios.post('/api/checkDiscountCode', { discountCode })
-    //   .then(response => {
-    //     // دریافت پاسخ از بک‌اند
-    //     if (response.status === 200) {
-    //       // کد تخفیف معتبر است، تخفیف را اعمال کنید
-    //       const discount = 20; // مثال: مقدار تخفیف ثابت
-    //       const finalPrice = this.state.totalPrice - discount;
-    //       this.setState({ discountPrice: discount, finalPrice: finalPrice });
-    //     } else {
-    //       /// نمایش پیام خطا
-    //       alert('کد تخفیف وارد شده معتبر نیست.');
-    //     }
-    //   })
-    //   .catch(error => {
-    //     // خطا در ارتباط با بک‌اند
-    //     console.error('خطا در ارتباط با بک‌اند:', error);
-    //     alert('خطایی رخ داده است. لطفاً دوباره تلاش کنید.');
-    //   });
+    axios.post('/api/checkDiscountCode', { discountCode })
+      .then(response => {
+        // دریافت پاسخ از بک‌اند
+        if (response.status === 200) {
+          // کد تخفیف معتبر است، تخفیف را اعمال کنید
+          const discount = 100000; // مثال: مقدار تخفیف ثابت
+          const finalPrice = this.state.totalCost - discount;
+          this.setState({ discountPrice: discount, finalPrice: finalPrice });
+        } else {
+          /// نمایش پیام خطا
+          alert('کد تخفیف وارد شده معتبر نیست.');
+        }
+      })
+      .catch(error => {
+        // خطا در ارتباط با بک‌اند
+        console.error('خطا در ارتباط با بک‌اند:', error);
+        alert('خطایی رخ داده است. لطفاً دوباره تلاش کنید.');
+      });
     ////////////////// for connect to backend ////////////////
 
 

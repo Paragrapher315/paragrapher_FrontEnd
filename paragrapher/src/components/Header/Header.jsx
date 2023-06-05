@@ -122,7 +122,7 @@ function Header(props) {
         <AppBar
           position="static"
           color="primary"
-          //style={{ backgroundColor: "#40a9b3" }}
+        //style={{ backgroundColor: "#40a9b3" }}
         >
           <Toolbar style={{ display: "inline-flex" }}>
             {isLoggedIn && (
@@ -347,15 +347,41 @@ function Header(props) {
             ) : (
               <Hidden xsDown>
                 <Button
+                  
+                  variant="contained"
+                  color="secondary"
+                  style={{ fontFamily: "BYekan" ,marginLeft:'10px',borderRadius:'20px'}}
+                >
+                  فروشگاه
+                </Button>
+                <Button
+                  
+                  variant="contained"
+                  color="secondary"
+                  style={{ fontFamily: "BYekan" ,marginLeft:'10px',borderRadius:'20px'}}
+                >
+                  تماس با ما
+                </Button>
+                <Button
+                  
+                  variant="contained"
+                  color="secondary"
+                  style={{ fontFamily: "BYekan" ,marginLeft:'800px',borderRadius:'20px'}}
+                >
+                  درباره ما
+                </Button>
+                
+                <Button
                   onClick={() => setAccountBoxTrigger(true)}
                   variant="contained"
                   color="secondary"
                   style={{ fontFamily: "BYekan" }}
                   className={classes.sectionDesktop}
                 >
-                  {/* <AccountCircle /> */}
+                  <AccountCircle />
                   ورود/ثبت نام
                 </Button>
+                
               </Hidden>
             )}
             {!isLoggedIn && (
@@ -369,6 +395,14 @@ function Header(props) {
                   {/* <AccountCircle /> */}
                   ورود/ثبت نام
                 </Button>
+                {/* <Button
+                  
+                  variant="contained"
+                  color="secondary"
+                  style={{ fontFamily: "BYekan" }}
+                >
+                  درباره ما
+                </Button> */}
               </Hidden>
             )}
           </Toolbar>
