@@ -14,7 +14,7 @@ class Cart extends React.Component {
       totalCost: 0,
       discountCode: '',
       discountPrice: 0,
-      finalPrice:0,
+      finalPrice: 0,
       validDiscountCodes: ['CODE1', 'CODE2'],// کدهای تخفیف معتبر در سمت بک‌اند
     };
   }
@@ -27,16 +27,43 @@ class Cart extends React.Component {
 
   applyDiscountCode = () => {
     const { discountCode, validDiscountCodes, totalCost } = this.state;
-    
+
     if (validDiscountCodes.includes(discountCode)) {
       // کد تخفیف معتبر است، تخفیف را اعمال کنید
-      const discount = 50000; // مثال: مقدار تخفیف ثابت
+      const discount = 100000; // مثال: مقدار تخفیف ثابت
       const finalPrice = totalCost - discount;
       this.setState({ discountPrice: discount, finalPrice: finalPrice });
     } else {
       // کد تخفیف معتبر نیست، نمایش پیام خطا
       alert('کد تخفیف وارد شده معتبر نیست.');
     }
+
+    ////////////////// for connect to backend ////////////////
+    // const { discountCode } = this.state;
+
+    // // ارسال درخواست به بک‌اند
+    // axios.post('/api/checkDiscountCode', { discountCode })
+    //   .then(response => {
+    //     // دریافت پاسخ از بک‌اند
+    //     if (response.status === 200) {
+    //       // کد تخفیف معتبر است، تخفیف را اعمال کنید
+    //       const discount = 20; // مثال: مقدار تخفیف ثابت
+    //       const finalPrice = this.state.totalPrice - discount;
+    //       this.setState({ discountPrice: discount, finalPrice: finalPrice });
+    //     } else {
+    //       /// نمایش پیام خطا
+    //       alert('کد تخفیف وارد شده معتبر نیست.');
+    //     }
+    //   })
+    //   .catch(error => {
+    //     // خطا در ارتباط با بک‌اند
+    //     console.error('خطا در ارتباط با بک‌اند:', error);
+    //     alert('خطایی رخ داده است. لطفاً دوباره تلاش کنید.');
+    //   });
+    ////////////////// for connect to backend ////////////////
+
+
+
   }
   //////////////////// DISCOUNT CODE //////////////
 
@@ -80,7 +107,7 @@ class Cart extends React.Component {
             <h3 style={{ fontFamily: 'BYekan' }} class="display-5 mb-2 text-center">سبد خرید</h3>
             <p style={{ fontFamily: 'BYekan' }} class="mb-5 text-center">
               تعداد محصولات در سبد خرید شما:{" "}
-              <i class="text-info font-weight-bold">
+              <i style={{color:'black'}} class="font-weight-bold">
                 {this.state.numberofProducts}
               </i>
             </p>
@@ -130,17 +157,18 @@ class Cart extends React.Component {
 
 
               <div>
-                
+
                 <input
+                  style={{ height: '30px' }}
                   type="text"
                   value={this.state.discountCode}
                   onChange={this.handleDiscountCodeChange}
                   placeholder="کد تخفیف را وارد کنید"
                 />
-                <button onClick={this.applyDiscountCode}>اعمال تخفیف</button>
-                
-                <h2 style={{ fontFamily: 'BYekan' }}>مقدار تخفیف: {this.state.discountPrice} تومان</h2>
-                <h2 style={{ fontFamily: 'BYekan' }}>قیمت نهایی: {this.state.finalPrice} تومان</h2>
+                <button style={{ paddingTop: '5px', paddingBottom: '5px', borderRadius: '8px' }} onClick={this.applyDiscountCode}>اعمال تخفیف</button>
+
+                <h2 style={{ fontFamily: 'BYekan', fontSize: '20px' }}>مقدار تخفیف: {this.state.discountPrice} تومان</h2>
+                <h2 style={{ fontFamily: 'BYekan', fontSize: '20px' }}>قیمت نهایی: {this.state.finalPrice} تومان</h2>
               </div>
 
 
@@ -155,7 +183,7 @@ class Cart extends React.Component {
           <div class="col-sm-6 order-md-2 text-right">
             <a
               style={{ fontFamily: 'BYekan' }}
-              href="#"
+              href="/books"
               onClick={() => Buy()}
               class="btn btn-primary mb-4 btn-lg pl-5 pr-5"
             >
