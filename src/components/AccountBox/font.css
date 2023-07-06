@@ -1,0 +1,23 @@
+input.empty {
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+}
+.fontAwesome {
+  font-family: "BYekan", "FontAwesome";
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: BYekan;
+  src: url("../../assets/Fonts/BYekan+.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: BYekan;
+  src: url("../../assets/Fonts/BYekan+ Bold.ttf");
+  font-weight: bold;
+  font-style: normal;
+}

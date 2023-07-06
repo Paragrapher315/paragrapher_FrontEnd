@@ -1,0 +1,40 @@
+.days-page-button {
+  background-color: #219ebc;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.days-page-container {
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+input[type="number"] {
+  padding: 5px;
+  width: 100px;
+  border-radius: 4px;
+  border: none;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+button {
+  background-color: #219ebc;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin-right: 10px;
+  margin-bottom: 6px;
+  margin-top: 6px;
+}
