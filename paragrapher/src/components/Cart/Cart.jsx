@@ -1,9 +1,18 @@
-import React from "react";
+import React, { Component } from "react";
+import { useState } from "react";
 import Product from "./Product";
 import axios from "axios";
 import { makeURL } from "../../Utils/Common";
 import { Link } from "react-router-dom";
 import { Buy, RefreshLogin } from "../../Utils/Connection";
+
+import Box from '@mui/material/Box';
+import Switch from '@mui/material/Switch';
+import Paper from '@mui/material/Paper';
+import Fade from '@mui/material/Fade';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
+
 ///import DiscountForm from "../BuyCredits/DiscountCode";
 class Cart extends React.Component {
   constructor(props) {
@@ -16,8 +25,15 @@ class Cart extends React.Component {
       discountPrice: 0,
       finalPrice: 0,
       validDiscountCodes: ['CODE1', 'CODE2'],// کدهای تخفیف معتبر در سمت بک‌اند
+      checked: false,
     };
   }
+
+  handleChange = () => {
+    this.setState((prevState) => ({
+      checked: !prevState.checked
+    }));
+  };
 
 
   //////////////////// DISCOUNT CODE //////////////
@@ -42,24 +58,24 @@ class Cart extends React.Component {
     // const { discountCode } = this.state;
 
     // // ارسال درخواست به بک‌اند
-    axios.post('/api/checkDiscountCode', { discountCode })
-      .then(response => {
-        // دریافت پاسخ از بک‌اند
-        if (response.status === 200) {
-          // کد تخفیف معتبر است، تخفیف را اعمال کنید
-          const discount = 100000; // مثال: مقدار تخفیف ثابت
-          const finalPrice = this.state.totalCost - discount;
-          this.setState({ discountPrice: discount, finalPrice: finalPrice });
-        } else {
-          /// نمایش پیام خطا
-          alert('کد تخفیف وارد شده معتبر نیست.');
-        }
-      })
-      .catch(error => {
-        // خطا در ارتباط با بک‌اند
-        console.error('خطا در ارتباط با بک‌اند:', error);
-        alert('خطایی رخ داده است. لطفاً دوباره تلاش کنید.');
-      });
+    // axios.post('/api/checkDiscountCode', { discountCode })
+    //   .then(response => {
+    //     // دریافت پاسخ از بک‌اند
+    //     if (response.status === 200) {
+    //       // کد تخفیف معتبر است، تخفیف را اعمال کنید
+    //       const discount = 100000; // مثال: مقدار تخفیف ثابت
+    //       const finalPrice = this.state.totalCost - discount;
+    //       this.setState({ discountPrice: discount, finalPrice: finalPrice });
+    //     } else {
+    //       /// نمایش پیام خطا
+    //       alert('کد تخفیف وارد شده معتبر نیست.');
+    //     }
+    //   })
+    //   .catch(error => {
+    //     // خطا در ارتباط با بک‌اند
+    //     console.error('خطا در ارتباط با بک‌اند:', error);
+    //     alert('خطایی رخ داده است. لطفاً دوباره تلاش کنید.');
+    //   });
     ////////////////// for connect to backend ////////////////
 
 
@@ -97,7 +113,30 @@ class Cart extends React.Component {
       });
   };
 
+
+
   render() {
+
+    const icon = (
+      <Paper sx={{ m: 1 }} elevation={4}>
+        <Box component="svg" sx={{ width: 100, height: 100 }}>
+          <Box
+            component="polygon"
+            sx={{
+              fill: (theme) => theme.palette.common.white,
+              stroke: (theme) => theme.palette.divider,
+              strokeWidth: 1,
+            }}
+            points="0,100 50,00, 100,100"
+          />
+        </Box>
+      </Paper>
+    );
+
+    const { checked } = this.state;
+
+
+
     return (
       <div class="container mt-5 mb-5 bg-white col-11 col-md-10 col-lg-9">
         {/* <div class="row pt-5 pb-5"> */}
@@ -107,7 +146,7 @@ class Cart extends React.Component {
             <h3 style={{ fontFamily: 'BYekan' }} class="display-5 mb-2 text-center">سبد خرید</h3>
             <p style={{ fontFamily: 'BYekan' }} class="mb-5 text-center">
               تعداد محصولات در سبد خرید شما:{" "}
-              <i style={{color:'black'}} class="font-weight-bold">
+              <i style={{ color: 'black' }} class="font-weight-bold">
                 {this.state.numberofProducts}
               </i>
             </p>
@@ -151,6 +190,20 @@ class Cart extends React.Component {
 
               <h1 style={{ fontFamily: 'BYekan' }}>{this.state.totalCost} تومان</h1>
 
+
+
+
+
+              <Box sx={{ height: 180 }}>
+                <FormControlLabel
+                
+                  control={<Switch checked={checked} onChange={this.handleChange} />}
+                  label="آیا کد تخفیف دارید؟"
+                />
+                <Box sx={{ display: 'flex' }}>
+                  <Fade in={checked}>{icon}</Fade>
+                </Box>
+              </Box>
 
 
 

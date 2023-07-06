@@ -347,30 +347,32 @@ function Header(props) {
             ) : (
               <Hidden xsDown>
                 <Button
-                  
+
                   variant="contained"
                   color="secondary"
-                  style={{ fontFamily: "BYekan" ,marginLeft:'10px',borderRadius:'20px'}}
+                  style={{ fontFamily: "BYekan", marginLeft: '10px', borderRadius: '20px' }}
                 >
                   فروشگاه
                 </Button>
                 <Button
-                  
+
                   variant="contained"
                   color="secondary"
-                  style={{ fontFamily: "BYekan" ,marginLeft:'10px',borderRadius:'20px'}}
+                  style={{ fontFamily: "BYekan", marginLeft: '10px', borderRadius: '20px' }}
                 >
                   تماس با ما
                 </Button>
                 <Button
-                  
+                  onClick={() => {
+                    window.location.replace("/Aboutus");
+                  }}
                   variant="contained"
                   color="secondary"
-                  style={{ fontFamily: "BYekan" ,marginLeft:'800px',borderRadius:'20px'}}
+                  style={{ fontFamily: "BYekan", marginLeft: '800px', borderRadius: '20px' }}
                 >
                   درباره ما
                 </Button>
-                
+
                 <Button
                   onClick={() => setAccountBoxTrigger(true)}
                   variant="contained"
@@ -381,7 +383,7 @@ function Header(props) {
                   <AccountCircle />
                   ورود/ثبت نام
                 </Button>
-                
+
               </Hidden>
             )}
             {!isLoggedIn && (

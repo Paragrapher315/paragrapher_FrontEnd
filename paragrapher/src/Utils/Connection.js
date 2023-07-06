@@ -32,13 +32,16 @@ export const Register = async (email, username, password) => {
     })
     .catch((error) => {
       // register failed
-      console.log(error, error.response.data);
+      console.log(error);
+      console.log(error.response);
       if (error.response.status == 401) {
         message = error.response.data.message;
       } else {
         message = error.response.data;
       }
     });
+    
+    
   return message;
 };
 export const Login = async (username, password) => {
@@ -71,7 +74,9 @@ export const Login = async (username, password) => {
           message = error.response.data;
         }
       });
+
   }
+
   return message;
 };
 export const EditBio = async (bio) => {
@@ -174,9 +179,9 @@ export const CreateComment = async (communityID, paragraph, p_id) => {
     .post(
       makeURL(
         references.url_create_paragraph +
-          "/" +
-          communityID +
-          "/paragraph/comment"
+        "/" +
+        communityID +
+        "/paragraph/comment"
       ),
       {
         text: paragraph,
@@ -308,11 +313,11 @@ export const GetParagraphs = async (d, start_off, end_off) => {
   await axios
     .put(
       makeURL(references.search_pod) +
-        d.getFullYear() +
-        "-" +
-        (d.getMonth() + 1) +
-        "-" +
-        d.getDate(),
+      d.getFullYear() +
+      "-" +
+      (d.getMonth() + 1) +
+      "-" +
+      d.getDate(),
       {
         start_off: start_off,
         end_off: end_off,
@@ -361,9 +366,9 @@ export const isLiked = async (communityName, p_id) => {
     .put(
       makeURL(
         references.url_create_paragraph +
-          "/" +
-          communityName +
-          "/paragraph/impression"
+        "/" +
+        communityName +
+        "/paragraph/impression"
       ),
       {
         p_id: p_id,
@@ -385,9 +390,9 @@ export const Like = async (communityName, p_id) => {
     .post(
       makeURL(
         references.url_create_paragraph +
-          "/" +
-          communityName +
-          "/paragraph/impression"
+        "/" +
+        communityName +
+        "/paragraph/impression"
       ),
       {
         p_id: p_id,
@@ -756,7 +761,7 @@ export const setBookLoan = async (book_id, day_count) => {
     .then((response) => {
       console.log(response);
     })
-    .catch((error) => {});
+    .catch((error) => { });
   return res;
 };
 export const GetCredit = async () => {
@@ -792,13 +797,13 @@ export const GetComments = async (community, p_id, start_off, end_off) => {
     .get(
       makeURL(
         "/community/" +
-          community +
-          "/paragraph/" +
-          p_id +
-          "/comment?start_off=" +
-          start_off +
-          "&end_off=" +
-          end_off
+        community +
+        "/paragraph/" +
+        p_id +
+        "/comment?start_off=" +
+        start_off +
+        "&end_off=" +
+        end_off
       )
     )
     .then((response) => {
@@ -817,10 +822,10 @@ export const GetCommunities = async (start_off, end_off) => {
     .get(
       makeURL(
         references.url_best_community +
-          "?start_off=" +
-          start_off +
-          "&end_off=" +
-          end_off
+        "?start_off=" +
+        start_off +
+        "&end_off=" +
+        end_off
       )
     )
     .then((res) => {

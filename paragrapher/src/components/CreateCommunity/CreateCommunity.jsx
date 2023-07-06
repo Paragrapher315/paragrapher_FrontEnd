@@ -192,7 +192,7 @@ class CreateCommunity extends React.Component {
         </div>
         <div className="row align-items-center">
           <div className="col-12 col-lg-6 my-2">
-            <CommunityExamples />
+            
           </div>
           <div className="col-12 col-lg-6">
             <img
