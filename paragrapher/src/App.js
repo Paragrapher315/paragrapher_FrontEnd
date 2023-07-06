@@ -12,6 +12,7 @@ import ParagraphCreator from "./components/Paragraph/ParagraphCreator";
 import { theme, useStyles } from "./components/theme";
 import { jssPreset, StylesProvider } from "@material-ui/styles";
 import rtl from "jss-rtl";
+import About from "./components/Aboutus";
 
 import { create } from "jss";
 import CommunityMainPage from "./components/CommunityMainPage";
@@ -67,9 +68,13 @@ function App(props) {
       <StylesProvider jss={jss}>
         <div className="App">
           <Header
-            isLoggedIn={isLoggedIn}
-            style={{ position: "sticky", top: 0 }}
+          
+          isLoggedIn={isLoggedIn}
+          style={{ position: "sticky", top: 0 }}
           />
+          <Route path="/Aboutus" exact={true}>
+            <About />
+          </Route>
           <div>
             <Switch>
               <Route path="/" exact={true}>

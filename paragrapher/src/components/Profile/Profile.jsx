@@ -229,9 +229,11 @@ class Profile extends React.Component {
                     width: "100%",
                     padding: "3vh 3vw 0 3vw",
                     marginTop: "2vh",
+                    borderRadius:'50px'
                   }}
                 >
                   <Tabs
+                  
                     centered
                     variant="fullWidth"
                     indicatorColor="primary"
@@ -241,7 +243,7 @@ class Profile extends React.Component {
                     <Tab
                       icon={<EditIcon />}
                       label="ویرایش مشخصات"
-                      style={{ fontFamily: "BYekan" }}
+                      style={{ fontFamily: "BYekan"}}
                       onClick={() => this.setState({ tabValue: 0 })}
                       active
                     />
@@ -339,8 +341,8 @@ class Profile extends React.Component {
                               data-bs-toggle="modal"
                               data-bs-target="#exampleModal"
                               onClick={() =>
-                                (document.getElementById("errors").innerHTML =
-                                  "")
+                              (document.getElementById("errors").innerHTML =
+                                "")
                               }
                               style={{ fontFamily: "BYekan" }}
                             >
@@ -389,7 +391,7 @@ class Profile extends React.Component {
                                 <form
                                   className="container"
                                   enctype="multipart/form-data"
-                                  // onsubmit={() => window.location.reload()}
+                                // onsubmit={() => window.location.reload()}
                                 >
                                   <div className="form-inline justify-content-center mt-5">
                                     <label
@@ -540,9 +542,10 @@ class Profile extends React.Component {
                           </div>
                         </div>
                       </div>
-                      <div className="col-12 p-3 col-lg-9 px-5">
-                        <div className="mb-3 ms-3 row">
+                      <div  className="col-12 p-3 col-lg-9 px-5">
+                        <div  className="mb-3 ms-3 row">
                           <label
+                            style={{ fontFamily: 'BYekan' }}
                             for="email"
                             className="col-sm-3 col-form-label"
                           >
@@ -550,6 +553,7 @@ class Profile extends React.Component {
                           </label>
                           <div className="col-sm-9">
                             <input
+                              style={{ fontFamily: 'BYekan' }}
                               type="text"
                               readOnly
                               className="form-control-plaintext"
@@ -560,6 +564,7 @@ class Profile extends React.Component {
                         </div>
                         <div className="mb-3 row ms-3">
                           <label
+                            style={{ fontFamily: 'BYekan' }}
                             for="username"
                             className="col-sm-3 col-form-label"
                           >
@@ -567,6 +572,7 @@ class Profile extends React.Component {
                           </label>
                           <div className="col-sm-9">
                             <input
+                              style={{ fontFamily: 'BYekan' }}
                               type="text"
                               readOnly
                               className="form-control-plaintext"
@@ -576,11 +582,12 @@ class Profile extends React.Component {
                           </div>
                         </div>
                         <div className="mb-3 row ms-3">
-                          <label for="name" className="col-sm-3 col-form-label">
+                          <label style={{ fontFamily: 'BYekan' }} for="name" className="col-sm-3 col-form-label">
                             نام:{" "}
                           </label>
                           <div className="col-sm-9">
                             <input
+                              style={{ fontFamily: 'BYekan' }}
                               type="text"
                               className="form-control"
                               id="name"
@@ -593,6 +600,7 @@ class Profile extends React.Component {
                         </div>
                         <div className="mb-3 row ms-3">
                           <label
+                            style={{ fontFamily: 'BYekan' }}
                             for="inputDob"
                             className="col-sm-3 col-form-label"
                           >
@@ -604,6 +612,7 @@ class Profile extends React.Component {
                                 marginTop: "10px",
                                 width: "100%",
                                 borderColor: "lightcyan",
+                                fontFamily: 'BYekan',
                               }}
                               id="Dob"
                               type="date"
@@ -622,6 +631,7 @@ class Profile extends React.Component {
                         </div>
                         <div className="mb-3 row ms-3">
                           <label
+                            style={{ fontFamily: 'BYekan' }}
                             for="inputBio"
                             className="col-sm-3 col-form-label"
                           >
@@ -645,24 +655,25 @@ class Profile extends React.Component {
                           <div className="col"></div>
                           <div className="col-8">
                             <div className="d-grid gap-2">
-                              {/* <button
-                            className="btn btn-success"
-                            type="button"
-                            onClick={() => {
-                              EditBio(this.state.bio);
-                              {
-                                EditDob(this.state.dob);
-                              }
-                              {
-                                EditName(this.state.name);
-                              }
-                              alert("تغییرات با موفقیت انجام شد", "success");
-                            }}
-                          >
-                            اعمال تغییرات
-                          </button> */}
+                              <button
+                                style={{ marginRight: '180px', fontFamily: 'BYekan' }}
+                                className="btn btn-success"
+                                type="button"
+                                onClick={() => {
+                                  EditBio(this.state.bio);
+                                  {
+                                    EditDob(this.state.dob);
+                                  }
+                                  {
+                                    EditName(this.state.name);
+                                  }
+                                  alert("تغییرات با موفقیت انجام شد", "success");
+                                }}
+                              >
+                                اعمال تغییرات
+                              </button>
 
-                              <Button
+                              {/* <Button
                                 color="secondary"
                                 variant="contained"
                                 component="span"
@@ -683,7 +694,7 @@ class Profile extends React.Component {
                                 }}
                               >
                                 اعمال تغییرات
-                              </Button>
+                              </Button> */}
                             </div>
                           </div>
                           <div className="col"></div>

@@ -30,6 +30,8 @@ import {
   RefreshLogin,
   GetCommunities,
 } from "../../Utils/Connection";
+import Particles from "react-tsparticles";
+
 function MainPage(props) {
   const classes = useStyles(theme);
   const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -66,7 +68,7 @@ function MainPage(props) {
               <Typography className={classes.typography}>گراف کنید</Typography>
             </Fab>
           </Hidden>
-          {/* <Particles
+          <Particles
         options={{
           particles: {
             move: {
@@ -78,7 +80,7 @@ function MainPage(props) {
             zIndex: -10000, // or any value is good for you, if you use -1 set `interactivity.detectsOn` to `"window"` if you need mouse interactions
           },
         }}
-      /> */}
+      />
           {/* <Switch
         checked={darkMode}
         onChange={() => {
@@ -337,7 +339,7 @@ export class ParagraphList extends Component {
           }
           endMessage={
             <p style={{ textAlign: "center" }}>
-              <b>متاسفانه تموم شد!</b>
+              <b></b>
             </p>
           }
         >

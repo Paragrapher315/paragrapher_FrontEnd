@@ -119,7 +119,7 @@ class CreateCommunity extends React.Component {
           </div>
           <div className="col-lg-6 offset-lg-1 col-md-7 text-md-start text-center">
             <div className="mx-md-0 mx-auto">
-              <h2 className="mb-md-5 mb-4">چرا باید کامیونیتی بسازیم؟</h2>
+              <h2 style={{ fontFamily: 'BYekan' }} className="mb-md-5 mb-4">چرا باید کامیونیتی بسازیم؟</h2>
 
               <div className="d-md-flex align-items-start d-block mb-4 pb-2">
                 <img
@@ -128,8 +128,8 @@ class CreateCommunity extends React.Component {
                   alt="Icon"
                 />
                 <div className="ps-md-2">
-                  <h3 className="h6 mb-2">اشتراک گزاری پاراگراف</h3>
-                  <p className="mb-0 fs-sm">
+                  <h3 style={{ fontFamily: 'BYekan' }} className="h6 mb-2">اشتراک گزاری پاراگراف</h3>
+                  <p style={{ fontFamily: 'BYekan' }} className="mb-0 fs-sm">
                     با ساخت کامیونیتی شما میتوانید با دوستان خود پاراگراف های
                     خود را به اشتراک بگذارید و منبعی از پاراگراف های خاص را جمع
                     آوری کنید
@@ -144,8 +144,8 @@ class CreateCommunity extends React.Component {
                   alt="Icon"
                 />
                 <div className="ps-md-2">
-                  <h3 className="h6 mb-2">رقابت با سایر کامیونیتی ها</h3>
-                  <p className="mb-0 fs-sm">
+                  <h3 style={{ fontFamily: 'BYekan' }} className="h6 mb-2">رقابت با سایر کامیونیتی ها</h3>
+                  <p style={{ fontFamily: 'BYekan' }} className="mb-0 fs-sm">
                     شما میتوانید با سایر کامیونیتی ها رقابت کنید و اعضای خود را
                     افزایش دهید
                   </p>
@@ -159,8 +159,8 @@ class CreateCommunity extends React.Component {
                   alt="Icon"
                 />
                 <div className="ps-md-2">
-                  <h3 className="h6 mb-2">داشتن فروشگاه کتاب</h3>
-                  <p className="mb-0 fs-sm">
+                  <h3 style={{ fontFamily: 'BYekan' }} className="h6 mb-2">داشتن فروشگاه کتاب</h3>
+                  <p style={{ fontFamily: 'BYekan' }} className="mb-0 fs-sm">
                     بعد از ساخت کامیونیتی شما میتوانید یک فروشگاه کتاب بسازید و
                     از طریق آن کسب درآمد کنید
                   </p>
@@ -177,7 +177,7 @@ class CreateCommunity extends React.Component {
           <div className="col"></div>
           <div className="col-12 col-sm-10 col-lg-5">
             <a href="#communityForm">
-              <button type="button" class="w-100 btn btn-lg btn-warning">
+              <button style={{ fontFamily: 'BYekan', borderRadius: '8px' }} type="button" class="w-100 btn btn-lg btn-primary">
                 همین حالا کامیونیتی خود را بسازید
               </button>
             </a>
@@ -192,7 +192,7 @@ class CreateCommunity extends React.Component {
         </div>
         <div className="row align-items-center">
           <div className="col-12 col-lg-6 my-2">
-            <CommunityExamples />
+            
           </div>
           <div className="col-12 col-lg-6">
             <img
@@ -209,20 +209,20 @@ class CreateCommunity extends React.Component {
         </div>
         <div className="row align-items-center">
           <div className="col-12 col-lg-6">
-            <h3>راهنمای ایجاد کامیونیتی</h3>
+            <h3 style={{ fontFamily: 'BYekan' }} >راهنمای ایجاد کامیونیتی</h3>
             <br />
             <br />
             <h6>
-              <li>نام</li>
+              <li style={{ fontFamily: 'BYekan' }}>نام</li>
             </h6>
             {/* <br/> */}
-            <p>نام همان اسمی است که کاربران سایت از کامیونیتی شما میبینند</p>
+            <p style={{ fontFamily: 'BYekan' }}>نام همان اسمی است که کاربران سایت از کامیونیتی شما میبینند</p>
             <br />
             <h6>
-              <li>بیو</li>
+              <li style={{ fontFamily: 'BYekan' }}>بیو</li>
             </h6>
             {/* <br/> */}
-            <p>بیو حداکثر شامل دو خط در رابطه با کامیونیتی شما است</p>
+            <p style={{ fontFamily: 'BYekan' }}>بیو حداکثر شامل دو خط در رابطه با کامیونیتی شما است</p>
 
             {/* <h6><li>کامیونیتی عمومی</li></h6>
                     <p>اگر کامیونیتی شما عمومی باشد همه میتوانید در آن عضو شوند</p>
@@ -242,7 +242,7 @@ class CreateCommunity extends React.Component {
                   placeholder="Name"
                   onChange={(e) => this.setState({ name: e.target.value })}
                 />
-                <label for="cardName">نام کامیونیتی</label>
+                <label style={{ fontFamily: 'BYekan' }} for="cardName">نام کامیونیتی</label>
                 <span id="nameErr" style={{ color: "red" }}></span>
               </div>
               <div class="form-floating mb-3">
@@ -282,7 +282,8 @@ class CreateCommunity extends React.Component {
                             </div> */}
               <div class="mt-6">
                 <button
-                  class="btn w-100 btn-primary lift"
+                  style={{ fontFamily: 'BYekan', marginLeft: '40px' }}
+                  class="btn btn-primary lift"
                   onClick={() => {
                     this.CreateCommunity();
                   }}

@@ -234,7 +234,7 @@ render() {
               <div>
                 {categories.map((category) => (
                   <div key={category.id}>
-                    <h2>{category.name}</h2>
+                    <h2  style={{marginRight:'40px', marginTop:'15px',fontFamily:'BYekan'}} class="btn btn-primary">{category.name}</h2>
                     {communities
                       .filter((community) => community.category === category.name)
                       .map((community) => (
